@@ -233,5 +233,17 @@
       "city_reserve_months": 3,
       "post_reserve_months": 2
     }
+  },
+  "siege": {
+    "structure_damage_ratio": 0.3,
+    "structure_defense_stat": 70,
+    "capture_morale_loss": 20,
+    "garrison_formation_preference": [
+      "square",
+      "long_snake",
+      "wild_geese",
+      "fish_scale",
+      "crane_wing"
+    ]
   }
 }

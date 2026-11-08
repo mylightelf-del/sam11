@@ -25,7 +25,7 @@ namespace Sam11.Core.Battle
         public string Faction { get; }
         public OfficerDef Leader { get; }
         public IReadOnlyList<OfficerDef> Subs { get; }
-        public FormationDef Formation { get; }
+        public FormationDef Formation { get; private set; }
         public HexCoord Position { get; set; }
         public int Troops { get; set; }
         public int MaxTroops { get; }
@@ -39,7 +39,7 @@ namespace Sam11.Core.Battle
         public int EffLdr { get; }
         public int EffWar { get; }
         public int EffInt { get; }
-        public AptitudeRank Aptitude { get; }
+        public AptitudeRank Aptitude { get; private set; }
 
         /// <summary>부대원 전원의 특기 (중복 제거).</summary>
         public IReadOnlyList<TraitDef> Traits { get; }
@@ -75,6 +75,13 @@ namespace Sam11.Core.Battle
             Aptitude = UnitStats.BestAptitude(Members, formation.Id);
             Traits = Members.SelectMany(o => o.Traits).Distinct()
                             .Where(data.Traits.ContainsKey).Select(t => data.Traits[t]).ToList();
+        }
+
+        /// <summary>진형 변경 (성내 진입 시 장비 진형 → 기본 진형).</summary>
+        internal void SetFormation(FormationDef f)
+        {
+            Formation = f;
+            Aptitude = UnitStats.BestAptitude(Members, f.Id);
         }
 
         public bool HasTimed(string key) => TimedEffects.Any(e => e.Key == key && e.TurnsLeft > 0);

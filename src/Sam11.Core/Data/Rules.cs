@@ -16,6 +16,8 @@ namespace Sam11.Core.Data
         public double HighGroundBonus { get; set; }
         public CombatRules Combat { get; set; } = new CombatRules();
         public EconomyRules Economy { get; set; } = new EconomyRules();
+        public SiegeRules Siege { get; set; } = new SiegeRules();
+        public CityRules City { get; set; } = new CityRules();
         public DomesticRules Domestic { get; set; } = new DomesticRules();
     }
 
@@ -24,6 +26,22 @@ namespace Sam11.Core.Data
         public int DaysPerTurn { get; set; } = 10;
         public int TurnsPerMonth { get; set; } = 3;
         public int HarvestMonth { get; set; } = 9;
+    }
+
+    public sealed class CityRules
+    {
+        public double StreetDefenseBonus { get; set; } = 0.1;
+        public double IsolatedOutpostTroopLoss { get; set; }
+    }
+
+    public sealed class SiegeRules
+    {
+        /// <summary>구조물 피해 배율. 성벽은 부대보다 훨씬 단단하다.</summary>
+        public double StructureDamageRatio { get; set; } = 0.3;
+        /// <summary>구조물의 방어 능력치 (부대의 통솔 자리에 들어간다).</summary>
+        public int StructureDefenseStat { get; set; } = 70;
+        public int CaptureMoraleLoss { get; set; } = 20;
+        public List<string> GarrisonFormationPreference { get; set; } = new List<string>();
     }
 
     public sealed class AffinityRules

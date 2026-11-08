@@ -29,6 +29,11 @@ namespace Sam11.Core.Battle
         public List<Unit> Units { get; } = new List<Unit>();
         public List<OfficerFate> Fates { get; } = new List<OfficerFate>();
         public int Round { get; private set; } = 1;
+
+        /// <summary>성벽·성문·성내 칸. 비어 있으면 야전.</summary>
+        public Dictionary<HexCoord, SiegeStructure> Structures { get; } = new Dictionary<HexCoord, SiegeStructure>();
+        public Dictionary<string, StrongholdOnField> Strongholds { get; } = new Dictionary<string, StrongholdOnField>();
+        public List<CaptureEvent> Captures { get; } = new List<CaptureEvent>();
         public string WeatherId { get; set; }
 
         private int _nextId = 1;
@@ -92,6 +97,26 @@ namespace Sam11.Core.Battle
             return u;
         }
 
+        /// <summary>
+        /// 거점 수비대를 정청(중심)에 배치한다. 수비대는 최대 병력 제한을 받지 않는다.
+        /// 주장이 없으면 이름 없는 수비대장이 지휘한다.
+        /// </summary>
+        public Unit DeployGarrison(string strongholdId, IReadOnlyList<string> officerIds, int troops,
+                                   IReadOnlyDictionary<string, int>? equipment = null, int morale = 70)
+        {
+            var sh = Strongholds[strongholdId];
+            if (sh.Owner == null) throw new InvalidOperationException("주인 없는 거점에는 수비대가 없음");
+            var members = officerIds.Select(id => Data.Officers[id]).Take(Data.Rules.Unit.MaxOfficers).ToList();
+            if (members.Count == 0) members.Add(Garrison.Anonymous(Data));
+            string formation = Data.Rules.Siege.GarrisonFormationPreference
+                .FirstOrDefault(f => CanDeploy(Data, members, f, troops, equipment) == null) ?? "square";
+            if (UnitAt(sh.Center) != null) throw new InvalidOperationException($"{sh.Name} 정청이 이미 점거됨");
+            var u = new Unit(_nextId++, sh.Owner, members[0], members.Skip(1).ToList(), Data.Formations[formation],
+                             troops, troops, 50, morale, Data) { Position = sh.Center };
+            Units.Add(u);
+            return u;
+        }
+
         // ------------------------------------------------------------------ 이동
 
         internal bool TerrainIgnoresPenalty(Unit u, string terrain) =>
@@ -103,6 +128,13 @@ namespace Sam11.Core.Battle
         {
             if (!Map.Contains(h))
                 return null;
+            if (Structures.TryGetValue(h, out var st))
+            {
+                if (u.Formation.WaterOnly) return null;
+                if (st.Blocking)
+                    return OwnerOf(st) == u.Faction ? 2 : (int?)null; // 아군은 성벽 위에 서고 성문을 지난다
+                return 2; // 성내 칸, 무너진 성벽·성문
+            }
             string t = Map.TerrainAt(h);
             if (!Data.Terrain.TryGetValue(t, out var def))
                 return null;
@@ -169,6 +201,22 @@ namespace Sam11.Core.Battle
             if (!Reachable(u).ContainsKey(to))
                 throw new InvalidOperationException($"{Korean.EunNeun(u.Label)} {to}로 이동할 수 없음");
             u.Position = to;
+            EnterCityCheck(u);
+            CheckCaptures();
+        }
+
+        public string? OwnerOf(SiegeStructure st) => Strongholds.TryGetValue(st.Stronghold, out var sh) ? sh.Owner : null;
+
+        public bool IsInsideCity(HexCoord h) => Structures.TryGetValue(h, out var st) && (st.IsInterior || !st.Blocking);
+
+        /// <summary>추행·공성진은 성내에서 쓸 수 없다: 성 안에 들어서면 기본 진형으로 바뀐다.</summary>
+        private void EnterCityCheck(Unit u)
+        {
+            if (u.Formation.UsableInCity || !IsInsideCity(u.Position)) return;
+            var best = Data.Formations.Values.Where(f => f.Category == "base")
+                .OrderByDescending(f => UnitStats.BestAptitude(u.Members, f.Id)).ThenBy(f => f.Id).First();
+            Log.Add($"{Korean.IGa(u.Label)} 성 안에 들어서며 {Korean.EulReul(best.Name.Ko)} 펼쳤다");
+            u.SetFormation(best);
         }
 
         // ------------------------------------------------------------------ 공격
@@ -200,6 +248,83 @@ namespace Sam11.Core.Battle
             return r;
         }
 
+        /// <summary>구조물 피해: 병력 × 무력 대 구조물 방어 × 진형 공성치 × 공성 특기 × 전법 위력.</summary>
+        public int StructureDamage(Unit attacker, double power, bool randomize)
+        {
+            var c = Data.Rules.Combat;
+            double ratio = (attacker.EffWar + c.StatSmoothing) / (Data.Rules.Siege.StructureDefenseStat + c.StatSmoothing);
+            double formation = (attacker.Formation.StrongholdAttack ?? attacker.Formation.Attack) / 100.0;
+            var ctx = new Modifiers.Context { Unit = attacker, Terrain = Map.TerrainAt(attacker.Position), Weather = WeatherId };
+            double trait = 1 + Modifiers.SumMul(Modifiers.Collect(attacker, null), "structure_damage", ctx);
+            double rnd = randomize ? Rng.Range(c.RandomMin, c.RandomMax) : 1.0;
+            double dmg = attacker.Troops * c.BaseRatio * ratio * formation * trait * power * rnd
+                         * Data.Rules.Siege.StructureDamageRatio * Data.Rules.Morale.MultiplierFor(attacker.Morale);
+            return Math.Max(1, (int)Math.Round(dmg));
+        }
+
+        /// <summary>성벽·성문 공격. 반격은 없다.</summary>
+        public int AttackStructure(Unit attacker, HexCoord target) => HitStructure(attacker, target, null);
+
+        /// <summary>구조물에 전법 사용 (충차·투석 등 공성진 전법).</summary>
+        public int UseTacticOnStructure(Unit attacker, string tacticId, HexCoord target)
+        {
+            var t = AvailableTactics(attacker).FirstOrDefault(x => x.Id == tacticId)
+                    ?? throw new InvalidOperationException($"{Korean.EunNeun(attacker.Label)} {tacticId} 전법을 쓸 수 없음");
+            if (t.Formation != "siege")
+                throw new InvalidOperationException($"{Korean.EunNeun(t.Name.Ko)} 구조물에 쓸 수 없음 (공성진 전법만 가능)");
+            if (t.Effects.Any(e => e.Type == "target_on_wall"))
+                throw new InvalidOperationException($"{Korean.EunNeun(t.Name.Ko)} 성벽 위 부대를 노리는 전법");
+            if (attacker.Energy < t.EnergyCost)
+                throw new InvalidOperationException($"기력 부족: {attacker.Energy}/{t.EnergyCost}");
+            return HitStructure(attacker, target, t);
+        }
+
+        private int HitStructure(Unit attacker, HexCoord target, TacticDef? tactic)
+        {
+            EnsureCanAct(attacker);
+            if (!Structures.TryGetValue(target, out var st) || !st.Blocking)
+                throw new InvalidOperationException("공격할 성벽·성문이 없음");
+            if (OwnerOf(st) == attacker.Faction)
+                throw new InvalidOperationException("아군 구조물");
+            int range = tactic != null ? TacticRange(attacker, tactic) : attacker.Formation.Range;
+            if (attacker.Position.DistanceTo(target) > range)
+                throw new InvalidOperationException("사거리 밖");
+            if (tactic != null) attacker.Energy -= tactic.EnergyCost;
+            int dmg = Math.Min(st.Durability, StructureDamage(attacker, tactic?.Power ?? 1.0, true));
+            st.Durability -= dmg;
+            string what = st.Kind == StructureKind.Gate ? "성문" : "성벽";
+            string name = Strongholds.TryGetValue(st.Stronghold, out var sh) ? sh.Name : st.Stronghold;
+            Log.Add($"{attacker.Label}의 {(tactic != null ? tactic.Name.Ko + "! " : "공격 ")}→ {name} {what} {dmg} 피해 (내구 {st.Durability}/{st.MaxDurability})");
+            if (st.Durability <= 0)
+            {
+                Map.Set(target, "street");
+                Log.Add($"  {name} {Korean.IGa(what)} 무너졌다!");
+            }
+            Finish(attacker);
+            return dmg;
+        }
+
+        // ------------------------------------------------------------------ 함락
+
+        /// <summary>
+        /// 성내(정청·시가) 칸에 수비 부대가 하나도 없고, 공격측 부대가 정청을 점거하면 함락된다.
+        /// </summary>
+        public void CheckCaptures()
+        {
+            foreach (var sh in Strongholds.Values)
+            {
+                if (sh.Owner == null) continue;
+                var occupant = UnitAt(sh.Center);
+                if (occupant == null || occupant.Faction == sh.Owner) continue;
+                bool defended = Structures.Where(kv => kv.Value.Stronghold == sh.Id && kv.Value.IsInterior)
+                                          .Any(kv => UnitAt(kv.Key)?.Faction == sh.Owner);
+                if (defended) continue;
+                Captures.Add(new CaptureEvent { Stronghold = sh.Id, From = sh.Owner, To = occupant.Faction });
+                Log.Add($"{sh.Name} 함락! {Korean.IGa(occupant.Label)} 정청을 점거했다");
+                sh.Owner = occupant.Faction;
+            }
+        }
+
         /// <summary>쓸 수 있는 전법. 적성 S=3개, A=2개, B=1개.</summary>
         public IEnumerable<TacticDef> AvailableTactics(Unit u) =>
             u.Formation.Tactics.Take(UnitStats.TacticSlots(u.Aptitude)).Select(id => Data.Tactics[id]);
@@ -210,8 +335,7 @@ namespace Sam11.Core.Battle
             return r != null ? (int)r.Value : u.Formation.Range;
         }
 
-        public bool TacticTargetsStructureOnly(TacticDef t) =>
-            t.Effects.Any(e => e.Type == "structure_only" || e.Type == "target_on_wall");
+        public bool TacticTargetsStructureOnly(TacticDef t) => t.Effects.Any(e => e.Type == "structure_only");
 
         /// <summary>전법. 성공하면 대상에 인접한 아군이 연쇄 공격한다.</summary>
         public AttackResult UseTactic(Unit attacker, string tacticId, Unit target)
@@ -220,8 +344,11 @@ namespace Sam11.Core.Battle
             var t = AvailableTactics(attacker).FirstOrDefault(x => x.Id == tacticId)
                     ?? throw new InvalidOperationException($"{Korean.EunNeun(attacker.Label)} {tacticId} 전법을 쓸 수 없음 (적성 {attacker.Aptitude})");
             bool selfOnly = t.Power <= 0;
-            if (TacticTargetsStructureOnly(t))
-                throw new InvalidOperationException($"{t.Name.Ko}는 거점 공격 전용 (공성 단계에서 구현)");
+            bool onWall = t.Effects.Any(e => e.Type == "target_on_wall");
+            if (t.Effects.Any(e => e.Type == "structure_only"))
+                throw new InvalidOperationException($"{Korean.EunNeun(t.Name.Ko)} 성벽·성문 전용 (UseTacticOnStructure)");
+            if (onWall && !(Structures.TryGetValue(target.Position, out var ws) && (ws.Kind == StructureKind.Wall || ws.Kind == StructureKind.Gate) && ws.Blocking))
+                throw new InvalidOperationException($"{Korean.EunNeun(t.Name.Ko)} 성벽 위 부대에만 쓸 수 있음");
             if (attacker.Energy < t.EnergyCost)
                 throw new InvalidOperationException($"기력 부족: {attacker.Energy}/{t.EnergyCost}");
             if (!selfOnly && (target.Faction == attacker.Faction || !target.IsAlive || !InRange(attacker, target, TacticRange(attacker, t))))
@@ -259,7 +386,7 @@ namespace Sam11.Core.Battle
             int repeat = (int)Math.Max(1, t.Effects.FirstOrDefault(e => e.Type == "repeat")?.ExtraInt("times", 1) ?? 1);
             for (int i = 0; i < repeat && target.IsAlive; i++)
                 r.Damage += DealDamage(attacker, target, power, 0, 0, true,
-                    (i == 0 ? $"{attacker.Label}의 {t.Name.Ko}! → " : "  추가 공격 → ") + $"{target.Label} {{0}} 피해");
+                    (i == 0 ? $"{attacker.Label}의 {t.Name.Ko}! → " : "  추가 공격 → ") + $"{target.Label} {{0}} 피해", onWall);
 
             ApplyAreaEffects(attacker, t, target, power, r);
             if (target.IsAlive)
@@ -394,9 +521,10 @@ namespace Sam11.Core.Battle
 
         /// <summary>피해를 주고 사기·궤멸을 처리한다.</summary>
         /// <param name="line">피해를 기록할 문장. {0} 자리에 피해량이 들어간다. 결과(궤멸·혼란)보다 먼저 기록된다.</param>
-        private int DealDamage(Unit attacker, Unit target, double power, int chainLinks, double chainAdd, bool randomize, string line)
+        private int DealDamage(Unit attacker, Unit target, double power, int chainLinks, double chainAdd, bool randomize, string line,
+                               bool ignoreWallBonus = false)
         {
-            var b = Combat.Compute(this, attacker, target, power, chainLinks, chainAdd, randomize);
+            var b = Combat.Compute(this, attacker, target, power, chainLinks, chainAdd, randomize, ignoreWallBonus);
             int dmg = Math.Max(1, (int)Math.Round(b.Total));
             dmg = Math.Min(dmg, target.Troops);
             int before = target.Troops;
@@ -469,6 +597,7 @@ namespace Sam11.Core.Battle
             }
             foreach (var ally in Alive.Where(a => a.Faction == u.Faction))
                 LoseMorale(ally, Data.Rules.Combat.MoraleLossAllyDestroyed);
+            CheckCaptures();
         }
 
         /// <summary>무장별 궤멸 판정: 귀환·부상·포로·전사 (04 군사·전투 설계서 10장).</summary>

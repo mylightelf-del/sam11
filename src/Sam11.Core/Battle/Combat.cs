@@ -25,7 +25,7 @@ namespace Sam11.Core.Battle
         }
 
         public static Breakdown Compute(Battle battle, Unit attacker, Unit defender, double power, int chainLinks,
-                                        double chainBonusAdd, bool randomize)
+                                        double chainBonusAdd, bool randomize, bool ignoreWallBonus = false)
         {
             var data = battle.Data;
             var c = data.Rules.Combat;
@@ -47,6 +47,7 @@ namespace Sam11.Core.Battle
             double defT = TerrainMod(defender.Formation, defTerrain);
             if (battle.TerrainIgnoresPenalty(attacker, atkTerrain)) atkT = Math.Max(1.0, atkT);
             if (battle.TerrainIgnoresPenalty(defender, defTerrain)) defT = Math.Max(1.0, defT);
+            if (ignoreWallBonus && (defTerrain == "city_wall" || defTerrain == "gate")) defT = Math.Min(1.0, defT);
             b.Terrain = atkT / defT;
             if (data.Terrain.TryGetValue(atkTerrain, out var at) && at.HighGround
                 && !(data.Terrain.TryGetValue(defTerrain, out var dt) && dt.HighGround))
@@ -61,6 +62,10 @@ namespace Sam11.Core.Battle
             double atkMod = Modifiers.SumMul(Modifiers.Collect(attacker, weather), "attack", atkCtx);
             double defMod = Modifiers.SumMul(Modifiers.Collect(defender, weather), "defense", defCtx)
                             + defender.TimedValue("defense");
+            // 성내 시가에서 싸우는 수비측 방어 보정
+            if (battle.Structures.TryGetValue(defender.Position, out var st) && st.Kind == StructureKind.Street
+                && battle.OwnerOf(st) == defender.Faction)
+                defMod += battle.Data.Rules.City.StreetDefenseBonus;
             // 학익 고유 특성 "포위": 대상에 인접한 아군 하나당 +5% (익전 특기는 2배)
             if (attacker.Formation.Trait.Id == "encircle")
             {
@@ -78,8 +83,12 @@ namespace Sam11.Core.Battle
             return b;
         }
 
-        public static double TerrainMod(FormationDef formation, string terrain) =>
-            formation.TerrainModifiers.TryGetValue(terrain, out var v) ? v / 100.0 : 1.0;
+        /// <summary>진형의 지형 보정. 성문 위는 성벽 위와 같이 취급한다.</summary>
+        public static double TerrainMod(FormationDef formation, string terrain)
+        {
+            if (terrain == "gate") terrain = "city_wall";
+            return formation.TerrainModifiers.TryGetValue(terrain, out var v) ? v / 100.0 : 1.0;
+        }
 
         /// <summary>
         /// 전법 성공률: 기본 + (공격측 무력 − 방어측 통솔) + 상성 + 특기.

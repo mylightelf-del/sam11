@@ -19,6 +19,14 @@ namespace Sam11.Core.Common
         /// <summary>은/는</summary>
         public static string EunNeun(string word) => word + (HasBatchim(word) ? "은" : "는");
 
+        /// <summary>으로/로 (ㄹ 받침 뒤에는 "로")</summary>
+        public static string EuRo(string word)
+        {
+            if (!HasBatchim(word)) return word + "로";
+            char c = word[word.Length - 1];
+            return word + ((c - 0xAC00) % 28 == 8 ? "로" : "으로");
+        }
+
         /// <summary>을/를</summary>
         public static string EulReul(string word) => word + (HasBatchim(word) ? "을" : "를");
     }
