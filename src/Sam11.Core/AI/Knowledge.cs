@@ -38,7 +38,7 @@ namespace Sam11.Core.AI
         public bool Sees(HexCoord h) => _eyes.Any(e => e.Pos.DistanceTo(h) <= e.Radius);
 
         public IEnumerable<Unit> VisibleEnemies(Game g) =>
-            g.Field.Alive.Where(u => g.Field.Hostile(u.Faction, _faction) && Sees(u.Position));
+            g.Field.Alive.Where(u => g.Field.Hostile(u.Faction, _faction) && !u.Hidden && Sees(u.Position));
 
         /// <summary>
         /// 거점 수비 병력 추정: 보이면 정확히, 우리 거점과 길로 이어진 이웃이면 국경 정찰(±20% 오차),
@@ -46,7 +46,7 @@ namespace Sam11.Core.AI
         /// </summary>
         public int EstimateTroops(Game g, CityState c)
         {
-            if (Sees(c.Placement.Center)) return c.Troops + c.FieldGarrison;
+            if (Sees(c.Placement.Center) || g.World.HasSpyReport(_faction, c.Id)) return c.Troops + c.FieldGarrison;
             if (c.Def.Links.Any(l => g.World.Cities[l].Owner == _faction))
             {
                 // 같은 달에는 같은 오차가 나오도록 거점·세력·달로 정한다

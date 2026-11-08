@@ -289,6 +289,10 @@ namespace Sam11.Core.AI
                     if (best.Tactic != null) b.UseTacticOnStructure(u, best.Tactic.Id, best.Structure!.Value);
                     else b.AttackStructure(u, best.Structure!.Value);
                     break;
+                case ActionKind.Stratagem:
+                    Stats.Stratagems++;
+                    Stratagems.Use(b, u, best.Stratagem!, best.Target);
+                    break;
                 default:
                     if (before == u.Position)
                     {
@@ -347,7 +351,7 @@ namespace Sam11.Core.AI
             }
         }
 
-        private enum ActionKind { Move, Attack, Tactic, Structure }
+        private enum ActionKind { Move, Attack, Tactic, Structure, Stratagem }
 
         private sealed class Choice
         {
@@ -357,6 +361,7 @@ namespace Sam11.Core.AI
             public Unit? Target;
             public TacticDef? Tactic;
             public HexCoord? Structure;
+            public string? Stratagem;
         }
 
         /// <summary>
@@ -426,6 +431,27 @@ namespace Sam11.Core.AI
                         Consider(best, p * (dmg + chain + Kill(dmg, e)) + terrain - danger * 0.3, pos, ActionKind.Tactic, e, t);
                     }
                 }
+                // 계략 (지력 70 이상): 화계는 즉시 피해 + 두 턴 불길, 교란은 상대 한 턴을 묶는다
+                if (u.EffInt >= 70)
+                {
+                    var sr = g.World.Data.Rules.Stratagem.Battle;
+                    foreach (var e in enemies)
+                    {
+                        if (pos.DistanceTo(e.Position) > sr.Range) continue;
+                        double p = Stratagems.Chance(b, u, e, "fire");
+                        if (b.WeatherId != "rain" && u.Energy >= sr.Energy["fire"] && !b.Map.IsBurning(e.Position))
+                            Consider(best, p * e.Troops * (sr.FireImmediateRatio + 2 * g.World.Data.Rules.Combat.FireDamageRatio) + terrain - danger * 0.3,
+                                     pos, ActionKind.Stratagem, e, null, null, "fire");
+                        if (e.Status == UnitStatus.Ready && u.Energy >= sr.Energy["confuse"])
+                            Consider(best, Stratagems.Chance(b, u, e, "confuse") * e.FightingTroops * 0.1 + terrain - danger * 0.3,
+                                     pos, ActionKind.Stratagem, e, null, null, "confuse");
+                    }
+                }
+                // 진정: 붙어 있는 아군이 혼란이면 풀어 준다
+                if (u.Energy >= g.World.Data.Rules.Stratagem.Battle.Energy["calm"])
+                    foreach (var ally in pos.Neighbors().Select(b.UnitAt).Where(a => a != null && a != u && a.Faction == u.Faction && a.Status == UnitStatus.Confused))
+                        Consider(best, ally!.FightingTroops * 0.1 + terrain, pos, ActionKind.Stratagem, ally, null, null, "calm");
+
                 // 성벽·성문 공격: 성문은 내구가 낮아 더 높이 친다. 공성진은 언제나 구조물 우선
                 foreach (var st in structures)
                 {
@@ -449,7 +475,7 @@ namespace Sam11.Core.AI
         }
 
         private static void Consider(Choice best, double score, HexCoord pos, ActionKind kind, Unit? target = null,
-                                     TacticDef? tactic = null, HexCoord? structure = null)
+                                     TacticDef? tactic = null, HexCoord? structure = null, string? stratagem = null)
         {
             if (score <= best.Score) return;
             best.Score = score;
@@ -458,6 +484,7 @@ namespace Sam11.Core.AI
             best.Target = target;
             best.Tactic = tactic;
             best.Structure = structure;
+            best.Stratagem = stratagem;
         }
 
         private static double Expected(Game g, Unit attacker, Unit target, double power) =>

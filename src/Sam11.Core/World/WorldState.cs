@@ -167,6 +167,15 @@ namespace Sam11.Core.World
         public bool AreAllied(string a, string b) =>
             a == b || Alliances.Any(x => x.Kind != PactKind.Truce && x.Active(Date) && x.Members.Contains(a) && x.Members.Contains(b));
 
+        public List<Mission> Missions { get; } = new List<Mission>();
+        /// <summary>내응 약속: 도시 → 약속받은 세력.</summary>
+        public Dictionary<string, string> Insiders { get; } = new Dictionary<string, string>();
+        /// <summary>첩보: (세력, 도시) → 유효한 마지막 달 (연 × 12 + 월).</summary>
+        public Dictionary<(string, string), int> SpyReports { get; } = new Dictionary<(string, string), int>();
+
+        public bool HasSpyReport(string faction, string city) =>
+            SpyReports.TryGetValue((faction, city), out var until) && Date.Year * 12 + Date.Month <= until;
+
         /// <summary>종속국 → 종주국.</summary>
         public Dictionary<string, string> Vassals { get; } = new Dictionary<string, string>();
 

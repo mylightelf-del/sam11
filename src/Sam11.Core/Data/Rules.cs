@@ -21,6 +21,7 @@ namespace Sam11.Core.Data
         public MeritRules Merit { get; set; } = new MeritRules();
         public Duel.DuelRules Duel { get; set; } = new Duel.DuelRules();
         public DiplomacyRules Diplomacy { get; set; } = new DiplomacyRules();
+        public StratagemRules Stratagem { get; set; } = new StratagemRules();
         public DomesticRules Domestic { get; set; } = new DomesticRules();
     }
 
@@ -66,6 +67,50 @@ namespace Sam11.Core.Data
         public int VassalMonthlyFriendship { get; set; } = 2;
         public double AidRatio { get; set; } = 0.2;
         public CoalitionRules Coalition { get; set; } = new CoalitionRules();
+    }
+
+    /// <summary>계략 (05 외교·계략 설계서 3장).</summary>
+    public sealed class StratagemRules
+    {
+        public BattleStratagemRules Battle { get; set; } = new BattleStratagemRules();
+        public StrategicStratagemRules Strategic { get; set; } = new StrategicStratagemRules();
+        public DefectionRules Defection { get; set; } = new DefectionRules();
+    }
+
+    public sealed class BattleStratagemRules
+    {
+        public double BaseChance { get; set; } = 0.5;
+        public double IntDivisor { get; set; } = 100;
+        public int Range { get; set; } = 2;
+        public Dictionary<string, int> Energy { get; set; } = new Dictionary<string, int>();
+        public int BackfireIntGap { get; set; } = 20;
+        public double BackfireChance { get; set; } = 0.5;
+        public double FireImmediateRatio { get; set; } = 0.05;
+        public int FireMorale { get; set; } = 5;
+        public int FalseReportSteps { get; set; } = 2;
+        public double AmbushBonus { get; set; } = 0.5;
+        public int AmbushMorale { get; set; } = 10;
+    }
+
+    public sealed class StrategicStratagemRules
+    {
+        public Dictionary<string, int> Cost { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> Turns { get; set; } = new Dictionary<string, int>();
+        public double BaseChance { get; set; } = 0.5;
+        public double IntDivisor { get; set; } = 100;
+        public double DetectCapture { get; set; } = 0.3;
+        public int DetectFriendship { get; set; } = -10;
+        public int RumorMorale { get; set; } = 10;
+        public int DiscordLoyalty { get; set; } = 15;
+        public int BribeLoyaltyMax { get; set; } = 60;
+        public int SpyMonths { get; set; } = 6;
+    }
+
+    public sealed class DefectionRules
+    {
+        public int LoyaltyBelow { get; set; } = 30;
+        public int AmbitionAtLeast { get; set; } = 8;
+        public double MonthlyChance { get; set; } = 0.1;
     }
 
     public sealed class MeritRules

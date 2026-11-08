@@ -262,6 +262,12 @@ namespace Sam11.Core.Battle
             if (!Reachable(u).ContainsKey(to))
                 throw new InvalidOperationException($"{Korean.EunNeun(u.Label)} {to}로 이동할 수 없음");
             u.Position = to;
+            // 숨어 있던 적 바로 옆으로 다가가면 매복이 드러난다
+            foreach (var hidden in AdjacentUnits(to).Where(o => o.Hidden && Hostile(o.Faction, u.Faction)).ToList())
+            {
+                hidden.Hidden = false;
+                Log.Add($"{Korean.IGa(u.Label)} 숨어 있던 {Korean.EulReul(hidden.Label)} 찾아냈다");
+            }
             EnterCityCheck(u);
             CheckCaptures();
         }
@@ -288,6 +294,11 @@ namespace Sam11.Core.Battle
             if (u.Status == UnitStatus.Confused) throw new InvalidOperationException($"{Korean.EunNeun(u.Label)} 혼란 상태");
             if (u.HasActed) throw new InvalidOperationException($"{Korean.EunNeun(u.Label)} 이미 행동함");
         }
+
+        internal void EnsureCanActPublic(Unit u) => EnsureCanAct(u);
+        internal void FinishPublic(Unit u) => Finish(u);
+        internal void ConfusePublic(Unit u) => Confuse(u);
+        internal void DestroyPublic(Unit u, Unit? by) => Destroy(u, by);
 
         public bool InRange(Unit attacker, Unit target, int? rangeOverride = null) =>
             attacker.Position.DistanceTo(target.Position) <= (rangeOverride ?? attacker.Formation.Range);
@@ -692,7 +703,17 @@ namespace Sam11.Core.Battle
                                bool ignoreWallBonus = false)
         {
             var b = Combat.Compute(this, attacker, target, power, chainLinks, chainAdd, randomize, ignoreWallBonus);
-            int dmg = Math.Max(1, (int)Math.Round(b.Total));
+            double ambush = 1;
+            if (attacker.Hidden)
+            {
+                // 매복에서 튀어나온 첫 공격
+                var ctx = new Modifiers.Context { Unit = attacker, Terrain = Map.TerrainAt(attacker.Position), Weather = WeatherId };
+                ambush = 1 + Data.Rules.Stratagem.Battle.AmbushBonus * (1 + Modifiers.SumMul(Modifiers.Collect(attacker, null), "ambush_power", ctx));
+                attacker.Hidden = false;
+                Log.Add($"  {Korean.IGa(attacker.Label)} 매복에서 뛰쳐나왔다!");
+                LoseMorale(target, Data.Rules.Stratagem.Battle.AmbushMorale);
+            }
+            int dmg = Math.Max(1, (int)Math.Round(b.Total * ambush));
             dmg = Math.Min(dmg, target.Troops);
             int before = target.Troops;
             target.Troops -= dmg;

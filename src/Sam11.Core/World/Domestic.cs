@@ -123,6 +123,7 @@ namespace Sam11.Core.World
             if (c.Owner != o.Faction) throw new InvalidOperationException($"{Korean.EunNeun(c.ToString())} {o}의 세력 거점이 아님");
             if (o.Location != cityId) throw new InvalidOperationException($"{Korean.EunNeun(o.Def.Name.Ko)} {c}에 없음");
             if (o.Acted) throw new InvalidOperationException($"{Korean.EunNeun(o.Def.Name.Ko)} 이번 턴에 이미 행동함");
+            if (w.Missions.Any(m => m.Agent == o.Id)) throw new InvalidOperationException($"{Korean.EunNeun(o.Def.Name.Ko)} 공작 임무 중");
             return (o, c);
         }
 

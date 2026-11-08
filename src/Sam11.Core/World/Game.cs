@@ -62,9 +62,11 @@ namespace Sam11.Core.World
                 int shift = TurnCount % order.Count; // 매 턴 순서를 돌려 선공 이점을 고르게
                 order = order.Skip(shift).Concat(order.Take(shift)).ToList();
             }
+            Missions.Tick(World);
             foreach (var f in order)
             {
                 if (!World.Factions[f].Alive) continue;
+                Missions.TriggerInsiders(this);
                 SyncGarrisons();
                 Field.BeginTurn(f);
                 Resolve();
@@ -89,6 +91,7 @@ namespace Sam11.Core.World
             if (monthStart)
             {
                 MonthlyUpkeep();
+                Missions.Defections(World);
                 Diplomacy.Monthly(this);
                 EventSystem.RunMonthly(this);
                 Resolve();

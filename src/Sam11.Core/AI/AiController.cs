@@ -50,6 +50,8 @@ namespace Sam11.Core.AI
         public int Reinforcements;
         public int Duels;
         public int DiplomacyAttempts;
+        public int Stratagems;
+        public int Missions;
         public int DiplomacySuccesses;
         public int RetreatsMorale;
         public int RetreatsFood;
@@ -109,6 +111,7 @@ namespace Sam11.Core.AI
                 {
                     _diplomacyMonth = monthKey;
                     PlanDiplomacy(g, faction);
+                    PlanMissions(g, faction);
                 }
                 Plan(g, faction);
             }
@@ -124,6 +127,52 @@ namespace Sam11.Core.AI
 
         /// <summary>이벤트 선택: 데이터의 ai_weight 가중치로 고른다 (06 AI 설계서: 성향 반영은 추후).</summary>
         public EventChoice Choose(Game g, EventDef ev, string faction) => EventSystem.WeightedPick(g.World.Rng, ev.Choices);
+
+        /// <summary>
+        /// 전략 계략 (매월 한 건): 원정 목표에 내응 → 유언비어, 보이지 않는 목표엔 첩보,
+        /// 이웃의 충성 낮은 무장은 매수, 그다음 이간. 지력 70 이상 무장이 놀고 있을 때만.
+        /// </summary>
+        private void PlanMissions(Game g, string me)
+        {
+            var w = g.World;
+            var r = w.Data.Rules.Stratagem.Strategic;
+            var agent = w.Officers.Values.Where(o => o.Faction == me && o.Status == OfficerStatus.Active && !o.Acted && o.Location != ""
+                                                     && o.Def.Stats.Int >= 70 && !w.Missions.Any(m => m.Agent == o.Id)
+                                                     && w.Factions[me].Ruler != o.Id)
+                         .OrderByDescending(o => o.Def.Stats.Int).FirstOrDefault();
+            if (agent == null) return;
+            int gold = w.Cities.Values.Where(c => c.Owner == me).Select(c => c.Gold).DefaultIfEmpty(0).Max();
+            bool Try(string kind, string? city, string? officer = null)
+            {
+                if (gold < r.Cost[kind] * 2) return false;
+                try
+                {
+                    Sam11.Core.World.Missions.Start(w, agent.Id, kind, city, officer);
+                    Stats.Missions++;
+                    return true;
+                }
+                catch (InvalidOperationException) { return false; }
+            }
+            foreach (var camp in Campaigns)
+            {
+                var t = w.Cities[camp.Target];
+                if (t.Owner == null || w.Insiders.ContainsKey(t.Id)) continue;
+                var mole = w.OfficersAt(t.Id).Where(o => o.Faction == t.Owner && w.Factions[t.Owner].Ruler != o.Id)
+                            .OrderBy(o => o.Loyalty).FirstOrDefault();
+                if (mole != null && mole.Loyalty < 70 && Try("insider", null, mole.Id)) return;
+                if (!Knowledge!.Sees(t.Placement.Center) && !w.HasSpyReport(me, t.Id) && Try("spy", t.Id)) return;
+                if (t.Morale > 40 && Try("rumor", t.Id)) return;
+            }
+            var neighbors = w.Factions.Values.Where(f => f.Alive && f.Id != me && !w.AtPeace(me, f.Id) && Diplomacy.Borders(w, me, f.Id))
+                             .Select(f => f.Id).ToHashSet();
+            var prey = w.Officers.Values.Where(o => o.Status == OfficerStatus.Active && o.Faction != null && neighbors.Contains(o.Faction)
+                                                    && w.Factions[o.Faction].Ruler != o.Id && o.Location != "")
+                        .OrderBy(o => o.Loyalty).ThenByDescending(o => o.Def.Stats.Ldr + o.Def.Stats.War + o.Def.Stats.Int).ToList();
+            var weak = prey.FirstOrDefault(o => o.Loyalty < r.BribeLoyaltyMax - 10);
+            if (weak != null && Try("bribe", null, weak.Id)) return;
+            var shaky = prey.FirstOrDefault(o => o.Loyalty < 80);
+            if (shaky != null && w.Rng.Chance(0.5)) Try("sow_discord", null, shaky.Id);
+        }
 
         // ------------------------------------------------------------------ 공통 판단
 

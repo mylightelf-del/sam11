@@ -306,5 +306,55 @@
     },
     "max_alliances": 2,
     "vassal_monthly_friendship": 1
+  },
+  "stratagem": {
+    "battle": {
+      "base_chance": 0.5,
+      "int_divisor": 100,
+      "range": 2,
+      "energy": {
+        "fire": 20,
+        "confuse": 15,
+        "false_report": 15,
+        "ambush": 10,
+        "calm": 10
+      },
+      "backfire_int_gap": 20,
+      "backfire_chance": 0.5,
+      "fire_immediate_ratio": 0.05,
+      "fire_morale": 5,
+      "false_report_steps": 2,
+      "ambush_bonus": 0.5,
+      "ambush_morale": 10
+    },
+    "strategic": {
+      "cost": {
+        "rumor": 300,
+        "sow_discord": 500,
+        "bribe": 1500,
+        "insider": 800,
+        "spy": 300
+      },
+      "turns": {
+        "rumor": 3,
+        "sow_discord": 3,
+        "bribe": 3,
+        "insider": 6,
+        "spy": 2
+      },
+      "base_chance": 0.5,
+      "int_divisor": 100,
+      "detect_capture": 0.3,
+      "detect_friendship": -10,
+      "rumor_morale": 10,
+      "discord_loyalty": 15,
+      "bribe_loyalty_max": 60,
+      "spy_months": 6
+    },
+    "defection": {
+      "loyalty_below": 30,
+      "ambition_at_least": 8,
+      "monthly_chance": 0.1
+    }
   }
 }

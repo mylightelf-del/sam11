@@ -50,6 +50,8 @@ namespace Sam11.Core.Battle
         public string? Home { get; set; }
         /// <summary>거점 수비대 (Home 거점의 병력이 잠시 전장에 나와 있는 것).</summary>
         public bool IsGarrison { get; set; }
+        /// <summary>매복 중: 적에게 보이지 않고, 숨은 채 공격하면 피해가 커진다.</summary>
+        public bool Hidden { get; set; }
         public UnitStatus Status { get; set; } = UnitStatus.Ready;
         public int TurnsSinceSortie { get; set; }
         public bool HasActed { get; set; }
