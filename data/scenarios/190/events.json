@@ -1,0 +1,222 @@
+{
+  "events": [
+    {
+      "id": "relocate_changan",
+      "name": {
+        "ko": "장안 천도"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "ruler_of": {
+              "faction": "dong_zhuo",
+              "officer": "dong_zhuo"
+            }
+          },
+          {
+            "owns": {
+              "faction": "dong_zhuo",
+              "strongholds": [
+                "luoyang",
+                "changan"
+              ]
+            }
+          },
+          {
+            "any": [
+              {
+                "after": "190-03"
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "luoyang",
+                  "radius": 8,
+                  "troops_gte": 30000
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "text": "연합군이 사수관에 다가오자, 이유가 낙양을 버리고 장안으로 도읍을 옮기자고 진언한다.",
+      "choices": [
+        {
+          "id": "relocate",
+          "text": "낙양을 불태우고 장안으로 천도한다",
+          "ai_weight": 9,
+          "effects": [
+            {
+              "type": "move_capital",
+              "faction": "dong_zhuo",
+              "to": "changan"
+            },
+            {
+              "type": "city_population",
+              "stronghold": "luoyang",
+              "mult": 0.3
+            },
+            {
+              "type": "destroy_facilities",
+              "stronghold": "luoyang",
+              "ratio": 0.8
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "changan",
+              "gold": 0.8,
+              "food": 0.8
+            },
+            {
+              "type": "trust",
+              "faction": "dong_zhuo",
+              "delta": -10
+            },
+            {
+              "type": "unlock_event",
+              "event": "imperial_seal"
+            }
+          ]
+        },
+        {
+          "id": "stay",
+          "text": "낙양을 사수한다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "luoyang",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "imperial_seal",
+      "name": {
+        "ko": "옥새 발견"
+      },
+      "once": true,
+      "locked": true,
+      "trigger": {
+        "all": [
+          {
+            "owns": {
+              "faction": "sun_jian",
+              "strongholds": [
+                "luoyang"
+              ]
+            }
+          },
+          {
+            "officer_in": {
+              "officer": "sun_jian",
+              "stronghold": "luoyang"
+            }
+          }
+        ]
+      },
+      "text": "불탄 낙양의 우물에서 빛이 솟는다. 건져 올린 것은 전국옥새였다.",
+      "choices": [
+        {
+          "id": "keep",
+          "text": "몰래 간직한다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "give_treasure",
+              "treasure": "imperial_seal",
+              "officer": "sun_jian"
+            },
+            {
+              "type": "friendship",
+              "a": "sun_jian",
+              "b": "yuan_shao",
+              "delta": -30
+            }
+          ]
+        },
+        {
+          "id": "offer",
+          "text": "맹주 원소에게 바친다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "give_treasure",
+              "treasure": "imperial_seal",
+              "officer": "yuan_shao"
+            },
+            {
+              "type": "friendship",
+              "a": "sun_jian",
+              "b": "yuan_shao",
+              "delta": 20
+            },
+            {
+              "type": "trust",
+              "faction": "sun_jian",
+              "delta": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chain_stratagem",
+      "name": {
+        "ko": "연환계"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "192-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "dong_zhuo",
+              "officer": "dong_zhuo"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "wang_yun",
+              "faction": "dong_zhuo"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "lu_bu",
+              "faction": "dong_zhuo"
+            }
+          },
+          {
+            "loyalty_lte": {
+              "officer": "lu_bu",
+              "value": 70
+            }
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "왕윤의 계책에 넘어간 여포가 동탁을 향해 방천화극을 겨눈다.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "kill_officer",
+          "officer": "dong_zhuo",
+          "cause": "assassination"
+        },
+        {
+          "type": "special",
+          "key": "dong_zhuo_succession",
+          "note": "동탁 세력을 여포(장안)와 이각·곽사(서량 출신 장수) 세력으로 분열"
+        }
+      ]
+    }
+  ]
+}

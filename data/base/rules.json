@@ -1,0 +1,119 @@
+{
+  "time": {
+    "days_per_turn": 10,
+    "turns_per_month": 3,
+    "harvest_month": 9
+  },
+  "affinity": {
+    "advantage": 1.2,
+    "disadvantage": 0.8
+  },
+  "unit": {
+    "max_officers": 3,
+    "sub_officer_bonus_ratio": 0.2,
+    "stat_cap": 100,
+    "troops_per_leadership": 100
+  },
+  "chain": {
+    "bonus_per_link": 0.1,
+    "max_bonus": 0.5
+  },
+  "energy": {
+    "max": 100,
+    "regen_per_turn": 5,
+    "regen_near_own_stronghold": 10
+  },
+  "morale": {
+    "max": 100,
+    "bands": [
+      {
+        "min": 80,
+        "mult": 1.1
+      },
+      {
+        "min": 30,
+        "mult": 1.0
+      },
+      {
+        "min": 10,
+        "mult": 0.8
+      },
+      {
+        "min": 1,
+        "mult": 0.8
+      },
+      {
+        "min": 0,
+        "mult": 0.8,
+        "status": "confused"
+      }
+    ],
+    "surrounded_threshold": 3,
+    "refuse_duel_penalty": 10,
+    "rout_threshold": 30
+  },
+  "defeat": {
+    "return": 0.6,
+    "injury": 0.2,
+    "capture": 0.17,
+    "death": 0.03
+  },
+  "high_ground_bonus": 0.1,
+  "city": {
+    "street_defense_bonus": 0.1,
+    "isolated_outpost_troop_loss": 0.05
+  },
+  "growth": {
+    "train_gain": [
+      1,
+      2
+    ],
+    "cap_over_base": 10
+  },
+  "traits": {
+    "max": 4
+  },
+  "domestic": {
+    "tax": {
+      "low": {
+        "gold": 0.8,
+        "morale_monthly": 1
+      },
+      "mid": {
+        "gold": 1.0,
+        "morale_monthly": 0
+      },
+      "high": {
+        "gold": 1.3,
+        "morale_monthly": -2
+      }
+    },
+    "morale_income": [
+      {
+        "min": 80,
+        "mult": 1.1
+      },
+      {
+        "min": 40,
+        "mult": 1.0
+      },
+      {
+        "min": 20,
+        "mult": 0.8
+      },
+      {
+        "min": 0,
+        "mult": 0.8,
+        "rebellion": true
+      }
+    ]
+  },
+  "coalition": {
+    "city_share": 0.3,
+    "power_ratio_vs_second": 2.0
+  },
+  "difficulty": {
+    "hell_ai_income": 0.15,
+    "novice_player_income": 0.2
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "시나리오",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "start",
+    "factions",
+    "cities",
+    "officers"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "object",
+      "required": [
+        "ko"
+      ],
+      "properties": {
+        "ko": {
+          "type": "string"
+        },
+        "zh": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": {
+      "type": "string"
+    },
+    "start": {
+      "type": "object",
+      "required": [
+        "year",
+        "month",
+        "turn"
+      ],
+      "properties": {
+        "year": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "turn": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      }
+    },
+    "factions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "ruler",
+          "color",
+          "title",
+          "capital"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "ruler": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "title": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4
+          },
+          "capital": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "description",
+                "conditions"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "cities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "stronghold",
+          "owner",
+          "population",
+          "morale",
+          "gold",
+          "food",
+          "troops",
+          "training",
+          "equipment"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "stronghold": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "owner": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "governor": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "population": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "morale": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "gold": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "food": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "troops": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "training": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "equipment": {
+            "type": "object",
+            "required": [
+              "horse",
+              "crossbow",
+              "siege_engine",
+              "ship"
+            ],
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "facilities": {
+            "type": "array"
+          }
+        }
+      }
+    },
+    "officers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "officer",
+          "faction",
+          "location",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "officer": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "faction": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "free",
+              "unborn",
+              "captive"
+            ]
+          },
+          "loyalty": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "rank": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "members"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "sworn",
+              "spouse",
+              "like",
+              "dislike"
+            ]
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "minItems": 2
+          }
+        }
+      }
+    },
+    "diplomacy": {
+      "type": "array"
+    },
+    "treasures": {
+      "type": "array"
+    },
+    "events": {
+      "type": "string"
+    }
+  }
+}

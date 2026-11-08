@@ -1,0 +1,1250 @@
+{
+  "provinces": {
+    "sili": "사례",
+    "liang": "량주",
+    "yi": "익주",
+    "jing": "형주",
+    "yu": "예주",
+    "yan": "연주",
+    "xu": "서주",
+    "qing": "청주",
+    "ji": "기주",
+    "you": "유주",
+    "bing": "병주",
+    "yang": "양주",
+    "jiao": "교주"
+  },
+  "strongholds": [
+    {
+      "id": "luoyang",
+      "name": {
+        "ko": "낙양",
+        "zh": "洛陽"
+      },
+      "type": "major_city",
+      "province": "sili",
+      "facility_slots": 20,
+      "links": [
+        "hangu",
+        "hulao",
+        "mengjin",
+        "yique"
+      ],
+      "hex": null
+    },
+    {
+      "id": "changan",
+      "name": {
+        "ko": "장안",
+        "zh": "長安"
+      },
+      "type": "major_city",
+      "province": "sili",
+      "facility_slots": 20,
+      "links": [
+        "anding",
+        "chencang",
+        "tianshui",
+        "tong_gate",
+        "wu_gate"
+      ],
+      "hex": null
+    },
+    {
+      "id": "hongnong",
+      "name": {
+        "ko": "홍농",
+        "zh": "弘農"
+      },
+      "type": "city",
+      "province": "sili",
+      "facility_slots": 12,
+      "links": [
+        "hangu",
+        "tong_gate"
+      ],
+      "hex": null
+    },
+    {
+      "id": "henei",
+      "name": {
+        "ko": "하내",
+        "zh": "河內"
+      },
+      "type": "city",
+      "province": "sili",
+      "facility_slots": 12,
+      "links": [
+        "mengjin",
+        "shangdang",
+        "ye"
+      ],
+      "hex": null
+    },
+    {
+      "id": "tianshui",
+      "name": {
+        "ko": "천수",
+        "zh": "天水"
+      },
+      "type": "city",
+      "province": "liang",
+      "facility_slots": 12,
+      "links": [
+        "changan",
+        "qishan",
+        "wuwei"
+      ],
+      "hex": null
+    },
+    {
+      "id": "wuwei",
+      "name": {
+        "ko": "무위",
+        "zh": "武威"
+      },
+      "type": "city",
+      "province": "liang",
+      "facility_slots": 12,
+      "links": [
+        "anding",
+        "tianshui"
+      ],
+      "hex": null
+    },
+    {
+      "id": "anding",
+      "name": {
+        "ko": "안정",
+        "zh": "安定"
+      },
+      "type": "city",
+      "province": "liang",
+      "facility_slots": 12,
+      "links": [
+        "changan",
+        "wuwei"
+      ],
+      "hex": null
+    },
+    {
+      "id": "chengdu",
+      "name": {
+        "ko": "성도",
+        "zh": "成都"
+      },
+      "type": "major_city",
+      "province": "yi",
+      "facility_slots": 20,
+      "links": [
+        "fushui",
+        "jiangzhou",
+        "jianning"
+      ],
+      "hex": null
+    },
+    {
+      "id": "hanzhong",
+      "name": {
+        "ko": "한중",
+        "zh": "漢中"
+      },
+      "type": "city",
+      "province": "yi",
+      "facility_slots": 12,
+      "links": [
+        "jiameng",
+        "qishan",
+        "shangyong",
+        "yangping"
+      ],
+      "hex": null
+    },
+    {
+      "id": "zitong",
+      "name": {
+        "ko": "재동",
+        "zh": "梓潼"
+      },
+      "type": "city",
+      "province": "yi",
+      "facility_slots": 12,
+      "links": [
+        "fushui",
+        "jiange"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jiangzhou",
+      "name": {
+        "ko": "강주",
+        "zh": "江州"
+      },
+      "type": "city",
+      "province": "yi",
+      "facility_slots": 12,
+      "links": [
+        "chengdu",
+        "yongan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "yongan",
+      "name": {
+        "ko": "영안",
+        "zh": "永安"
+      },
+      "type": "city",
+      "province": "yi",
+      "facility_slots": 12,
+      "links": [
+        "bakou",
+        "jiangzhou",
+        "shangyong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jianning",
+      "name": {
+        "ko": "건녕",
+        "zh": "建寧"
+      },
+      "type": "city",
+      "province": "yi",
+      "facility_slots": 12,
+      "links": [
+        "chengdu",
+        "yunnan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "yunnan",
+      "name": {
+        "ko": "운남",
+        "zh": "雲南"
+      },
+      "type": "city",
+      "province": "yi",
+      "facility_slots": 12,
+      "links": [
+        "jianning"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xiangyang",
+      "name": {
+        "ko": "양양",
+        "zh": "襄陽"
+      },
+      "type": "major_city",
+      "province": "jing",
+      "facility_slots": 20,
+      "links": [
+        "fancheng",
+        "jiangling",
+        "jiangxia",
+        "shangyong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "wan",
+      "name": {
+        "ko": "완",
+        "zh": "宛"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "wu_gate",
+        "xinye",
+        "xuchang",
+        "yique"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xinye",
+      "name": {
+        "ko": "신야",
+        "zh": "新野"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "fancheng",
+        "runan",
+        "wan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jiangling",
+      "name": {
+        "ko": "강릉",
+        "zh": "江陵"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "bakou",
+        "gongan",
+        "wuling",
+        "xiangyang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jiangxia",
+      "name": {
+        "ko": "강하",
+        "zh": "江夏"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "chaisang",
+        "xiakou",
+        "xiangyang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "changsha",
+      "name": {
+        "ko": "장사",
+        "zh": "長沙"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "gongan",
+        "guiyang",
+        "lingling",
+        "lukou"
+      ],
+      "hex": null
+    },
+    {
+      "id": "wuling",
+      "name": {
+        "ko": "무릉",
+        "zh": "武陵"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "gongan",
+        "jiangling"
+      ],
+      "hex": null
+    },
+    {
+      "id": "lingling",
+      "name": {
+        "ko": "영릉",
+        "zh": "零陵"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "changsha",
+        "guiyang",
+        "jiaozhi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "guiyang",
+      "name": {
+        "ko": "계양",
+        "zh": "桂陽"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "changsha",
+        "lingling",
+        "nanhai"
+      ],
+      "hex": null
+    },
+    {
+      "id": "shangyong",
+      "name": {
+        "ko": "상용",
+        "zh": "上庸"
+      },
+      "type": "city",
+      "province": "jing",
+      "facility_slots": 12,
+      "links": [
+        "hanzhong",
+        "xiangyang",
+        "yongan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xuchang",
+      "name": {
+        "ko": "허창",
+        "zh": "許昌"
+      },
+      "type": "major_city",
+      "province": "yu",
+      "facility_slots": 20,
+      "links": [
+        "guandu",
+        "runan",
+        "wan",
+        "yique"
+      ],
+      "hex": null
+    },
+    {
+      "id": "runan",
+      "name": {
+        "ko": "여남",
+        "zh": "汝南"
+      },
+      "type": "city",
+      "province": "yu",
+      "facility_slots": 12,
+      "links": [
+        "shouchun",
+        "xinye",
+        "xuchang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "qiao",
+      "name": {
+        "ko": "초",
+        "zh": "譙"
+      },
+      "type": "city",
+      "province": "yu",
+      "facility_slots": 12,
+      "links": [
+        "chenliu",
+        "shouchun",
+        "xiaopei"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xiaopei",
+      "name": {
+        "ko": "소패",
+        "zh": "小沛"
+      },
+      "type": "city",
+      "province": "yu",
+      "facility_slots": 12,
+      "links": [
+        "chenliu",
+        "qiao",
+        "xiapi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "chenliu",
+      "name": {
+        "ko": "진류",
+        "zh": "陳留"
+      },
+      "type": "city",
+      "province": "yan",
+      "facility_slots": 12,
+      "links": [
+        "puyang",
+        "qiao",
+        "sishui",
+        "xiaopei",
+        "yanjin"
+      ],
+      "hex": null
+    },
+    {
+      "id": "puyang",
+      "name": {
+        "ko": "복양",
+        "zh": "濮陽"
+      },
+      "type": "city",
+      "province": "yan",
+      "facility_slots": 12,
+      "links": [
+        "baima",
+        "cangting",
+        "chenliu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xiapi",
+      "name": {
+        "ko": "하비",
+        "zh": "下邳"
+      },
+      "type": "major_city",
+      "province": "xu",
+      "facility_slots": 20,
+      "links": [
+        "beihai",
+        "guangling",
+        "shouchun",
+        "xiaopei"
+      ],
+      "hex": null
+    },
+    {
+      "id": "guangling",
+      "name": {
+        "ko": "광릉",
+        "zh": "廣陵"
+      },
+      "type": "city",
+      "province": "xu",
+      "facility_slots": 12,
+      "links": [
+        "jianye",
+        "xiapi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "beihai",
+      "name": {
+        "ko": "북해",
+        "zh": "北海"
+      },
+      "type": "city",
+      "province": "qing",
+      "facility_slots": 12,
+      "links": [
+        "pingyuan",
+        "xiapi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "pingyuan",
+      "name": {
+        "ko": "평원",
+        "zh": "平原"
+      },
+      "type": "city",
+      "province": "qing",
+      "facility_slots": 12,
+      "links": [
+        "beihai",
+        "cangting",
+        "nanpi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "ye",
+      "name": {
+        "ko": "업",
+        "zh": "鄴"
+      },
+      "type": "major_city",
+      "province": "ji",
+      "facility_slots": 20,
+      "links": [
+        "baima",
+        "henei",
+        "julu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "nanpi",
+      "name": {
+        "ko": "남피",
+        "zh": "南皮"
+      },
+      "type": "major_city",
+      "province": "ji",
+      "facility_slots": 20,
+      "links": [
+        "ji_city",
+        "julu",
+        "pingyuan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "julu",
+      "name": {
+        "ko": "거록",
+        "zh": "鉅鹿"
+      },
+      "type": "city",
+      "province": "ji",
+      "facility_slots": 12,
+      "links": [
+        "nanpi",
+        "shangdang",
+        "ye"
+      ],
+      "hex": null
+    },
+    {
+      "id": "beiping",
+      "name": {
+        "ko": "북평",
+        "zh": "北平"
+      },
+      "type": "city",
+      "province": "you",
+      "facility_slots": 12,
+      "links": [
+        "ji_city",
+        "xiangping"
+      ],
+      "hex": null
+    },
+    {
+      "id": "ji_city",
+      "name": {
+        "ko": "계",
+        "zh": "薊"
+      },
+      "type": "city",
+      "province": "you",
+      "facility_slots": 12,
+      "links": [
+        "beiping",
+        "juyong",
+        "nanpi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xiangping",
+      "name": {
+        "ko": "양평",
+        "zh": "襄平"
+      },
+      "type": "city",
+      "province": "you",
+      "facility_slots": 12,
+      "links": [
+        "beiping"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jinyang",
+      "name": {
+        "ko": "진양",
+        "zh": "晉陽"
+      },
+      "type": "city",
+      "province": "bing",
+      "facility_slots": 12,
+      "links": [
+        "shangdang",
+        "yanmen"
+      ],
+      "hex": null
+    },
+    {
+      "id": "shangdang",
+      "name": {
+        "ko": "상당",
+        "zh": "上黨"
+      },
+      "type": "city",
+      "province": "bing",
+      "facility_slots": 12,
+      "links": [
+        "henei",
+        "jinyang",
+        "julu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jianye",
+      "name": {
+        "ko": "건업",
+        "zh": "建業"
+      },
+      "type": "major_city",
+      "province": "yang",
+      "facility_slots": 20,
+      "links": [
+        "guangling",
+        "niuzhu",
+        "qua",
+        "ruxu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "shouchun",
+      "name": {
+        "ko": "수춘",
+        "zh": "壽春"
+      },
+      "type": "major_city",
+      "province": "yang",
+      "facility_slots": 20,
+      "links": [
+        "hefei",
+        "qiao",
+        "runan",
+        "xiapi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "lujiang",
+      "name": {
+        "ko": "여강",
+        "zh": "廬江"
+      },
+      "type": "city",
+      "province": "yang",
+      "facility_slots": 12,
+      "links": [
+        "chaisang",
+        "hefei",
+        "ruxu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "wu_city",
+      "name": {
+        "ko": "오",
+        "zh": "吳"
+      },
+      "type": "city",
+      "province": "yang",
+      "facility_slots": 12,
+      "links": [
+        "kuaiji",
+        "qua"
+      ],
+      "hex": null
+    },
+    {
+      "id": "kuaiji",
+      "name": {
+        "ko": "회계",
+        "zh": "會稽"
+      },
+      "type": "city",
+      "province": "yang",
+      "facility_slots": 12,
+      "links": [
+        "wu_city"
+      ],
+      "hex": null
+    },
+    {
+      "id": "chaisang",
+      "name": {
+        "ko": "시상",
+        "zh": "柴桑"
+      },
+      "type": "city",
+      "province": "yang",
+      "facility_slots": 12,
+      "links": [
+        "jiangxia",
+        "lujiang",
+        "niuzhu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jiaozhi",
+      "name": {
+        "ko": "교지",
+        "zh": "交趾"
+      },
+      "type": "city",
+      "province": "jiao",
+      "facility_slots": 12,
+      "links": [
+        "lingling",
+        "nanhai"
+      ],
+      "hex": null
+    },
+    {
+      "id": "nanhai",
+      "name": {
+        "ko": "남해",
+        "zh": "南海"
+      },
+      "type": "city",
+      "province": "jiao",
+      "facility_slots": 12,
+      "links": [
+        "guiyang",
+        "jiaozhi"
+      ],
+      "hex": null
+    },
+    {
+      "id": "hulao",
+      "name": {
+        "ko": "호로관",
+        "zh": "虎牢關"
+      },
+      "type": "gate",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "luoyang",
+        "sishui"
+      ],
+      "hex": null
+    },
+    {
+      "id": "sishui",
+      "name": {
+        "ko": "사수관",
+        "zh": "汜水關"
+      },
+      "type": "gate",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "chenliu",
+        "hulao"
+      ],
+      "hex": null
+    },
+    {
+      "id": "hangu",
+      "name": {
+        "ko": "함곡관",
+        "zh": "函谷關"
+      },
+      "type": "gate",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "hongnong",
+        "luoyang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "tong_gate",
+      "name": {
+        "ko": "동관",
+        "zh": "潼關"
+      },
+      "type": "gate",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "changan",
+        "hongnong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "wu_gate",
+      "name": {
+        "ko": "무관",
+        "zh": "武關"
+      },
+      "type": "gate",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "changan",
+        "wan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "yique",
+      "name": {
+        "ko": "이궐관",
+        "zh": "伊闕關"
+      },
+      "type": "gate",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "luoyang",
+        "wan",
+        "xuchang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "yangping",
+      "name": {
+        "ko": "양평관",
+        "zh": "陽平關"
+      },
+      "type": "gate",
+      "province": "yi",
+      "facility_slots": 0,
+      "links": [
+        "chencang",
+        "hanzhong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jiameng",
+      "name": {
+        "ko": "가맹관",
+        "zh": "葭萌關"
+      },
+      "type": "gate",
+      "province": "yi",
+      "facility_slots": 0,
+      "links": [
+        "hanzhong",
+        "jiange"
+      ],
+      "hex": null
+    },
+    {
+      "id": "jiange",
+      "name": {
+        "ko": "검각",
+        "zh": "劍閣"
+      },
+      "type": "gate",
+      "province": "yi",
+      "facility_slots": 0,
+      "links": [
+        "jiameng",
+        "zitong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "fushui",
+      "name": {
+        "ko": "부수관",
+        "zh": "涪水關"
+      },
+      "type": "gate",
+      "province": "yi",
+      "facility_slots": 0,
+      "links": [
+        "chengdu",
+        "zitong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "yanmen",
+      "name": {
+        "ko": "안문관",
+        "zh": "雁門關"
+      },
+      "type": "gate",
+      "province": "bing",
+      "facility_slots": 0,
+      "links": [
+        "jinyang",
+        "juyong"
+      ],
+      "hex": null
+    },
+    {
+      "id": "juyong",
+      "name": {
+        "ko": "거용관",
+        "zh": "居庸關"
+      },
+      "type": "gate",
+      "province": "you",
+      "facility_slots": 0,
+      "links": [
+        "ji_city",
+        "yanmen"
+      ],
+      "hex": null
+    },
+    {
+      "id": "xiakou",
+      "name": {
+        "ko": "하구",
+        "zh": "夏口"
+      },
+      "type": "port",
+      "province": "jing",
+      "facility_slots": 2,
+      "links": [
+        "jiangxia",
+        "wulin"
+      ],
+      "hex": null
+    },
+    {
+      "id": "lukou",
+      "name": {
+        "ko": "육구",
+        "zh": "陸口"
+      },
+      "type": "port",
+      "province": "jing",
+      "facility_slots": 2,
+      "links": [
+        "changsha",
+        "wulin"
+      ],
+      "hex": null
+    },
+    {
+      "id": "bakou",
+      "name": {
+        "ko": "파구",
+        "zh": "巴丘"
+      },
+      "type": "port",
+      "province": "jing",
+      "facility_slots": 2,
+      "links": [
+        "jiangling",
+        "yongan"
+      ],
+      "hex": null
+    },
+    {
+      "id": "gongan",
+      "name": {
+        "ko": "공안",
+        "zh": "公安"
+      },
+      "type": "port",
+      "province": "jing",
+      "facility_slots": 2,
+      "links": [
+        "changsha",
+        "jiangling",
+        "wuling"
+      ],
+      "hex": null
+    },
+    {
+      "id": "wulin",
+      "name": {
+        "ko": "오림",
+        "zh": "烏林"
+      },
+      "type": "port",
+      "province": "jing",
+      "facility_slots": 2,
+      "links": [
+        "lukou",
+        "xiakou"
+      ],
+      "hex": null
+    },
+    {
+      "id": "ruxu",
+      "name": {
+        "ko": "유수구",
+        "zh": "濡須口"
+      },
+      "type": "port",
+      "province": "yang",
+      "facility_slots": 2,
+      "links": [
+        "jianye",
+        "lujiang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "niuzhu",
+      "name": {
+        "ko": "우저",
+        "zh": "牛渚"
+      },
+      "type": "port",
+      "province": "yang",
+      "facility_slots": 2,
+      "links": [
+        "chaisang",
+        "jianye"
+      ],
+      "hex": null
+    },
+    {
+      "id": "qua",
+      "name": {
+        "ko": "곡아",
+        "zh": "曲阿"
+      },
+      "type": "port",
+      "province": "yang",
+      "facility_slots": 2,
+      "links": [
+        "jianye",
+        "wu_city"
+      ],
+      "hex": null
+    },
+    {
+      "id": "mengjin",
+      "name": {
+        "ko": "맹진",
+        "zh": "孟津"
+      },
+      "type": "ferry",
+      "province": "sili",
+      "facility_slots": 0,
+      "links": [
+        "henei",
+        "luoyang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "baima",
+      "name": {
+        "ko": "백마진",
+        "zh": "白馬津"
+      },
+      "type": "ferry",
+      "province": "yan",
+      "facility_slots": 0,
+      "links": [
+        "puyang",
+        "ye"
+      ],
+      "hex": null
+    },
+    {
+      "id": "yanjin",
+      "name": {
+        "ko": "연진",
+        "zh": "延津"
+      },
+      "type": "ferry",
+      "province": "yan",
+      "facility_slots": 0,
+      "links": [
+        "chenliu",
+        "guandu"
+      ],
+      "hex": null
+    },
+    {
+      "id": "cangting",
+      "name": {
+        "ko": "창정진",
+        "zh": "倉亭津"
+      },
+      "type": "ferry",
+      "province": "yan",
+      "facility_slots": 0,
+      "links": [
+        "pingyuan",
+        "puyang"
+      ],
+      "hex": null
+    },
+    {
+      "id": "guandu",
+      "name": {
+        "ko": "관도",
+        "zh": "官渡"
+      },
+      "type": "fortress",
+      "province": "yan",
+      "facility_slots": 0,
+      "links": [
+        "xuchang",
+        "yanjin"
+      ],
+      "hex": null
+    },
+    {
+      "id": "chencang",
+      "name": {
+        "ko": "진창",
+        "zh": "陳倉"
+      },
+      "type": "fortress",
+      "province": "liang",
+      "facility_slots": 0,
+      "links": [
+        "changan",
+        "yangping"
+      ],
+      "hex": null
+    },
+    {
+      "id": "qishan",
+      "name": {
+        "ko": "기산",
+        "zh": "祁山"
+      },
+      "type": "fortress",
+      "province": "liang",
+      "facility_slots": 0,
+      "links": [
+        "hanzhong",
+        "tianshui"
+      ],
+      "hex": null
+    },
+    {
+      "id": "hefei",
+      "name": {
+        "ko": "합비",
+        "zh": "合肥"
+      },
+      "type": "fortress",
+      "province": "yang",
+      "facility_slots": 0,
+      "links": [
+        "lujiang",
+        "shouchun"
+      ],
+      "hex": null
+    },
+    {
+      "id": "fancheng",
+      "name": {
+        "ko": "번성",
+        "zh": "樊城"
+      },
+      "type": "fortress",
+      "province": "jing",
+      "facility_slots": 0,
+      "links": [
+        "xiangyang",
+        "xinye"
+      ],
+      "hex": null
+    }
+  ]
+}

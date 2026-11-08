@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "전법",
+  "type": "object",
+  "required": [
+    "tactics"
+  ],
+  "properties": {
+    "tactics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "formation",
+          "required_rank",
+          "name",
+          "energy_cost",
+          "power",
+          "effects"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "formation": {
+            "enum": [
+              "fish_scale",
+              "crane_wing",
+              "square",
+              "long_snake",
+              "wedge",
+              "wild_geese",
+              "siege",
+              "naval"
+            ]
+          },
+          "required_rank": {
+            "enum": [
+              "S",
+              "A",
+              "B"
+            ]
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ko"
+            ],
+            "properties": {
+              "ko": {
+                "type": "string"
+              },
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "energy_cost": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "power": {
+            "type": "number",
+            "minimum": 0
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

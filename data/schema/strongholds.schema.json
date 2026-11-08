@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "거점",
+  "type": "object",
+  "required": [
+    "strongholds",
+    "provinces"
+  ],
+  "properties": {
+    "strongholds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type",
+          "province",
+          "facility_slots",
+          "links"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ko"
+            ],
+            "properties": {
+              "ko": {
+                "type": "string"
+              },
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "type": {
+            "enum": [
+              "major_city",
+              "city",
+              "gate",
+              "port",
+              "ferry",
+              "fortress"
+            ]
+          },
+          "province": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "facility_slots": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "uniqueItems": true
+          },
+          "hex": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "q": {
+                "type": "integer"
+              },
+              "r": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,238 @@
+{
+  "treasures": [
+    {
+      "id": "green_dragon",
+      "name": {
+        "ko": "청룡언월도",
+        "zh": "青龍偃月刀"
+      },
+      "slot": "weapon",
+      "stat_bonus": {
+        "war": 3
+      },
+      "grants_traits": [
+        "valiant"
+      ]
+    },
+    {
+      "id": "serpent_spear",
+      "name": {
+        "ko": "장팔사모",
+        "zh": "丈八蛇矛"
+      },
+      "slot": "weapon",
+      "stat_bonus": {
+        "war": 3
+      },
+      "grants_traits": [
+        "intimidate"
+      ]
+    },
+    {
+      "id": "sky_piercer",
+      "name": {
+        "ko": "방천화극",
+        "zh": "方天畫戟"
+      },
+      "slot": "weapon",
+      "stat_bonus": {
+        "war": 4
+      },
+      "grants_traits": [
+        "peerless"
+      ]
+    },
+    {
+      "id": "seven_star",
+      "name": {
+        "ko": "칠성검",
+        "zh": "七星劍"
+      },
+      "slot": "weapon",
+      "stat_bonus": {
+        "war": 1,
+        "cha": 2
+      },
+      "grants_traits": []
+    },
+    {
+      "id": "blue_steel",
+      "name": {
+        "ko": "청강검",
+        "zh": "青釭劍"
+      },
+      "slot": "weapon",
+      "stat_bonus": {
+        "war": 3
+      },
+      "grants_traits": [
+        "breakthrough"
+      ]
+    },
+    {
+      "id": "red_hare",
+      "name": {
+        "ko": "적토마",
+        "zh": "赤兔馬"
+      },
+      "slot": "horse",
+      "stat_bonus": {
+        "war": 1
+      },
+      "grants_traits": [
+        "forced_march"
+      ],
+      "special": {
+        "formation_rank": {
+          "wedge": "S"
+        }
+      }
+    },
+    {
+      "id": "dilu",
+      "name": {
+        "ko": "적로",
+        "zh": "的盧"
+      },
+      "slot": "horse",
+      "stat_bonus": {},
+      "grants_traits": [
+        "forced_march"
+      ]
+    },
+    {
+      "id": "shadow_runner",
+      "name": {
+        "ko": "절영",
+        "zh": "絕影"
+      },
+      "slot": "horse",
+      "stat_bonus": {
+        "ldr": 1
+      },
+      "grants_traits": [
+        "forced_march"
+      ]
+    },
+    {
+      "id": "art_of_war",
+      "name": {
+        "ko": "손자병법",
+        "zh": "孫子兵法"
+      },
+      "slot": "book",
+      "stat_bonus": {
+        "ldr": 5,
+        "int": 2
+      },
+      "grants_traits": [
+        "strategist"
+      ]
+    },
+    {
+      "id": "mengde_book",
+      "name": {
+        "ko": "맹덕신서",
+        "zh": "孟德新書"
+      },
+      "slot": "book",
+      "stat_bonus": {
+        "ldr": 3,
+        "int": 3
+      },
+      "grants_traits": [
+        "chain_master"
+      ]
+    },
+    {
+      "id": "dunjia_book",
+      "name": {
+        "ko": "둔갑천서",
+        "zh": "遁甲天書"
+      },
+      "slot": "book",
+      "stat_bonus": {
+        "int": 5
+      },
+      "grants_traits": [
+        "astronomy"
+      ]
+    },
+    {
+      "id": "six_secret",
+      "name": {
+        "ko": "육도",
+        "zh": "六韜"
+      },
+      "slot": "book",
+      "stat_bonus": {
+        "ldr": 4
+      },
+      "grants_traits": [
+        "wing_master"
+      ]
+    },
+    {
+      "id": "imperial_seal",
+      "name": {
+        "ko": "옥새",
+        "zh": "玉璽"
+      },
+      "slot": "artifact",
+      "stat_bonus": {
+        "cha": 5
+      },
+      "grants_traits": [
+        "dignity"
+      ],
+      "special": {
+        "faction": {
+          "title_requirement_relax": 1
+        }
+      }
+    },
+    {
+      "id": "qingnang",
+      "name": {
+        "ko": "청낭서",
+        "zh": "青囊書"
+      },
+      "slot": "artifact",
+      "stat_bonus": {
+        "pol": 3
+      },
+      "grants_traits": [
+        "benevolence"
+      ]
+    },
+    {
+      "id": "bronze_sparrow",
+      "name": {
+        "ko": "동작",
+        "zh": "銅雀"
+      },
+      "slot": "artifact",
+      "stat_bonus": {
+        "pol": 2,
+        "cha": 3
+      },
+      "grants_traits": [
+        "fame"
+      ]
+    },
+    {
+      "id": "book_of_rites",
+      "name": {
+        "ko": "예기",
+        "zh": "禮記"
+      },
+      "slot": "artifact",
+      "stat_bonus": {
+        "pol": 4
+      },
+      "grants_traits": [
+        "erudite"
+      ]
+    }
+  ]
+}

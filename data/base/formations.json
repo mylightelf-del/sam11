@@ -1,0 +1,275 @@
+{
+  "formations": [
+    {
+      "id": "fish_scale",
+      "name": {
+        "ko": "어린",
+        "zh": "魚鱗"
+      },
+      "category": "base",
+      "required_equipment": null,
+      "attack": 120,
+      "defense": 90,
+      "move": 5,
+      "trait": {
+        "id": "breakthrough",
+        "description": "공격 후 대상이 후퇴하면 그 칸으로 전진할 수 있다"
+      },
+      "strong_against": [
+        "crane_wing",
+        "siege"
+      ],
+      "tactics": [
+        "breach",
+        "pierce",
+        "melee"
+      ],
+      "terrain_modifiers": {
+        "plain": 100,
+        "road": 100,
+        "forest": 90,
+        "mountain": 80,
+        "marsh": 80,
+        "city_wall": 100,
+        "street": 100
+      },
+      "usable_in_city": true
+    },
+    {
+      "id": "crane_wing",
+      "name": {
+        "ko": "학익",
+        "zh": "鶴翼"
+      },
+      "category": "base",
+      "required_equipment": null,
+      "attack": 105,
+      "defense": 95,
+      "move": 4,
+      "trait": {
+        "id": "encircle",
+        "description": "대상에 인접한 아군 부대 하나당 공격 +5%"
+      },
+      "strong_against": [
+        "long_snake",
+        "siege"
+      ],
+      "tactics": [
+        "pincer",
+        "envelop",
+        "annihilate"
+      ],
+      "terrain_modifiers": {
+        "plain": 110,
+        "road": 100,
+        "forest": 80,
+        "mountain": 70,
+        "marsh": 80,
+        "city_wall": 90,
+        "street": 100
+      },
+      "usable_in_city": true
+    },
+    {
+      "id": "square",
+      "name": {
+        "ko": "방원",
+        "zh": "方圓"
+      },
+      "category": "base",
+      "required_equipment": null,
+      "attack": 80,
+      "defense": 130,
+      "move": 3,
+      "trait": {
+        "id": "all_round",
+        "description": "측면·후방 공격을 받아도 방어가 줄지 않는다"
+      },
+      "strong_against": [
+        "fish_scale",
+        "wedge",
+        "siege"
+      ],
+      "tactics": [
+        "hold_fast",
+        "riposte",
+        "steadfast"
+      ],
+      "terrain_modifiers": {
+        "plain": 100,
+        "road": 100,
+        "forest": 110,
+        "mountain": 120,
+        "marsh": 90,
+        "city_wall": 120,
+        "street": 100
+      },
+      "usable_in_city": true
+    },
+    {
+      "id": "long_snake",
+      "name": {
+        "ko": "장사",
+        "zh": "長蛇"
+      },
+      "category": "base",
+      "required_equipment": null,
+      "attack": 100,
+      "defense": 100,
+      "move": 5,
+      "trait": {
+        "id": "counter",
+        "description": "반격 피해 +30%"
+      },
+      "strong_against": [
+        "square",
+        "siege"
+      ],
+      "tactics": [
+        "double_strike",
+        "lure",
+        "wheel"
+      ],
+      "terrain_modifiers": {
+        "plain": 100,
+        "road": 110,
+        "forest": 100,
+        "mountain": 90,
+        "marsh": 100,
+        "city_wall": 100,
+        "street": 100
+      },
+      "usable_in_city": true
+    },
+    {
+      "id": "wedge",
+      "name": {
+        "ko": "추행",
+        "zh": "錐行"
+      },
+      "category": "equipment",
+      "required_equipment": "horse",
+      "attack": 115,
+      "defense": 85,
+      "move": 7,
+      "trait": {
+        "id": "charge",
+        "description": "공격하면 대상을 1칸 밀어낸다"
+      },
+      "strong_against": [
+        "wild_geese",
+        "siege"
+      ],
+      "tactics": [
+        "dash",
+        "charge",
+        "trample"
+      ],
+      "terrain_modifiers": {
+        "plain": 120,
+        "road": 120,
+        "forest": 70,
+        "mountain": 60,
+        "marsh": 60,
+        "city_wall": 80
+      },
+      "usable_in_city": false
+    },
+    {
+      "id": "wild_geese",
+      "name": {
+        "ko": "안행",
+        "zh": "雁行"
+      },
+      "category": "equipment",
+      "required_equipment": "crossbow",
+      "attack": 90,
+      "defense": 80,
+      "move": 4,
+      "trait": {
+        "id": "ranged",
+        "description": "사거리 2, 반격을 받지 않는다"
+      },
+      "strong_against": [
+        "fish_scale",
+        "crane_wing",
+        "siege"
+      ],
+      "tactics": [
+        "volley",
+        "fire_arrow",
+        "barrage"
+      ],
+      "terrain_modifiers": {
+        "plain": 100,
+        "road": 100,
+        "forest": 80,
+        "mountain": 120,
+        "marsh": 90,
+        "city_wall": 130,
+        "street": 100
+      },
+      "usable_in_city": true,
+      "range": 2
+    },
+    {
+      "id": "siege",
+      "name": {
+        "ko": "공성진",
+        "zh": "攻城陣"
+      },
+      "category": "equipment",
+      "required_equipment": "siege_engine",
+      "attack": 60,
+      "defense": 70,
+      "move": 3,
+      "trait": {
+        "id": "siege",
+        "description": "거점·시설 공격 시 공격 300"
+      },
+      "strong_against": [],
+      "tactics": [
+        "ram",
+        "catapult",
+        "siege_tower"
+      ],
+      "terrain_modifiers": {
+        "plain": 100,
+        "road": 110,
+        "forest": 70,
+        "mountain": 50,
+        "marsh": 60
+      },
+      "usable_in_city": false,
+      "stronghold_attack": 300
+    },
+    {
+      "id": "naval",
+      "name": {
+        "ko": "수진",
+        "zh": "水陣"
+      },
+      "category": "equipment",
+      "required_equipment": "ship",
+      "attack": 100,
+      "defense": 100,
+      "move": 6,
+      "trait": {
+        "id": "naval",
+        "description": "수상 전용. 육상에 오르면 기본 진형으로 바뀐다"
+      },
+      "strong_against": [],
+      "tactics": [
+        "ram_ship",
+        "ballista",
+        "fire_ship"
+      ],
+      "terrain_modifiers": {
+        "river": 100,
+        "sea": 100
+      },
+      "water_only": true,
+      "usable_in_city": false
+    }
+  ]
+}

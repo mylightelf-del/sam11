@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "진형",
+  "type": "object",
+  "required": [
+    "formations"
+  ],
+  "properties": {
+    "formations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category",
+          "attack",
+          "defense",
+          "move",
+          "strong_against",
+          "tactics",
+          "terrain_modifiers"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "fish_scale",
+              "crane_wing",
+              "square",
+              "long_snake",
+              "wedge",
+              "wild_geese",
+              "siege",
+              "naval"
+            ]
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ko"
+            ],
+            "properties": {
+              "ko": {
+                "type": "string"
+              },
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "category": {
+            "enum": [
+              "base",
+              "equipment"
+            ]
+          },
+          "required_equipment": {
+            "enum": [
+              null,
+              "horse",
+              "crossbow",
+              "siege_engine",
+              "ship"
+            ]
+          },
+          "attack": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "defense": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "move": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 15
+          },
+          "strong_against": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "fish_scale",
+                "crane_wing",
+                "square",
+                "long_snake",
+                "wedge",
+                "wild_geese",
+                "siege",
+                "naval"
+              ]
+            }
+          },
+          "tactics": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "terrain_modifiers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 300
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

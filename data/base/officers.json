@@ -1,0 +1,3693 @@
+{
+  "officers": [
+    {
+      "id": "dong_zhuo",
+      "name": {
+        "ko": "동탁",
+        "zh": "董卓"
+      },
+      "gender": "male",
+      "birth": 139,
+      "death": 192,
+      "stats": {
+        "ldr": 82,
+        "war": 86,
+        "int": 62,
+        "pol": 35,
+        "cha": 38
+      },
+      "hidden": {
+        "loyalty": 3,
+        "ambition": 15,
+        "compat": 140
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "S",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "intimidate",
+        "cavalry"
+      ],
+      "ruler_personality": {
+        "aggression": 9,
+        "faith": 2,
+        "domestic": 3,
+        "diplomacy": 2
+      }
+    },
+    {
+      "id": "lu_bu",
+      "name": {
+        "ko": "여포",
+        "zh": "呂布"
+      },
+      "gender": "male",
+      "birth": 156,
+      "death": 198,
+      "stats": {
+        "ldr": 88,
+        "war": 100,
+        "int": 30,
+        "pol": 18,
+        "cha": 40
+      },
+      "hidden": {
+        "loyalty": 1,
+        "ambition": 15,
+        "compat": 138
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "C",
+        "long_snake": "B",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "peerless",
+        "cavalry"
+      ],
+      "ruler_personality": {
+        "aggression": 9,
+        "faith": 1,
+        "domestic": 2,
+        "diplomacy": 2
+      }
+    },
+    {
+      "id": "li_ru",
+      "name": {
+        "ko": "이유",
+        "zh": "李儒"
+      },
+      "gender": "male",
+      "birth": 151,
+      "death": 192,
+      "stats": {
+        "ldr": 40,
+        "war": 25,
+        "int": 89,
+        "pol": 75,
+        "cha": 35
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 8,
+        "compat": 140
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "schemer",
+        "fire_master"
+      ]
+    },
+    {
+      "id": "li_jue",
+      "name": {
+        "ko": "이각",
+        "zh": "李傕"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 198,
+      "stats": {
+        "ldr": 74,
+        "war": 80,
+        "int": 34,
+        "pol": 20,
+        "cha": 28
+      },
+      "hidden": {
+        "loyalty": 3,
+        "ambition": 12,
+        "compat": 140
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "vanguard"
+      ]
+    },
+    {
+      "id": "guo_si",
+      "name": {
+        "ko": "곽사",
+        "zh": "郭汜"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 197,
+      "stats": {
+        "ldr": 72,
+        "war": 78,
+        "int": 30,
+        "pol": 18,
+        "cha": 26
+      },
+      "hidden": {
+        "loyalty": 3,
+        "ambition": 11,
+        "compat": 141
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "forced_march"
+      ]
+    },
+    {
+      "id": "hua_xiong",
+      "name": {
+        "ko": "화웅",
+        "zh": "華雄"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 191,
+      "stats": {
+        "ldr": 78,
+        "war": 90,
+        "int": 32,
+        "pol": 24,
+        "cha": 38
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 6,
+        "compat": 139
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "valiant"
+      ]
+    },
+    {
+      "id": "xu_rong",
+      "name": {
+        "ko": "서영",
+        "zh": "徐榮"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 192,
+      "stats": {
+        "ldr": 84,
+        "war": 76,
+        "int": 70,
+        "pol": 45,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 5,
+        "compat": 138
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "ambush_master"
+      ]
+    },
+    {
+      "id": "zhang_ji",
+      "name": {
+        "ko": "장제",
+        "zh": "張濟"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 196,
+      "stats": {
+        "ldr": 70,
+        "war": 72,
+        "int": 50,
+        "pol": 40,
+        "cha": 48
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 7,
+        "compat": 137
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry"
+      ]
+    },
+    {
+      "id": "jia_xu",
+      "name": {
+        "ko": "가후",
+        "zh": "賈詡"
+      },
+      "gender": "male",
+      "birth": 147,
+      "death": 223,
+      "stats": {
+        "ldr": 86,
+        "war": 52,
+        "int": 97,
+        "pol": 82,
+        "cha": 60
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 6,
+        "compat": 136
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "strategist",
+        "insight"
+      ]
+    },
+    {
+      "id": "zhang_liao",
+      "name": {
+        "ko": "장료",
+        "zh": "張遼"
+      },
+      "gender": "male",
+      "birth": 169,
+      "death": 222,
+      "stats": {
+        "ldr": 94,
+        "war": 92,
+        "int": 80,
+        "pol": 58,
+        "cha": 80
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 6,
+        "compat": 120
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "B"
+      },
+      "traits": [
+        "vanguard",
+        "inspire"
+      ]
+    },
+    {
+      "id": "gao_shun",
+      "name": {
+        "ko": "고순",
+        "zh": "高順"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 198,
+      "stats": {
+        "ldr": 87,
+        "war": 86,
+        "int": 52,
+        "pol": 42,
+        "cha": 60
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 3,
+        "compat": 135
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "breakthrough"
+      ]
+    },
+    {
+      "id": "zhang_xiu",
+      "name": {
+        "ko": "장수",
+        "zh": "張繡"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 207,
+      "stats": {
+        "ldr": 76,
+        "war": 84,
+        "int": 56,
+        "pol": 40,
+        "cha": 62
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 7,
+        "compat": 137
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry"
+      ]
+    },
+    {
+      "id": "wang_yun",
+      "name": {
+        "ko": "왕윤",
+        "zh": "王允"
+      },
+      "gender": "male",
+      "birth": 137,
+      "death": 192,
+      "stats": {
+        "ldr": 30,
+        "war": 22,
+        "int": 78,
+        "pol": 85,
+        "cha": 74
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 6,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "eloquence",
+        "schemer"
+      ]
+    },
+    {
+      "id": "niu_fu",
+      "name": {
+        "ko": "우보",
+        "zh": "牛輔"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 192,
+      "stats": {
+        "ldr": 60,
+        "war": 68,
+        "int": 28,
+        "pol": 30,
+        "cha": 30
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 7,
+        "compat": 140
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "recruiter"
+      ]
+    },
+    {
+      "id": "yuan_shao",
+      "name": {
+        "ko": "원소",
+        "zh": "袁紹"
+      },
+      "gender": "male",
+      "birth": 154,
+      "death": 202,
+      "stats": {
+        "ldr": 82,
+        "war": 70,
+        "int": 72,
+        "pol": 76,
+        "cha": 92
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 12,
+        "compat": 100
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "S",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "fame",
+        "dignity"
+      ],
+      "kin": {
+        "siblings": [
+          "yuan_shu"
+        ]
+      },
+      "ruler_personality": {
+        "aggression": 6,
+        "faith": 5,
+        "domestic": 6,
+        "diplomacy": 6
+      }
+    },
+    {
+      "id": "yan_liang",
+      "name": {
+        "ko": "안량",
+        "zh": "顏良"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 200,
+      "stats": {
+        "ldr": 80,
+        "war": 93,
+        "int": 38,
+        "pol": 30,
+        "cha": 52
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 6,
+        "compat": 100
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "valiant"
+      ]
+    },
+    {
+      "id": "wen_chou",
+      "name": {
+        "ko": "문추",
+        "zh": "文醜"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 200,
+      "stats": {
+        "ldr": 78,
+        "war": 93,
+        "int": 30,
+        "pol": 24,
+        "cha": 48
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 6,
+        "compat": 101
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "S",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry"
+      ]
+    },
+    {
+      "id": "tian_feng",
+      "name": {
+        "ko": "전풍",
+        "zh": "田豐"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 200,
+      "stats": {
+        "ldr": 70,
+        "war": 30,
+        "int": 93,
+        "pol": 82,
+        "cha": 58
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 4,
+        "compat": 95
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "strategist",
+        "insight"
+      ]
+    },
+    {
+      "id": "feng_ji",
+      "name": {
+        "ko": "봉기",
+        "zh": "逢紀"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 202,
+      "stats": {
+        "ldr": 40,
+        "war": 30,
+        "int": 76,
+        "pol": 74,
+        "cha": 48
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 8,
+        "compat": 102
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "schemer"
+      ]
+    },
+    {
+      "id": "guo_tu",
+      "name": {
+        "ko": "곽도",
+        "zh": "郭圖"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 205,
+      "stats": {
+        "ldr": 46,
+        "war": 32,
+        "int": 78,
+        "pol": 70,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 5,
+        "ambition": 8,
+        "compat": 103
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "eloquence"
+      ]
+    },
+    {
+      "id": "xu_you",
+      "name": {
+        "ko": "허유",
+        "zh": "許攸"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 204,
+      "stats": {
+        "ldr": 38,
+        "war": 30,
+        "int": 85,
+        "pol": 66,
+        "cha": 52
+      },
+      "hidden": {
+        "loyalty": 3,
+        "ambition": 10,
+        "compat": 60
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "C",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "schemer"
+      ]
+    },
+    {
+      "id": "xun_chen",
+      "name": {
+        "ko": "순심",
+        "zh": "荀諶"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 210,
+      "stats": {
+        "ldr": 50,
+        "war": 30,
+        "int": 80,
+        "pol": 76,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 5,
+        "compat": 100
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "eloquence"
+      ]
+    },
+    {
+      "id": "gao_lan",
+      "name": {
+        "ko": "고람",
+        "zh": "高覽"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 210,
+      "stats": {
+        "ldr": 74,
+        "war": 80,
+        "int": 46,
+        "pol": 38,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 6,
+        "compat": 100
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "drill"
+      ]
+    },
+    {
+      "id": "han_fu",
+      "name": {
+        "ko": "한복",
+        "zh": "韓馥"
+      },
+      "gender": "male",
+      "birth": 140,
+      "death": 191,
+      "stats": {
+        "ldr": 40,
+        "war": 32,
+        "int": 52,
+        "pol": 64,
+        "cha": 48
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 3,
+        "compat": 90
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "agriculture"
+      ],
+      "ruler_personality": {
+        "aggression": 2,
+        "faith": 5,
+        "domestic": 6,
+        "diplomacy": 6
+      }
+    },
+    {
+      "id": "zhang_he",
+      "name": {
+        "ko": "장합",
+        "zh": "張郃"
+      },
+      "gender": "male",
+      "birth": 167,
+      "death": 231,
+      "stats": {
+        "ldr": 90,
+        "war": 88,
+        "int": 72,
+        "pol": 56,
+        "cha": 64
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 6,
+        "compat": 30
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "S",
+        "wedge": "A",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "mountain"
+      ]
+    },
+    {
+      "id": "shen_pei",
+      "name": {
+        "ko": "심배",
+        "zh": "審配"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 204,
+      "stats": {
+        "ldr": 76,
+        "war": 52,
+        "int": 80,
+        "pol": 72,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 5,
+        "compat": 100
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "iron_wall"
+      ]
+    },
+    {
+      "id": "ju_shou",
+      "name": {
+        "ko": "저수",
+        "zh": "沮授"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 200,
+      "stats": {
+        "ldr": 82,
+        "war": 40,
+        "int": 92,
+        "pol": 86,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 4,
+        "compat": 95
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "strategist"
+      ]
+    },
+    {
+      "id": "qu_yi",
+      "name": {
+        "ko": "국의",
+        "zh": "麴義"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 199,
+      "stats": {
+        "ldr": 84,
+        "war": 82,
+        "int": 60,
+        "pol": 36,
+        "cha": 52
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 9,
+        "compat": 105
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "S",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "S",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "marksman"
+      ]
+    },
+    {
+      "id": "cao_cao",
+      "name": {
+        "ko": "조조",
+        "zh": "曹操"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 220,
+      "stats": {
+        "ldr": 97,
+        "war": 74,
+        "int": 92,
+        "pol": 92,
+        "cha": 95
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 15,
+        "compat": 25
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "A",
+        "naval": "B"
+      },
+      "traits": [
+        "talent_eye",
+        "strategist"
+      ],
+      "ruler_personality": {
+        "aggression": 8,
+        "faith": 5,
+        "domestic": 8,
+        "diplomacy": 6
+      }
+    },
+    {
+      "id": "xiahou_dun",
+      "name": {
+        "ko": "하후돈",
+        "zh": "夏侯惇"
+      },
+      "gender": "male",
+      "birth": 157,
+      "death": 220,
+      "stats": {
+        "ldr": 88,
+        "war": 89,
+        "int": 58,
+        "pol": 70,
+        "cha": 78
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 4,
+        "compat": 25
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "B"
+      },
+      "traits": [
+        "indomitable"
+      ]
+    },
+    {
+      "id": "xiahou_yuan",
+      "name": {
+        "ko": "하후연",
+        "zh": "夏侯淵"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 219,
+      "stats": {
+        "ldr": 86,
+        "war": 90,
+        "int": 56,
+        "pol": 50,
+        "cha": 68
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 4,
+        "compat": 26
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "forced_march"
+      ]
+    },
+    {
+      "id": "cao_ren",
+      "name": {
+        "ko": "조인",
+        "zh": "曹仁"
+      },
+      "gender": "male",
+      "birth": 168,
+      "death": 223,
+      "stats": {
+        "ldr": 90,
+        "war": 86,
+        "int": 64,
+        "pol": 52,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 4,
+        "compat": 24
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "S",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "A",
+        "naval": "B"
+      },
+      "traits": [
+        "iron_wall"
+      ]
+    },
+    {
+      "id": "cao_hong",
+      "name": {
+        "ko": "조홍",
+        "zh": "曹洪"
+      },
+      "gender": "male",
+      "birth": 170,
+      "death": 232,
+      "stats": {
+        "ldr": 72,
+        "war": 78,
+        "int": 40,
+        "pol": 44,
+        "cha": 54
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 5,
+        "compat": 27
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "inspire"
+      ]
+    },
+    {
+      "id": "yue_jin",
+      "name": {
+        "ko": "악진",
+        "zh": "樂進"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 218,
+      "stats": {
+        "ldr": 80,
+        "war": 84,
+        "int": 50,
+        "pol": 40,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 5,
+        "compat": 26
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "vanguard"
+      ]
+    },
+    {
+      "id": "li_dian",
+      "name": {
+        "ko": "이전",
+        "zh": "李典"
+      },
+      "gender": "male",
+      "birth": 174,
+      "death": 209,
+      "stats": {
+        "ldr": 80,
+        "war": 76,
+        "int": 74,
+        "pol": 66,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 3,
+        "compat": 28
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "A",
+        "naval": "C"
+      },
+      "traits": [
+        "insight"
+      ]
+    },
+    {
+      "id": "chen_gong",
+      "name": {
+        "ko": "진궁",
+        "zh": "陳宮"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 198,
+      "stats": {
+        "ldr": 78,
+        "war": 46,
+        "int": 90,
+        "pol": 80,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 11,
+        "ambition": 8,
+        "compat": 120
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "strategist"
+      ]
+    },
+    {
+      "id": "dian_wei",
+      "name": {
+        "ko": "전위",
+        "zh": "典韋"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 197,
+      "stats": {
+        "ldr": 52,
+        "war": 96,
+        "int": 30,
+        "pol": 20,
+        "cha": 40
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 2,
+        "compat": 26
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "C",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "peerless"
+      ]
+    },
+    {
+      "id": "sun_jian",
+      "name": {
+        "ko": "손견",
+        "zh": "孫堅"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 191,
+      "stats": {
+        "ldr": 93,
+        "war": 90,
+        "int": 74,
+        "pol": 70,
+        "cha": 86
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 10,
+        "compat": 50
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "A"
+      },
+      "traits": [
+        "vanguard",
+        "valiant"
+      ],
+      "ruler_personality": {
+        "aggression": 8,
+        "faith": 6,
+        "domestic": 5,
+        "diplomacy": 4
+      }
+    },
+    {
+      "id": "cheng_pu",
+      "name": {
+        "ko": "정보",
+        "zh": "程普"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 215,
+      "stats": {
+        "ldr": 86,
+        "war": 80,
+        "int": 72,
+        "pol": 64,
+        "cha": 76
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 3,
+        "compat": 50
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "S"
+      },
+      "traits": [
+        "naval"
+      ]
+    },
+    {
+      "id": "huang_gai",
+      "name": {
+        "ko": "황개",
+        "zh": "黃蓋"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 215,
+      "stats": {
+        "ldr": 82,
+        "war": 82,
+        "int": 70,
+        "pol": 62,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 3,
+        "compat": 51
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "S"
+      },
+      "traits": [
+        "fire_master"
+      ]
+    },
+    {
+      "id": "han_dang",
+      "name": {
+        "ko": "한당",
+        "zh": "韓當"
+      },
+      "gender": "male",
+      "birth": 153,
+      "death": 227,
+      "stats": {
+        "ldr": 80,
+        "war": 82,
+        "int": 50,
+        "pol": 44,
+        "cha": 56
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 3,
+        "compat": 49
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "A"
+      },
+      "traits": [
+        "marksman"
+      ]
+    },
+    {
+      "id": "zu_mao",
+      "name": {
+        "ko": "조무",
+        "zh": "祖茂"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 191,
+      "stats": {
+        "ldr": 64,
+        "war": 72,
+        "int": 38,
+        "pol": 36,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 3,
+        "compat": 50
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "B"
+      },
+      "traits": [
+        "indomitable"
+      ]
+    },
+    {
+      "id": "sun_ce",
+      "name": {
+        "ko": "손책",
+        "zh": "孫策"
+      },
+      "gender": "male",
+      "birth": 175,
+      "death": 200,
+      "stats": {
+        "ldr": 92,
+        "war": 94,
+        "int": 70,
+        "pol": 68,
+        "cha": 94
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 12,
+        "compat": 50
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "A"
+      },
+      "traits": [
+        "valiant",
+        "fame"
+      ],
+      "kin": {
+        "father": "sun_jian",
+        "siblings": [
+          "sun_quan"
+        ]
+      },
+      "ruler_personality": {
+        "aggression": 9,
+        "faith": 6,
+        "domestic": 5,
+        "diplomacy": 5
+      }
+    },
+    {
+      "id": "sun_quan",
+      "name": {
+        "ko": "손권",
+        "zh": "孫權"
+      },
+      "gender": "male",
+      "birth": 182,
+      "death": 252,
+      "stats": {
+        "ldr": 80,
+        "war": 66,
+        "int": 80,
+        "pol": 86,
+        "cha": 95
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 10,
+        "compat": 50
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "A"
+      },
+      "traits": [
+        "talent_eye",
+        "dignity"
+      ],
+      "kin": {
+        "father": "sun_jian",
+        "siblings": [
+          "sun_ce"
+        ]
+      },
+      "ruler_personality": {
+        "aggression": 4,
+        "faith": 6,
+        "domestic": 8,
+        "diplomacy": 8
+      }
+    },
+    {
+      "id": "zhou_yu",
+      "name": {
+        "ko": "주유",
+        "zh": "周瑜"
+      },
+      "gender": "male",
+      "birth": 175,
+      "death": 210,
+      "stats": {
+        "ldr": 97,
+        "war": 72,
+        "int": 97,
+        "pol": 86,
+        "cha": 94
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 6,
+        "compat": 52
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "S",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "S"
+      },
+      "traits": [
+        "fire_master",
+        "strategist"
+      ]
+    },
+    {
+      "id": "lu_su",
+      "name": {
+        "ko": "노숙",
+        "zh": "魯肅"
+      },
+      "gender": "male",
+      "birth": 172,
+      "death": 217,
+      "stats": {
+        "ldr": 82,
+        "war": 52,
+        "int": 92,
+        "pol": 90,
+        "cha": 88
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 5,
+        "compat": 53
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "A"
+      },
+      "traits": [
+        "eloquence"
+      ]
+    },
+    {
+      "id": "yuan_shu",
+      "name": {
+        "ko": "원술",
+        "zh": "袁術"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 199,
+      "stats": {
+        "ldr": 70,
+        "war": 64,
+        "int": 66,
+        "pol": 60,
+        "cha": 72
+      },
+      "hidden": {
+        "loyalty": 4,
+        "ambition": 15,
+        "compat": 101
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "fame"
+      ],
+      "kin": {
+        "siblings": [
+          "yuan_shao"
+        ]
+      },
+      "ruler_personality": {
+        "aggression": 7,
+        "faith": 2,
+        "domestic": 4,
+        "diplomacy": 4
+      }
+    },
+    {
+      "id": "ji_ling",
+      "name": {
+        "ko": "기령",
+        "zh": "紀靈"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 199,
+      "stats": {
+        "ldr": 80,
+        "war": 88,
+        "int": 44,
+        "pol": 34,
+        "cha": 52
+      },
+      "hidden": {
+        "loyalty": 11,
+        "ambition": 5,
+        "compat": 101
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "valiant"
+      ]
+    },
+    {
+      "id": "zhang_xun",
+      "name": {
+        "ko": "장훈",
+        "zh": "張勳"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 199,
+      "stats": {
+        "ldr": 70,
+        "war": 70,
+        "int": 48,
+        "pol": 46,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 6,
+        "compat": 102
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "vanguard"
+      ]
+    },
+    {
+      "id": "qiao_rui",
+      "name": {
+        "ko": "교유",
+        "zh": "橋蕤"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 197,
+      "stats": {
+        "ldr": 64,
+        "war": 70,
+        "int": 40,
+        "pol": 40,
+        "cha": 46
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 5,
+        "compat": 102
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "forced_march"
+      ]
+    },
+    {
+      "id": "yan_xiang",
+      "name": {
+        "ko": "염상",
+        "zh": "閻象"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 200,
+      "stats": {
+        "ldr": 30,
+        "war": 22,
+        "int": 74,
+        "pol": 76,
+        "cha": 60
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 3,
+        "compat": 101
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "C",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "eloquence"
+      ]
+    },
+    {
+      "id": "lei_bo",
+      "name": {
+        "ko": "뇌박",
+        "zh": "雷薄"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 200,
+      "stats": {
+        "ldr": 60,
+        "war": 72,
+        "int": 30,
+        "pol": 30,
+        "cha": 34
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 6,
+        "compat": 103
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "intimidate"
+      ]
+    },
+    {
+      "id": "gongsun_zan",
+      "name": {
+        "ko": "공손찬",
+        "zh": "公孫瓚"
+      },
+      "gender": "male",
+      "birth": 153,
+      "death": 199,
+      "stats": {
+        "ldr": 84,
+        "war": 86,
+        "int": 58,
+        "pol": 50,
+        "cha": 72
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 11,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "S",
+        "wild_geese": "S",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry",
+        "marksman"
+      ],
+      "ruler_personality": {
+        "aggression": 8,
+        "faith": 4,
+        "domestic": 4,
+        "diplomacy": 3
+      }
+    },
+    {
+      "id": "gongsun_yue",
+      "name": {
+        "ko": "공손월",
+        "zh": "公孫越"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 191,
+      "stats": {
+        "ldr": 60,
+        "war": 66,
+        "int": 40,
+        "pol": 40,
+        "cha": 52
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 5,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "C",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry"
+      ]
+    },
+    {
+      "id": "yan_gang",
+      "name": {
+        "ko": "엄강",
+        "zh": "嚴綱"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 191,
+      "stats": {
+        "ldr": 66,
+        "war": 70,
+        "int": 40,
+        "pol": 36,
+        "cha": 46
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 5,
+        "compat": 71
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "C",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry"
+      ]
+    },
+    {
+      "id": "tian_kai",
+      "name": {
+        "ko": "전해",
+        "zh": "田楷"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 199,
+      "stats": {
+        "ldr": 62,
+        "war": 60,
+        "int": 50,
+        "pol": 50,
+        "cha": 54
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 5,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "recruiter"
+      ]
+    },
+    {
+      "id": "guan_jing",
+      "name": {
+        "ko": "관정",
+        "zh": "關靖"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 199,
+      "stats": {
+        "ldr": 30,
+        "war": 20,
+        "int": 70,
+        "pol": 72,
+        "cha": 40
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 3,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "agriculture"
+      ]
+    },
+    {
+      "id": "zhao_yun",
+      "name": {
+        "ko": "조운",
+        "zh": "趙雲"
+      },
+      "gender": "male",
+      "birth": 168,
+      "death": 229,
+      "stats": {
+        "ldr": 92,
+        "war": 96,
+        "int": 76,
+        "pol": 68,
+        "cha": 86
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 3,
+        "compat": 75
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "B"
+      },
+      "traits": [
+        "peerless",
+        "indomitable"
+      ]
+    },
+    {
+      "id": "liu_bei",
+      "name": {
+        "ko": "유비",
+        "zh": "劉備"
+      },
+      "gender": "male",
+      "birth": 161,
+      "death": 223,
+      "stats": {
+        "ldr": 76,
+        "war": 74,
+        "int": 74,
+        "pol": 78,
+        "cha": 99
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 9,
+        "compat": 75
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "benevolence",
+        "fame"
+      ],
+      "ruler_personality": {
+        "aggression": 5,
+        "faith": 10,
+        "domestic": 6,
+        "diplomacy": 7
+      }
+    },
+    {
+      "id": "guan_yu",
+      "name": {
+        "ko": "관우",
+        "zh": "關羽"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 220,
+      "stats": {
+        "ldr": 96,
+        "war": 98,
+        "int": 76,
+        "pol": 64,
+        "cha": 94
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 6,
+        "compat": 76
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "S"
+      },
+      "traits": [
+        "valiant",
+        "naval"
+      ]
+    },
+    {
+      "id": "zhang_fei",
+      "name": {
+        "ko": "장비",
+        "zh": "張飛"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 221,
+      "stats": {
+        "ldr": 88,
+        "war": 98,
+        "int": 44,
+        "pol": 30,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 5,
+        "compat": 76
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "intimidate",
+        "peerless"
+      ]
+    },
+    {
+      "id": "jian_yong",
+      "name": {
+        "ko": "간옹",
+        "zh": "簡雍"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 225,
+      "stats": {
+        "ldr": 30,
+        "war": 26,
+        "int": 66,
+        "pol": 70,
+        "cha": 76
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 2,
+        "compat": 76
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "C",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "eloquence"
+      ]
+    },
+    {
+      "id": "liu_biao",
+      "name": {
+        "ko": "유표",
+        "zh": "劉表"
+      },
+      "gender": "male",
+      "birth": 142,
+      "death": 208,
+      "stats": {
+        "ldr": 64,
+        "war": 48,
+        "int": 72,
+        "pol": 82,
+        "cha": 86
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 6,
+        "compat": 85
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "A"
+      },
+      "traits": [
+        "benevolence",
+        "erudite"
+      ],
+      "ruler_personality": {
+        "aggression": 3,
+        "faith": 6,
+        "domestic": 7,
+        "diplomacy": 6
+      }
+    },
+    {
+      "id": "kuai_liang",
+      "name": {
+        "ko": "괴량",
+        "zh": "蒯良"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 210,
+      "stats": {
+        "ldr": 50,
+        "war": 30,
+        "int": 84,
+        "pol": 82,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 11,
+        "ambition": 4,
+        "compat": 85
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "strategist"
+      ]
+    },
+    {
+      "id": "kuai_yue",
+      "name": {
+        "ko": "괴월",
+        "zh": "蒯越"
+      },
+      "gender": "male",
+      "birth": 155,
+      "death": 214,
+      "stats": {
+        "ldr": 60,
+        "war": 40,
+        "int": 86,
+        "pol": 80,
+        "cha": 64
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 6,
+        "compat": 84
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "B"
+      },
+      "traits": [
+        "schemer"
+      ]
+    },
+    {
+      "id": "cai_mao",
+      "name": {
+        "ko": "채모",
+        "zh": "蔡瑁"
+      },
+      "gender": "male",
+      "birth": 158,
+      "death": 210,
+      "stats": {
+        "ldr": 74,
+        "war": 66,
+        "int": 64,
+        "pol": 62,
+        "cha": 46
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 7,
+        "compat": 86
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "S"
+      },
+      "traits": [
+        "naval"
+      ]
+    },
+    {
+      "id": "huang_zu",
+      "name": {
+        "ko": "황조",
+        "zh": "黃祖"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 208,
+      "stats": {
+        "ldr": 70,
+        "war": 64,
+        "int": 50,
+        "pol": 44,
+        "cha": 40
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 5,
+        "compat": 86
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "A"
+      },
+      "traits": [
+        "marksman"
+      ]
+    },
+    {
+      "id": "wen_pin",
+      "name": {
+        "ko": "문빙",
+        "zh": "文聘"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 230,
+      "stats": {
+        "ldr": 82,
+        "war": 80,
+        "int": 60,
+        "pol": 56,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 4,
+        "compat": 85
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "A"
+      },
+      "traits": [
+        "iron_wall"
+      ]
+    },
+    {
+      "id": "zhang_yun",
+      "name": {
+        "ko": "장윤",
+        "zh": "張允"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 208,
+      "stats": {
+        "ldr": 58,
+        "war": 60,
+        "int": 46,
+        "pol": 40,
+        "cha": 40
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 5,
+        "compat": 86
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "A"
+      },
+      "traits": [
+        "naval"
+      ]
+    },
+    {
+      "id": "huang_zhong",
+      "name": {
+        "ko": "황충",
+        "zh": "黃忠"
+      },
+      "gender": "male",
+      "birth": 148,
+      "death": 220,
+      "stats": {
+        "ldr": 88,
+        "war": 94,
+        "int": 62,
+        "pol": 50,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 4,
+        "compat": 78
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "S",
+        "siege": "B",
+        "naval": "B"
+      },
+      "traits": [
+        "marksman",
+        "vanguard"
+      ]
+    },
+    {
+      "id": "wei_yan",
+      "name": {
+        "ko": "위연",
+        "zh": "魏延"
+      },
+      "gender": "male",
+      "birth": 175,
+      "death": 234,
+      "stats": {
+        "ldr": 84,
+        "war": 90,
+        "int": 66,
+        "pol": 46,
+        "cha": 50
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 12,
+        "compat": 80
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "breakthrough"
+      ]
+    },
+    {
+      "id": "liu_yan",
+      "name": {
+        "ko": "유언",
+        "zh": "劉焉"
+      },
+      "gender": "male",
+      "birth": 135,
+      "death": 194,
+      "stats": {
+        "ldr": 60,
+        "war": 40,
+        "int": 70,
+        "pol": 78,
+        "cha": 74
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 12,
+        "compat": 88
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "dignity"
+      ],
+      "ruler_personality": {
+        "aggression": 3,
+        "faith": 4,
+        "domestic": 7,
+        "diplomacy": 5
+      }
+    },
+    {
+      "id": "liu_zhang",
+      "name": {
+        "ko": "유장",
+        "zh": "劉璋"
+      },
+      "gender": "male",
+      "birth": 162,
+      "death": 219,
+      "stats": {
+        "ldr": 40,
+        "war": 30,
+        "int": 46,
+        "pol": 60,
+        "cha": 64
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 3,
+        "compat": 88
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "benevolence"
+      ],
+      "kin": {
+        "father": "liu_yan"
+      },
+      "ruler_personality": {
+        "aggression": 2,
+        "faith": 6,
+        "domestic": 6,
+        "diplomacy": 6
+      }
+    },
+    {
+      "id": "zhang_ren",
+      "name": {
+        "ko": "장임",
+        "zh": "張任"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 214,
+      "stats": {
+        "ldr": 86,
+        "war": 84,
+        "int": 72,
+        "pol": 50,
+        "cha": 64
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 4,
+        "compat": 88
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "A",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "ambush_master"
+      ]
+    },
+    {
+      "id": "yan_yan",
+      "name": {
+        "ko": "엄안",
+        "zh": "嚴顏"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 220,
+      "stats": {
+        "ldr": 80,
+        "war": 82,
+        "int": 60,
+        "pol": 50,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 4,
+        "compat": 87
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "B"
+      },
+      "traits": [
+        "iron_wall"
+      ]
+    },
+    {
+      "id": "huang_quan",
+      "name": {
+        "ko": "황권",
+        "zh": "黃權"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 240,
+      "stats": {
+        "ldr": 76,
+        "war": 50,
+        "int": 80,
+        "pol": 74,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 4,
+        "compat": 89
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "insight"
+      ]
+    },
+    {
+      "id": "zhang_song",
+      "name": {
+        "ko": "장송",
+        "zh": "張松"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 212,
+      "stats": {
+        "ldr": 30,
+        "war": 20,
+        "int": 86,
+        "pol": 76,
+        "cha": 30
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 8,
+        "compat": 90
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "C",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "erudite"
+      ]
+    },
+    {
+      "id": "zhang_lu",
+      "name": {
+        "ko": "장로",
+        "zh": "張魯"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 216,
+      "stats": {
+        "ldr": 60,
+        "war": 40,
+        "int": 72,
+        "pol": 80,
+        "cha": 84
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 10,
+        "compat": 89
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "benevolence"
+      ],
+      "ruler_personality": {
+        "aggression": 3,
+        "faith": 5,
+        "domestic": 7,
+        "diplomacy": 5
+      }
+    },
+    {
+      "id": "wu_yi",
+      "name": {
+        "ko": "오의",
+        "zh": "吳懿"
+      },
+      "gender": "male",
+      "birth": 160,
+      "death": 237,
+      "stats": {
+        "ldr": 76,
+        "war": 70,
+        "int": 64,
+        "pol": 60,
+        "cha": 64
+      },
+      "hidden": {
+        "loyalty": 11,
+        "ambition": 5,
+        "compat": 88
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "inspire"
+      ]
+    },
+    {
+      "id": "ma_teng",
+      "name": {
+        "ko": "마등",
+        "zh": "馬騰"
+      },
+      "gender": "male",
+      "birth": 156,
+      "death": 212,
+      "stats": {
+        "ldr": 86,
+        "war": 84,
+        "int": 50,
+        "pol": 54,
+        "cha": 80
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 7,
+        "compat": 60
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry",
+        "inspire"
+      ],
+      "ruler_personality": {
+        "aggression": 6,
+        "faith": 6,
+        "domestic": 5,
+        "diplomacy": 5
+      }
+    },
+    {
+      "id": "han_sui",
+      "name": {
+        "ko": "한수",
+        "zh": "韓遂"
+      },
+      "gender": "male",
+      "birth": 145,
+      "death": 215,
+      "stats": {
+        "ldr": 80,
+        "war": 72,
+        "int": 74,
+        "pol": 62,
+        "cha": 70
+      },
+      "hidden": {
+        "loyalty": 4,
+        "ambition": 12,
+        "compat": 61
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "schemer"
+      ],
+      "ruler_personality": {
+        "aggression": 6,
+        "faith": 2,
+        "domestic": 4,
+        "diplomacy": 5
+      }
+    },
+    {
+      "id": "ma_chao",
+      "name": {
+        "ko": "마초",
+        "zh": "馬超"
+      },
+      "gender": "male",
+      "birth": 176,
+      "death": 222,
+      "stats": {
+        "ldr": 88,
+        "war": 98,
+        "int": 50,
+        "pol": 30,
+        "cha": 80
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 10,
+        "compat": 60
+      },
+      "aptitude": {
+        "fish_scale": "S",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "A",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "cavalry",
+        "peerless"
+      ],
+      "kin": {
+        "father": "ma_teng"
+      }
+    },
+    {
+      "id": "pang_de",
+      "name": {
+        "ko": "방덕",
+        "zh": "龐德"
+      },
+      "gender": "male",
+      "birth": 170,
+      "death": 219,
+      "stats": {
+        "ldr": 82,
+        "war": 94,
+        "int": 60,
+        "pol": 40,
+        "cha": 64
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 3,
+        "compat": 60
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "indomitable"
+      ]
+    },
+    {
+      "id": "ma_dai",
+      "name": {
+        "ko": "마대",
+        "zh": "馬岱"
+      },
+      "gender": "male",
+      "birth": 175,
+      "death": 240,
+      "stats": {
+        "ldr": 72,
+        "war": 80,
+        "int": 50,
+        "pol": 40,
+        "cha": 52
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 4,
+        "compat": 60
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "forced_march"
+      ]
+    },
+    {
+      "id": "tao_qian",
+      "name": {
+        "ko": "도겸",
+        "zh": "陶謙"
+      },
+      "gender": "male",
+      "birth": 132,
+      "death": 194,
+      "stats": {
+        "ldr": 50,
+        "war": 40,
+        "int": 62,
+        "pol": 72,
+        "cha": 72
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 5,
+        "compat": 75
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "B"
+      },
+      "traits": [
+        "benevolence"
+      ],
+      "ruler_personality": {
+        "aggression": 3,
+        "faith": 6,
+        "domestic": 6,
+        "diplomacy": 6
+      }
+    },
+    {
+      "id": "mi_zhu",
+      "name": {
+        "ko": "미축",
+        "zh": "麋竺"
+      },
+      "gender": "male",
+      "birth": 165,
+      "death": 221,
+      "stats": {
+        "ldr": 30,
+        "war": 30,
+        "int": 64,
+        "pol": 78,
+        "cha": 84
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 3,
+        "compat": 76
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "C",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "commerce"
+      ],
+      "kin": {
+        "siblings": [
+          "mi_fang"
+        ]
+      }
+    },
+    {
+      "id": "mi_fang",
+      "name": {
+        "ko": "미방",
+        "zh": "麋芳"
+      },
+      "gender": "male",
+      "birth": 167,
+      "death": 222,
+      "stats": {
+        "ldr": 56,
+        "war": 60,
+        "int": 30,
+        "pol": 40,
+        "cha": 44
+      },
+      "hidden": {
+        "loyalty": 4,
+        "ambition": 5,
+        "compat": 76
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "commerce"
+      ],
+      "kin": {
+        "siblings": [
+          "mi_zhu"
+        ]
+      }
+    },
+    {
+      "id": "chen_deng",
+      "name": {
+        "ko": "진등",
+        "zh": "陳登"
+      },
+      "gender": "male",
+      "birth": 163,
+      "death": 201,
+      "stats": {
+        "ldr": 80,
+        "war": 64,
+        "int": 86,
+        "pol": 84,
+        "cha": 76
+      },
+      "hidden": {
+        "loyalty": 9,
+        "ambition": 6,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "A"
+      },
+      "traits": [
+        "agriculture"
+      ]
+    },
+    {
+      "id": "chen_gui",
+      "name": {
+        "ko": "진규",
+        "zh": "陳珪"
+      },
+      "gender": "male",
+      "birth": 140,
+      "death": 200,
+      "stats": {
+        "ldr": 30,
+        "war": 20,
+        "int": 80,
+        "pol": 76,
+        "cha": 62
+      },
+      "hidden": {
+        "loyalty": 5,
+        "ambition": 6,
+        "compat": 70
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "C",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "schemer"
+      ]
+    },
+    {
+      "id": "cao_bao",
+      "name": {
+        "ko": "조표",
+        "zh": "曹豹"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 196,
+      "stats": {
+        "ldr": 62,
+        "war": 64,
+        "int": 32,
+        "pol": 32,
+        "cha": 34
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 5,
+        "compat": 75
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "B"
+      },
+      "traits": [
+        "recruiter"
+      ]
+    },
+    {
+      "id": "kong_rong",
+      "name": {
+        "ko": "공융",
+        "zh": "孔融"
+      },
+      "gender": "male",
+      "birth": 153,
+      "death": 208,
+      "stats": {
+        "ldr": 40,
+        "war": 26,
+        "int": 74,
+        "pol": 78,
+        "cha": 86
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 4,
+        "compat": 77
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "C",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "erudite",
+        "eloquence"
+      ],
+      "ruler_personality": {
+        "aggression": 2,
+        "faith": 8,
+        "domestic": 5,
+        "diplomacy": 7
+      }
+    },
+    {
+      "id": "taishi_ci",
+      "name": {
+        "ko": "태사자",
+        "zh": "太史慈"
+      },
+      "gender": "male",
+      "birth": 166,
+      "death": 206,
+      "stats": {
+        "ldr": 86,
+        "war": 94,
+        "int": 64,
+        "pol": 50,
+        "cha": 72
+      },
+      "hidden": {
+        "loyalty": 14,
+        "ambition": 5,
+        "compat": 52
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "S",
+        "siege": "C",
+        "naval": "B"
+      },
+      "traits": [
+        "marksman",
+        "valiant"
+      ]
+    },
+    {
+      "id": "gongsun_du",
+      "name": {
+        "ko": "공손도",
+        "zh": "公孫度"
+      },
+      "gender": "male",
+      "birth": 150,
+      "death": 204,
+      "stats": {
+        "ldr": 72,
+        "war": 60,
+        "int": 60,
+        "pol": 66,
+        "cha": 60
+      },
+      "hidden": {
+        "loyalty": 6,
+        "ambition": 12,
+        "compat": 10
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "dignity"
+      ],
+      "ruler_personality": {
+        "aggression": 5,
+        "faith": 4,
+        "domestic": 6,
+        "diplomacy": 3
+      }
+    },
+    {
+      "id": "gongsun_kang",
+      "name": {
+        "ko": "공손강",
+        "zh": "公孫康"
+      },
+      "gender": "male",
+      "birth": 170,
+      "death": 221,
+      "stats": {
+        "ldr": 70,
+        "war": 66,
+        "int": 56,
+        "pol": 60,
+        "cha": 54
+      },
+      "hidden": {
+        "loyalty": 8,
+        "ambition": 8,
+        "compat": 10
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "B",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "recruiter"
+      ],
+      "kin": {
+        "father": "gongsun_du"
+      }
+    },
+    {
+      "id": "xun_yu",
+      "name": {
+        "ko": "순욱",
+        "zh": "荀彧"
+      },
+      "gender": "male",
+      "birth": 163,
+      "death": 212,
+      "stats": {
+        "ldr": 70,
+        "war": 30,
+        "int": 96,
+        "pol": 98,
+        "cha": 92
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 3,
+        "compat": 30
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "B",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "C",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "talent_eye",
+        "erudite"
+      ]
+    },
+    {
+      "id": "guo_jia",
+      "name": {
+        "ko": "곽가",
+        "zh": "郭嘉"
+      },
+      "gender": "male",
+      "birth": 170,
+      "death": 207,
+      "stats": {
+        "ldr": 60,
+        "war": 40,
+        "int": 98,
+        "pol": 80,
+        "cha": 78
+      },
+      "hidden": {
+        "loyalty": 10,
+        "ambition": 5,
+        "compat": 30
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "C",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "strategist",
+        "insight"
+      ]
+    },
+    {
+      "id": "cheng_yu",
+      "name": {
+        "ko": "정욱",
+        "zh": "程昱"
+      },
+      "gender": "male",
+      "birth": 141,
+      "death": 220,
+      "stats": {
+        "ldr": 78,
+        "war": 50,
+        "int": 90,
+        "pol": 80,
+        "cha": 54
+      },
+      "hidden": {
+        "loyalty": 11,
+        "ambition": 6,
+        "compat": 29
+      },
+      "aptitude": {
+        "fish_scale": "C",
+        "crane_wing": "B",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "C",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "schemer"
+      ]
+    },
+    {
+      "id": "xu_huang",
+      "name": {
+        "ko": "서황",
+        "zh": "徐晃"
+      },
+      "gender": "male",
+      "birth": 169,
+      "death": 227,
+      "stats": {
+        "ldr": 90,
+        "war": 90,
+        "int": 72,
+        "pol": 54,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 4,
+        "compat": 28
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "A",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "C"
+      },
+      "traits": [
+        "breakthrough"
+      ]
+    },
+    {
+      "id": "zhuge_liang",
+      "name": {
+        "ko": "제갈량",
+        "zh": "諸葛亮"
+      },
+      "gender": "male",
+      "birth": 181,
+      "death": 234,
+      "stats": {
+        "ldr": 98,
+        "war": 40,
+        "int": 100,
+        "pol": 96,
+        "cha": 98
+      },
+      "hidden": {
+        "loyalty": 15,
+        "ambition": 4,
+        "compat": 75
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "S",
+        "square": "A",
+        "long_snake": "A",
+        "wedge": "B",
+        "wild_geese": "A",
+        "siege": "A",
+        "naval": "A"
+      },
+      "traits": [
+        "strategist",
+        "astronomy"
+      ]
+    },
+    {
+      "id": "pang_tong",
+      "name": {
+        "ko": "방통",
+        "zh": "龐統"
+      },
+      "gender": "male",
+      "birth": 179,
+      "death": 214,
+      "stats": {
+        "ldr": 84,
+        "war": 36,
+        "int": 98,
+        "pol": 86,
+        "cha": 66
+      },
+      "hidden": {
+        "loyalty": 12,
+        "ambition": 6,
+        "compat": 74
+      },
+      "aptitude": {
+        "fish_scale": "B",
+        "crane_wing": "A",
+        "square": "A",
+        "long_snake": "B",
+        "wedge": "B",
+        "wild_geese": "B",
+        "siege": "B",
+        "naval": "B"
+      },
+      "traits": [
+        "chain_master",
+        "strategist"
+      ]
+    }
+  ]
+}

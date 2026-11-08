@@ -1,0 +1,288 @@
+{
+  "techs": [
+    {
+      "id": "cavalry",
+      "name": {
+        "ko": "기마",
+        "zh": "騎馬"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "군마 생산량 +30%",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "추행 이동력 +1",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6,
+          "requires_facility": {
+            "id": "stable",
+            "level": 2
+          }
+        },
+        {
+          "level": 3,
+          "description": "추행 전법 \"유린\" 성공률 +20%",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9,
+          "requires_facility": {
+            "id": "stable",
+            "level": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "archery",
+      "name": {
+        "ko": "궁노",
+        "zh": "弓弩"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "노 생산량 +30%",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "안행 전법 \"난사\" A등급부터 사용",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6,
+          "requires_facility": {
+            "id": "workshop",
+            "level": 2
+          }
+        },
+        {
+          "level": 3,
+          "description": "안행 사거리 +1",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9,
+          "requires_facility": {
+            "id": "workshop",
+            "level": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "siegecraft",
+      "name": {
+        "ko": "공성",
+        "zh": "攻城"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "공성병기 생산량 +30%",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "공성진 전법 \"투석\" 해금 조건 완화",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6,
+          "requires_facility": {
+            "id": "siege_works",
+            "level": 2
+          }
+        },
+        {
+          "level": 3,
+          "description": "공성진 \"투석\" 사거리 +1",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9,
+          "requires_facility": {
+            "id": "siege_works",
+            "level": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "navy",
+      "name": {
+        "ko": "수군",
+        "zh": "水軍"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "함선 생산량 +30%",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "수진 이동력 +1",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6,
+          "requires_facility": {
+            "id": "shipyard",
+            "level": 2
+          }
+        },
+        {
+          "level": 3,
+          "description": "대형 함선 해금",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9,
+          "requires_facility": {
+            "id": "shipyard",
+            "level": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "formation",
+      "name": {
+        "ko": "진법",
+        "zh": "陣法"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "기본 진형 사기 감소 완화",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "진형 상성 우위 보정 1.2 → 1.25",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6
+        },
+        {
+          "level": 3,
+          "description": "기본 진형 전법 기력 소모 -5",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9
+        }
+      ]
+    },
+    {
+      "id": "administration",
+      "name": {
+        "ko": "내정",
+        "zh": "內政"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "시설 건설 기간 -1턴",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "인접 보너스 +50%",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6
+        },
+        {
+          "level": 3,
+          "description": "민심 자연 회복",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9
+        }
+      ]
+    },
+    {
+      "id": "fortification",
+      "name": {
+        "ko": "축성",
+        "zh": "築城"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": "성벽·성문 내구 +30%",
+          "cost": {
+            "tech_points": 200,
+            "gold": 500
+          },
+          "research_turns": 3
+        },
+        {
+          "level": 2,
+          "description": "성문 자동 보수",
+          "cost": {
+            "tech_points": 400,
+            "gold": 1000
+          },
+          "research_turns": 6
+        },
+        {
+          "level": 3,
+          "description": "성벽 위 사격 +15%",
+          "cost": {
+            "tech_points": 600,
+            "gold": 1500
+          },
+          "research_turns": 9
+        }
+      ]
+    }
+  ]
+}

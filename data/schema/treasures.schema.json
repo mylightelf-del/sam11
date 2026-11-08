@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "보물",
+  "type": "object",
+  "required": [
+    "treasures"
+  ],
+  "properties": {
+    "treasures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slot",
+          "stat_bonus",
+          "grants_traits"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ko"
+            ],
+            "properties": {
+              "ko": {
+                "type": "string"
+              },
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "slot": {
+            "enum": [
+              "weapon",
+              "horse",
+              "book",
+              "artifact"
+            ]
+          },
+          "stat_bonus": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ldr": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "war": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "int": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "pol": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "cha": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              }
+            }
+          },
+          "grants_traits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            }
+          },
+          "special": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "무장",
+  "type": "object",
+  "required": [
+    "officers"
+  ],
+  "properties": {
+    "officers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "gender",
+          "birth",
+          "stats",
+          "hidden",
+          "aptitude",
+          "traits"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ko"
+            ],
+            "properties": {
+              "ko": {
+                "type": "string"
+              },
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "gender": {
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "birth": {
+            "type": "integer"
+          },
+          "death": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "stats": {
+            "type": "object",
+            "required": [
+              "ldr",
+              "war",
+              "int",
+              "pol",
+              "cha"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ldr": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "war": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "int": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "pol": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "cha": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              }
+            }
+          },
+          "hidden": {
+            "type": "object",
+            "required": [
+              "loyalty",
+              "ambition",
+              "compat"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "loyalty": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 15
+              },
+              "ambition": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 15
+              },
+              "compat": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 149
+              }
+            }
+          },
+          "aptitude": {
+            "type": "object",
+            "required": [
+              "fish_scale",
+              "crane_wing",
+              "square",
+              "long_snake",
+              "wedge",
+              "wild_geese",
+              "siege",
+              "naval"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "fish_scale": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "crane_wing": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "square": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "long_snake": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "wedge": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "wild_geese": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "siege": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "naval": {
+                "enum": [
+                  "S",
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            }
+          },
+          "traits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true
+          },
+          "kin": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "father": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$"
+              },
+              "mother": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$"
+              },
+              "spouse": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9_]*$"
+                }
+              },
+              "siblings": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9_]*$"
+                }
+              }
+            }
+          },
+          "ruler_personality": {
+            "type": "object",
+            "required": [
+              "aggression",
+              "faith",
+              "domestic",
+              "diplomacy"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "aggression": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "faith": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "domestic": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "diplomacy": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              }
+            }
+          },
+          "face": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

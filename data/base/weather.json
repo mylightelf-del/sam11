@@ -1,0 +1,126 @@
+{
+  "weather": [
+    {
+      "id": "clear",
+      "name": {
+        "ko": "맑음",
+        "zh": "晴"
+      },
+      "effects": []
+    },
+    {
+      "id": "rain",
+      "name": {
+        "ko": "비",
+        "zh": "雨"
+      },
+      "effects": [
+        {
+          "type": "disable_fire"
+        },
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": -0.2,
+          "when": {
+            "formation": [
+              "wild_geese"
+            ]
+          }
+        },
+        {
+          "type": "move_cost_add",
+          "value": 1,
+          "except_terrain": [
+            "plain",
+            "road"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snow",
+      "name": {
+        "ko": "눈",
+        "zh": "雪"
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "move",
+          "op": "add",
+          "value": -2
+        }
+      ],
+      "seasons": [
+        "winter"
+      ]
+    },
+    {
+      "id": "fog",
+      "name": {
+        "ko": "안개",
+        "zh": "霧"
+      },
+      "effects": [
+        {
+          "type": "vision",
+          "value": 1
+        },
+        {
+          "type": "modifier",
+          "stat": "ambush_power",
+          "op": "mul",
+          "value": 0.3
+        }
+      ]
+    },
+    {
+      "id": "gale",
+      "name": {
+        "ko": "강풍",
+        "zh": "強風"
+      },
+      "effects": [
+        {
+          "type": "fire_spread",
+          "value": 1
+        },
+        {
+          "type": "range_add",
+          "value": -1,
+          "formation": [
+            "wild_geese"
+          ]
+        }
+      ]
+    }
+  ],
+  "season_probability": {
+    "spring": {
+      "clear": 0.6,
+      "rain": 0.25,
+      "fog": 0.1,
+      "gale": 0.05
+    },
+    "summer": {
+      "clear": 0.5,
+      "rain": 0.4,
+      "fog": 0.05,
+      "gale": 0.05
+    },
+    "autumn": {
+      "clear": 0.6,
+      "rain": 0.15,
+      "fog": 0.1,
+      "gale": 0.15
+    },
+    "winter": {
+      "clear": 0.5,
+      "snow": 0.3,
+      "fog": 0.1,
+      "gale": 0.1
+    }
+  }
+}

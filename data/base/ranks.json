@@ -1,0 +1,104 @@
+{
+  "ranks": [
+    {
+      "id": "colonel",
+      "tier": 1,
+      "name": {
+        "ko": "교위·도위",
+        "zh": "校尉·都尉"
+      },
+      "troop_bonus": 1000,
+      "quota": null,
+      "required_title": 0,
+      "merit": 500
+    },
+    {
+      "id": "general_misc",
+      "tier": 2,
+      "name": {
+        "ko": "잡호장군",
+        "zh": "雜號將軍"
+      },
+      "troop_bonus": 2000,
+      "quota": 10,
+      "required_title": 1,
+      "merit": 2000
+    },
+    {
+      "id": "general_four",
+      "tier": 3,
+      "name": {
+        "ko": "사방장군",
+        "zh": "四方將軍"
+      },
+      "troop_bonus": 3000,
+      "quota": 4,
+      "required_title": 2,
+      "merit": 5000
+    },
+    {
+      "id": "general_conquest",
+      "tier": 4,
+      "name": {
+        "ko": "사정·사진장군",
+        "zh": "四征·四鎮將軍"
+      },
+      "troop_bonus": 4000,
+      "quota": 8,
+      "required_title": 3,
+      "merit": 9000
+    },
+    {
+      "id": "general_grand",
+      "tier": 5,
+      "name": {
+        "ko": "대장군·표기·거기장군",
+        "zh": "大將軍·驃騎·車騎將軍"
+      },
+      "troop_bonus": 5000,
+      "quota": 3,
+      "required_title": 4,
+      "merit": 15000
+    }
+  ],
+  "ruler_titles": [
+    {
+      "level": 0,
+      "name": {
+        "ko": "없음"
+      }
+    },
+    {
+      "level": 1,
+      "name": {
+        "ko": "주목",
+        "zh": "州牧"
+      },
+      "required_cities": 5
+    },
+    {
+      "level": 2,
+      "name": {
+        "ko": "공",
+        "zh": "公"
+      },
+      "required_cities": 12
+    },
+    {
+      "level": 3,
+      "name": {
+        "ko": "왕",
+        "zh": "王"
+      },
+      "required_cities": 20
+    },
+    {
+      "level": 4,
+      "name": {
+        "ko": "황제",
+        "zh": "皇帝"
+      },
+      "required_cities": 30
+    }
+  ]
+}

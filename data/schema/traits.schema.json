@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "특기",
+  "type": "object",
+  "required": [
+    "traits"
+  ],
+  "properties": {
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category",
+          "description",
+          "effects"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ko"
+            ],
+            "properties": {
+              "ko": {
+                "type": "string"
+              },
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "category": {
+            "enum": [
+              "combat",
+              "stratagem",
+              "domestic",
+              "diplomacy",
+              "duel"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "modifier",
+                    "aura",
+                    "immunity",
+                    "duel_card",
+                    "ignore_terrain_penalty",
+                    "special"
+                  ]
+                },
+                "stat": {
+                  "type": "string"
+                },
+                "op": {
+                  "enum": [
+                    "mul",
+                    "add"
+                  ]
+                },
+                "value": {
+                  "type": "number"
+                },
+                "when": {
+                  "type": "object"
+                }
+              }
+            },
+            "minItems": 1
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

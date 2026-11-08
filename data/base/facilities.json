@@ -1,0 +1,362 @@
+{
+  "facilities": [
+    {
+      "id": "market",
+      "name": {
+        "ko": "시장",
+        "zh": "市場"
+      },
+      "category": "economy",
+      "max_level": 3,
+      "description": "금 수입",
+      "per_level": {
+        "gold_income": [
+          100,
+          180,
+          260
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "mint",
+      "name": {
+        "ko": "조폐",
+        "zh": "造幣"
+      },
+      "category": "economy",
+      "max_level": 1,
+      "description": "인접한 시장의 수입 증가",
+      "per_level": {},
+      "adjacency": [
+        {
+          "target": "market",
+          "stat": "gold_income",
+          "value": 0.5
+        }
+      ],
+      "cost": {
+        "gold": [
+          300
+        ],
+        "build_turns": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "farm",
+      "name": {
+        "ko": "농장",
+        "zh": "農場"
+      },
+      "category": "economy",
+      "max_level": 3,
+      "description": "가을 수확량",
+      "per_level": {
+        "harvest": [
+          1500,
+          2700,
+          3900
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "granary",
+      "name": {
+        "ko": "곡창",
+        "zh": "穀倉"
+      },
+      "category": "economy",
+      "max_level": 1,
+      "description": "인접 농장 수확 증가, 군량 저장 상한 증가",
+      "per_level": {
+        "food_cap": [
+          100000
+        ]
+      },
+      "adjacency": [
+        {
+          "target": "farm",
+          "stat": "harvest",
+          "value": 0.5
+        }
+      ],
+      "cost": {
+        "gold": [
+          300
+        ],
+        "build_turns": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "housing",
+      "name": {
+        "ko": "민가",
+        "zh": "民家"
+      },
+      "category": "population",
+      "max_level": 2,
+      "description": "인구 상한 증가, 민심 소폭 상승",
+      "per_level": {
+        "population_cap": [
+          50000,
+          100000
+        ],
+        "city_morale_monthly": [
+          1,
+          1
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600
+        ],
+        "build_turns": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "barracks",
+      "name": {
+        "ko": "병영",
+        "zh": "兵營"
+      },
+      "category": "military",
+      "max_level": 3,
+      "description": "징병량, 훈련도",
+      "per_level": {
+        "recruit": [
+          0.2,
+          0.4,
+          0.6
+        ],
+        "train": [
+          0.2,
+          0.4,
+          0.6
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "stable",
+      "name": {
+        "ko": "마구간",
+        "zh": "廏舍"
+      },
+      "category": "military",
+      "max_level": 3,
+      "description": "군마 생산",
+      "per_level": {
+        "produce_horse": [
+          1000,
+          2000,
+          3000
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "workshop",
+      "name": {
+        "ko": "공방",
+        "zh": "工房"
+      },
+      "category": "military",
+      "max_level": 3,
+      "description": "노 생산",
+      "per_level": {
+        "produce_crossbow": [
+          1000,
+          2000,
+          3000
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "siege_works",
+      "name": {
+        "ko": "공성창",
+        "zh": "攻城廠"
+      },
+      "category": "military",
+      "max_level": 3,
+      "description": "공성병기 생산",
+      "per_level": {
+        "produce_siege_engine": [
+          300,
+          600,
+          900
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "shipyard",
+      "name": {
+        "ko": "조선소",
+        "zh": "造船所"
+      },
+      "category": "military",
+      "max_level": 3,
+      "description": "함선 생산 (물가 슬롯 전용)",
+      "per_level": {
+        "produce_ship": [
+          300,
+          600,
+          900
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600,
+          900
+        ],
+        "build_turns": [
+          2,
+          3,
+          4
+        ]
+      },
+      "requires_waterside": true
+    },
+    {
+      "id": "academy",
+      "name": {
+        "ko": "서원",
+        "zh": "書院"
+      },
+      "category": "research",
+      "max_level": 2,
+      "description": "기교 포인트, 인재 탐색 확률",
+      "per_level": {
+        "tech_points": [
+          30,
+          60
+        ],
+        "search_officer": [
+          0.2,
+          0.4
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300,
+          600
+        ],
+        "build_turns": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "beacon",
+      "name": {
+        "ko": "봉화대",
+        "zh": "烽火臺"
+      },
+      "category": "defense",
+      "max_level": 1,
+      "description": "시야 확대, 적 접근 경보",
+      "per_level": {
+        "vision": [
+          4
+        ]
+      },
+      "adjacency": [],
+      "cost": {
+        "gold": [
+          300
+        ],
+        "build_turns": [
+          2
+        ]
+      }
+    }
+  ]
+}

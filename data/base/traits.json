@@ -1,0 +1,755 @@
+{
+  "traits": [
+    {
+      "id": "breakthrough",
+      "name": {
+        "ko": "돌파술",
+        "zh": "突破術"
+      },
+      "category": "combat",
+      "description": "어린 진형 공격 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "formation": [
+              "fish_scale"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "wing_master",
+      "name": {
+        "ko": "익전",
+        "zh": "翼戰"
+      },
+      "category": "combat",
+      "description": "학익 진형 포위 보너스 2배",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "encircle_bonus",
+          "op": "mul",
+          "value": 1.0,
+          "when": {
+            "formation": [
+              "crane_wing"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "iron_wall",
+      "name": {
+        "ko": "철벽",
+        "zh": "鐵壁"
+      },
+      "category": "combat",
+      "description": "방원 진형 방어 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "defense",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "formation": [
+              "square"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "serpent",
+      "name": {
+        "ko": "장진",
+        "zh": "長陣"
+      },
+      "category": "combat",
+      "description": "장사 진형 반격 피해 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "counter_damage",
+          "op": "mul",
+          "value": 0.2,
+          "when": {
+            "formation": [
+              "long_snake"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cavalry",
+      "name": {
+        "ko": "기병술",
+        "zh": "騎兵術"
+      },
+      "category": "combat",
+      "description": "추행 진형 공격 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "formation": [
+              "wedge"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "marksman",
+      "name": {
+        "ko": "신궁",
+        "zh": "神弓"
+      },
+      "category": "combat",
+      "description": "안행 진형 공격 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "formation": [
+              "wild_geese"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "siegecraft",
+      "name": {
+        "ko": "공성술",
+        "zh": "攻城術"
+      },
+      "category": "combat",
+      "description": "거점·시설 피해 +25%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "structure_damage",
+          "op": "mul",
+          "value": 0.25
+        }
+      ]
+    },
+    {
+      "id": "naval",
+      "name": {
+        "ko": "수전",
+        "zh": "水戰"
+      },
+      "category": "combat",
+      "description": "수진 공격·방어 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "formation": [
+              "naval"
+            ]
+          }
+        },
+        {
+          "type": "modifier",
+          "stat": "defense",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "formation": [
+              "naval"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "valiant",
+      "name": {
+        "ko": "맹장",
+        "zh": "猛將"
+      },
+      "category": "combat",
+      "description": "모든 진형 공격 +10%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": "chain_master",
+      "name": {
+        "ko": "연환",
+        "zh": "連環"
+      },
+      "category": "combat",
+      "description": "전법 연쇄 피해 보너스 +10%p",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "chain_bonus",
+          "op": "add",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": "vanguard",
+      "name": {
+        "ko": "선봉",
+        "zh": "先鋒"
+      },
+      "category": "combat",
+      "description": "출진 후 2턴 동안 공격 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.2,
+          "when": {
+            "turns_since_sortie_lte": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "indomitable",
+      "name": {
+        "ko": "불굴",
+        "zh": "不屈"
+      },
+      "category": "combat",
+      "description": "병력 30% 이하일 때 방어 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "defense",
+          "op": "mul",
+          "value": 0.2,
+          "when": {
+            "troop_ratio_lte": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "inspire",
+      "name": {
+        "ko": "고무",
+        "zh": "鼓舞"
+      },
+      "category": "combat",
+      "description": "사기 감소량 절반",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "morale_loss",
+          "op": "mul",
+          "value": -0.5
+        }
+      ]
+    },
+    {
+      "id": "intimidate",
+      "name": {
+        "ko": "위압",
+        "zh": "威壓"
+      },
+      "category": "combat",
+      "description": "인접한 적 부대 사기 매 턴 -5",
+      "effects": [
+        {
+          "type": "aura",
+          "stat": "morale",
+          "value": -5,
+          "radius": 1,
+          "target": "enemy"
+        }
+      ]
+    },
+    {
+      "id": "ambush_master",
+      "name": {
+        "ko": "기습",
+        "zh": "奇襲"
+      },
+      "category": "combat",
+      "description": "매복 효과 +50%, 숲·안개에서 공격 +10%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "ambush_power",
+          "op": "mul",
+          "value": 0.5
+        },
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.1,
+          "when": {
+            "terrain": [
+              "forest"
+            ]
+          }
+        },
+        {
+          "type": "modifier",
+          "stat": "attack",
+          "op": "mul",
+          "value": 0.1,
+          "when": {
+            "weather": [
+              "fog"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "mountain",
+      "name": {
+        "ko": "산악전",
+        "zh": "山岳戰"
+      },
+      "category": "combat",
+      "description": "산 지형 보정 페널티 무시",
+      "effects": [
+        {
+          "type": "ignore_terrain_penalty",
+          "terrain": [
+            "mountain"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forced_march",
+      "name": {
+        "ko": "급행",
+        "zh": "急行"
+      },
+      "category": "combat",
+      "description": "이동력 +1",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "move",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "peerless",
+      "name": {
+        "ko": "일기당천",
+        "zh": "一騎當千"
+      },
+      "category": "duel",
+      "description": "일기토 특수 카드, 일기토 기세 +20%",
+      "effects": [
+        {
+          "type": "duel_card",
+          "duel": "duel",
+          "card": "peerless_strike"
+        },
+        {
+          "type": "modifier",
+          "stat": "duel_gauge",
+          "op": "mul",
+          "value": 0.2
+        }
+      ]
+    },
+    {
+      "id": "fire_master",
+      "name": {
+        "ko": "화공",
+        "zh": "火攻"
+      },
+      "category": "stratagem",
+      "description": "화계 성공률 +20%, 화재 피해 +50%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "stratagem_success",
+          "op": "mul",
+          "value": 0.2,
+          "when": {
+            "stratagem": [
+              "fire"
+            ]
+          }
+        },
+        {
+          "type": "modifier",
+          "stat": "fire_damage",
+          "op": "mul",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "name": {
+        "ko": "간파",
+        "zh": "看破"
+      },
+      "category": "stratagem",
+      "description": "적 계략 간파율 상승",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "stratagem_resist",
+          "op": "mul",
+          "value": 0.3
+        }
+      ]
+    },
+    {
+      "id": "confuser",
+      "name": {
+        "ko": "교란술",
+        "zh": "攪亂術"
+      },
+      "category": "stratagem",
+      "description": "교란 성공률 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "stratagem_success",
+          "op": "mul",
+          "value": 0.2,
+          "when": {
+            "stratagem": [
+              "confuse"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "strategist",
+      "name": {
+        "ko": "신산",
+        "zh": "神算"
+      },
+      "category": "stratagem",
+      "description": "전법 성공률 +10%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "tactic_success",
+          "op": "mul",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": "schemer",
+      "name": {
+        "ko": "귀모",
+        "zh": "鬼謀"
+      },
+      "category": "stratagem",
+      "description": "전략 계략(이간·매수·내응) 성공률 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "stratagem_success",
+          "op": "mul",
+          "value": 0.2,
+          "when": {
+            "stratagem": [
+              "sow_discord",
+              "bribe",
+              "insider"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "astronomy",
+      "name": {
+        "ko": "천문",
+        "zh": "天文"
+      },
+      "category": "stratagem",
+      "description": "2턴 뒤 날씨를 미리 안다",
+      "effects": [
+        {
+          "type": "special",
+          "key": "weather_forecast",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "agriculture",
+      "name": {
+        "ko": "농정",
+        "zh": "農政"
+      },
+      "category": "domestic",
+      "description": "태수일 때 도시 수확 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "harvest",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "role": [
+              "governor"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "commerce",
+      "name": {
+        "ko": "상재",
+        "zh": "商才"
+      },
+      "category": "domestic",
+      "description": "태수일 때 도시 금 수입 +15%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "gold_income",
+          "op": "mul",
+          "value": 0.15,
+          "when": {
+            "role": [
+              "governor"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "builder",
+      "name": {
+        "ko": "축성",
+        "zh": "築城"
+      },
+      "category": "domestic",
+      "description": "건설 기간 -1턴, 성벽·성문 보수 효율 증가",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "build_time",
+          "op": "add",
+          "value": -1
+        },
+        {
+          "type": "modifier",
+          "stat": "repair",
+          "op": "mul",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "benevolence",
+      "name": {
+        "ko": "인덕",
+        "zh": "仁德"
+      },
+      "category": "domestic",
+      "description": "태수일 때 도시 민심 매월 +2",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "city_morale_monthly",
+          "op": "add",
+          "value": 2,
+          "when": {
+            "role": [
+              "governor"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "recruiter",
+      "name": {
+        "ko": "징모",
+        "zh": "徵募"
+      },
+      "category": "domestic",
+      "description": "징병량 +20%, 징병 민심 감소 절반",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "recruit",
+          "op": "mul",
+          "value": 0.2
+        },
+        {
+          "type": "modifier",
+          "stat": "recruit_morale_loss",
+          "op": "mul",
+          "value": -0.5
+        }
+      ]
+    },
+    {
+      "id": "drill",
+      "name": {
+        "ko": "조련",
+        "zh": "調練"
+      },
+      "category": "domestic",
+      "description": "훈련 효율 +50%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "train",
+          "op": "mul",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "craftsman",
+      "name": {
+        "ko": "장인",
+        "zh": "匠人"
+      },
+      "category": "domestic",
+      "description": "병장기 생산 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "produce",
+          "op": "mul",
+          "value": 0.2
+        }
+      ]
+    },
+    {
+      "id": "erudite",
+      "name": {
+        "ko": "해박",
+        "zh": "該博"
+      },
+      "category": "domestic",
+      "description": "기교 포인트 획득 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "tech_points",
+          "op": "mul",
+          "value": 0.2
+        }
+      ]
+    },
+    {
+      "id": "eloquence",
+      "name": {
+        "ko": "언변",
+        "zh": "言辯"
+      },
+      "category": "diplomacy",
+      "description": "설전 특수 카드, 외교 성공률 +10%",
+      "effects": [
+        {
+          "type": "duel_card",
+          "duel": "debate",
+          "card": "eloquent_retort"
+        },
+        {
+          "type": "modifier",
+          "stat": "diplomacy_success",
+          "op": "mul",
+          "value": 0.1
+        }
+      ]
+    },
+    {
+      "id": "fame",
+      "name": {
+        "ko": "명성",
+        "zh": "名聲"
+      },
+      "category": "diplomacy",
+      "description": "등용 성공률 +20%",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "recruit_officer",
+          "op": "mul",
+          "value": 0.2
+        }
+      ]
+    },
+    {
+      "id": "talent_eye",
+      "name": {
+        "ko": "인재안",
+        "zh": "人材眼"
+      },
+      "category": "diplomacy",
+      "description": "탐색 시 재야 무장 발견 확률 증가",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "search_officer",
+          "op": "mul",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "dignity",
+      "name": {
+        "ko": "위엄",
+        "zh": "威嚴"
+      },
+      "category": "diplomacy",
+      "description": "군주일 때 세력 무장의 충성 하락 완화",
+      "effects": [
+        {
+          "type": "modifier",
+          "stat": "loyalty_loss",
+          "op": "mul",
+          "value": -0.3,
+          "when": {
+            "role": [
+              "ruler"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

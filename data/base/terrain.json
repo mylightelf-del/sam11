@@ -1,0 +1,120 @@
+{
+  "terrain": [
+    {
+      "id": "plain",
+      "name": {
+        "ko": "평지",
+        "zh": "平地"
+      },
+      "move_cost": 1,
+      "passable_land": true,
+      "passable_water": false
+    },
+    {
+      "id": "road",
+      "name": {
+        "ko": "도로",
+        "zh": "道"
+      },
+      "move_cost": 1,
+      "passable_land": true,
+      "passable_water": false
+    },
+    {
+      "id": "forest",
+      "name": {
+        "ko": "숲",
+        "zh": "林"
+      },
+      "move_cost": 2,
+      "passable_land": true,
+      "passable_water": false,
+      "ambush": true
+    },
+    {
+      "id": "mountain",
+      "name": {
+        "ko": "산",
+        "zh": "山"
+      },
+      "move_cost": 3,
+      "passable_land": true,
+      "passable_water": false,
+      "high_ground": true
+    },
+    {
+      "id": "marsh",
+      "name": {
+        "ko": "습지",
+        "zh": "沼"
+      },
+      "move_cost": 3,
+      "passable_land": true,
+      "passable_water": false
+    },
+    {
+      "id": "ford",
+      "name": {
+        "ko": "여울",
+        "zh": "灘"
+      },
+      "move_cost": 3,
+      "passable_land": true,
+      "passable_water": true,
+      "defense_mod": 0.9
+    },
+    {
+      "id": "river",
+      "name": {
+        "ko": "강",
+        "zh": "河"
+      },
+      "move_cost": 1,
+      "passable_land": false,
+      "passable_water": true
+    },
+    {
+      "id": "sea",
+      "name": {
+        "ko": "바다",
+        "zh": "海"
+      },
+      "move_cost": 1,
+      "passable_land": false,
+      "passable_water": true
+    },
+    {
+      "id": "street",
+      "name": {
+        "ko": "시가",
+        "zh": "市街"
+      },
+      "move_cost": 1,
+      "passable_land": true,
+      "passable_water": false,
+      "inside_city": true
+    },
+    {
+      "id": "city_wall",
+      "name": {
+        "ko": "성벽",
+        "zh": "城壁"
+      },
+      "move_cost": null,
+      "passable_land": false,
+      "passable_water": false,
+      "structure": true
+    },
+    {
+      "id": "gate",
+      "name": {
+        "ko": "성문",
+        "zh": "城門"
+      },
+      "move_cost": null,
+      "passable_land": false,
+      "passable_water": false,
+      "structure": true
+    }
+  ]
+}
