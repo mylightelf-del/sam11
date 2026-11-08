@@ -31,9 +31,10 @@ namespace Sam11.Core.Battle
             var c = data.Rules.Combat;
             var b = new Breakdown();
 
-            // 기본 피해: 공격측 병력 × 무력 대 통솔 비율
+            // 기본 피해: 싸우는 병력 × 무력 대 통솔 비율.
+            // 싸우는 병력은 지휘관이 이끌 수 있는 만큼까지다 (수비대처럼 병력이 지휘 한도를 넘으면 나머지는 버티는 몫)
             double ratio = (attacker.EffWar + c.StatSmoothing) / (defender.EffLdr + c.StatSmoothing);
-            b.Base = attacker.Troops * c.BaseRatio * ratio;
+            b.Base = attacker.FightingTroops * c.BaseRatio * ratio;
 
             // 진형 고유 보정: 공격측 공격치 / 방어측 방어치
             b.Formation = (attacker.Formation.Attack / 100.0) / (defender.Formation.Defense / 100.0);

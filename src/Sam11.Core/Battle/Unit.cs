@@ -29,6 +29,9 @@ namespace Sam11.Core.Battle
         public HexCoord Position { get; set; }
         public int Troops { get; set; }
         public int MaxTroops { get; }
+
+        /// <summary>실제로 칼을 맞대는 병력: 지휘 한도(MaxTroops)를 넘는 병력은 공격에 보태지 못한다.</summary>
+        public int FightingTroops => Math.Min(Troops, MaxTroops);
         public int Energy { get; set; }
         public int Morale { get; set; }
 
@@ -37,6 +40,8 @@ namespace Sam11.Core.Battle
         public Dictionary<string, int> Equipment { get; } = new Dictionary<string, int>();
         /// <summary>출진한 거점 (귀환할 곳).</summary>
         public string? Home { get; set; }
+        /// <summary>거점 수비대 (Home 거점의 병력이 잠시 전장에 나와 있는 것).</summary>
+        public bool IsGarrison { get; set; }
         public UnitStatus Status { get; set; } = UnitStatus.Ready;
         public int TurnsSinceSortie { get; set; }
         public bool HasActed { get; set; }

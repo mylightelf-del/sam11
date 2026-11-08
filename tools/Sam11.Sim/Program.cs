@@ -3,6 +3,7 @@
 // 사용법: dotnet run --project tools/Sam11.Sim -- [시드] [날씨]
 //         dotnet run --project tools/Sam11.Sim -- economy [개월]   (명령 없이 시간만 흘렸을 때의 경제 점검)
 //         dotnet run --project tools/Sam11.Sim -- siege [시드]      (전국 맵에서 조조군의 사수관 공략)
+//         dotnet run --project tools/Sam11.Sim -- auto [년] [시드] [판수] [난이도]  (모든 세력 AI 자동 대전)
 
 using Sam11.Core.Battle;
 using Sam11.Core.Common;
@@ -10,6 +11,16 @@ using Sam11.Core.Data;
 using Sam11.Core.World;
 
 var data = GameData.Load(GameData.FindDataDir(AppContext.BaseDirectory));
+
+if (args.Length > 0 && args[0] == "auto")
+{
+    int years = args.Length > 1 ? int.Parse(args[1]) : 3;
+    ulong s0 = args.Length > 2 ? ulong.Parse(args[2]) : 1;
+    int runs = args.Length > 3 ? int.Parse(args[3]) : 1;
+    var level = args.Length > 4 ? Enum.Parse<Sam11.Core.AI.Difficulty>(args[4], true) : Sam11.Core.AI.Difficulty.Normal;
+    AutoBattle(data, years, s0, runs, level);
+    return;
+}
 
 if (args.Length > 0 && args[0] == "siege")
 {
@@ -254,4 +265,102 @@ static Dictionary<HexCoord, int> PathField(Battle b, Unit u, HexCoord goal)
         }
     }
     return dist;
+}
+
+// AI 대 AI 자동 대전. 판수가 1이면 연대기를, 2 이상이면 통계를 낸다.
+static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Core.AI.Difficulty level)
+{
+    var map = WorldMap.Load(data.DataDir);
+    var survive = new Dictionary<string, int>();
+    var cities = new Dictionary<string, List<int>>();
+    var total = new Sam11.Core.AI.AiStats();
+    int captures = 0, deaths = 0, unifications = 0;
+    var sw = System.Diagnostics.Stopwatch.StartNew();
+    for (int run = 0; run < runs; run++)
+    {
+        ulong seed = seed0 + (ulong)run;
+        var w = ScenarioLoader.Load(data, map, "190", seed);
+        var game = new Game(w, seed);
+        var ais = new Dictionary<string, Sam11.Core.AI.AiController>();
+        foreach (var f in w.Factions.Keys)
+            game.Controllers[f] = ais[f] = new Sam11.Core.AI.AiController(Sam11.Core.AI.AiConfig.For(level));
+        int turns = years * 36;
+        int logged = 0;
+        for (int t = 0; t < turns && !game.IsOver; t++)
+        {
+            game.PlayTurn();
+            if (runs == 1)
+            {
+                foreach (var l in w.Log.Skip(logged).Where(l => l.Contains("함락") || l.Contains("멸망") || l.Contains("전사")
+                                                               || l.Contains("통일") || l.Contains("출진:") || l.Contains("뒤를 이어")))
+                    Console.WriteLine(l);
+                logged = w.Log.Count;
+                if (w.Date.IsMonthStart && w.Date.Month == 1)
+                    PrintStandings(w, game);
+            }
+        }
+        foreach (var f in w.Factions.Values)
+        {
+            if (f.Alive) survive[f.Id] = survive.GetValueOrDefault(f.Id) + 1;
+            if (!cities.ContainsKey(f.Id)) cities[f.Id] = new List<int>();
+            cities[f.Id].Add(w.Cities.Values.Count(c => c.Owner == f.Id && c.Def.IsCity));
+        }
+        foreach (var a in ais.Values)
+        {
+            total.CampaignsLaunched += a.Stats.CampaignsLaunched; total.LaunchedUnderRatio += a.Stats.LaunchedUnderRatio;
+            total.CampaignsWon += a.Stats.CampaignsWon; total.CampaignsFailed += a.Stats.CampaignsFailed; total.CampaignsAbandoned += a.Stats.CampaignsAbandoned;
+            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats;
+            foreach (var kv in a.Stats.LaunchBlocked) total.LaunchBlocked[kv.Key] = total.LaunchBlocked.GetValueOrDefault(kv.Key) + kv.Value;
+        }
+        captures += w.Log.Count(l => l.Contains("함락:"));
+        if (Environment.GetEnvironmentVariable("SIM_DEBUG") == "2")
+        {
+            var L = game.Field.Log.Lines;
+            Console.WriteLine($"  [전투] 성문·성벽 붕괴 {L.Count(l => l.Contains("무너졌다"))}, 궤멸 {L.Count(l => l.EndsWith("궤멸!"))} (수비대 {L.Count(l => l.Contains("수비대") && l.EndsWith("궤멸!"))}), " +
+                $"도주 {L.Count(l => l.Contains("도주했다"))}, 혼란 {L.Count(l => l.Contains("혼란에 빠졌다"))}, 군량 탈영 {L.Count(l => l.Contains("군량 부족"))}, " +
+                $"구조물 공격 {L.Count(l => l.Contains("성문") && l.Contains("피해 (내구"))}, 전법 {L.Count(l => l.Contains("!") && l.Contains("→") && !l.Contains("연쇄"))}, 연쇄 {L.Count(l => l.Contains("연쇄!"))}");
+        }
+        deaths += w.Log.Count(l => l.Contains("전사했다"));
+        if (game.IsOver) unifications++;
+        if (runs == 1 && !(w.Date.Month == 1 && w.Date.Turn == 1)) { Console.WriteLine(); PrintStandings(w, game); }
+        if (Environment.GetEnvironmentVariable("SIM_DEBUG") == "1")
+            foreach (var kv in ais.Where(kv => w.Factions[kv.Key].Alive))
+            {
+                var own = w.Cities.Values.Where(c => c.Owner == kv.Key).ToList();
+                Console.WriteLine($"  [디버그] {w.NameOf(kv.Key)}: 원정 {string.Join(", ", kv.Value.Campaigns)} | " +
+                    string.Join(" ", own.Select(c => $"{c.Def.Name.Ko}({c.Troops},여유{kv.Value.Surplus(game, c, kv.Key)},무장{w.OfficersAt(c.Id).Count(o => o.Faction == kv.Key)})")));
+                foreach (var c in own)
+                    foreach (var l in c.Def.Links.Where(l => w.Cities[l].Owner != kv.Key))
+                        Console.WriteLine($"      {c.Def.Name.Ko}→{w.Cities[l].Def.Name.Ko}: 주인 {(w.Cities[l].Owner == null ? "무주" : w.NameOf(w.Cities[l].Owner!))}, 실제 {w.Cities[l].Troops + w.Cities[l].FieldGarrison}, 추정 {kv.Value.Knowledge!.EstimateTroops(game, w.Cities[l])}, 동맹 {(w.Cities[l].Owner != null && w.AreAllied(w.Cities[l].Owner!, kv.Key))}");
+            }
+        else Console.WriteLine($"  {run + 1}판 (시드 {seed}): {w.Date}, 생존 {game.AliveFactions.Count()}세력, 함락 {w.Log.Count(l => l.Contains("함락:"))}건");
+    }
+    Console.WriteLine();
+    Console.WriteLine($"=== {runs}판 × {years}년 ({level}) — {sw.Elapsed.TotalSeconds:F1}초, 판당 {sw.Elapsed.TotalSeconds / runs:F1}초 ===");
+    if (runs > 1)
+    {
+        Console.WriteLine("세력별 생존률 / 평균 도시 수:");
+        foreach (var kv in cities.OrderByDescending(kv => kv.Value.Average()))
+            Console.WriteLine($"  {data.Officers[kv.Key].Name.Ko,-5} 생존 {survive.GetValueOrDefault(kv.Key) * 100 / runs,3}%  도시 {kv.Value.Average(),4:F1}  (최대 {kv.Value.Max()})");
+    }
+    Console.WriteLine($"함락 {captures}건, 전사 {deaths}명, 통일 {unifications}판");
+    Console.WriteLine("AI 지표 (06 설계서 2장):");
+    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회), 출진 전 포기 {total.CampaignsAbandoned}");
+    Console.WriteLine($"  축차 투입(전력비 1.5배 미달 출진): {total.LaunchedUnderRatio}회 ({Pct(total.LaunchedUnderRatio, total.CampaignsLaunched)})");
+    Console.WriteLine($"  정체(목표가 있는데 제자리): {total.StalledUnitTurns}/{total.UnitTurns} 부대·턴 ({Pct(total.StalledUnitTurns, total.UnitTurns)})");
+    Console.WriteLine($"  출진을 미룬 이유(턴 수): {string.Join(", ", total.LaunchBlocked.OrderByDescending(kv => kv.Value).Select(kv => $"{kv.Key} {kv.Value}"))}");
+}
+
+static string Pct(int a, int b) => b == 0 ? "-" : $"{a * 100.0 / b:F1}%";
+
+static void PrintStandings(WorldState w, Game game)
+{
+    Console.WriteLine($"--- {w.Date} 세력 현황 ---");
+    foreach (var f in w.Factions.Values.Where(f => f.Alive).OrderByDescending(f => w.Cities.Values.Count(c => c.Owner == f.Id)))
+    {
+        var cs = w.Cities.Values.Where(c => c.Owner == f.Id).ToList();
+        int field = game.Field.Alive.Where(u => u.Faction == f.Id && !u.IsGarrison).Sum(u => u.Troops);
+        Console.WriteLine($"  {w.NameOf(f.Id),-5} 도시 {cs.Count(c => c.Def.IsCity),2} 거점 {cs.Count,2}  병력 {cs.Sum(c => c.Troops + c.FieldGarrison) + field,7}  " +
+                          $"금 {cs.Sum(c => c.Gold),6} 군량 {cs.Sum(c => c.Food),7}  무장 {w.Officers.Values.Count(o => o.Faction == f.Id && o.Status == OfficerStatus.Active),2}");
+    }
 }

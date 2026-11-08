@@ -93,6 +93,7 @@ namespace Sam11.Core.World
             double v = FacilityTotal(w, c, "market", "gold_income")
                        + c.Population * Eco(w).TaxPerCapitaGold * Tax(w, c).Gold;
             v *= MoraleIncomeMultiplier(w, c.Morale) * (1 + GovernorBonus(w, c, "gold_income"));
+            if (c.Owner != null) v *= 1 + w.Factions[c.Owner].IncomeBonus;
             return (int)Math.Round(v);
         }
 
@@ -103,7 +104,7 @@ namespace Sam11.Core.World
             return (int)Math.Round(v);
         }
 
-        public static int MonthlyFoodUse(WorldState w, CityState c) => (int)Math.Ceiling(c.Troops * Eco(w).FoodPerSoldierMonth);
+        public static int MonthlyFoodUse(WorldState w, CityState c) => (int)Math.Ceiling((c.Troops + c.FieldGarrison) * Eco(w).FoodPerSoldierMonth);
 
         public static int FoodCap(WorldState w, CityState c) =>
             (Eco(w).FoodCap.TryGetValue(c.Def.Type, out var cap) ? cap : 0) + (int)FacilityTotal(w, c, "granary", "food_cap");
@@ -176,6 +177,7 @@ namespace Sam11.Core.World
             double n = (r.Base + (o.Def.Stats.Cha + o.Def.Stats.Ldr) * r.StatFactor) * (c.Morale / 100.0);
             n *= 1 + FacilityTotal(w, c, "barracks", "recruit") + TraitSum(o.Def, w.Data, "recruit", "mul");
             n = Math.Min(n, c.Population * r.PopRatioCap);
+            n = Math.Min(n, c.Population * r.MaxTroopRatio - c.Troops - c.FieldGarrison); // 인구가 감당할 병력 상한
             n = Math.Min(n, c.Gold / r.GoldPerSoldier);
             int troops = (int)n;
             if (troops <= 0) throw new InvalidOperationException("징병할 수 있는 인구·금이 없음");
@@ -242,10 +244,16 @@ namespace Sam11.Core.World
         public static double FoodPerGold(WorldState w) =>
             Eco(w).Trade.FoodPerGold * Eco(w).Trade.MonthlyFactor[w.Date.Month - 1];
 
+        /// <summary>한 번에 거래할 수 있는 군량: 도시 인구에 비례 (지역 시장의 한계).</summary>
+        public static int MaxTradeFood(WorldState w, CityState c) => (int)(c.Population * Eco(w).Trade.MaxFoodRatio);
+
         public static string BuyFood(WorldState w, string officerId, string cityId, int gold)
         {
             var (o, c) = Prepare(w, officerId, cityId);
             if (gold <= 0) throw new InvalidOperationException("금액이 0 이하");
+            int limit = MaxTradeFood(w, c);
+            if (limit <= 0) throw new InvalidOperationException($"{c}에는 군량을 사고팔 시장이 없음");
+            gold = Math.Min(gold, (int)Math.Ceiling(limit / FoodPerGold(w)));
             Spend(c, gold);
             int food = (int)(gold * FoodPerGold(w));
             c.Food = Math.Min(FoodCap(w, c), c.Food + food);
@@ -256,10 +264,117 @@ namespace Sam11.Core.World
         {
             var (o, c) = Prepare(w, officerId, cityId);
             if (food <= 0) throw new InvalidOperationException("수량이 0 이하");
+            food = Math.Min(food, MaxTradeFood(w, c));
+            if (food <= 0) throw new InvalidOperationException($"{c}에는 군량을 사고팔 시장이 없음");
             Spend(c, 0, food);
             int gold = (int)(food / FoodPerGold(w));
             c.Gold += gold;
             return Done(w, o, $"{o}, {c}에서 군량 {food}을 금 {gold}에 판매");
+        }
+
+        /// <summary>아군 거점끼리 길로 이어져 있으면 그 거점들의 목록 (from 포함).</summary>
+        public static HashSet<string> ConnectedOwn(WorldState w, string from)
+        {
+            string? owner = w.Cities[from].Owner;
+            var seen = new HashSet<string> { from };
+            var stack = new Stack<string>();
+            stack.Push(from);
+            while (stack.Count > 0)
+                foreach (var l in w.Cities[stack.Pop()].Def.Links)
+                    if (w.Cities[l].Owner == owner && seen.Add(l))
+                        stack.Push(l);
+            return seen;
+        }
+
+        /// <summary>무장 이동: 길로 이어진 아군 거점으로 옮긴다 (이번 턴 행동 소모).</summary>
+        public static string MoveOfficer(WorldState w, string officerId, string from, string to)
+        {
+            var (o, c) = Prepare(w, officerId, from);
+            if (!ConnectedOwn(w, from).Contains(to) || from == to)
+                throw new InvalidOperationException($"{c}에서 {w.Cities[to]}까지 아군 거점으로 이어지지 않음");
+            o.Location = to;
+            return Done(w, o, $"{o}, {c}에서 {Korean.EuRo(w.Cities[to].ToString())} 이동");
+        }
+
+        /// <summary>수송: 금·군량·병력·병장기를 길로 이어진 아군 거점으로 보낸다.</summary>
+        public static string Transport(WorldState w, string officerId, string from, string to,
+                                       int gold, int food, int troops, IReadOnlyDictionary<string, int>? equipment = null)
+        {
+            var (o, c) = Prepare(w, officerId, from);
+            if (!ConnectedOwn(w, from).Contains(to) || from == to)
+                throw new InvalidOperationException($"{c}에서 {w.Cities[to]}까지 아군 거점으로 이어지지 않음");
+            if (gold < 0 || food < 0 || troops < 0) throw new InvalidOperationException("음수는 보낼 수 없음");
+            if (troops > c.Troops) throw new InvalidOperationException($"병력 부족: {c.Troops}/{troops}");
+            if (equipment != null)
+                foreach (var kv in equipment)
+                    if (kv.Value < 0 || c.Equipment[kv.Key] < kv.Value) throw new InvalidOperationException($"{kv.Key} 부족");
+            Spend(c, gold, food);
+            var dst = w.Cities[to];
+            dst.Gold += gold;
+            dst.Food = Math.Min(FoodCap(w, dst), dst.Food + food);
+            c.Troops -= troops;
+            dst.Troops += troops;
+            if (equipment != null)
+                foreach (var kv in equipment)
+                {
+                    c.Equipment[kv.Key] -= kv.Value;
+                    dst.Equipment[kv.Key] += kv.Value;
+                }
+            return Done(w, o, $"{o}, {c} → {dst} 수송 (금 {gold}, 군량 {food}, 병력 {troops})");
+        }
+
+        /// <summary>등용 성공률: 매력, 상성(원형 거리), 대상의 의리(포로일 때), 명성 특기.</summary>
+        public static double EmployChance(WorldState w, OfficerState recruiter, OfficerState target)
+        {
+            var ruler = w.Officers[w.Factions[recruiter.Faction!].Ruler];
+            int diff = Math.Abs(ruler.Def.Hidden.Compat - target.Def.Hidden.Compat);
+            diff = Math.Min(diff, 150 - diff);
+            double p = 0.25 + (recruiter.Def.Stats.Cha - 50) / 100.0 + (1 - diff / 75.0) * 0.3;
+            if (target.Status == OfficerStatus.Captive) p -= target.Def.Hidden.Loyalty * 0.03;
+            p += TraitSum(recruiter.Def, w.Data, "recruit_officer", "mul");
+            return Math.Max(0.02, Math.Min(0.95, p));
+        }
+
+        /// <summary>등용: 같은 거점의 재야 무장이나 우리 세력의 포로를 영입한다.</summary>
+        public static string Employ(WorldState w, string officerId, string cityId, string targetId)
+        {
+            var (o, c) = Prepare(w, officerId, cityId);
+            if (!w.Officers.TryGetValue(targetId, out var t)) throw new InvalidOperationException($"없는 무장: {targetId}");
+            bool free = t.Status == OfficerStatus.Free && t.Location == cityId;
+            bool captive = t.Status == OfficerStatus.Captive && t.Faction == o.Faction;
+            if (!free && !captive) throw new InvalidOperationException($"{Korean.EunNeun(t.ToString())} 등용할 수 없는 상태");
+            double p = EmployChance(w, o, t);
+            if (!w.Rng.Chance(p))
+                return Done(w, o, $"{o}, {t} 등용 실패 ({p:P0})");
+            t.Status = OfficerStatus.Active;
+            t.Faction = o.Faction;
+            t.Location = cityId;
+            t.Loyalty = 70;
+            t.CaptiveMonths = 0;
+            return Done(w, o, $"{o}, {Korean.EulReul(t.ToString())} 등용! ({p:P0})");
+        }
+
+        /// <summary>1월마다 15세가 된 무장이 등장한다. 아버지가 세력에 있으면 그 세력으로, 아니면 재야로.</summary>
+        public static void Debut(WorldState w)
+        {
+            foreach (var o in w.Officers.Values.Where(o => o.Status == OfficerStatus.Unborn && w.Date.Year - o.Def.Birth >= 15))
+            {
+                string? fatherId = o.Def.Kin?.Father;
+                if (fatherId != null && w.Officers.TryGetValue(fatherId, out var father)
+                    && father.Status == OfficerStatus.Active && father.Faction != null)
+                {
+                    o.Status = OfficerStatus.Active;
+                    o.Faction = father.Faction;
+                    o.Location = father.Location != "" ? father.Location : w.Factions[father.Faction].Capital;
+                    o.Loyalty = 90;
+                    w.Log.Add($"[{w.Date}] {Korean.IGa(o.ToString())} 성인이 되어 {w.NameOf(o.Faction)} 세력에 합류");
+                }
+                else
+                {
+                    o.Status = OfficerStatus.Free;
+                    w.Log.Add($"[{w.Date}] {Korean.IGa(o.ToString())} 성인이 되어 {w.Cities[o.Location]}에 재야로 등장");
+                }
+            }
         }
 
         // ------------------------------------------------------------------ 턴 진행
@@ -272,7 +387,10 @@ namespace Sam11.Core.World
                     if (kv.Value.BuildTurnsLeft > 0 && --kv.Value.BuildTurnsLeft == 0)
                         w.Log.Add($"[{w.Date}] {c}의 {w.Data.Facilities[kv.Value.FacilityId].Name.Ko} {kv.Value.Level}단계 완공");
             foreach (var o in w.Officers.Values)
+            {
                 o.Acted = false;
+                if (o.InjuredTurns > 0) o.InjuredTurns--;
+            }
 
             w.Date.Advance(w.Data.Rules.Time.TurnsPerMonth);
             if (w.Date.IsMonthStart)
@@ -314,6 +432,7 @@ namespace Sam11.Core.World
         {
             var eco = Eco(w);
             bool harvest = w.Date.Month == w.Data.Rules.Time.HarvestMonth;
+            if (w.Date.Month == 1) Debut(w);
             var harvested = new Dictionary<string, int>();
             RearSupply(w);
             foreach (var c in w.Cities.Values)

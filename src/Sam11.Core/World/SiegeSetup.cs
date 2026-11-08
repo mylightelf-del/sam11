@@ -9,6 +9,9 @@ namespace Sam11.Core.World
     /// <summary>세계 상태 ↔ 전투 엔진 연결: 전국 맵 위에 거점 구조물을 올린 전장을 만들고, 함락 결과를 되돌려 쓴다.</summary>
     public static class SiegeSetup
     {
+        /// <summary>주인 없는 거점(무주지)의 전장 위 세력 이름.</summary>
+        public const string Neutral = "_neutral";
+
         public static Battle.Battle CreateBattle(WorldState w, ulong seed, BattleOptions? options = null)
         {
             var b = new Battle.Battle(w.Data, w.Map.ToBattleMap(), seed, options);
@@ -17,7 +20,7 @@ namespace Sam11.Core.World
             {
                 b.Strongholds[c.Id] = new StrongholdOnField
                 {
-                    Id = c.Id, Name = c.Def.Name.Ko, Owner = c.Owner, Center = c.Placement.Center,
+                    Id = c.Id, Name = c.Def.Name.Ko, Owner = c.Owner ?? Neutral, Center = c.Placement.Center,
                 };
                 foreach (var t in c.Placement.Tiles)
                 {
@@ -109,21 +112,30 @@ namespace Sam11.Core.World
         }
 
         /// <summary>
-        /// 전투 중 함락된 거점을 세계 상태에 반영한다.
-        /// 소유 세력이 바뀌고, 수비 병력은 0, 민심이 떨어진다. 그 거점에 있던 옛 세력 무장은
-        /// 길로 이어진 아군 거점으로 물러나고, 갈 곳이 없으면 포로가 된다.
-        /// 무너진 성벽·성문 내구도 함께 기록한다.
+        /// 전투 중 함락된 거점을 세계 상태에 반영한다 (전부 다시 적용하므로 단독 전투용).
+        /// 게임 루프에서는 ApplyCapture를 한 건씩 부른다.
         /// </summary>
         public static void ApplyCaptures(WorldState w, Battle.Battle b)
         {
             foreach (var cap in b.Captures)
-            {
-                var c = w.Cities[cap.Stronghold];
-                string? from = c.Owner;
-                c.Owner = cap.To;
-                c.Troops = 0;
-                c.Governor = null;
-                c.Morale = Math.Max(0, c.Morale - w.Data.Rules.Siege.CaptureMoraleLoss);
+                ApplyCapture(w, cap);
+            SyncStructures(w, b);
+        }
+
+        /// <summary>
+        /// 함락 한 건: 소유 세력이 바뀌고, 수비 병력은 0, 민심이 떨어진다. 그 거점에 있던 옛 세력 무장은
+        /// 길로 이어진 아군 거점으로 물러나고, 갈 곳이 없으면 포로가 된다.
+        /// </summary>
+        public static void ApplyCapture(WorldState w, CaptureEvent cap)
+        {
+            var c = w.Cities[cap.Stronghold];
+            string? from = c.Owner;
+            c.Owner = cap.To;
+            c.Troops = 0;
+            c.FieldGarrison = 0;
+            c.Governor = null;
+            c.Morale = Math.Max(0, c.Morale - w.Data.Rules.Siege.CaptureMoraleLoss);
+            if (from != null)
                 foreach (var o in w.OfficersAt(c.Id).Where(o => o.Faction == from).ToList())
                 {
                     var retreat = c.Def.Links.Select(id => w.Cities[id]).FirstOrDefault(x => x.Owner == from);
@@ -136,11 +148,16 @@ namespace Sam11.Core.World
                     {
                         o.Status = OfficerStatus.Captive;
                         o.Faction = cap.To;
+                        o.CaptiveMonths = 0;
                         w.Log.Add($"[{w.Date}] {o}, {c} 함락으로 포로가 됨");
                     }
                 }
-                w.Log.Add($"[{w.Date}] {c} 함락: {w.Officers[w.Factions[cap.To].Ruler].Def.Name.Ko} 세력이 차지");
-            }
+            w.Log.Add($"[{w.Date}] {c} 함락: {w.NameOf(cap.To)} 세력이 차지" + (from == null ? " (무주지)" : $" ({w.NameOf(from)} 세력에게서)"));
+        }
+
+        /// <summary>전장의 성벽·성문 내구를 세계 상태에 기록한다.</summary>
+        public static void SyncStructures(WorldState w, Battle.Battle b)
+        {
             foreach (var kv in b.Structures)
             {
                 var c = w.Cities[kv.Value.Stronghold];

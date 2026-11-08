@@ -96,6 +96,15 @@ namespace Sam11.Core.World
                 };
                 w.Officers[id] = os;
             }
+            foreach (var d in (root["diplomacy"] as JArray) ?? new JArray())
+            {
+                if (d.Value<string>("type") != "alliance") continue;
+                int months = d.Value<int?>("months") ?? 12;
+                int total = w.Date.Year * 12 + (w.Date.Month - 1) + months;
+                var a = new Alliance { Name = d.Value<string>("name") ?? "", UntilYear = total / 12, UntilMonth = total % 12 + 1 };
+                foreach (var m in d["factions"]!) a.Members.Add(m.Value<string>()!);
+                w.Alliances.Add(a);
+            }
             return w;
         }
     }

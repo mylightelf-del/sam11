@@ -117,6 +117,8 @@ namespace Sam11.Core.Data
         public double PopRatioCap { get; set; }
         public double GoldPerSoldier { get; set; }
         public int MoraleLoss { get; set; }
+        /// <summary>도시가 보유할 수 있는 병력 상한 = 인구 × 이 비율.</summary>
+        public double MaxTroopRatio { get; set; } = 0.15;
     }
     public sealed class TrainRules { public int Base { get; set; } public int LdrDivisor { get; set; } = 10; }
     public sealed class PatrolRules { public int Base { get; set; } public int StatDivisor { get; set; } = 40; }
@@ -126,5 +128,11 @@ namespace Sam11.Core.Data
         public Dictionary<string, double> GoldPerUnit { get; set; } = new Dictionary<string, double>();
     }
     public sealed class CharityRules { public double FoodRatio { get; set; } public int Base { get; set; } public int ChaDivisor { get; set; } = 20; }
-    public sealed class TradeRules { public double FoodPerGold { get; set; } public List<double> MonthlyFactor { get; set; } = new List<double>(); }
+    public sealed class TradeRules
+    {
+        public double FoodPerGold { get; set; }
+        public List<double> MonthlyFactor { get; set; } = new List<double>();
+        /// <summary>한 번에 사고팔 수 있는 군량 = 도시 인구 × 이 비율 (지역 시장의 한계).</summary>
+        public double MaxFoodRatio { get; set; } = 0.05;
+    }
 }

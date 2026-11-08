@@ -42,11 +42,30 @@ namespace Sam11.Core.Data
         public HiddenStats Hidden { get; set; } = new HiddenStats();
         public Dictionary<string, AptitudeRank> Aptitude { get; set; } = new Dictionary<string, AptitudeRank>();
         public List<string> Traits { get; set; } = new List<string>();
+        public KinDef? Kin { get; set; }
+        public RulerPersonality? RulerPersonality { get; set; }
 
         public AptitudeRank AptitudeFor(string formationId) =>
             Aptitude.TryGetValue(formationId, out var r) ? r : AptitudeRank.C;
 
         public override string ToString() => Name.Ko;
+    }
+
+    public sealed class KinDef
+    {
+        public string? Father { get; set; }
+        public string? Mother { get; set; }
+        public List<string> Spouse { get; set; } = new List<string>();
+        public List<string> Siblings { get; set; } = new List<string>();
+    }
+
+    /// <summary>AI 군주 성향값 (06 AI 설계서 6.2). 각 1~10.</summary>
+    public sealed class RulerPersonality
+    {
+        public int Aggression { get; set; } = 5;
+        public int Faith { get; set; } = 5;
+        public int Domestic { get; set; } = 5;
+        public int Diplomacy { get; set; } = 5;
     }
 
     public sealed class EffectDef

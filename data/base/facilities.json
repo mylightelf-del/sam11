@@ -11,9 +11,9 @@
       "description": "금 수입",
       "per_level": {
         "gold_income": [
-          100,
-          180,
-          260
+          60,
+          110,
+          160
         ]
       },
       "adjacency": [],
@@ -67,9 +67,9 @@
       "description": "가을 수확량",
       "per_level": {
         "harvest": [
-          1500,
-          2700,
-          3900
+          3000,
+          5500,
+          8000
         ]
       },
       "adjacency": [],

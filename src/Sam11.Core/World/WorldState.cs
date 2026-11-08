@@ -37,6 +37,8 @@ namespace Sam11.Core.World
         public string Capital = "";
         public string Tax = "mid";
         public bool Alive = true;
+        /// <summary>금 수입 보너스 (지옥 난이도 AI 등).</summary>
+        public double IncomeBonus;
     }
 
     public sealed class FacilityState
@@ -76,6 +78,8 @@ namespace Sam11.Core.World
         /// <summary>슬롯 번호 → 시설.</summary>
         public Dictionary<int, FacilityState> Facilities = new Dictionary<int, FacilityState>();
         public Dictionary<HexCoord, StructureState> Structures = new Dictionary<HexCoord, StructureState>();
+        /// <summary>전장에 나가 있는 수비대 병력 (월 군량 소비에 포함).</summary>
+        public int FieldGarrison;
 
         public string Id => Def.Id;
         public override string ToString() => Def.Name.Ko;
@@ -97,9 +101,24 @@ namespace Sam11.Core.World
         public string? Rank;
         public int Merit;
         public bool Acted;
+        /// <summary>남은 부상 턴. 0보다 크면 출진할 수 없다.</summary>
+        public int InjuredTurns;
+        /// <summary>포로가 된 뒤 지난 달 수.</summary>
+        public int CaptiveMonths;
 
         public string Id => Def.Id;
         public override string ToString() => Def.Name.Ko;
+    }
+
+    /// <summary>동맹 (05 외교 설계서). 기한이 지나면 풀린다.</summary>
+    public sealed class Alliance
+    {
+        public string Name = "";
+        public HashSet<string> Members = new HashSet<string>();
+        public int UntilYear;
+        public int UntilMonth;
+
+        public bool Active(GameDate d) => d.Year < UntilYear || (d.Year == UntilYear && d.Month < UntilMonth);
     }
 
     /// <summary>전략 단계의 전체 게임 상태.</summary>
@@ -113,6 +132,13 @@ namespace Sam11.Core.World
         public Dictionary<string, CityState> Cities { get; } = new Dictionary<string, CityState>();
         public Dictionary<string, OfficerState> Officers { get; } = new Dictionary<string, OfficerState>();
         public List<string> Log { get; } = new List<string>();
+        public List<Alliance> Alliances { get; } = new List<Alliance>();
+
+        public bool AreAllied(string a, string b) =>
+            a == b || Alliances.Any(x => x.Active(Date) && x.Members.Contains(a) && x.Members.Contains(b));
+
+        public string NameOf(string factionId) =>
+            Factions.TryGetValue(factionId, out var f) && Officers.TryGetValue(f.Ruler, out var r) ? r.Def.Name.Ko : factionId;
 
         public WorldState(GameData data, WorldMap map, ulong seed)
         {

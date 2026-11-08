@@ -35,6 +35,9 @@ namespace Sam11.Core.Battle
         public Dictionary<string, StrongholdOnField> Strongholds { get; } = new Dictionary<string, StrongholdOnField>();
         public List<CaptureEvent> Captures { get; } = new List<CaptureEvent>();
 
+        /// <summary>두 세력이 적대 관계인지. 동맹끼리는 길을 막지 않는다 (기본: 세력이 다르면 적).</summary>
+        public Func<string, string, bool> Hostile { get; set; } = (a, b) => a != b;
+
         /// <summary>칸이 어느 도시 영역인지 (전국 맵에서만). null이면 보급을 따지지 않는다.</summary>
         public Func<HexCoord, string?>? TerritoryOf { get; set; }
         public string WeatherId { get; set; }
@@ -101,7 +104,8 @@ namespace Sam11.Core.Battle
         }
 
         /// <summary>
-        /// 거점 수비대를 정청(중심)에 배치한다. 수비대는 최대 병력 제한을 받지 않는다.
+        /// 거점 수비대를 정청(중심)에 배치한다. 수비대는 성의 병력 전부를 담지만,
+        /// 공격에 나서는 병력은 주장이 지휘할 수 있는 만큼(통솔 × 100)이다. 나머지는 버티는 몫이다.
         /// 주장이 없으면 이름 없는 수비대장이 지휘한다.
         /// </summary>
         public Unit DeployGarrison(string strongholdId, IReadOnlyList<string> officerIds, int troops,
@@ -114,8 +118,9 @@ namespace Sam11.Core.Battle
             string formation = Data.Rules.Siege.GarrisonFormationPreference
                 .FirstOrDefault(f => CanDeploy(Data, members, f, troops, equipment) == null) ?? "square";
             if (UnitAt(sh.Center) != null) throw new InvalidOperationException($"{sh.Name} 정청이 이미 점거됨");
+            int command = UnitStats.MaxTroops(members[0], null, Data.Rules.Unit);
             var u = new Unit(_nextId++, sh.Owner, members[0], members.Skip(1).ToList(), Data.Formations[formation],
-                             troops, troops, 50, morale, Data) { Position = sh.Center };
+                             troops, command, 50, morale, Data) { Position = sh.Center };
             Units.Add(u);
             return u;
         }
@@ -196,7 +201,52 @@ namespace Sam11.Core.Battle
             return best;
         }
 
-        private bool InEnemyZone(Unit u, HexCoord h) => AdjacentUnits(h).Any(o => o.Faction != u.Faction);
+        /// <summary>
+        /// goal까지의 이동 비용 지도 (부대 위치는 무시하고 지형·구조물만 본다). goal 칸은 막혀 있어도 된다.
+        /// AI가 강·산을 돌아가는 길을 찾을 때 쓴다. maxCost를 넘는 칸은 넣지 않는다.
+        /// </summary>
+        public Dictionary<HexCoord, int> PathField(Unit u, HexCoord goal, int maxCost = int.MaxValue) =>
+            PathField(u, goal, null, 0, maxCost, out _);
+
+        /// <summary>
+        /// from 칸에 닿은 뒤 margin만큼만 더 넓히고 멈추는 경로 지도 (맵 전체를 다 돌지 않는다).
+        /// covered: 이 비용까지는 지도가 완전하다. from에 닿지 못하면 maxCost까지 돈다.
+        /// </summary>
+        public Dictionary<HexCoord, int> PathField(Unit u, HexCoord goal, HexCoord? from, int margin, int maxCost, out int covered)
+        {
+            var dist = new Dictionary<HexCoord, int> { [goal] = 0 };
+            var heap = new MinHeap<HexCoord>();
+            heap.Push(goal, 0);
+            int limit = maxCost;
+            covered = maxCost;
+            while (heap.Count > 0)
+            {
+                var (cur, d) = heap.Pop();
+                if (d > dist[cur]) continue;
+                if (d > limit)
+                {
+                    covered = limit;
+                    break;
+                }
+                if (from != null && cur == from.Value && limit == maxCost)
+                    limit = Math.Min(maxCost, d + margin);
+                foreach (var n in cur.Neighbors())
+                {
+                    int? step = MoveCost2(u, n);
+                    if (step == null) continue;
+                    int nd = d + step.Value;
+                    if (nd > maxCost) continue;
+                    if (!dist.TryGetValue(n, out var old) || nd < old)
+                    {
+                        dist[n] = nd;
+                        heap.Push(n, nd);
+                    }
+                }
+            }
+            return dist;
+        }
+
+        private bool InEnemyZone(Unit u, HexCoord h) => AdjacentUnits(h).Any(o => Hostile(o.Faction, u.Faction));
 
         public void Move(Unit u, HexCoord to)
         {
@@ -260,7 +310,7 @@ namespace Sam11.Core.Battle
             var ctx = new Modifiers.Context { Unit = attacker, Terrain = Map.TerrainAt(attacker.Position), Weather = WeatherId };
             double trait = 1 + Modifiers.SumMul(Modifiers.Collect(attacker, null), "structure_damage", ctx);
             double rnd = randomize ? Rng.Range(c.RandomMin, c.RandomMax) : 1.0;
-            double dmg = attacker.Troops * c.BaseRatio * ratio * formation * trait * power * rnd
+            double dmg = attacker.FightingTroops * c.BaseRatio * ratio * formation * trait * power * rnd
                          * Data.Rules.Siege.StructureDamageRatio * Data.Rules.Morale.MultiplierFor(attacker.Morale);
             return Math.Max(1, (int)Math.Round(dmg));
         }
@@ -318,7 +368,7 @@ namespace Sam11.Core.Battle
             {
                 if (sh.Owner == null) continue;
                 var occupant = UnitAt(sh.Center);
-                if (occupant == null || occupant.Faction == sh.Owner) continue;
+                if (occupant == null || !Hostile(occupant.Faction, sh.Owner)) continue;
                 var tiles = Structures.Where(kv => kv.Value.Stronghold == sh.Id).ToList();
                 // 성내 칸이 있으면 성내만, 없으면(관문) 성벽·성문 위 수비 부대까지 본다
                 var held = tiles.Any(kv => kv.Value.IsInterior) ? tiles.Where(kv => kv.Value.IsInterior) : tiles;
@@ -601,8 +651,14 @@ namespace Sam11.Core.Battle
             Log.Add($"{u.Label} 궤멸!");
             foreach (var o in u.Members)
             {
+                if (o.Id.StartsWith("_")) continue; // 이름 없는 수비대장
                 var fate = RollFate(o, u, surrounded, onFire);
-                Fates.Add(new OfficerFate { OfficerId = o.Id, Outcome = fate });
+                if (fate == DefeatOutcome.Capture && by == null) fate = DefeatOutcome.Return; // 잡을 적이 없음
+                Fates.Add(new OfficerFate
+                {
+                    OfficerId = o.Id, Outcome = fate, Faction = u.Faction, By = by?.Faction,
+                    Home = u.Home, Garrison = u.IsGarrison, Position = u.Position,
+                });
                 Log.Add($"  {o.Name.Ko}: {FateText(fate)}");
             }
             foreach (var ally in Alive.Where(a => a.Faction == u.Faction))
@@ -676,7 +732,7 @@ namespace Sam11.Core.Battle
                                 .Where(n => Data.Terrain.TryGetValue(Map.TerrainAt(n), out var t) && t.PassableLand)
                                 .Distinct().ToList();
             if (ring.Count == 0) return false;
-            int enemies = ring.Count(n => UnitAt(n) is Unit u && u.Faction != sh.Owner);
+            int enemies = ring.Count(n => UnitAt(n) is Unit u && Hostile(u.Faction, sh.Owner));
             return enemies >= ring.Count * Data.Rules.Siege.BlockadeRatio;
         }
 
@@ -737,8 +793,12 @@ namespace Sam11.Core.Battle
                     {
                         u.Status = UnitStatus.Routed;
                         Log.Add($"{Korean.IGa(u.Label)} 전장에서 도주했다");
-                        foreach (var o in u.Members)
-                            Fates.Add(new OfficerFate { OfficerId = o.Id, Outcome = DefeatOutcome.Return });
+                        foreach (var o in u.Members.Where(m => !m.Id.StartsWith("_")))
+                            Fates.Add(new OfficerFate
+                            {
+                                OfficerId = o.Id, Outcome = DefeatOutcome.Return, Faction = u.Faction,
+                                Home = u.Home, Garrison = u.IsGarrison, Position = u.Position,
+                            });
                         continue;
                     }
                 }
@@ -766,6 +826,8 @@ namespace Sam11.Core.Battle
         /// <summary>모든 세력이 한 번씩 행동하면 라운드를 넘긴다 (화재 감소).</summary>
         public void EndRound()
         {
+            // 전장에서 빠진 부대는 목록에서 정리한다 (긴 게임에서 탐색이 느려지지 않게)
+            Units.RemoveAll(u => !u.IsAlive);
             Map.TickFire();
             if (WeatherId == "rain")
                 foreach (var h in Map.BurningCells) Map.Extinguish(h);

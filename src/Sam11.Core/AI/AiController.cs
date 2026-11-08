@@ -1,0 +1,209 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sam11.Core.Battle;
+using Sam11.Core.Common;
+using Sam11.Core.Data;
+using Sam11.Core.World;
+
+namespace Sam11.Core.AI
+{
+    public enum CampaignState { Gathering, Marching, Done }
+
+    /// <summary>원정: 한 거점을 목표로 병력을 모아 출진하고 함락까지 이끄는 작전 단위.</summary>
+    public sealed class Campaign
+    {
+        public string Target = "";
+        public string Source = "";
+        public int Required;
+        public double EstimatedDefense;
+        public CampaignState State = CampaignState.Gathering;
+        public List<Unit> Units = new List<Unit>();
+        public int StartTurn;
+        /// <summary>목표 대비 출진 병력 비 (축차 투입 측정용).</summary>
+        public double LaunchRatio;
+        public override string ToString() => $"{Source}→{Target} ({State}, 필요 {Required})";
+    }
+
+    /// <summary>AI 통계 (06 AI 설계서 2장 약점 측정).</summary>
+    public sealed class AiStats
+    {
+        public int CampaignsLaunched;
+        public int LaunchedUnderRatio;   // 전력비 기준 미달 출진 (축차 투입)
+        public int CampaignsWon;
+        /// <summary>출진했지만 함락하지 못하고 끝난 원정.</summary>
+        public int CampaignsFailed;
+        /// <summary>병력을 모으다 포기한 원정 (출진 전).</summary>
+        public int CampaignsAbandoned;
+        public int StalledUnitTurns;     // 목표가 있는데 움직이지도 공격하지도 못한 부대·턴 (정체)
+        public int UnitTurns;
+        public int Retreats;
+        /// <summary>원정 준비가 끝났는데 출진하지 못한 이유별 횟수 (병력 부족, 지휘 한도, 군량 부족 등).</summary>
+        public Dictionary<string, int> LaunchBlocked = new Dictionary<string, int>();
+    }
+
+    /// <summary>
+    /// 3계층 AI (06 AI 설계서 3장).
+    /// 전략(매월: 목표 선정) → 작전(원정군 편성·진군) → 전술(부대별 행동). 내정 AI가 이를 뒷받침한다.
+    /// </summary>
+    public sealed partial class AiController : IFactionController
+    {
+        public AiConfig Config { get; }
+        public List<Campaign> Campaigns { get; } = new List<Campaign>();
+        public AiStats Stats { get; } = new AiStats();
+        public Knowledge? Knowledge { get; private set; }
+
+        private readonly Dictionary<Unit, Campaign> _unitCampaign = new Dictionary<Unit, Campaign>();
+        /// <summary>
+        /// 목표까지의 경로 지도 캐시. 원정 목표는 몇 달씩 같으므로 턴을 넘겨 쓰고,
+        /// 함락이나 성벽·성문 붕괴로 길이 바뀌었을 때만 버린다.
+        /// </summary>
+        private readonly Dictionary<(HexCoord, string, string), (Dictionary<HexCoord, int> Field, int Covered)> _pathCache =
+            new Dictionary<(HexCoord, string, string), (Dictionary<HexCoord, int>, int)>();
+        private (int Captures, int Broken) _pathVersion = (-1, -1);
+        private int _plannedMonth = -1;
+
+        public AiController(AiConfig? config = null) => Config = config ?? AiConfig.For(Difficulty.Normal);
+
+        public void TakeTurn(Game g, string faction)
+        {
+            var w = g.World;
+            w.Factions[faction].IncomeBonus = Config.IncomeBonus;
+            Knowledge ??= new Knowledge(faction);
+            Knowledge.Update(g);
+            var version = (g.Field.Captures.Count, g.Field.Structures.Values.Count(x => x.MaxDurability > 0 && x.Durability <= 0));
+            if (version != _pathVersion)
+            {
+                _pathCache.Clear();
+                _pathVersion = version;
+            }
+
+            int monthKey = w.Date.Year * 12 + w.Date.Month;
+            if (_plannedMonth != monthKey || Campaigns.Count == 0)
+            {
+                _plannedMonth = monthKey;
+                Plan(g, faction);
+            }
+            // 출진을 먼저: 내정이 무장을 다 써 버리면 원정군을 꾸릴 수 없다
+            foreach (var camp in Campaigns.Where(c => c.State == CampaignState.Gathering).ToList())
+                TryLaunch(g, faction, camp);
+            RunDomestic(g, faction);
+            RunField(g, faction);
+            Campaigns.RemoveAll(c => c.State == CampaignState.Done);
+        }
+
+        // ------------------------------------------------------------------ 공통 판단
+
+        private static RulerPersonality Personality(WorldState w, string faction) =>
+            w.Officers[w.Factions[faction].Ruler].Def.RulerPersonality ?? new RulerPersonality();
+
+        /// <summary>도시 근처(10칸)에 보이는 적 야전 병력.</summary>
+        public int Threat(Game g, CityState c) =>
+            Knowledge!.VisibleEnemies(g).Where(u => !u.IsGarrison && u.Position.DistanceTo(c.Placement.Center) <= 10).Sum(u => u.Troops);
+
+        /// <summary>거점에 남겨야 할 병력: 종류별 기본 + 위협.</summary>
+        public int Reserve(Game g, CityState c, string faction)
+        {
+            int baseline = c.Def.Type switch
+            {
+                "major_city" => 4000, "city" => 2500, "gate" => 3000, "fortress" => 2000, "port" => 500, _ => 300,
+            };
+            if (g.World.Factions[faction].Capital == c.Id) baseline += 2000;
+            return baseline + Threat(g, c);
+        }
+
+        public int Surplus(Game g, CityState c, string faction) => Math.Max(0, c.Troops - Reserve(g, c, faction));
+
+        private static double WallFactor(string type) => type switch
+        {
+            "major_city" => 1.3, "city" => 1.2, "gate" => 1.4, "fortress" => 1.25, _ => 1.0,
+        };
+
+        private static double Value(WorldState w, CityState t)
+        {
+            double v = t.Def.Type switch
+            {
+                "major_city" => 8, "city" => 5, "gate" => 4, "fortress" => 3, "port" => 2, _ => 1,
+            };
+            v += t.Population / 200000.0;
+            if (t.Owner == null) v += 2;
+            else if (w.Factions.TryGetValue(t.Owner, out var f) && f.Capital == t.Id) v += 2;
+            return v;
+        }
+
+        // ------------------------------------------------------------------ 전략 계층
+
+        private void Plan(Game g, string faction)
+        {
+            var w = g.World;
+            foreach (var c in Campaigns)
+            {
+                var t = w.Cities[c.Target];
+                bool targetGone = t.Owner == faction || (t.Owner != null && w.AreAllied(t.Owner, faction));
+                bool sourceLost = w.Cities[c.Source].Owner != faction;
+                bool stale = c.State == CampaignState.Gathering && g.TurnCount - c.StartTurn > 18;
+                if (c.State == CampaignState.Gathering && (targetGone || sourceLost || stale))
+                {
+                    c.State = CampaignState.Done;
+                    Stats.CampaignsAbandoned++;
+                }
+            }
+            Campaigns.RemoveAll(c => c.State == CampaignState.Done);
+
+            var own = w.Cities.Values.Where(c => c.Owner == faction).ToList();
+            int cityCount = own.Count(c => c.Def.IsCity);
+            int max = cityCount >= 8 ? 3 : cityCount >= 4 ? 2 : 1;
+            if (Campaigns.Count >= max) return;
+
+            var p = Personality(w, faction);
+            double ratio = Config.ConcentrationRatio * (Config.ConcentrationRatio >= 1 ? 1.15 - 0.03 * p.Aggression : 1);
+            // 수확 전(6~8월)에 군량이 넉넉하지 않으면 큰 원정을 미룬다 (호전적인 군주는 개의치 않는다)
+            bool preHarvest = w.Date.Month >= 6 && w.Date.Month <= 8 && p.Aggression < 8;
+
+            var options = new List<(double Score, Campaign C, bool Feasible)>();
+            foreach (var s in own)
+            {
+                var connected = Domestic.ConnectedOwn(w, s.Id);
+                int available = Surplus(g, s, faction)
+                                + (int)(connected.Where(id => id != s.Id).Sum(id => Surplus(g, w.Cities[id], faction)) * 0.6);
+                // 이어진 거점의 무장들이 이끌 수 있는 병력 (원정군 지휘관이 모자라면 못 친다)
+                int capacity = w.Officers.Values
+                    .Where(o => o.Status == OfficerStatus.Active && o.Faction == faction && connected.Contains(o.Location) && o.InjuredTurns == 0)
+                    .Select(o => UnitStats.MaxTroops(o.Def, o.Rank != null ? w.Data.Ranks[o.Rank] : null, w.Data.Rules.Unit))
+                    .OrderByDescending(x => x).Skip(1).Take(5).Sum();
+                foreach (var tid in s.Def.Links)
+                {
+                    var t = w.Cities[tid];
+                    if (t.Owner == faction || (t.Owner != null && w.AreAllied(t.Owner, faction))) continue;
+                    if (Campaigns.Any(c => c.Target == tid)) continue;
+                    double d = Knowledge!.EstimateTroops(g, t) * WallFactor(t.Def.Type)
+                               + Knowledge.VisibleEnemies(g).Where(u => !u.IsGarrison && u.Position.DistanceTo(t.Placement.Center) <= 6).Sum(u => u.Troops);
+                    d = Math.Max(d, 500);
+                    int need = (int)Math.Ceiling(d * ratio);
+                    double score = Value(w, t) * (0.6 + p.Aggression / 10.0) / (1 + d / 8000.0)
+                                   / (1 + s.Placement.Center.DistanceTo(t.Placement.Center) / 40.0);
+                    int foodNeed = (int)(need * w.Data.Rules.Economy.FoodPerSoldierMonth * 6);
+                    bool lean = preHarvest && s.Food - Domestic.MonthlyFoodUse(w, s) * 3 < foodNeed;
+                    bool feasible = available >= need && capacity >= need && !lean;
+                    if (capacity < need * 0.7) continue; // 지휘관이 턱없이 모자라면 계획도 세우지 않는다
+                    var camp = new Campaign { Target = tid, Source = s.Id, Required = need, EstimatedDefense = d, StartTurn = g.TurnCount };
+                    options.Add((score, camp, feasible));
+                }
+            }
+            foreach (var (score, camp, feasible) in options.OrderByDescending(o => o.Feasible).ThenByDescending(o => o.Score))
+            {
+                if (Campaigns.Count >= max) break;
+                if (Campaigns.Any(c => c.Source == camp.Source || c.Target == camp.Target)) continue;
+                if (!feasible)
+                {
+                    // 당장 칠 수 없으면 병력을 모으는 목표 하나만 둔다 (전력이 터무니없이 모자라면 포기)
+                    var s = w.Cities[camp.Source];
+                    int total = own.Sum(c => Surplus(g, c, faction));
+                    if (Campaigns.Count > 0 || total < camp.Required * 0.5) continue;
+                }
+                Campaigns.Add(camp);
+                w.Log.Add($"[{w.Date}] (AI) {w.NameOf(faction)} 세력, {w.Cities[camp.Target]} 공략 계획 (출발 {w.Cities[camp.Source]}, 필요 병력 {camp.Required})");
+            }
+        }
+    }
+}

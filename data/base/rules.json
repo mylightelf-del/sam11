@@ -157,7 +157,7 @@
     }
   },
   "economy": {
-    "tax_per_capita_gold": 0.002,
+    "tax_per_capita_gold": 0.001,
     "harvest_per_capita": 0.06,
     "food_per_soldier_month": 0.1,
     "pop_growth_base": 0.002,
@@ -186,7 +186,8 @@
       "stat_factor": 10,
       "pop_ratio_cap": 0.05,
       "gold_per_soldier": 0.1,
-      "morale_loss": 4
+      "morale_loss": 4,
+      "max_troop_ratio": 0.15
     },
     "train": {
       "base": 5,
@@ -211,7 +212,7 @@
       "cha_divisor": 20
     },
     "trade": {
-      "food_per_gold": 10,
+      "food_per_gold": 5,
       "monthly_factor": [
         1.0,
         1.0,
@@ -225,7 +226,8 @@
         1.3,
         1.2,
         1.1
-      ]
+      ],
+      "max_food_ratio": 0.05
     },
     "merit_per_command": 10,
     "rear_supply": {

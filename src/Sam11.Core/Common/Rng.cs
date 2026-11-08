@@ -50,6 +50,21 @@ namespace Sam11.Core.Common
 
         public bool Chance(double p) => NextDouble() < p;
 
+        /// <summary>
+        /// 실행마다 같은 값을 내는 문자열 해시 (FNV-1a). string.GetHashCode()는 .NET Core에서
+        /// 실행할 때마다 달라져 결정론을 깨므로 게임 로직에서는 이것을 쓴다.
+        /// </summary>
+        public static uint StableHash(string s)
+        {
+            uint h = 2166136261;
+            foreach (char c in s)
+            {
+                h ^= c;
+                h *= 16777619;
+            }
+            return h;
+        }
+
         /// <summary>[min, max) 범위 실수.</summary>
         public double Range(double min, double max) => min + (max - min) * NextDouble();
 
