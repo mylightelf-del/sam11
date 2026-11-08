@@ -19,6 +19,7 @@ namespace Sam11.Core.Data
         public SiegeRules Siege { get; set; } = new SiegeRules();
         public CityRules City { get; set; } = new CityRules();
         public MeritRules Merit { get; set; } = new MeritRules();
+        public Duel.DuelRules Duel { get; set; } = new Duel.DuelRules();
         public DomesticRules Domestic { get; set; } = new DomesticRules();
     }
 

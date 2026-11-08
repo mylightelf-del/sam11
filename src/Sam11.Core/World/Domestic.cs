@@ -345,7 +345,15 @@ namespace Sam11.Core.World
             if (!free && !captive) throw new InvalidOperationException($"{Korean.EunNeun(t.ToString())} 등용할 수 없는 상태");
             double p = EmployChance(w, o, t);
             if (!w.Rng.Chance(p))
-                return Done(w, o, $"{o}, {t} 등용 실패 ({p:P0})");
+            {
+                // 망설이는 상대에게는 설전으로 한 번 더 (05 설계서 4.2)
+                if (p < w.Data.Rules.Duel.EmployDebateMinChance)
+                    return Done(w, o, $"{o}, {t} 등용 실패 ({p:P0})");
+                var debate = new Duel.CardDuel(w.Data, w.Rng, Duel.DuelKind.Debate, o.Def, t.Def);
+                if (!debate.Run())
+                    return Done(w, o, $"{o}, {t} 등용 실패 — 설전에서 밀렸다 ({p:P0})");
+                w.Log.Add($"[{w.Date}] {o}, 설전으로 {Korean.EulReul(t.ToString())} 설득했다");
+            }
             t.Status = OfficerStatus.Active;
             t.Faction = o.Faction;
             t.Location = cityId;

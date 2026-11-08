@@ -269,6 +269,8 @@ namespace Sam11.Core.AI
             var field = encircle ? PathTo(g, u, camp.Focus!.Value) : PathTo(g, u, target.Placement.Center);
             HexCoord goal = encircle ? camp.Focus!.Value : target.Placement.Center;
 
+            if (TryDuel(g, u)) return;
+
             var best = ChooseAction(g, u, goal, cluster, field, target.Placement.Center, breached: !encircle && walls.Count > 0);
             var before = u.Position;
             if (best.Pos != u.Position) b.Move(u, best.Pos);
@@ -301,6 +303,24 @@ namespace Sam11.Core.AI
             if (better.All(n => b.UnitAt(n) is Unit x && x.Faction == u.Faction)) return "아군에 막힘";
             if (better.All(n => b.UnitAt(n) is Unit x)) return "부대에 막힘(적 포함)";
             return "이동 불가(지배 영역 등)";
+        }
+
+        /// <summary>
+        /// 일기토: 우리 대표 무력이 85 이상이고 붙어 있는 적 대표보다 15 이상 높으면 절반 확률로 신청한다
+        /// (사기를 크게 흔들 기회. 매번 쓰면 기력이 바닥나므로 아낀다).
+        /// </summary>
+        private bool TryDuel(Game g, Unit u)
+        {
+            var b = g.Field;
+            if (u.Energy < g.World.Data.Rules.Duel.ChallengeEnergy) return false;
+            var mine = Battle.Battle.Champion(u);
+            if (mine.Stats.War < 85) return false;
+            var foe = b.AdjacentUnits(u.Position).Where(e => b.Hostile(e.Faction, u.Faction))
+                       .OrderByDescending(e => e.Troops).FirstOrDefault(e => Battle.Battle.Champion(e).Stats.War <= mine.Stats.War - 15);
+            if (foe == null || !g.World.Rng.Chance(0.5)) return false;
+            Stats.Duels++;
+            b.ChallengeDuel(u, foe);
+            return true;
         }
 
         private void GoHome(Game g, Unit u, string cityId)

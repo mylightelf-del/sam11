@@ -48,6 +48,7 @@ namespace Sam11.Core.AI
         public int Retreats;
         /// <summary>공성 중인 원정군에 보낸 증원 부대 수.</summary>
         public int Reinforcements;
+        public int Duels;
         public int RetreatsMorale;
         public int RetreatsFood;
         /// <summary>원정 준비가 끝났는데 출진하지 못한 이유별 횟수 (병력 부족, 지휘 한도, 군량 부족 등).</summary>

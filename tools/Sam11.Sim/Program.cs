@@ -310,7 +310,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
         {
             total.CampaignsLaunched += a.Stats.CampaignsLaunched; total.LaunchedUnderRatio += a.Stats.LaunchedUnderRatio;
             total.CampaignsWon += a.Stats.CampaignsWon; total.CampaignsFailed += a.Stats.CampaignsFailed; total.CampaignsAbandoned += a.Stats.CampaignsAbandoned;
-            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
+            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.Duels += a.Stats.Duels; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
             foreach (var kv in a.Stats.LaunchBlocked) total.LaunchBlocked[kv.Key] = total.LaunchBlocked.GetValueOrDefault(kv.Key) + kv.Value;
             foreach (var kv in a.Stats.StallReasons) total.StallReasons[kv.Key] = total.StallReasons.GetValueOrDefault(kv.Key) + kv.Value;
         }
@@ -359,7 +359,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
     }
     Console.WriteLine($"함락 {captures}건, 전사 {deaths}명, 통일 {unifications}판");
     Console.WriteLine("AI 지표 (06 설계서 2장):");
-    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회: 사기·병력 {total.RetreatsMorale}, 군량 {total.RetreatsFood}), 출진 전 포기 {total.CampaignsAbandoned}, 증원 부대 {total.Reinforcements}");
+    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회: 사기·병력 {total.RetreatsMorale}, 군량 {total.RetreatsFood}), 출진 전 포기 {total.CampaignsAbandoned}, 증원 부대 {total.Reinforcements}, 일기토 신청 {total.Duels}");
     Console.WriteLine($"  축차 투입(전력비 1.5배 미달 출진): {total.LaunchedUnderRatio}회 ({Pct(total.LaunchedUnderRatio, total.CampaignsLaunched)})");
     Console.WriteLine($"  정체(목표가 있는데 제자리): {total.StalledUnitTurns}/{total.UnitTurns} 부대·턴 ({Pct(total.StalledUnitTurns, total.UnitTurns)})");
     Console.WriteLine($"  정체 원인: {string.Join(", ", total.StallReasons.OrderByDescending(kv => kv.Value).Select(kv => $"{kv.Key} {kv.Value}"))}");

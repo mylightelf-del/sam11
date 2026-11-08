@@ -365,6 +365,101 @@ namespace Sam11.Core.Battle
             return dmg;
         }
 
+        // ------------------------------------------------------------------ 일기토 (05 설계서 4.3)
+
+        /// <summary>부대에서 무력이 가장 높은 무장 (일기토 대표).</summary>
+        public static OfficerDef Champion(Unit u) => u.Members.OrderByDescending(o => o.Stats.War).ThenBy(o => o.Id).First();
+
+        /// <summary>상대가 일기토를 받는지: 대표 무력이 도전자보다 크게 밀리지 않으면 받는다.</summary>
+        public bool WouldAccept(Unit challenger, Unit target) =>
+            Champion(target).Stats.War >= Champion(challenger).Stats.War - Data.Rules.Duel.AcceptMargin;
+
+        /// <summary>
+        /// 일기토 신청 (기력 소모). 거절하면 상대 부대 사기 하락. 수락하면 카드 대결로 승부를 내고,
+        /// 이긴 부대 사기 상승·진 부대 사기 하락, 진 무장은 부상·포로·전사 판정.
+        /// 진 무장이 부장이면 부대에서 빠지고, 주장이 사로잡히거나 쓰러지면 부대가 무너진다.
+        /// accept/pickers로 수락 여부와 카드 선택을 정할 수 있다 (플레이어 입력용). 이기면 true.
+        /// </summary>
+        public bool? ChallengeDuel(Unit challenger, Unit target, bool? accept = null,
+                                   Duel.ICardPicker? pickChallenger = null, Duel.ICardPicker? pickTarget = null)
+        {
+            EnsureCanAct(challenger);
+            var r = Data.Rules.Duel;
+            if (!target.IsAlive || !Hostile(challenger.Faction, target.Faction) || challenger.Position.DistanceTo(target.Position) != 1)
+                throw new InvalidOperationException("일기토를 신청할 수 없는 대상");
+            if (challenger.Energy < r.ChallengeEnergy)
+                throw new InvalidOperationException($"기력 부족: {challenger.Energy}/{r.ChallengeEnergy}");
+            challenger.Energy -= r.ChallengeEnergy;
+            var a = Champion(challenger);
+            var d = Champion(target);
+            Log.Add($"{Korean.IGa(a.Name.Ko)} {d.Name.Ko}에게 일기토를 청했다!");
+            if (!(accept ?? WouldAccept(challenger, target)))
+            {
+                Log.Add($"  {Korean.EunNeun(d.Name.Ko)} 응하지 않았다. {target.Label} 사기 -{Data.Rules.Morale.RefuseDuelPenalty}");
+                LoseMorale(target, Data.Rules.Morale.RefuseDuelPenalty);
+                Finish(challenger);
+                return null;
+            }
+            var duel = new Duel.CardDuel(Data, Rng, Duel.DuelKind.Combat, a, d);
+            bool won = duel.Run(pickChallenger, pickTarget);
+            foreach (var line in duel.Log) Log.Add("  " + line);
+            var (winU, loseU) = won ? (challenger, target) : (target, challenger);
+            var loser = won ? d : a;
+            Log.Add($"  {Korean.IGa((won ? a : d).Name.Ko)} 이겼다!");
+            winU.Morale = Math.Min(Data.Rules.Morale.Max, winU.Morale + r.WinMorale);
+            LoseMorale(loseU, r.LoseMorale);
+            DuelLoserFate(loser, loseU, winU);
+            Finish(challenger);
+            CheckCaptures();
+            return won;
+        }
+
+        private void DuelLoserFate(OfficerDef loser, Unit loseU, Unit winU)
+        {
+            if (loser.Id.StartsWith("_")) return;
+            var p = Data.Rules.Duel.LoserFate;
+            double roll = Rng.NextDouble();
+            DefeatOutcome outcome;
+            if (roll < p.GetValueOrDefault("death")) outcome = Options.DeathEnabled ? DefeatOutcome.Death : DefeatOutcome.SeriousInjury;
+            else if (roll < p.GetValueOrDefault("death") + p.GetValueOrDefault("capture")) outcome = DefeatOutcome.Capture;
+            else if (roll < p.GetValueOrDefault("death") + p.GetValueOrDefault("capture") + p.GetValueOrDefault("injury")) outcome = DefeatOutcome.Injury;
+            else outcome = DefeatOutcome.Return;
+            if (outcome == DefeatOutcome.Return)
+            {
+                Log.Add($"  {Korean.EunNeun(loser.Name.Ko)} 간신히 물러났다");
+                return;
+            }
+            Fates.Add(new OfficerFate
+            {
+                OfficerId = loser.Id, Outcome = outcome, Faction = loseU.Faction, By = winU.Faction,
+                Home = loseU.Home, Garrison = loseU.IsGarrison, Position = loseU.Position,
+                ByOfficers = new List<string> { Champion(winU).Id },
+            });
+            Log.Add($"  {loser.Name.Ko}: {FateText(outcome)}");
+            if (outcome == DefeatOutcome.Injury) return;
+            if (loseU.Leader == loser && loseU.IsGarrison)
+            {
+                // 수비대는 성의 병력 전부라 주장 하나에 무너지지 않는다: 사기만 크게 꺾인다
+                LoseMorale(loseU, 20);
+                Log.Add($"  주장을 잃은 {Korean.EunNeun(loseU.Label)} 크게 동요했다");
+            }
+            else if (loseU.Leader == loser)
+            {
+                // 주장이 쓰러지거나 사로잡히면 부대가 무너진다. 남은 부장은 돌아간다.
+                loseU.Status = UnitStatus.Routed;
+                Log.Add($"  주장을 잃은 {Korean.IGa(loseU.Label)} 무너졌다");
+                foreach (var o in loseU.Subs.Where(m => !m.Id.StartsWith("_")))
+                    Fates.Add(new OfficerFate
+                    {
+                        OfficerId = o.Id, Outcome = DefeatOutcome.Return, Faction = loseU.Faction,
+                        Home = loseU.Home, Garrison = loseU.IsGarrison, Position = loseU.Position,
+                    });
+                foreach (var ally in Alive.Where(x => x.Faction == loseU.Faction))
+                    LoseMorale(ally, Data.Rules.Combat.MoraleLossAllyDestroyed);
+            }
+            else loseU.RemoveSub(loser, Data);
+        }
+
         // ------------------------------------------------------------------ 함락
 
         /// <summary>

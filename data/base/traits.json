@@ -371,7 +371,7 @@
         "zh": "一騎當千"
       },
       "category": "duel",
-      "description": "일기토 특수 카드, 일기토 기세 +20%",
+      "description": "일기토 특수 카드, 일기토 기세 +10%",
       "effects": [
         {
           "type": "duel_card",
@@ -382,7 +382,7 @@
           "type": "modifier",
           "stat": "duel_gauge",
           "op": "mul",
-          "value": 0.2
+          "value": 0.1
         }
       ]
     },

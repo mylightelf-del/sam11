@@ -24,7 +24,8 @@ namespace Sam11.Core.Battle
         public int Id { get; }
         public string Faction { get; }
         public OfficerDef Leader { get; }
-        public IReadOnlyList<OfficerDef> Subs { get; }
+        public IReadOnlyList<OfficerDef> Subs => _subs;
+        private readonly List<OfficerDef> _subs;
         public FormationDef Formation { get; private set; }
         public HexCoord Position { get; set; }
         public int Troops { get; set; }
@@ -54,13 +55,13 @@ namespace Sam11.Core.Battle
         public bool HasActed { get; set; }
         public List<TimedEffect> TimedEffects { get; } = new List<TimedEffect>();
 
-        public int EffLdr { get; }
-        public int EffWar { get; }
-        public int EffInt { get; }
+        public int EffLdr { get; private set; }
+        public int EffWar { get; private set; }
+        public int EffInt { get; private set; }
         public AptitudeRank Aptitude { get; private set; }
 
         /// <summary>부대원 전원의 특기 (중복 제거).</summary>
-        public IReadOnlyList<TraitDef> Traits { get; }
+        public IReadOnlyList<TraitDef> Traits { get; private set; } = new List<TraitDef>();
 
         public IEnumerable<OfficerDef> Members
         {
@@ -80,20 +81,31 @@ namespace Sam11.Core.Battle
             Id = id;
             Faction = faction;
             Leader = leader;
-            Subs = subs;
+            _subs = subs.ToList();
             Formation = formation;
             Troops = troops;
             StartTroops = Math.Max(troops, 1);
             MaxTroops = maxTroops;
             Energy = energy;
             Morale = morale;
+            Recompute(data);
+        }
+
+        private void Recompute(GameData data)
+        {
             var rules = data.Rules.Unit;
-            EffLdr = UnitStats.Combine(leader.Stats.Ldr, subs.Select(s => s.Stats.Ldr), rules);
-            EffWar = UnitStats.Combine(leader.Stats.War, subs.Select(s => s.Stats.War), rules);
-            EffInt = UnitStats.Combine(leader.Stats.Int, subs.Select(s => s.Stats.Int), rules);
-            Aptitude = UnitStats.BestAptitude(Members, formation.Id);
+            EffLdr = UnitStats.Combine(Leader.Stats.Ldr, _subs.Select(s => s.Stats.Ldr), rules);
+            EffWar = UnitStats.Combine(Leader.Stats.War, _subs.Select(s => s.Stats.War), rules);
+            EffInt = UnitStats.Combine(Leader.Stats.Int, _subs.Select(s => s.Stats.Int), rules);
+            Aptitude = UnitStats.BestAptitude(Members, Formation.Id);
             Traits = Members.SelectMany(o => o.Traits).Distinct()
                             .Where(data.Traits.ContainsKey).Select(t => data.Traits[t]).ToList();
+        }
+
+        /// <summary>부장이 부대에서 빠진다 (일기토에서 사로잡히거나 쓰러짐). 능력치·적성·특기를 다시 계산한다.</summary>
+        internal void RemoveSub(OfficerDef o, GameData data)
+        {
+            if (_subs.Remove(o)) Recompute(data);
         }
 
         /// <summary>진형 변경 (성내 진입 시 장비 진형 → 기본 진형).</summary>
