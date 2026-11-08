@@ -30,7 +30,10 @@
         "mengjin",
         "yique"
       ],
-      "hex": null
+      "hex": {
+        "q": 51,
+        "r": 69
+      }
     },
     {
       "id": "changan",
@@ -48,7 +51,10 @@
         "tong_gate",
         "wu_gate"
       ],
-      "hex": null
+      "hex": {
+        "q": 28,
+        "r": 67
+      }
     },
     {
       "id": "hongnong",
@@ -63,7 +69,10 @@
         "hangu",
         "tong_gate"
       ],
-      "hex": null
+      "hex": {
+        "q": 41,
+        "r": 69
+      }
     },
     {
       "id": "henei",
@@ -79,7 +88,10 @@
         "shangdang",
         "ye"
       ],
-      "hex": null
+      "hex": {
+        "q": 59,
+        "r": 63
+      }
     },
     {
       "id": "tianshui",
@@ -95,7 +107,10 @@
         "qishan",
         "wuwei"
       ],
-      "hex": null
+      "hex": {
+        "q": 8,
+        "r": 66
+      }
     },
     {
       "id": "wuwei",
@@ -110,7 +125,10 @@
         "anding",
         "tianshui"
       ],
-      "hex": null
+      "hex": {
+        "q": 2,
+        "r": 37
+      }
     },
     {
       "id": "anding",
@@ -125,7 +143,10 @@
         "changan",
         "wuwei"
       ],
-      "hex": null
+      "hex": {
+        "q": 18,
+        "r": 61
+      }
     },
     {
       "id": "chengdu",
@@ -141,7 +162,10 @@
         "jiangzhou",
         "jianning"
       ],
-      "hex": null
+      "hex": {
+        "q": -22,
+        "r": 104
+      }
     },
     {
       "id": "hanzhong",
@@ -158,7 +182,10 @@
         "shangyong",
         "yangping"
       ],
-      "hex": null
+      "hex": {
+        "q": 10,
+        "r": 81
+      }
     },
     {
       "id": "zitong",
@@ -173,7 +200,10 @@
         "fushui",
         "jiange"
       ],
-      "hex": null
+      "hex": {
+        "q": -10,
+        "r": 95
+      }
     },
     {
       "id": "jiangzhou",
@@ -188,7 +218,10 @@
         "chengdu",
         "yongan"
       ],
-      "hex": null
+      "hex": {
+        "q": -11,
+        "r": 113
+      }
     },
     {
       "id": "yongan",
@@ -200,11 +233,14 @@
       "province": "yi",
       "facility_slots": 12,
       "links": [
-        "bakou",
         "jiangzhou",
-        "shangyong"
+        "shangyong",
+        "yiling"
       ],
-      "hex": null
+      "hex": {
+        "q": 17,
+        "r": 100
+      }
     },
     {
       "id": "jianning",
@@ -219,7 +255,10 @@
         "chengdu",
         "yunnan"
       ],
-      "hex": null
+      "hex": {
+        "q": -42,
+        "r": 146
+      }
     },
     {
       "id": "yunnan",
@@ -233,7 +272,10 @@
       "links": [
         "jianning"
       ],
-      "hex": null
+      "hex": {
+        "q": -69,
+        "r": 151
+      }
     },
     {
       "id": "xiangyang",
@@ -250,7 +292,10 @@
         "jiangxia",
         "shangyong"
       ],
-      "hex": null
+      "hex": {
+        "q": 35,
+        "r": 95
+      }
     },
     {
       "id": "wan",
@@ -267,7 +312,10 @@
         "xuchang",
         "yique"
       ],
-      "hex": null
+      "hex": {
+        "q": 45,
+        "r": 83
+      }
     },
     {
       "id": "xinye",
@@ -283,7 +331,10 @@
         "runan",
         "wan"
       ],
-      "hex": null
+      "hex": {
+        "q": 42,
+        "r": 87
+      }
     },
     {
       "id": "jiangling",
@@ -295,12 +346,15 @@
       "province": "jing",
       "facility_slots": 12,
       "links": [
-        "bakou",
         "gongan",
         "wuling",
-        "xiangyang"
+        "xiangyang",
+        "yiling"
       ],
-      "hex": null
+      "hex": {
+        "q": 32,
+        "r": 107
+      }
     },
     {
       "id": "jiangxia",
@@ -316,7 +370,10 @@
         "xiakou",
         "xiangyang"
       ],
-      "hex": null
+      "hex": {
+        "q": 45,
+        "r": 102
+      }
     },
     {
       "id": "changsha",
@@ -333,7 +390,10 @@
         "lingling",
         "lukou"
       ],
-      "hex": null
+      "hex": {
+        "q": 27,
+        "r": 128
+      }
     },
     {
       "id": "wuling",
@@ -348,7 +408,10 @@
         "gongan",
         "jiangling"
       ],
-      "hex": null
+      "hex": {
+        "q": 21,
+        "r": 119
+      }
     },
     {
       "id": "lingling",
@@ -364,7 +427,10 @@
         "guiyang",
         "jiaozhi"
       ],
-      "hex": null
+      "hex": {
+        "q": 7,
+        "r": 147
+      }
     },
     {
       "id": "guiyang",
@@ -380,7 +446,10 @@
         "lingling",
         "nanhai"
       ],
-      "hex": null
+      "hex": {
+        "q": 15,
+        "r": 149
+      }
     },
     {
       "id": "shangyong",
@@ -396,7 +465,10 @@
         "xiangyang",
         "yongan"
       ],
-      "hex": null
+      "hex": {
+        "q": 26,
+        "r": 89
+      }
     },
     {
       "id": "xuchang",
@@ -413,7 +485,10 @@
         "wan",
         "yique"
       ],
-      "hex": null
+      "hex": {
+        "q": 58,
+        "r": 74
+      }
     },
     {
       "id": "runan",
@@ -429,7 +504,10 @@
         "xinye",
         "xuchang"
       ],
-      "hex": null
+      "hex": {
+        "q": 57,
+        "r": 83
+      }
     },
     {
       "id": "qiao",
@@ -445,7 +523,10 @@
         "shouchun",
         "xiaopei"
       ],
-      "hex": null
+      "hex": {
+        "q": 71,
+        "r": 75
+      }
     },
     {
       "id": "xiaopei",
@@ -461,7 +542,10 @@
         "qiao",
         "xiapi"
       ],
-      "hex": null
+      "hex": {
+        "q": 82,
+        "r": 67
+      }
     },
     {
       "id": "chenliu",
@@ -479,7 +563,10 @@
         "xiaopei",
         "yanjin"
       ],
-      "hex": null
+      "hex": {
+        "q": 65,
+        "r": 67
+      }
     },
     {
       "id": "puyang",
@@ -495,7 +582,10 @@
         "cangting",
         "chenliu"
       ],
-      "hex": null
+      "hex": {
+        "q": 74,
+        "r": 58
+      }
     },
     {
       "id": "xiapi",
@@ -512,7 +602,10 @@
         "shouchun",
         "xiaopei"
       ],
-      "hex": null
+      "hex": {
+        "q": 87,
+        "r": 71
+      }
     },
     {
       "id": "guangling",
@@ -527,7 +620,10 @@
         "jianye",
         "xiapi"
       ],
-      "hex": null
+      "hex": {
+        "q": 88,
+        "r": 88
+      }
     },
     {
       "id": "beihai",
@@ -542,7 +638,10 @@
         "pingyuan",
         "xiapi"
       ],
-      "hex": null
+      "hex": {
+        "q": 103,
+        "r": 49
+      }
     },
     {
       "id": "pingyuan",
@@ -558,7 +657,10 @@
         "cangting",
         "nanpi"
       ],
-      "hex": null
+      "hex": {
+        "q": 90,
+        "r": 44
+      }
     },
     {
       "id": "ye",
@@ -574,7 +676,10 @@
         "henei",
         "julu"
       ],
-      "hex": null
+      "hex": {
+        "q": 73,
+        "r": 53
+      }
     },
     {
       "id": "nanpi",
@@ -590,7 +695,10 @@
         "julu",
         "pingyuan"
       ],
-      "hex": null
+      "hex": {
+        "q": 95,
+        "r": 38
+      }
     },
     {
       "id": "julu",
@@ -606,7 +714,10 @@
         "shangdang",
         "ye"
       ],
-      "hex": null
+      "hex": {
+        "q": 80,
+        "r": 45
+      }
     },
     {
       "id": "beiping",
@@ -621,7 +732,10 @@
         "ji_city",
         "xiangping"
       ],
-      "hex": null
+      "hex": {
+        "q": 116,
+        "r": 20
+      }
     },
     {
       "id": "ji_city",
@@ -637,7 +751,10 @@
         "juyong",
         "nanpi"
       ],
-      "hex": null
+      "hex": {
+        "q": 102,
+        "r": 20
+      }
     },
     {
       "id": "xiangping",
@@ -651,7 +768,10 @@
       "links": [
         "beiping"
       ],
-      "hex": null
+      "hex": {
+        "q": 154,
+        "r": 8
+      }
     },
     {
       "id": "jinyang",
@@ -666,7 +786,10 @@
         "shangdang",
         "yanmen"
       ],
-      "hex": null
+      "hex": {
+        "q": 67,
+        "r": 39
+      }
     },
     {
       "id": "shangdang",
@@ -682,7 +805,10 @@
         "jinyang",
         "julu"
       ],
-      "hex": null
+      "hex": {
+        "q": 63,
+        "r": 54
+      }
     },
     {
       "id": "jianye",
@@ -699,7 +825,10 @@
         "qua",
         "ruxu"
       ],
-      "hex": null
+      "hex": {
+        "q": 82,
+        "r": 94
+      }
     },
     {
       "id": "shouchun",
@@ -716,7 +845,10 @@
         "runan",
         "xiapi"
       ],
-      "hex": null
+      "hex": {
+        "q": 70,
+        "r": 88
+      }
     },
     {
       "id": "lujiang",
@@ -732,7 +864,10 @@
         "hefei",
         "ruxu"
       ],
-      "hex": null
+      "hex": {
+        "q": 68,
+        "r": 99
+      }
     },
     {
       "id": "wu_city",
@@ -747,7 +882,10 @@
         "kuaiji",
         "qua"
       ],
-      "hex": null
+      "hex": {
+        "q": 91,
+        "r": 99
+      }
     },
     {
       "id": "kuaiji",
@@ -761,7 +899,10 @@
       "links": [
         "wu_city"
       ],
-      "hex": null
+      "hex": {
+        "q": 85,
+        "r": 110
+      }
     },
     {
       "id": "chaisang",
@@ -777,7 +918,10 @@
         "lujiang",
         "niuzhu"
       ],
-      "hex": null
+      "hex": {
+        "q": 51,
+        "r": 115
+      }
     },
     {
       "id": "jiaozhi",
@@ -792,7 +936,10 @@
         "lingling",
         "nanhai"
       ],
-      "hex": null
+      "hex": {
+        "q": -54,
+        "r": 192
+      }
     },
     {
       "id": "nanhai",
@@ -807,7 +954,10 @@
         "guiyang",
         "jiaozhi"
       ],
-      "hex": null
+      "hex": {
+        "q": 5,
+        "r": 173
+      }
     },
     {
       "id": "hulao",
@@ -822,7 +972,10 @@
         "luoyang",
         "sishui"
       ],
-      "hex": null
+      "hex": {
+        "q": 57,
+        "r": 68
+      }
     },
     {
       "id": "sishui",
@@ -837,7 +990,10 @@
         "chenliu",
         "hulao"
       ],
-      "hex": null
+      "hex": {
+        "q": 63,
+        "r": 64
+      }
     },
     {
       "id": "hangu",
@@ -852,7 +1008,10 @@
         "hongnong",
         "luoyang"
       ],
-      "hex": null
+      "hex": {
+        "q": 49,
+        "r": 65
+      }
     },
     {
       "id": "tong_gate",
@@ -867,7 +1026,10 @@
         "changan",
         "hongnong"
       ],
-      "hex": null
+      "hex": {
+        "q": 36,
+        "r": 70
+      }
     },
     {
       "id": "wu_gate",
@@ -882,7 +1044,10 @@
         "changan",
         "wan"
       ],
-      "hex": null
+      "hex": {
+        "q": 36,
+        "r": 77
+      }
     },
     {
       "id": "yique",
@@ -898,7 +1063,10 @@
         "wan",
         "xuchang"
       ],
-      "hex": null
+      "hex": {
+        "q": 48,
+        "r": 75
+      }
     },
     {
       "id": "yangping",
@@ -913,7 +1081,10 @@
         "chencang",
         "hanzhong"
       ],
-      "hex": null
+      "hex": {
+        "q": 3,
+        "r": 82
+      }
     },
     {
       "id": "jiameng",
@@ -928,7 +1099,10 @@
         "hanzhong",
         "jiange"
       ],
-      "hex": null
+      "hex": {
+        "q": -3,
+        "r": 89
+      }
     },
     {
       "id": "jiange",
@@ -943,7 +1117,10 @@
         "jiameng",
         "zitong"
       ],
-      "hex": null
+      "hex": {
+        "q": -6,
+        "r": 96
+      }
     },
     {
       "id": "fushui",
@@ -958,7 +1135,10 @@
         "chengdu",
         "zitong"
       ],
-      "hex": null
+      "hex": {
+        "q": -15,
+        "r": 98
+      }
     },
     {
       "id": "yanmen",
@@ -973,7 +1153,10 @@
         "jinyang",
         "juyong"
       ],
-      "hex": null
+      "hex": {
+        "q": 75,
+        "r": 27
+      }
     },
     {
       "id": "juyong",
@@ -988,7 +1171,10 @@
         "ji_city",
         "yanmen"
       ],
-      "hex": null
+      "hex": {
+        "q": 100,
+        "r": 17
+      }
     },
     {
       "id": "xiakou",
@@ -1003,7 +1189,10 @@
         "jiangxia",
         "wulin"
       ],
-      "hex": null
+      "hex": {
+        "q": 45,
+        "r": 106
+      }
     },
     {
       "id": "lukou",
@@ -1018,13 +1207,16 @@
         "changsha",
         "wulin"
       ],
-      "hex": null
+      "hex": {
+        "q": 40,
+        "r": 110
+      }
     },
     {
-      "id": "bakou",
+      "id": "yiling",
       "name": {
-        "ko": "파구",
-        "zh": "巴丘"
+        "ko": "이릉",
+        "zh": "夷陵"
       },
       "type": "port",
       "province": "jing",
@@ -1033,7 +1225,10 @@
         "jiangling",
         "yongan"
       ],
-      "hex": null
+      "hex": {
+        "q": 27,
+        "r": 103
+      }
     },
     {
       "id": "gongan",
@@ -1049,7 +1244,10 @@
         "jiangling",
         "wuling"
       ],
-      "hex": null
+      "hex": {
+        "q": 29,
+        "r": 110
+      }
     },
     {
       "id": "wulin",
@@ -1064,7 +1262,10 @@
         "lukou",
         "xiakou"
       ],
-      "hex": null
+      "hex": {
+        "q": 37,
+        "r": 112
+      }
     },
     {
       "id": "ruxu",
@@ -1079,7 +1280,10 @@
         "jianye",
         "lujiang"
       ],
-      "hex": null
+      "hex": {
+        "q": 73,
+        "r": 98
+      }
     },
     {
       "id": "niuzhu",
@@ -1094,7 +1298,10 @@
         "chaisang",
         "jianye"
       ],
-      "hex": null
+      "hex": {
+        "q": 78,
+        "r": 96
+      }
     },
     {
       "id": "qua",
@@ -1109,7 +1316,10 @@
         "jianye",
         "wu_city"
       ],
-      "hex": null
+      "hex": {
+        "q": 86,
+        "r": 93
+      }
     },
     {
       "id": "mengjin",
@@ -1124,7 +1334,10 @@
         "henei",
         "luoyang"
       ],
-      "hex": null
+      "hex": {
+        "q": 55,
+        "r": 66
+      }
     },
     {
       "id": "baima",
@@ -1139,7 +1352,10 @@
         "puyang",
         "ye"
       ],
-      "hex": null
+      "hex": {
+        "q": 71,
+        "r": 61
+      }
     },
     {
       "id": "yanjin",
@@ -1154,7 +1370,10 @@
         "chenliu",
         "guandu"
       ],
-      "hex": null
+      "hex": {
+        "q": 67,
+        "r": 63
+      }
     },
     {
       "id": "cangting",
@@ -1169,7 +1388,10 @@
         "pingyuan",
         "puyang"
       ],
-      "hex": null
+      "hex": {
+        "q": 81,
+        "r": 55
+      }
     },
     {
       "id": "guandu",
@@ -1184,7 +1406,10 @@
         "xuchang",
         "yanjin"
       ],
-      "hex": null
+      "hex": {
+        "q": 61,
+        "r": 69
+      }
     },
     {
       "id": "chencang",
@@ -1199,7 +1424,10 @@
         "changan",
         "yangping"
       ],
-      "hex": null
+      "hex": {
+        "q": 18,
+        "r": 68
+      }
     },
     {
       "id": "qishan",
@@ -1214,7 +1442,10 @@
         "hanzhong",
         "tianshui"
       ],
-      "hex": null
+      "hex": {
+        "q": -3,
+        "r": 78
+      }
     },
     {
       "id": "hefei",
@@ -1229,7 +1460,10 @@
         "lujiang",
         "shouchun"
       ],
-      "hex": null
+      "hex": {
+        "q": 71,
+        "r": 94
+      }
     },
     {
       "id": "fancheng",
@@ -1244,7 +1478,10 @@
         "xiangyang",
         "xinye"
       ],
-      "hex": null
+      "hex": {
+        "q": 40,
+        "r": 91
+      }
     }
   ]
 }

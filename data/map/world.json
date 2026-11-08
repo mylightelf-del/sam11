@@ -1,0 +1,8279 @@
+{
+ "_comment": "tools/mapgen/generate_world.py가 생성. 직접 고치지 말고 geography.json을 고친 뒤 다시 생성할 것.",
+ "width": 170,
+ "height": 196,
+ "coords": "terrain/territory 문자열은 행(row) 단위, 열(col)은 odd-r 오프셋. axial q = col - (row >> 1), r = row",
+ "projection": {
+  "lon_min": 99.5,
+  "lat_max": 42.2,
+  "dlon": 0.15,
+  "dlat": 0.11016467923537397
+ },
+ "terrain_legend": {
+  ".": "plain",
+  "=": "road",
+  "f": "forest",
+  "m": "mountain",
+  "w": "marsh",
+  "~": "river",
+  "s": "sea",
+  "d": "ford",
+  "c": "street",
+  "#": "city_wall",
+  "g": "gate"
+ },
+ "terrain": [
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.............................s",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.............................ss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.............................s",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.............................ss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm..........f..................s",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmf.........fff................ss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.........fff.................s",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm...........f......##.........ss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.================gc#.........s",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.=................##.........ss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm=............................s",
+  "mmmmmmmmm........................................................ff....................................f........ffffffff..........==========............................ss",
+  "mmmmmmmmmm.........................fff...........................ff......................fff.............mmmmmmmmmmmf..fff........=............s.........................s",
+  "mmmmmmmmm..........................ff............................ff.......................ff............mmmmmmmmmmmmmmmmff.......=...........sssss......................ss",
+  "mmmmmmmmmm....................................................~~~~.....................................fmmmmmmmmmmmmmmmmmmmmmmmmm=fff........sssssss.....................s",
+  "mmmmmmmmm.............................................ff...~~~..~~~~~~~...............................ffmmmmm#mmmmmmmmmmmmmmmmmm=mmff......ssssssssss...................ss",
+  "mmmmmmmmmm................................................~~..........~~~~~~...........................ffmmmm#mmmmmmmmmmmmmmmmmm=mmmmm.....ssssssssss....................s",
+  "mmmmmmmmm..............................................~~~..f.........f...~~~..................ff......fffffgcmmmmmmmmmmmmmmmmm=mmmmmmm..ssssssssssss...................ss",
+  "mmmmmmmmmm...........................................~~~...ff.........ff....~~.................ff........fff#=ff.....ffmmmmmmmm=mmmmmmmm.ssssssssssss....................s",
+  "mmmmmmmmm.........................................~~~......ff...............~...............==================.##....ffffffff#gmmmmmmmmsssssssssssss....................ss",
+  "mmmmmmmmmm.......................................~~~.........................~..............=............f....=gc#........fffgc#fmmmmmmssssssssssssss....................s",
+  "mmmmmmmmm.......................................~............................~.............=...................#g============##fffffmsssssssssssssss...................sss",
+  "mmmmmmmmmm......................................~~............................~............=....................=.................ffssssssssssssssss.................sssss",
+  "mmmmmmmmm............................ff.........~..................f.........~~...........=....................=..................ssssssssssssssssss..............ssssssss",
+  "mmmmmmmmmm.........................ffff...fff...~.............................~...........=....................=.................sssssssssssssssssss............ssssssssss",
+  "mmmmmmmmm..........................ffff...fffff~..............................~..........=.......fff.f........=................ssssssssssssssssssss..........sssssssssssss",
+  "mmmmmmmmmm......................................~..............................~........c=.......ffmmff.......=...............ssssssssssssssssssssss.......sssssssssssssss",
+  "mmmmmmmmm......................................~...............................~......##g##.......mmmff......=..............sssssssssssssssssssssss......sssssssssssssssss",
+  "mmmmmmmmmm.....................................~...............................~........=.........mmmmff.....=.............sssssssssssssssssssssssss...sssssssssssssssssss",
+  "mmmmmmmmmff...................................~~...............................~f...ff.=.........mmmmff......=............sssssssssssssssssssssssss.ssssssssssssssssssssss",
+  "mmmmmmmmmmfff..................................~...............................~ffffff.=..........mmmmff......=...........ssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmffff................................~...............................~mmff...=..........mmmmff.......=..........sssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmffff..............................~..............................f~mmmmf..=..........mmmmff........=.........sssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmffff.............................~.............................f~mmmm...=...........mmmmf.........=........ssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmm..............................~~......ff......................~~mmmm..=.........ffmmmmff.........=........sssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmm.............................~~.......fff....................f~mmmm..=.........ffmmmmff..........=........~ssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmm...#g==....................~...............................f~mmmm...=........ffmmmmff...........g##.....~~sssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmm.#c#f=...................~................................~mmmmm...=........fmmmmmffff........#cc#....~..sssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmm##ff==.................~................................~mmmmm....g#......ffmmmmff....======gccc#..~~....sssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmffff=................~................................~fmmmmmf..#c#.....ffmmmmff....=.....=#cc#..~~.....sssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmmfff=...............~................................~fmmmmmf...g#.......mmmmm.....=.....=.###..~.......sssssssssssssss..sssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmmfff=.............~~................................~~fmmmmf...=........mmmmm.....=.....=.....~~.........ssssssssssss.......ssssssssssssssssssssssss",
+  "mmmmmmmmmmfmmmmmmmmmmmmfff.=..f.........~~................................~~fmmmmm...=.......ffmmmm.....=......=....~~..........ssssssssss............ssssssssssssssssssss",
+  "mmmmmmmmmfffmmmmmmmmmmmfff.=..f........~~.................................~fmmmmmf..=........fmmmmm....=.......g#..~............ssssssss.................sssssssssssssssss",
+  "mmmmmmmmmmffffmmmmmmmmmm.f..=..........~..................................~ffmmmmm...=.......fmmmmm...#g.......#c#.~..............ssssss................ssssssssssssssssss",
+  "mmmmmmmmm...fffmmmmmmmm.....=.........~..................................~..mmmmmf...=......fmmmmm...#c#.......#g~~................sss.................sssssssssssssssssss",
+  "mmmmmmmmmm......fmmmmmm......=........~..................................~.fmmmmmff...=......fmmmmm...g#.........=~...................................ssssssssssssssssssss",
+  "mmmmmmmmm.........mmm........=......~~..................................~..fmmmmmf....=......mmmmmf..=..........~=..................................ssssssssssssssssssssss",
+  "mmmmmmmmmm........ff..........=.....~....................................~.fmmmmmff....=......mmmmf..=..........~==............##...................ssssssssssssssssssssss",
+  "mmmmmmmmm........fff..........=...~~....................................~.ffmmmmmf.....=.....mmmmmf.=.........~~=.============gc#.................ssssssssssssssssssssssss",
+  "mmmmmmmmmm........ff...........=.~~......................................~.fmmmmm.......=....mmmmmff.=........~~=.............=##................sssssssssssssssssssssssss",
+  "mmmmmmmmm......................=~.......................................~.fmmmmm........=....mmmmm##g=.......~==.............=..................ssssssssssssssssssssssssss",
+  "mmmmmmmmmm.....................~=........................................~.fmmmmm........=...mmmmm#cc#=......~=..f.mmmmmmm...=.................sssssssssssssssssssssssssss",
+  "mmmmmmmmm....................~~.==============..........................~.fmmmmm.........g#..mmmm#ccc#=.....~=..fmmmmmmmmm..=................sssssssssssssssssssssssssssss",
+  "mmmmmmmmmm..ff..........ff...~~....=........mm==......................ff.~ffmmmmm........#c#fmmmmm#cc#=.....~=...fmmmmmmmm..=..f.............sssssssssssssssssssssssssssss",
+  "mmmmmmmmm...ff...~~~~~~~~~~~~......=.......mmmm=.................f....ff~ffmmmmm.........g#.fmmmmf#g#=....~~c....mmmmmm....=...............sssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.....~~~~~~~..............=......mmmm=........................~~ffmmmmf........=..fmmmmmf.==....~~=......f.......=...............sssssssssssssssssssssssssssssss",
+  "mmmmmmmmm...........................=......mmmm=........................~.fmmmmmf.......=...mmmmmf..=.#g=d==..............=..............sssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm...........................=.....mmmm=........................~..ffmmff.......=...mmmmmmf..=#c#~................=..............sssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm............................=.....mmmm=........................~...ffff.......=....mmmmmf...=g#~................=..............ssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm............................=....mmmm.g#......................~....ff.........=...mmmmm....==~~................=..............ssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm.............................=...mmmm.#c#......................~...............=..mmmmmff..=c~.................=.............ssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.............................=...mmmm.#g..........ff..........~................=##mm#mmf===.~.................=.............ssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm........ff....................=..mmmm...=..........f...........~.......#.......=gc#mm#c==c=~~.................=.............sssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm..fffffff.....................=..mmmm...=.....................~........#.......=##mmmg=~~~=..................=.............sssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm...ffffffff..f.................g#mmmm....=.........###.........~......==g..~~~~=~~~~~~#~~.=...................=............ssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm..fffffff...f.................#c#mmmm=======......#cc#........~...~~~=~c#~~~..c===ffff#.#g=..............##...=............sssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm...fffff.................fff..f#g=====..=.#g======gccc#.......~~~~~~~==..#.###=..c======#c#==============gcg====............sssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.........................ff..ff~~~~.....=#c#......#ccg====~~~~...#g==.=...#ccg===g##.##=##==........=....##....=............ssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm.......................mm.....ffff~~~~~~.=g#.fffff.###~~~~=~.c===gc#.=====gccc#......#cg===.=.......=...........g##..........ssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.....................mmmmmmmmmmmffffff~~~=~~~~~~~~~~~~~fff===g##.##.=....=#cc#.......g#.....=......=...........#cc#..........sssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm.....................mmmmmmmmmmmmmmmmmmmm=mmmmm........fff...=......=.....=###.......=.......=.....=...........#ccc#..........sssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm..................ffmmmmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmm..=.....=..ffff=======...g##......=....=............#cc#..........sssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm..................fffmmmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmmmm======...ffff=f#fff=..#cc#......=...=.............#g#...........sssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm..................ffmmmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmmmmmm=mmm...mmmmm=#mmmf=.#ccc#......=..=##........======............ssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm...................ffmmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmmmmmmm=m#mmmmmmmmcgmmmmf=.#cc#.......===gc#.......=.....=............ssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm...................ffmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmmmmmmmm=#mmmmmmmmm#mmmmff==g##..........=##.......=......=..........~~sssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm.......................fff##fmfmmmmmmm=mmmmmmmmmmmmmmmmmmmmmmmmmcgmmmmmmmmm#mmmmff=..=............=........=.......=........~~..sssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.....................ffff#c#fff....ff=fmmmmmmmmmmmmmmmmmmmmmmmmm#mmmmmmmmmmmmmfff=...=............=.......=........=....~~~~....ssssssssssssssssssssssssssssssss",
+  "mmmmmmmmm..............f........fff#gfff.....==fffffmmmmmmmmmmmmmmmmmmmmm#mmmmmmmmmmmmffff=....=............=......=.........=.~~~~.......ssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.............fffff.........=.....#.=.fff##fffff..ffffmmmmmmmmmmmmmmmmmmmmmmmmff.=.....=............=.....=.........~d~...........sssssssssssssssssssssssssssssss",
+  "mmmmmmmmm............ffffffff.f......=.....==..ffgc#ffffffffffffffffmmmmmmmmmmmmmmmmmmff.=......=............=....=.......~~~.=............sssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm...........fffffffffff..fff.======g=====#g==....fffffffffff......mmmmmmmmmmf##.=.......=##..........=...=ww...~~~....=............ssssssssssssssssssssssssssssss",
+  "mmmmmmmmm..........ffffmmmffffff..fff=ff....#ffff~~~~=====.........f.........fffff...#cg=========gcg===========..=www~~~.......=............ssssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.........ffffmmmmmfffff....=ffmmmmf#ffff..~~~~~~=....................ffff.ff##=.........##...........===.~~~..........=............sssssssssssssssssssssssssssss",
+  "mmmmmmmmm..........fffmmmmmmffff....=ffmmmmmmmmfffffff..~~d~~~........................==......ff...............~=~~.............=............sssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.........fffmmmmmmmfff.....=fmmmmmmmmmmmfffffff..=.~~~~~~~~~~~~~~..........#g....................~~~~~~g##.............=............ssssssssssssssssssssssssssss",
+  "mmmmmmmmm..........ffmmmmmmmfff.....=ffm#mmmmmmmmmmmfffffff====........~~~~~~~......#c#...............~~~~~~....#cc#.............=.##.........ssssssssssssssssssssssssssss",
+  "mmmmmmmmmm........ffffmmmmmmmfff.....=.fm#mmmmmmmmmmmmmm.ffffff==.....##......~~~~...g#..........~~~~~~~........#ccc#.............=#c#........ssssssssssssssssssssssssssss",
+  "mmmmmmmmm.........fffmmmmmmmfff......====gmmmmmmmmmmmmmmmmffffff=====gc#........~~..=..ff...~~~~~~..............#cc#..............=g#.........ssssssssssssssssssssssssssss",
+  "mmmmmmmmmm.........ffmmmmmmmmf........=ffc#mmmmmmmmmmmmmmmmmmmmm.....f#g====......~~=##fff..ffffff...............#g#...............=...........sssssssssssssssssssssssssss",
+  "mmmmmmmmm.........fffmmmmmmmff........=fff#fffmmmmmmmmmmmmmmmmmmmmm..ffffff===....~~gc#ff.........................=............~~~d~~~.........sssssssssssssssssssssssssss",
+  "mmmmmmmmmm.........fffmmmmmmm..........=..ffffffffmmmmmmmmmmmmmmmmmmmm..ffffff=.....d##............................=...........~##g=~~~~~~~.....ssssssssssssssssssssssssss",
+  "mmmmmmmmm.........fffmmmmmmm...........=.....ffff...mmmmmmmmmmmmmmmmmmmmmmmfff=..##g~..............................=.##.......~#cc#=c....~~~~~..ssssssssssssssssssssssssss",
+  "mmmmmmmmmm.........ffmmmmmmmm........##.=#........ffffffmmmmmmmmmmmmmmmmmmmmmff=.#cc#~............fff...............=#c#......~gccc#.=.......~~~~sssssssssssssssssssssssss",
+  "mmmmmmmmm.........fffmmmmmmmf......=gcg==#.........ffffff.mmmmmmmmmmmmmmmmmmmff=gccc#~..........ff.mff.fff..........=g#....==d=#cc#..=..........~sssssssssssssssssssssssss",
+  "mmmmmmmmmm.........ffmmmmmmmm......=.##..=g............ff...mmmmmmmmmmmmmmmmmmff=#cc#~~.........ffmmmmmmfffff........=.....=~~c.###...=...........ssssssssssssssssssssssss",
+  "mmmmmmmmm..........fmmmmmmmm.....c=......c#....................mmmmmmmmmmmmmmff=.g##.~~.........fmmmmmmmmmmfffff....=.....=~~=........======.......sssssssssssssssssssssss",
+  "mmmmmmmmmm........fffmmmmmmmm...#=g##......#.....................fffmmmmmmmmmff=..=...~.........ffmmmmmmmmmmmmff.....gg===c~.=..........~~~~g#......ssssssssssssssssssssss",
+  "mmmmmmmmm.........ffmmmmmmmm....=.................................##ff...mmmff=...====d==.......fmmmmmmmmmmmmmmmff..#c#...~.=...........~~~#c#......ssssssssssssssssssssss",
+  "mmmmmmmmmm........fffmmmmmmm.ff.=................=================gcg=......ff=....=...~~==.......mmmmmmmmmmmmmmmf...g#..~~.=...........~~~~g#.......sssssssssssssssssssss",
+  "mmmmmmmmm...ff...fffmmmmmmmmff.=................=.................##f===============....~~====.##....mmmmmmmmmmmmff.=...~..=............~~~=f........sssssssssssssssssssss",
+  "mmmmmmmmmmffffffffffmmmmmmmmf##g........ffff....=fffffff.....~~~~~~~~~~......ff=ffff=...ff~~ff=gc#.......mmmmmmmm.ff=..~~ff=.....ffffffffff=fffffff..sssssssssssssssssssss",
+  "mmmmmmmmmffffffffffmmmmmmmmf#cc#........ffff...=.fffffff..~~~~....mmm~~~~~~..fcfffff=..ffff~~f.#g=.........fmmmm...f=.~.fff=.....fffffffff=ffffffffsssssssssssssssssssssss",
+  "mmmmmmmmmmffffffffffmmmmmmmm#ccc#f.............=.ffffffff~~.....ffmmmmm...~~~~~ffff.=.fffffff~~~~f===.....ffff......=~~...f=......ffffffff=ffffffffsssssssssssssssssssssss",
+  "mmmmmmmmmfffffffff.mmmmmmmmf#cc#fffff........f=..fffffff~ff...fffmmmmmm.....ff~~fff.=ffffffffff~~d~f=ffffff..ff....=~~=====........fff...f=ffffffsssssssssssssssssssssssss",
+  "mmmmmmmmmmffffff...mmmmmmmmmf##gffffff.......f=..ffffff~~fff..fffmmmmmm.....ffff~~fffg#ffffffffff~c~~=fffff..ff....=~==..................ff=fffffsssssssssssssssssssssssss",
+  "mmmmmmmmmfffffff...mmmmmmmm....=.ffffffff....=ffffffff~fffffffffmmmmmmf....ffffff~~~#c#fffwffff~~=ff~=fffff..ff...d~=.....................f=..fsssssssssssssssssssssssssss",
+  "mmmmmmmmmmffffff...mmmmmmmm.....=ffffffff....=fffffff~~fffffffffmmmmmm.....fffffffff~g#fffwwwff~f=fffd~ffff..ff...~==.....................f=..ffssssssssssssssssssssssssss",
+  "mmmmmmmmm..ffff...mmmmmmmmmf....=.fffffff....=.fffff~ffffffffffmmmmmmf......ffffffff=~fffwwww~~f=ffff=~~fffffff.~~=......................ffg#.fffsssssssssssssssssssssssss",
+  "mmmmmmmmmm.ffff..ffmmmmmmmmff....=.fffffffff.=...ff~~ffffff..ffmmmmmm.......ffffffffc=~ffwwww~.c=fffff=f~fffff..~.=.....................fff#c#.ffffsssssssssssssssssssssss",
+  "mmmmmmmmm..fffffffmmmmmmmmfff....=..fff.....=....~~ffff.......mmmmmmm......fffffff.==.~~.ww~~.==...fff=f~~ffff~~.=.....................ffff##fffffffssssssssssssssssssssss",
+  "mmmmmmmmmmfffffff.mmmmmmmmfffff...=.........=##..~............mmmmmmm......ff.ffff.=....~..~~c=........=..~~~~~f.=.f...fffffffff.......ff....fffffffffssssssssssssssssssss",
+  "mmmmmmmmm.fffffffmmmmmmmmffffff...==========gc#~~............mmmmmmm......fff..ff.=.....~.~..=.........=....~~ff=..ff..ffffffffff......ff....ffffffffsssssssssssssssssssss",
+  "mmmmmmmmmmfffffff.mmmmmmmffffff...=..........##~.............mmmmmmmf.....fffffff..=.....~~..=........ff=...#g===..ffffffffffffff............ffffffffsssssssssssssssssssss",
+  "mmmmmmmmmffffffffmmmmmmmmffffff..=fff.......~~~..............mmmmmmfffffffffffff..==...~~~~.=.........ff===gc#....ffffffff.ffffff............ffffffffsssssssssssssssssssss",
+  "mmmmmmmmmmffffffffmmmmmmmmfff....=fff......~~~...............mmmmmmfff.fffffff....=.=..~~~~~.=.............f##.~~.ffffff...ffffff............ffffffffsssssssssssssssssssss",
+  "mmmmmmmmm...ffffffmmmmmmmfff....=.ffffff~~~...ffff..........mmmmmm......fff......=..=.~~~~~~.=.............ff~~~~~fff.......ffffff...........fffffffssssssssssssssssssssss",
+  "mmmmmmmmmm....fffffmmmmmmmf.....=.fffff~~~..fffffffff.....ffmmmmmmf....ffff.....#g...=.~~~~~..=............fff~~~~fff.......ffffff...........fffffffssssssssssssssssssssss",
+  "mmmmmmmmm.......ffmmmmmmmm.....=.fff~~~ff...fffffffff.fffffmmmmmmffffffffff....#c#...=.~~~~...=............ff~~~~~fffff...fffffff...........ffffffffssssssssssssssssssssss",
+  "mmmmmmmmmm......fffmmmmmmm.....=fff~~~ffff....ffffff..ffffffmmmmmfffffff....fff.##....=..~~.fff=fffff......ff.~~~~fffff...ffffff....f.......fffffff.ssssssssssssssssssssss",
+  "mmmmmmmmm........ffmmmmmmm....=~~~~ffffff....ffffffffmffffffmmmmffffffff..............=.~..fff=................~ffffffff..fffffmmm...........ffffffsssssssssssssssssssssss",
+  "mmmmmmmmmm.........mmmmmmmm.~~d~~ffffff......ffmmmmmmmmmfffffmm.fffff..................=.~ffff=.......ffff.....fffffffff.fffffmmmmm..........ffffffsssssssssssssssssssssss",
+  "mmmmmmmmm..........mmmmm~~~~~=...fffffm..mmmmmmmmmmmmmmmffff....fffff..................=~~ffff=.......ffff......fffffffffffffmmmmmm...........fffffsssssssssssssssssssssss",
+  "mmmmmmmmmm.........mmmm~~mm..=...ffffmmmmmmmmmmmmmmmmmmmmmffffffffff....................=~fff.=......fff.........ffffffffffffmmmmmmm..........fffffsssssssssssssssssssssss",
+  "mmmmmmmmm.........mmmmmmmmm.=....fffmmmmmmmmmmmmmmmmmmmmmmmmffffffff...................f=dff.=......ffff......f.....fffffffmmmmmmmmm..........ffffssssssssssssssssssssssss",
+  "mmmmmmmmmm.........mmmmmmmm..=.....fmmmmmmmmmmmmmmmmmmmmmmmmmmfffffff..................ff~=ff=......ffff...........ffffffffmmmmmmmmm...........fffssssssssssssssssssssssss",
+  "mmmmmmmmm..........mmmmmmmmff=.....mmmmmmmmmmmmmmmmmmmmmmmmmmmmmfffffff...............fff~g#f=.....ffff...........ffffffffmmmmmmmmm.............fsssssssssssssssssssssssss",
+  "mmmmmmmmmm.........mmmmmmmmmf=......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmffffff...............ff~#c#=......ff............ffffffffmmmmmmmmmf............ssssssssssssssssssssssssss",
+  "ffff.............ffmmmmmmmm.=....ffmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmffffffffff...........f~~#g=.......ff.....fff......fffffmmmmmmmmfff...........sssssssssssssssssssssssssss",
+  "ffff...........ffffmmmmmmmm.=....fffmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmfffffffff...........ff~f.=.............ffffff......fffmmmmmmmmffffff..ffff..sssssssssssssssssssssssssss",
+  "fff............ffffmmmmmmmf=....fffmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.ffffffff............~ff.==............ffffff.....fffmmmmmmmmffffffff.f.ff.ssssssssssssssssssssssssssss",
+  "mmmmmmmm........fffffmmmmmf=.....f..mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.fffffff............~.ffff=....fffff..fffffff....ffmmmmmmmmmfffffffff...f.ssssssssssssssssssssssssssss",
+  "mmmmmmmmm.......ffffff...f=......f...mmmmmmmmffffffffmmmmmmmmmmmmmm..ffffff.............~.ffff=....fffff..fffffff...ffmmmmmmmmmffffffffff....sssssssssssssssssssssssssssss",
+  "mmmmmmmmmmm....fffffffff..=.......fffffffffffffffff...fmmmmmmmmmmmmm.fffffff............~.fff.=.......fffffffff.......mmmmmmmmmfffffffffff..ssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmm..ffffffffff.=.........fffffff....ffff.....fmmmmmmmmmmm..fffffff....ff...f.~..ff.=...........ffffff......mmmmmmmmmfffffffffffffsssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmffff...=.......fffff..................fmmmmmmmm...ffffffff..ffffffff~ffff.=.............fff.......mmmmmmmmmffffffffffff.sssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmf.....=fff....fff.....................fmmmmmm.....fffffffff..ffffff~ffff=......................mmmmmmmmmffffffffffff..ssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmm....=fffff..fff.....................ffmmmm......ffffffffff.ffffff~ffff=......................mmmmmmmmmffffffffffff..ssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmm...=.fffffffff.....................ffffff......fffffffffffffff~~ff..=................ff....mmmmmmmmffffffff.fffff.sssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmm..=.ffffffffffff.................ffffff.....ffffffff..ffffff~ff...=...............fffff.mmmmmmmmmffffffff..ffff.sssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmm..=.fffffffffffff...............fffffff.....ffffffff..ffff~~fff..=................fffff.mmmmmmmmfffffffff.fff..ssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmm..=...ffffffffffffff......ff..ffffffff.....ffffff....ffff~fffff.=...fffffff.....fffffffmmmmmmmmfffffffffff....ssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmmmmmmmm.=...ffffffffffffff......ffffffffffff.....ffffff..ffff~~ffffff=....fffffff.....fffffffmmmmmmmfffff.ffffff...sssssssssssssssssssssssssssssssssss",
+  "fffffmmmmmmmmmmmmmmmmmmmmmmm.=..fffffffffffff.......fffffffffff.....fffffff.ffff~~fffffff=....fffffff...fffffffffmmmmmmmffffff...fff...sssssssssssssssssssssssssssssssssss",
+  "..ffffffmmmmmmmmmmmmmmmmmmm===##.fffffffffff........ffffffffff.....ffffffff.fff~~ffffffff=...fffffff..fffffffffffmmmmmmffffff....fff..ssssssssssssssssssssssssssssssssssss",
+  "..ffffffffmmmmmmmmmmmmmmmmm=mmgc#ffffffffffff.........ffffffff......ffffffffff~~##fff.ff.=...ffffffffffffffffffffffmmmfffffff.....f...ssssssssssssssssssssssssssssssssssss",
+  "..fffffff.....mmmmmmmmmmmm=mmm##ffffffffffffff............ffffff....fffffffff~f#c#ff=====.....ffffffffffffffffffff....ff.............sssssssssssssssssssssssssssssssssssss",
+  "...ffffff......fmmmmmmmmmm=mmmmmffffff.ff....f................==============~~f.#gff=....g#..ffffffffffffffffffff....................sssssssssssssssssssssssssssssssssssss",
+  "...fffffff......mmmmmmmmm=mmmmmmmffffff.......ffff...........=...mmmmffffff===========..#c#..fffffffffffffffffff....................ssssssssssssssssssssssssssssssssssssss",
+  "...fff##fff......fmmmmmmm=mmmmmmmmf..ff.......fffff..........=..mmmmmmmmmmmmf.......ff=..g#..fffffffffffffffff..........ff..........ssssssssssssssssssssssssssssssssssssss",
+  "...ff#c#ff=======fmmmmmm=mmmmmmmmmmfffff......fffff.........=..mmmmmmmmmmmmmmmmmm...ff===...ffffffffffffffffff.....................sssssssssssssssssssssssssssssssssssssss",
+  "..fff.#g===.....f=.fmmmm=mmmmmmmmmmmmffffffffff..ff.........=...mmmmmmmmmmmmmmmmmmmmmmmm=mmmmfffffffffffffffff......ffff..f........sssssssssssssssssssssssssssssssssssssss",
+  "...f........fffff==fmmm=mmmmmmmmmmmmmmmmfffffff..ff........=....mmmmmmmmmmmmmmmmmmmmmmm=mmmmmmmmmfffff...fffff.....ffffffffff.....ssssssssssssssssssssssssssssssssssssssss",
+  ".....f...ffffffffff==.m=mmmmmmmmmmmmmmmmmmfffffffff........=....mmmmmmmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmfffffffffffffffffffff...ssssssssssssssssssssssssssssssssssssssss",
+  ".....f...ffffff.ffff===mmmmmmmmmmmmmmmmmmmfffffffff.......=......mmmmmmmmmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmmmmmmmmffffffffffffffff.sssssssssssssssssssssssssssssssssssssssss",
+  ".....f...ffffff.ffff....mmmmmmmmmmmmmmmmmmmmmffffff.......=...........fffmmmmmmmmmmmmm=mmmmmmmmmmmmmmmmmmmmmmmmmmmmmfffffffffffffsssssssssssssssssssssssssssssssssssssssss",
+  ".....f..fffffff.ffffff...mmmmmmmmmmmmmmmmmmmmmffff.......=............fffffffffff.mmmm=mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmffffffffffsssssssssssssssssssssssssssssssssssssssssss",
+  ".....f..fffffff.ffffffffff.mmmmmmmmmmmmmmmmmmmmmff.......=.ff..........ffffffffffff.fff=mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmfffffffffsssssssssssssssssssssssssssssssssssssssssss",
+  ".........ffffff..ffffffffffffmmmmmmmmmmmmmmmmmmffff.....=ffffff.........ff..fffffffffff=.....ffmmmmmmmmmmmmmmmmmmmmmmmfffffffsssssssssssssssssssssssssssssssssssssssssssss",
+  "...f....ffffff...ffffffffffff.mmmmmmmmmmmmmmmmmmfff.....=fffffff.............ffffffffff=......fffff...mmmmmmmmmmmmmmmmfffffffsssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmffff.ffffff.......ffffffff..mmmmmmmmmmmmmmmmffff.....=fffffff.............ffffffffff=......fffff.......ffmmmmmmmmm..ffffsssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmff..ffffff......ffffffffff..mmmmmmmmmmmmmmmfff.....=ffffffff............fffffffff.=.......ffff.......fffff...mm..fffffsssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmm..fffffff.....fffffffff...fmmmmmmmmmmmmmffff.....=.fffffff............fffffffff=........ffff.......fffff........ffsssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmffffffffffffffff.....ffffmmmmmmmmmmmffff......=ffffff......ff.....ffffffff..=.......fffff.......fff.........ffsssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmffffffffffffff.....fffffmmmmmmmmmffffff....=..ffff.......ffff........ff...=........fffff..................sssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmffffffffffff......ffffffmmmmmmmffffff....=..fff........ffffff......ff....=........ffff..........ffff..ffsssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmfffffffffff.......fffffffmmmmfffffffff.=..............ffffffffffffff....=.........f..fff......ffffffffssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmfffffffff.......fffffff.mmffffffffff.=..............fffffffffffff......=...........fff......fffffffsssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "mmmmmmmmmmmmmmmmmmmmfffff.........ffffff....fffffffff.=..............ffffffffff..........=...................ffffffsssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "...mmmmmmmmmmmmmmmmmmmfff.........fffff.....ffffff..f.=....fffff...fffffffffff......ff....=.................ffffffssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "....mmmmmmmmmmmmmmmmmmmf...........ffff.....ffffff...=...fffffff..fffffffff.........fff...=.................ffffssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "......mmmmmmmmmmmmmmmmmmmm.ff.......fff...fffffff....=..ffffffffffffff................fff..g#...............ff.sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "........mmmmmmmmmmmmmmmmmm.ff.......ffff..fff.......=..fffffffffffffff..............fffff.#c#...ff.........ffsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "...........mmmmmmmmmmmmmmmm...f......ff..fffff......=..ffffffffffffffff.............fff....##.ffff........fsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".....f......mmmmmmmmmmmmmm....ffff.......fffff.....=...ffffffffffffffff.............fff.......ffff.......sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".....ffff......mmmmmmmmmmmm.......ffffffffffff.....=.ffffffffffffffffff..............ffff....fffff......ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "..ff..ffff........mmmmmmmmm.......fffffffffffff...=fffffffffffffffffff..ff.............fff.ffffff....sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "ffffffffff.......fffmmmmmmm.......fffffffffffff...=fffffffffffffffffff..ff.............fffffffff..ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "ffffffffffff..f..fffmmmmmm........fffffffffff....=.fffffffffffffffffffff.....ff........fffffffssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "fffffffffffff....ffff.mmmm........fffffffffff....=ffffffffffffffffffffff.....fff.......fffffssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "ffffffffffffffff..................fffffffffff...=.fffffffffffffffffffff......ff........fffssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "ffffffffffffffff..................fffffffffff...=.ff.fffffffffffffffff.................fssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".........fffffff...................fffff.ffff..=.fff....ffffffffffffff................ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".........ffffff..........................ffffff=.........ffffffffffff...............ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "..........fffff..........................fffff=..........ffffffffffff............sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".........ffffff..........................fffff=ffff......fffffffffffff..........ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".........ffffff..........................ffff=fffffff...sssssssssssfff.......sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  ".........ffffff...........................ff==.ffffff..sssssssssssssff......ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "........fffffff........ff..................=.....ff...ssssssssssssss.......sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "......ffff..fff.......fffffff..............=.........ssssssssssssssss......sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "....fffff.............fffffff............#g.........sssssssssssssssss.....ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "....ffffff...........ffffffffff..........#c#.......sssssssssssssssssss....fsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "....ffff.............ffffffffff..........##......sssssssssssssssssssss....ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "....................ff..ffffffff.................ssssssssssssssssssssss...ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+  "............ff....ffff.....fffff........f......sssssssssssssssssssssss...sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+ ],
+ "territory_legend": {
+  "A": "luoyang",
+  "B": "changan",
+  "C": "hongnong",
+  "D": "henei",
+  "E": "tianshui",
+  "F": "wuwei",
+  "G": "anding",
+  "H": "chengdu",
+  "I": "hanzhong",
+  "J": "zitong",
+  "K": "jiangzhou",
+  "L": "yongan",
+  "M": "jianning",
+  "N": "yunnan",
+  "O": "xiangyang",
+  "P": "wan",
+  "Q": "xinye",
+  "R": "jiangling",
+  "S": "jiangxia",
+  "T": "changsha",
+  "U": "wuling",
+  "V": "lingling",
+  "W": "guiyang",
+  "X": "shangyong",
+  "Y": "xuchang",
+  "Z": "runan",
+  "a": "qiao",
+  "b": "xiaopei",
+  "c": "chenliu",
+  "d": "puyang",
+  "e": "xiapi",
+  "f": "guangling",
+  "g": "beihai",
+  "h": "pingyuan",
+  "i": "ye",
+  "j": "nanpi",
+  "k": "julu",
+  "l": "beiping",
+  "m": "ji_city",
+  "n": "xiangping",
+  "o": "jinyang",
+  "p": "shangdang",
+  "q": "jianye",
+  "r": "shouchun",
+  "s": "lujiang",
+  "t": "wu_city",
+  "u": "kuaiji",
+  "v": "chaisang",
+  "w": "jiaozhi",
+  "x": "nanhai"
+ },
+ "territory": [
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFoooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFoooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFoooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFoooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllllllllllllnnnnnnnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllllllln-nnnnnnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllllll-----nnnnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllllll-------nnnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllll----------nnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllllll----------nnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGoooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllllll------------nnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGoooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllllll------------nnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGoooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmmllllllllllllllll-------------nnnnnnnnnnnnnnnnnnnn--",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmmlllllllllllllll--------------nnnnnnnnnnnnnnnnnnnn-",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmmmllllllllllllll---------------nnnnnnnnnnnnnnnnnnn---",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmlllllllllllll----------------nnnnnnnnnnnnnnnnn-----",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmmlllllllllll------------------nnnnnnnnnnnnnn--------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmllllllllll-------------------nnnnnnnnnnnn----------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmllllllll--------------------nnnnnnnnnn-------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmmlllllll----------------------nnnnnnn---------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmmlllll-----------------------nnnnnn-----------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmmjlll-------------------------nnn-------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmmmmjjjll-------------------------n----------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooooookkmmmmmmmjjjjjjjjjjjjl------------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGooooooooooooooooooooooooooooooookkkkmmmmjjjjjjjjjjjjjj-------------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooookkkkkkjjjjjjjjjjjjjjjj-------------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGoooooooooooooooooooooooooooooookkkkkkjjjjjjjjjjjjjjj--------------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGBoooooooooooooooooooooooooooookkkkkkkjjjjjjjjjjjjjjj-------------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGBBBoooooooooooooooooooooooooookkkkkkkkjjjjjjjjjjjjjjjj------------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGBBBBBoooooooooooooooooooooooookkkkkkkkkjjjjjjjjjjjjjjjg-----------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBoooooooooooooooooooookkkkkkkkkkjjjjjjjjjjjjjjgg-----------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBooooooooooooooooooooookkkkkkkkkjjjjjjjjjjjjjjgggg---------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBooooooooooooooooooooookkkkkkkkkkjjjjjjjjjjjjjggggg---------------------------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBoooooooooooooooooooookkkkkkkkkkkhhhjjjjjjjjjgggggg---------------gg---------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBoooooooooooooooooooookkkkkkkkkkkhhhhhjjjjjjjgggggggg------------ggggggg------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBoooooooooooooooooooookkkkkkkkkkkkhhhhhhhjjhhhgggggggg----------gggggggggggg--------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBoooooooooooooooooooookkkkkkkkkkkhhhhhhhhhhhhggggggggg--------ggggggggggggggggg-----------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBooooooooooooooooooookkkkkkkkkkkkhhhhhhhhhhhhgggggggggg------gggggggggggggggg------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBoooooooooooooooooppkkkkkkkkkkkkkhhhhhhhhhhhgggggggggggg---ggggggggggggggggg-------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFGGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBooooooooooooooooppppkkkkkkkkkkkkhhhhhhhhhhhhgggggggggggggggggggggggggggggg--------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEGGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBBoooooooooopppppppppkkkkkkkkkkkkkhhhhhhhhhhhggggggggggggggggggggggggggggg----------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEGGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBBooooooooopppppppppppkkkkkkkkkkkkhhhhhhhhhhhggggggggggggggggggggggggggggg----------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEGGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBCCpppppooppppppppppppiiiiikkkkkkkkhhhhhhhhhhgggggggggggggggggggggggggggg------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEGGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBCCCpppppppppppppppppppiiiiiiikkkkkhhhhhhhhhhhgggggggggggggggggggggggggg-------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEGGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBCCCpppppppppppppppppppiiiiiiiiikkkkhhhhhhhhhhgggggggggggggggggggggggggg--------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEEGGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBBCCCppppppppppppppppppiiiiiiiiiidddhhhhhhhhhhhgggggggggggggggggggggggg---------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEEEGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBBBCCCpppppppppppppppppppiiiiiiiiidddddhhhhhhhhhggggggggggggggggggggggg-----------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEEEEEGGGGGGGGGGGGGGGGBBBBBBBBBBBBBBBCCCppppppppppppppppppiiiiiiiidddddddhhhhhhhhggggggggggggggggggggggg-----------------------------",
+  "FFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGGBBBBBBBBBBBBBBBCCCCppppppppppppppppppiiiiiiddddddddddhhhbbbbggggggggggggggggggggg-------------------------------",
+  "FFFFFFFFFFFFFFFFFFEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGGBBBBBBBBBBBBBBBCCCCCppppppppppppppppppiiiiiddddddddddddbbbbbbbggggggggggggggggggg-------------------------------",
+  "FFFFFFFFFFFFFFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCppppppppppppppppiiiidddddddddddddbbbbbbbbbgggggggggggggggg---------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCCpppppppppppppppddddddddddddddddbbbbbbbbbbbggggggggggggggg---------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCCDDDDDDDDDDDDDDDdddddddddddddddbbbbbbbbbbbbgggggggggggggg----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCCCDDDDDDDDDDDDDccddddddddddddddbbbbbbbbbbbbbggggggggggggg----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGGBBBBBBBBBBBBBBBCCCCCCCCCDDDDDDDDDDDDccddccddddcdddddbbbbbbbbbbbbbbeeeeeeggggg------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCCCCDDDDDDDDDDDDcccccccddcccdddbbbbbbbbbbbbbbeeeeeeeeggg------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCCCCADDDDDDDDDDDDcccccccccccccdbbbbbbbbbbbbbbeeeeeeeeeeg-------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGGBBBBBBBBBBBBBBBBCCCCCCCCCAAADDDDDDDDDDccccccccccccccbbbbbbbbbbbbbbeeeeeeeeeee-------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGGBBBBBBBBBBBBBBBBBCCCCCCCCCAAADAADDDDDDccccccccccccccbbbbbbbbbbbbbbeeeeeeeeeee--------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGGBBBBBBBBBBBBBBBBBCCCCCCCCCAAAAAAADDDDccccccccccccccccbbbbbbbbbbbbbeeeeeeeeeeee-------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGGBBBBBBBBBBBBBBBBBCCCCCCCCCCAAAAAAAADDccccccccccccccccabbbbbbbbbbbbeeeeeeeeeeeee-------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGBBBBBBBBBBBBBBBCCCCCCCCCCCCAAAAAAAAAAAYcccccccccccccaaaabbbbbbbbbbeeeeeeeeeeeeee------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGBBBBBBBBBBBBBBCCCCCCCCCCCCCAAAAAAAAAAAYYcccccccccccaaaaaabbbbbbbbeeeeeeeeeeeeeee------------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGBBBBBBBBBBBBBBCCCCCCCCCCCCAAAAAAAAAAAYYYYcccccccccaaaaaaabbbbbbbeeeeeeeeeeeeeeee-----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGBBBBBBBBBBBBBBCCCCCCCCCCCCCAAAAAAAAAAYYYYYYcccccccaaaaaaaabbbbbbeeeeeeeeeeeeeeeee-----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEGGGGGGGBBBBBBBBBBBBBCCCCCCCCCCCCCAAAAAAAAAAYYYYYYYYcccccaaaaaaaaabbbbbbeeeeeeeeeeeeeeee-----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIIIIGGGGGBBBBBBBBBBBBBCCCCCCCCCCCCCCAAAAAAAAAYYYYYYYYYYcccaaaaaaaaaaabbbbeeeeeeeeeeeeeeeee-----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIIIIIIIIIGGIIBBBBBBBBBBBBCCCCCCCCCCCCCCCAAAAAAAAYYYYYYYYYYYYcaaaaaaaaaaaaabbeeeeeeeeeeeeeeeeee----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEJJJJIIIIIIIIIIIIIIIIIIIIIIBBBBBBBBBBCCCCCCCCCCCCCCCAAAAAAAAYYYYYYYYYYYYaaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeeee----------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIBBBBCCCCCCCCCCCCCCCCAAAAAAAYYYYYYYYYYYYZaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeeeff---------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIXCCCCCCCCCCCCCCCAAAAAAPPYYYYYYYYYYZZZaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeffff---------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIIIXXXXCCCCCCCCCCCCCAAAAPPPPPYYYYYYYZZZZZaaaaaaaaaaaaaaeeeeeeeeeeeeeefffffff--------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIIXXXXXXCCCCCCCCPPPPPPPPPPPPPYYYYZZZZZZZZaaaaaaaaaaaaaaeeeeeeeeeefffffffffff--------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIIXXXXXXXCCCCCQPPPPPPPPPPPPPPYYZZZZZZZZZZaaaaaaaaaaarrreeeeeeeeeffffffffffff-------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIXXXXXXXXXXXQQQPPPPPPPPPPPPPPZZZZZZZZZZZZaaaaaaaaarrrrreeeeeeeffffffffffffff-------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIXXXXXXXXXXQQQQPPPPPPPPPPPPPPZZZZZZZZZZZZaaaaaarrrrrrrrerrrfffffffffffffffff------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIXXXXXXXXXXXQQQQPPPPPPPPPPPPPZZZZZZZZZZZZZZaaarrrrrrrrrrrrrrfffffffffffffffff------------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIXXXXXXXXXXXQQQQQQQPPPPPPPPPPPZZZZZZZZZZZZZZarrrrrrrrrrrrrrrffffffffffffffffff-----------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIXXXXXXXXXXXXQQQQQQQQQQPPPPPPPZZZZZZZZZZZZZZZrrrrrrrrrrrrrrrrffffffffffffffffff-----------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIIXXXXXXXXXXXXXXXXQQQQQQQQQQQQPPPPPZZZZZZZZZZZZZZZrrrrrrrrrrrrrrrfffffffffffffffffff----------------------------",
+  "EEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJIIIIIIIIIIIIIIIIXXXXXXXXXXXXXXXXXXXQQQQQQQQQQQQQQQZZZZZZZZZZZZZrrrrrrrrrrrrrrrrrfffffffffffffffffff----------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJJJIIIIIIIIIIIIIXXXXXXXXXXXXXXXXXXXXOQQQQQQQQQQQQQZZZZZZZZZZrrrrrrrrrrrrrrrrrrrrfffffffffffffffffff----------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJJJJIIIIIIIIIIIXXXXXXXXXXXXXXXXXXXXOOOQQQQQQQQQQQQZZZZZZZZZZrrrrrrrrrrrrrrrrrrrrfffffffffffffffffff----------------------------",
+  "EEEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJIIIIIIXXXXXXXXXXXXXXXXXXXXOOOOOQQQQQQQQQQQQSSSSZZZZrrrrrrrrrrrrrrrrrrrsffffffffffffffffffff---------------------------",
+  "EEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJIIIXXXXXXXXXXXXXXXXXXXXOOOOOOOQQQQQQQQQQSSSSSSZZZrrrrrrrrrrrrrrrrrsssqfffqqqfffffffffffff---------------------------",
+  "EEEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLLLLLLXXXXXXXXXXXXXXXXXOOOOOOOOOQQQQQQQSSSSSSSSSZrrrrrrrrrrrrrrrrssssqqqfqqqqqqqffffffffft--------------------------",
+  "EEEEEEEEEEEEEEEEEEEJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLLLLLLLLLXXXXXXXXXXXXXXOOOOOOOOOOQQQQQSSSSSSSSSSSrrrrrrrrrrrrrrrssssssqqqqqqqqqqqqqtttttttt--------------------------",
+  "EEEEEEEEEEEEEEEEEEEHHJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLLLLLLLLLLLLLXXXXXXXXXXOOOOOOOOOOOQQQQSSSSSSSSSSSSrrrrrrrrrrrsssssssssqqqqqqqqqqqqqqtttttttt-------------------------",
+  "EEEEEEEEEEEEEEEEHHHHHHHHHHHHHJJJJJJJJJJJJJJJJJJJJJJJJLLLLLLLLLLLLLLLLXXXXXXOOOOOOOOOOOOQQQSSSSSSSSSSSSrrrrrrrrrrsssssssssssqqqqqqqqqqqqqttttttttt-------------------------",
+  "EEEEEEEEEEEEEEEHHHHHHHHHHHHHHHHJJJJJJJJJJJJJJJJJJJJJJLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOQQSSSSSSSSSSSSrrrrrrrrrsssssssssssssqqqqqqqqqqqqtttttttttt------------------------",
+  "EEEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHJJJJJJJJJJJJJJJJJJJJLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOSSSSSSSSSSSSSSSrrrrrrrssssssssssssssqqqqqqqqqqqtttttttttttt-----------------------",
+  "EEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHHHHJJJJJJJJJJJJJJJJJJLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOSSSSSSSSSSSSSSSSrrrrsssssssssssssssqqqqqqqqqqqttttttttttttt----------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJJJJJJJJJJJJJJJKKKLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOSSSSSSSSSSSSSSSSSSrrsssssssssssssssqqqqqqqqqqqqttttttttttttt----------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJJJJJJJJJJJJJKKKKLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOORRSSSSSSSSSSSSSSSSSSSsssssssssssssssqqqqqqqqqqqqqttttttttttttt---------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJJJJJJJJJJJKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOORRRRRRSSSSSSSSSSSSSSSSSSSSsssssssssssssqqqqqqqqqqqqqqttttttttttttt---------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJJJJJJJJKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLOOOOOORRRRRRRRSSSSSSSSSSSSSSSSSSSsssssssssssssqqqqqqqqqqqqqqttttttttttttt---------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJJJJKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLOOOORRRRRRRRRRRSSSSSSSSSSSSSSSSSSsssssssssssssqqqqqqqqqqqqqtttttttttttt-----------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJJKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLOOORRRRRRRRRRRRSSSSSSSSSSSSSSSSSsssssssssssssqqqqqqqqqqqquuttttttttttt-----------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLOOORRRRRRRRRRRRRSSSSSSSSSSSSSSSSssssssssssssssqqqqqqqqquuuuuuuuuuuuuu-------------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLORRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSsssssssssssssqqqqqqqqquuuuuuuuuuuuuu-------------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLUURRRRRRRRRRRRRRRRSSSSSSSSSSSSSSvvsssssssvvssssqqqqqqqquuuuuuuuuuuuu---------------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLUUUURRRRRRRRRRRRRRRSSSSSSSSSSSSvvvvvssssvvvvvvssqqqqqqquuuuuuuuuuuuuuu--------------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLUULLUUUUUUURRRRRRRRRRRRRRRSSSSSSSvvvvvvvvvvssvvvvvvvvvqqqqqqquuuuuuuuuuuuuuuuu-------------------------",
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLUUUUUUUUUUUURRRRRRRRRRRRRRSSSSSSSvvvvvvvvvvvvvvvvvvvvvvvqqqqquuuuuuuuuuuuuuuuuuu-----------------------",
+  "MMMMMMMMMMHHHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKLLLUUUUUUUUUUUUURRRRRRRRRRRRRSSSSSSvvvvvvvvvvvvvvvvvvvvvvvvvvqqquuuuuuuuuuuuuuuuuuuuu----------------------",
+  "MMMMMMMMMMMMHHHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKLUUUUUUUUUUUUUUUURRRRRRRRRRRSSSSSSvvvvvvvvvvvvvvvvvvvvvvvvvvvqquuuuuuuuuuuuuuuuuuuuuuu--------------------",
+  "MMMMMMMMMMMMMHHHHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUURRRRRRRRRSSSSSvvvvvvvvvvvvvvvvvvvvvvvvvvvvvquuuuuuuuuuuuuuuuuuuuuuu---------------------",
+  "MMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUURRRRRRTTSSSvvvvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuuu---------------------",
+  "MMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUURRRRTTTTvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuuuu---------------------",
+  "MMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUURRRTTTTvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuuu---------------------",
+  "MMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUURTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuu----------------------",
+  "MMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuu----------------------",
+  "MMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuu----------------------",
+  "MMMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuu----------------------",
+  "MMMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuu-----------------------",
+  "MMMMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuu-----------------------",
+  "MMMMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHHKKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuuu-----------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMHHHHHHHHHHHHHMKKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuuu-----------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMHHHHHHHHHHMMMMKKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuuu------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuuu------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKKKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuuu-------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKKKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuu--------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKKKKKKKKKKKKKKKKKKUUUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuu---------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKKUUUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuu---------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMUUUUUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuu----------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMUUVUUUUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuuu----------------------------",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVUUUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvvuuuuuuuuuuuuuuuuu-----------------------------",
+  "NNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVUUUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvvuuuuuuuuuuuuuuuu------------------------------",
+  "NNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVUUUUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvvuuuuuuuuuuuuuuuu-------------------------------",
+  "NNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVUUUUUUUUUUUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvvuuuuuuuuuuuuuuuu-------------------------------",
+  "NNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVUUUUVUUUVVUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvuuuuuuuuuuuuuuuu--------------------------------",
+  "NNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVTWWWWWWTTTTTTTTTTTTTTTTTTTTvvvvvvvvvvvuuuuuuuuuuuuuuu--------------------------------",
+  "NNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWTTTTTTTTTTTTTTTTvvvvvvvvvvuuuuuuuuuuuuuuu---------------------------------",
+  "NNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWTTTTTTTTTTTTTTTvvvvvvvvvuuuuuuuuuuuuuuu---------------------------------",
+  "NNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWTTTTvvvvvvvuuuuuuuuuuuuuuu----------------------------------",
+  "NNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTvvvvvvvuuuuuuuuuuuuuu----------------------------------",
+  "NNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTvvvvvvuuuuuuuuuuuuuu-----------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTvvvTTTuuuuuuuuuuuuu-----------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTTTTTTTuuuuuuuuuuuu------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTTTTTTuuuuuuuuuuuu------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTTTTTTuuuuuuuuuuu-------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWTTTTTTTTTuuuuuuuuuu-------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWuuuuuuuuu--------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWuuuuuuuuu--------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWuuuuuuuu---------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWuuuuuuu---------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxxxxuuuuuuu----------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxxxxxxxxuuuuu----------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxxxxxxxxxuuuu-----------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWxWxxxxxxWWWWxxxxxxxxxxxuuu-----------------------------------------",
+  "NNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMVVVVVVVVVVVVVVVVVVVxxxVVVWWWWWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxu-------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMwwVVVVVVVVVVVVVVVVVxxxxxxWWWWWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMwwwwwVVVVVVVVVVVVVVVxxxxxxxxWWWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMwwwwwwwwVVVVVVVVVVVVVxxxxxxxxxWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMMwMMMMMMMMwwwwwwwwwwwwwwVVVVVVVVVxxxxxxxxxxxxWWxxxxWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-----------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMMMwwwwwwwwwwwwwwwwwwwwwwwwwVVVVVVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-----------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMMMwwwwwwwwwwwwwwwwwwwwwwwwwwVVVVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNNMMMMMMMMMMMwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNNMMMMMMwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNNNMMwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-----------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--------------------------------------------------------",
+  "NNNNNNNNNNNNNNNNNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----------------------------------------------------------",
+  "NNNNNNNwwNNNNNNNNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-----------------------------------------------------------",
+  "NNNNNNwwwwwwwwwwwwNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------------------------------------------------",
+  "NNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------------------------------------------------------",
+  "NNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-----------------------------------------------------------------",
+  "NNNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx------------------------------------------------------------------",
+  "NNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------------------------------------------------------------",
+  "NNNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx------------------------------------------------------------------------",
+  "NNNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx----------------------------------------------------------------------------",
+  "NNNwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxxxx------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxx--------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxx----------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxx------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxx--------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxx-----------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxx------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-----------xxxxxxxxxx---------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-------------xxxxxxxx----------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww--------------xxxxxxx-----------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww----------------xxxxxx-----------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-----------------xxxxx------------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-------------------xxxxx-----------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww---------------------xxxx------------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww----------------------xxx------------------------------------------------------------------------------------------------",
+  "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-----------------------xxx-------------------------------------------------------------------------------------------------"
+ ],
+ "strongholds": [
+  {
+   "id": "luoyang",
+   "center": {
+    "q": 51,
+    "r": 69
+   },
+   "tiles": [
+    {
+     "q": 51,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 52,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 53,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 50,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 51,
+     "r": 68,
+     "kind": "street"
+    },
+    {
+     "q": 52,
+     "r": 68,
+     "kind": "street"
+    },
+    {
+     "q": 53,
+     "r": 68,
+     "kind": "gate"
+    },
+    {
+     "q": 49,
+     "r": 69,
+     "kind": "gate"
+    },
+    {
+     "q": 50,
+     "r": 69,
+     "kind": "street"
+    },
+    {
+     "q": 51,
+     "r": 69,
+     "kind": "center"
+    },
+    {
+     "q": 52,
+     "r": 69,
+     "kind": "street"
+    },
+    {
+     "q": 53,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 49,
+     "r": 70,
+     "kind": "wall"
+    },
+    {
+     "q": 50,
+     "r": 70,
+     "kind": "street"
+    },
+    {
+     "q": 51,
+     "r": 70,
+     "kind": "street"
+    },
+    {
+     "q": 52,
+     "r": 70,
+     "kind": "wall"
+    },
+    {
+     "q": 49,
+     "r": 71,
+     "kind": "wall"
+    },
+    {
+     "q": 50,
+     "r": 71,
+     "kind": "wall"
+    },
+    {
+     "q": 51,
+     "r": 71,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "luoyang",
+   "facility_slots": [
+    {
+     "q": 53,
+     "r": 66,
+     "waterside": true
+    },
+    {
+     "q": 54,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 53,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 52,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 51,
+     "r": 65,
+     "waterside": true
+    },
+    {
+     "q": 55,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 54,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 53,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 51,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 54,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 52,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 73,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "changan",
+   "center": {
+    "q": 28,
+    "r": 67
+   },
+   "tiles": [
+    {
+     "q": 28,
+     "r": 65,
+     "kind": "wall"
+    },
+    {
+     "q": 29,
+     "r": 65,
+     "kind": "wall"
+    },
+    {
+     "q": 30,
+     "r": 65,
+     "kind": "wall"
+    },
+    {
+     "q": 27,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 28,
+     "r": 66,
+     "kind": "street"
+    },
+    {
+     "q": 29,
+     "r": 66,
+     "kind": "street"
+    },
+    {
+     "q": 30,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 26,
+     "r": 67,
+     "kind": "gate"
+    },
+    {
+     "q": 27,
+     "r": 67,
+     "kind": "street"
+    },
+    {
+     "q": 28,
+     "r": 67,
+     "kind": "center"
+    },
+    {
+     "q": 29,
+     "r": 67,
+     "kind": "street"
+    },
+    {
+     "q": 30,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 26,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 27,
+     "r": 68,
+     "kind": "street"
+    },
+    {
+     "q": 28,
+     "r": 68,
+     "kind": "street"
+    },
+    {
+     "q": 29,
+     "r": 68,
+     "kind": "gate"
+    },
+    {
+     "q": 26,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 27,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 28,
+     "r": 69,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "changan",
+   "facility_slots": [
+    {
+     "q": 26,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 27,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 28,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 29,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 30,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 67,
+     "waterside": false
+    },
+    {
+     "q": 25,
+     "r": 69,
+     "waterside": true
+    },
+    {
+     "q": 25,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 25,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 26,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 27,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 28,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 30,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 32,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 32,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 32,
+     "r": 65,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "hongnong",
+   "center": {
+    "q": 41,
+    "r": 69
+   },
+   "tiles": [
+    {
+     "q": 41,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 42,
+     "r": 68,
+     "kind": "gate"
+    },
+    {
+     "q": 40,
+     "r": 69,
+     "kind": "gate"
+    },
+    {
+     "q": 41,
+     "r": 69,
+     "kind": "center"
+    },
+    {
+     "q": 42,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 40,
+     "r": 70,
+     "kind": "wall"
+    },
+    {
+     "q": 41,
+     "r": 70,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "hongnong",
+   "facility_slots": [
+    {
+     "q": 40,
+     "r": 68,
+     "waterside": true
+    },
+    {
+     "q": 43,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 42,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 41,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 40,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 39,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 39,
+     "r": 68,
+     "waterside": true
+    },
+    {
+     "q": 41,
+     "r": 66,
+     "waterside": true
+    },
+    {
+     "q": 42,
+     "r": 66,
+     "waterside": true
+    },
+    {
+     "q": 40,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 39,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 38,
+     "r": 72,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "henei",
+   "center": {
+    "q": 59,
+    "r": 63
+   },
+   "tiles": [
+    {
+     "q": 59,
+     "r": 62,
+     "kind": "wall"
+    },
+    {
+     "q": 60,
+     "r": 62,
+     "kind": "wall"
+    },
+    {
+     "q": 58,
+     "r": 63,
+     "kind": "gate"
+    },
+    {
+     "q": 59,
+     "r": 63,
+     "kind": "center"
+    },
+    {
+     "q": 60,
+     "r": 63,
+     "kind": "wall"
+    },
+    {
+     "q": 58,
+     "r": 64,
+     "kind": "wall"
+    },
+    {
+     "q": 59,
+     "r": 64,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "henei",
+   "facility_slots": [
+    {
+     "q": 59,
+     "r": 61,
+     "waterside": false
+    },
+    {
+     "q": 60,
+     "r": 61,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 62,
+     "waterside": false
+    },
+    {
+     "q": 59,
+     "r": 60,
+     "waterside": false
+    },
+    {
+     "q": 60,
+     "r": 60,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 60,
+     "waterside": false
+    },
+    {
+     "q": 56,
+     "r": 64,
+     "waterside": true
+    },
+    {
+     "q": 56,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 56,
+     "r": 62,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 61,
+     "waterside": false
+    },
+    {
+     "q": 59,
+     "r": 59,
+     "waterside": false
+    },
+    {
+     "q": 60,
+     "r": 59,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "tianshui",
+   "center": {
+    "q": 8,
+    "r": 66
+   },
+   "tiles": [
+    {
+     "q": 8,
+     "r": 65,
+     "kind": "gate"
+    },
+    {
+     "q": 9,
+     "r": 65,
+     "kind": "wall"
+    },
+    {
+     "q": 7,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 8,
+     "r": 66,
+     "kind": "center"
+    },
+    {
+     "q": 9,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 7,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 8,
+     "r": 67,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "tianshui",
+   "facility_slots": [
+    {
+     "q": 7,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 9,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 10,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 68,
+     "waterside": true
+    },
+    {
+     "q": 6,
+     "r": 67,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 7,
+     "r": 64,
+     "waterside": false
+    },
+    {
+     "q": 9,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 10,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 5,
+     "r": 67,
+     "waterside": false
+    },
+    {
+     "q": 5,
+     "r": 66,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "wuwei",
+   "center": {
+    "q": 2,
+    "r": 37
+   },
+   "tiles": [
+    {
+     "q": 2,
+     "r": 36,
+     "kind": "wall"
+    },
+    {
+     "q": 3,
+     "r": 36,
+     "kind": "gate"
+    },
+    {
+     "q": 1,
+     "r": 37,
+     "kind": "wall"
+    },
+    {
+     "q": 2,
+     "r": 37,
+     "kind": "center"
+    },
+    {
+     "q": 3,
+     "r": 37,
+     "kind": "wall"
+    },
+    {
+     "q": 1,
+     "r": 38,
+     "kind": "wall"
+    },
+    {
+     "q": 2,
+     "r": 38,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "wuwei",
+   "facility_slots": [
+    {
+     "q": 1,
+     "r": 36,
+     "waterside": false
+    },
+    {
+     "q": 2,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 4,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 0,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 4,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 38,
+     "waterside": false
+    },
+    {
+     "q": 2,
+     "r": 39,
+     "waterside": false
+    },
+    {
+     "q": 0,
+     "r": 36,
+     "waterside": false
+    },
+    {
+     "q": 1,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 2,
+     "r": 34,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 34,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "anding",
+   "center": {
+    "q": 18,
+    "r": 61
+   },
+   "tiles": [
+    {
+     "q": 18,
+     "r": 60,
+     "kind": "gate"
+    },
+    {
+     "q": 19,
+     "r": 60,
+     "kind": "wall"
+    },
+    {
+     "q": 17,
+     "r": 61,
+     "kind": "wall"
+    },
+    {
+     "q": 18,
+     "r": 61,
+     "kind": "center"
+    },
+    {
+     "q": 19,
+     "r": 61,
+     "kind": "wall"
+    },
+    {
+     "q": 17,
+     "r": 62,
+     "kind": "wall"
+    },
+    {
+     "q": 18,
+     "r": 62,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "anding",
+   "facility_slots": [
+    {
+     "q": 17,
+     "r": 60,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 59,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 59,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 60,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 61,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 62,
+     "waterside": false
+    },
+    {
+     "q": 17,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 16,
+     "r": 63,
+     "waterside": false
+    },
+    {
+     "q": 16,
+     "r": 62,
+     "waterside": false
+    },
+    {
+     "q": 16,
+     "r": 61,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 58,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 58,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "chengdu",
+   "center": {
+    "q": -22,
+    "r": 104
+   },
+   "tiles": [
+    {
+     "q": -22,
+     "r": 102,
+     "kind": "wall"
+    },
+    {
+     "q": -21,
+     "r": 102,
+     "kind": "wall"
+    },
+    {
+     "q": -20,
+     "r": 102,
+     "kind": "gate"
+    },
+    {
+     "q": -23,
+     "r": 103,
+     "kind": "wall"
+    },
+    {
+     "q": -22,
+     "r": 103,
+     "kind": "street"
+    },
+    {
+     "q": -21,
+     "r": 103,
+     "kind": "street"
+    },
+    {
+     "q": -20,
+     "r": 103,
+     "kind": "wall"
+    },
+    {
+     "q": -24,
+     "r": 104,
+     "kind": "wall"
+    },
+    {
+     "q": -23,
+     "r": 104,
+     "kind": "street"
+    },
+    {
+     "q": -22,
+     "r": 104,
+     "kind": "center"
+    },
+    {
+     "q": -21,
+     "r": 104,
+     "kind": "street"
+    },
+    {
+     "q": -20,
+     "r": 104,
+     "kind": "wall"
+    },
+    {
+     "q": -24,
+     "r": 105,
+     "kind": "wall"
+    },
+    {
+     "q": -23,
+     "r": 105,
+     "kind": "street"
+    },
+    {
+     "q": -22,
+     "r": 105,
+     "kind": "street"
+    },
+    {
+     "q": -21,
+     "r": 105,
+     "kind": "wall"
+    },
+    {
+     "q": -24,
+     "r": 106,
+     "kind": "wall"
+    },
+    {
+     "q": -23,
+     "r": 106,
+     "kind": "wall"
+    },
+    {
+     "q": -22,
+     "r": 106,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "chengdu",
+   "facility_slots": [
+    {
+     "q": -20,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": -19,
+     "r": 102,
+     "waterside": false
+    },
+    {
+     "q": -19,
+     "r": 103,
+     "waterside": false
+    },
+    {
+     "q": -23,
+     "r": 107,
+     "waterside": false
+    },
+    {
+     "q": -24,
+     "r": 107,
+     "waterside": false
+    },
+    {
+     "q": -25,
+     "r": 107,
+     "waterside": false
+    },
+    {
+     "q": -24,
+     "r": 103,
+     "waterside": false
+    },
+    {
+     "q": -23,
+     "r": 102,
+     "waterside": false
+    },
+    {
+     "q": -22,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": -21,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": -19,
+     "r": 104,
+     "waterside": false
+    },
+    {
+     "q": -20,
+     "r": 105,
+     "waterside": false
+    },
+    {
+     "q": -21,
+     "r": 106,
+     "waterside": false
+    },
+    {
+     "q": -25,
+     "r": 106,
+     "waterside": false
+    },
+    {
+     "q": -25,
+     "r": 105,
+     "waterside": false
+    },
+    {
+     "q": -22,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": -19,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": -18,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": -18,
+     "r": 102,
+     "waterside": false
+    },
+    {
+     "q": -18,
+     "r": 103,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "hanzhong",
+   "center": {
+    "q": 10,
+    "r": 81
+   },
+   "tiles": [
+    {
+     "q": 10,
+     "r": 80,
+     "kind": "wall"
+    },
+    {
+     "q": 11,
+     "r": 80,
+     "kind": "wall"
+    },
+    {
+     "q": 9,
+     "r": 81,
+     "kind": "gate"
+    },
+    {
+     "q": 10,
+     "r": 81,
+     "kind": "center"
+    },
+    {
+     "q": 11,
+     "r": 81,
+     "kind": "wall"
+    },
+    {
+     "q": 9,
+     "r": 82,
+     "kind": "wall"
+    },
+    {
+     "q": 10,
+     "r": 82,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "hanzhong",
+   "facility_slots": [
+    {
+     "q": 9,
+     "r": 80,
+     "waterside": false
+    },
+    {
+     "q": 10,
+     "r": 79,
+     "waterside": false
+    },
+    {
+     "q": 11,
+     "r": 79,
+     "waterside": false
+    },
+    {
+     "q": 12,
+     "r": 79,
+     "waterside": false
+    },
+    {
+     "q": 12,
+     "r": 80,
+     "waterside": false
+    },
+    {
+     "q": 12,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 8,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 9,
+     "r": 84,
+     "waterside": true
+    },
+    {
+     "q": 8,
+     "r": 84,
+     "waterside": true
+    },
+    {
+     "q": 8,
+     "r": 80,
+     "waterside": false
+    },
+    {
+     "q": 9,
+     "r": 79,
+     "waterside": false
+    },
+    {
+     "q": 13,
+     "r": 80,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "zitong",
+   "center": {
+    "q": -10,
+    "r": 95
+   },
+   "tiles": [
+    {
+     "q": -10,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": -9,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": -11,
+     "r": 95,
+     "kind": "gate"
+    },
+    {
+     "q": -10,
+     "r": 95,
+     "kind": "center"
+    },
+    {
+     "q": -9,
+     "r": 95,
+     "kind": "gate"
+    },
+    {
+     "q": -11,
+     "r": 96,
+     "kind": "wall"
+    },
+    {
+     "q": -10,
+     "r": 96,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "zitong",
+   "facility_slots": [
+    {
+     "q": -11,
+     "r": 94,
+     "waterside": false
+    },
+    {
+     "q": -10,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": -9,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": -8,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": -8,
+     "r": 94,
+     "waterside": false
+    },
+    {
+     "q": -9,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": -10,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": -11,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": -12,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": -12,
+     "r": 94,
+     "waterside": false
+    },
+    {
+     "q": -11,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": -10,
+     "r": 92,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "jiangzhou",
+   "center": {
+    "q": -11,
+    "r": 113
+   },
+   "tiles": [
+    {
+     "q": -11,
+     "r": 112,
+     "kind": "wall"
+    },
+    {
+     "q": -10,
+     "r": 112,
+     "kind": "wall"
+    },
+    {
+     "q": -12,
+     "r": 113,
+     "kind": "gate"
+    },
+    {
+     "q": -11,
+     "r": 113,
+     "kind": "center"
+    },
+    {
+     "q": -10,
+     "r": 113,
+     "kind": "wall"
+    },
+    {
+     "q": -12,
+     "r": 114,
+     "kind": "wall"
+    },
+    {
+     "q": -11,
+     "r": 114,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jiangzhou",
+   "facility_slots": [
+    {
+     "q": -10,
+     "r": 111,
+     "waterside": false
+    },
+    {
+     "q": -9,
+     "r": 111,
+     "waterside": false
+    },
+    {
+     "q": -9,
+     "r": 112,
+     "waterside": true
+    },
+    {
+     "q": -13,
+     "r": 114,
+     "waterside": true
+    },
+    {
+     "q": -13,
+     "r": 112,
+     "waterside": false
+    },
+    {
+     "q": -12,
+     "r": 111,
+     "waterside": false
+    },
+    {
+     "q": -11,
+     "r": 110,
+     "waterside": false
+    },
+    {
+     "q": -9,
+     "r": 110,
+     "waterside": false
+    },
+    {
+     "q": -8,
+     "r": 110,
+     "waterside": false
+    },
+    {
+     "q": -8,
+     "r": 111,
+     "waterside": false
+    },
+    {
+     "q": -8,
+     "r": 112,
+     "waterside": true
+    },
+    {
+     "q": -9,
+     "r": 114,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "yongan",
+   "center": {
+    "q": 17,
+    "r": 100
+   },
+   "tiles": [
+    {
+     "q": 17,
+     "r": 99,
+     "kind": "wall"
+    },
+    {
+     "q": 18,
+     "r": 99,
+     "kind": "wall"
+    },
+    {
+     "q": 16,
+     "r": 100,
+     "kind": "gate"
+    },
+    {
+     "q": 17,
+     "r": 100,
+     "kind": "center"
+    },
+    {
+     "q": 18,
+     "r": 100,
+     "kind": "gate"
+    },
+    {
+     "q": 16,
+     "r": 101,
+     "kind": "wall"
+    },
+    {
+     "q": 17,
+     "r": 101,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "yongan",
+   "facility_slots": [
+    {
+     "q": 16,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 15,
+     "r": 101,
+     "waterside": true
+    },
+    {
+     "q": 17,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 18,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 18,
+     "r": 101,
+     "waterside": true
+    },
+    {
+     "q": 15,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 14,
+     "r": 103,
+     "waterside": true
+    },
+    {
+     "q": 14,
+     "r": 101,
+     "waterside": true
+    },
+    {
+     "q": 16,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 99,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "jianning",
+   "center": {
+    "q": -42,
+    "r": 146
+   },
+   "tiles": [
+    {
+     "q": -42,
+     "r": 145,
+     "kind": "wall"
+    },
+    {
+     "q": -41,
+     "r": 145,
+     "kind": "wall"
+    },
+    {
+     "q": -43,
+     "r": 146,
+     "kind": "gate"
+    },
+    {
+     "q": -42,
+     "r": 146,
+     "kind": "center"
+    },
+    {
+     "q": -41,
+     "r": 146,
+     "kind": "wall"
+    },
+    {
+     "q": -43,
+     "r": 147,
+     "kind": "wall"
+    },
+    {
+     "q": -42,
+     "r": 147,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jianning",
+   "facility_slots": [
+    {
+     "q": -42,
+     "r": 144,
+     "waterside": false
+    },
+    {
+     "q": -41,
+     "r": 144,
+     "waterside": false
+    },
+    {
+     "q": -40,
+     "r": 145,
+     "waterside": false
+    },
+    {
+     "q": -40,
+     "r": 144,
+     "waterside": false
+    },
+    {
+     "q": -40,
+     "r": 146,
+     "waterside": false
+    },
+    {
+     "q": -41,
+     "r": 147,
+     "waterside": false
+    },
+    {
+     "q": -42,
+     "r": 148,
+     "waterside": false
+    },
+    {
+     "q": -42,
+     "r": 143,
+     "waterside": false
+    },
+    {
+     "q": -41,
+     "r": 143,
+     "waterside": false
+    },
+    {
+     "q": -40,
+     "r": 143,
+     "waterside": false
+    },
+    {
+     "q": -39,
+     "r": 143,
+     "waterside": false
+    },
+    {
+     "q": -39,
+     "r": 144,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "yunnan",
+   "center": {
+    "q": -69,
+    "r": 151
+   },
+   "tiles": [
+    {
+     "q": -69,
+     "r": 150,
+     "kind": "wall"
+    },
+    {
+     "q": -68,
+     "r": 150,
+     "kind": "wall"
+    },
+    {
+     "q": -70,
+     "r": 151,
+     "kind": "wall"
+    },
+    {
+     "q": -69,
+     "r": 151,
+     "kind": "center"
+    },
+    {
+     "q": -68,
+     "r": 151,
+     "kind": "wall"
+    },
+    {
+     "q": -70,
+     "r": 152,
+     "kind": "wall"
+    },
+    {
+     "q": -69,
+     "r": 152,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "yunnan",
+   "facility_slots": [
+    {
+     "q": -69,
+     "r": 153,
+     "waterside": false
+    },
+    {
+     "q": -70,
+     "r": 153,
+     "waterside": false
+    },
+    {
+     "q": -71,
+     "r": 153,
+     "waterside": false
+    },
+    {
+     "q": -71,
+     "r": 152,
+     "waterside": false
+    },
+    {
+     "q": -70,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": -69,
+     "r": 149,
+     "waterside": false
+    },
+    {
+     "q": -68,
+     "r": 149,
+     "waterside": false
+    },
+    {
+     "q": -67,
+     "r": 149,
+     "waterside": false
+    },
+    {
+     "q": -67,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": -67,
+     "r": 151,
+     "waterside": false
+    },
+    {
+     "q": -71,
+     "r": 151,
+     "waterside": false
+    },
+    {
+     "q": -68,
+     "r": 153,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "xiangyang",
+   "center": {
+    "q": 35,
+    "r": 95
+   },
+   "tiles": [
+    {
+     "q": 35,
+     "r": 93,
+     "kind": "wall"
+    },
+    {
+     "q": 36,
+     "r": 93,
+     "kind": "wall"
+    },
+    {
+     "q": 37,
+     "r": 93,
+     "kind": "gate"
+    },
+    {
+     "q": 34,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": 35,
+     "r": 94,
+     "kind": "street"
+    },
+    {
+     "q": 36,
+     "r": 94,
+     "kind": "street"
+    },
+    {
+     "q": 37,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": 33,
+     "r": 95,
+     "kind": "gate"
+    },
+    {
+     "q": 34,
+     "r": 95,
+     "kind": "street"
+    },
+    {
+     "q": 35,
+     "r": 95,
+     "kind": "center"
+    },
+    {
+     "q": 36,
+     "r": 95,
+     "kind": "street"
+    },
+    {
+     "q": 37,
+     "r": 95,
+     "kind": "wall"
+    },
+    {
+     "q": 33,
+     "r": 96,
+     "kind": "wall"
+    },
+    {
+     "q": 34,
+     "r": 96,
+     "kind": "street"
+    },
+    {
+     "q": 35,
+     "r": 96,
+     "kind": "street"
+    },
+    {
+     "q": 36,
+     "r": 96,
+     "kind": "wall"
+    },
+    {
+     "q": 33,
+     "r": 97,
+     "kind": "gate"
+    },
+    {
+     "q": 34,
+     "r": 97,
+     "kind": "wall"
+    },
+    {
+     "q": 35,
+     "r": 97,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xiangyang",
+   "facility_slots": [
+    {
+     "q": 33,
+     "r": 94,
+     "waterside": false
+    },
+    {
+     "q": 34,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": 35,
+     "r": 92,
+     "waterside": false
+    },
+    {
+     "q": 36,
+     "r": 92,
+     "waterside": true
+    },
+    {
+     "q": 37,
+     "r": 92,
+     "waterside": true
+    },
+    {
+     "q": 36,
+     "r": 97,
+     "waterside": true
+    },
+    {
+     "q": 35,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 34,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 32,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 32,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 33,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": 34,
+     "r": 92,
+     "waterside": false
+    },
+    {
+     "q": 35,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 36,
+     "r": 91,
+     "waterside": true
+    },
+    {
+     "q": 39,
+     "r": 94,
+     "waterside": true
+    },
+    {
+     "q": 39,
+     "r": 95,
+     "waterside": true
+    },
+    {
+     "q": 36,
+     "r": 98,
+     "waterside": true
+    },
+    {
+     "q": 32,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 31,
+     "r": 98,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "wan",
+   "center": {
+    "q": 45,
+    "r": 83
+   },
+   "tiles": [
+    {
+     "q": 45,
+     "r": 82,
+     "kind": "wall"
+    },
+    {
+     "q": 46,
+     "r": 82,
+     "kind": "wall"
+    },
+    {
+     "q": 44,
+     "r": 83,
+     "kind": "wall"
+    },
+    {
+     "q": 45,
+     "r": 83,
+     "kind": "center"
+    },
+    {
+     "q": 46,
+     "r": 83,
+     "kind": "gate"
+    },
+    {
+     "q": 44,
+     "r": 84,
+     "kind": "wall"
+    },
+    {
+     "q": 45,
+     "r": 84,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "wan",
+   "facility_slots": [
+    {
+     "q": 47,
+     "r": 82,
+     "waterside": false
+    },
+    {
+     "q": 43,
+     "r": 83,
+     "waterside": false
+    },
+    {
+     "q": 44,
+     "r": 82,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 43,
+     "r": 84,
+     "waterside": false
+    },
+    {
+     "q": 48,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 84,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 45,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 42,
+     "r": 83,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 80,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "xinye",
+   "center": {
+    "q": 42,
+    "r": 87
+   },
+   "tiles": [
+    {
+     "q": 42,
+     "r": 86,
+     "kind": "wall"
+    },
+    {
+     "q": 43,
+     "r": 86,
+     "kind": "gate"
+    },
+    {
+     "q": 41,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": 42,
+     "r": 87,
+     "kind": "center"
+    },
+    {
+     "q": 43,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": 41,
+     "r": 88,
+     "kind": "gate"
+    },
+    {
+     "q": 42,
+     "r": 88,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xinye",
+   "facility_slots": [
+    {
+     "q": 41,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 42,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 44,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 44,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 43,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 40,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 40,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 40,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 41,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 45,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 44,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 39,
+     "r": 89,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "jiangling",
+   "center": {
+    "q": 32,
+    "r": 107
+   },
+   "tiles": [
+    {
+     "q": 32,
+     "r": 106,
+     "kind": "gate"
+    },
+    {
+     "q": 33,
+     "r": 106,
+     "kind": "wall"
+    },
+    {
+     "q": 31,
+     "r": 107,
+     "kind": "wall"
+    },
+    {
+     "q": 32,
+     "r": 107,
+     "kind": "center"
+    },
+    {
+     "q": 33,
+     "r": 107,
+     "kind": "wall"
+    },
+    {
+     "q": 31,
+     "r": 108,
+     "kind": "gate"
+    },
+    {
+     "q": 32,
+     "r": 108,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jiangling",
+   "facility_slots": [
+    {
+     "q": 31,
+     "r": 106,
+     "waterside": true
+    },
+    {
+     "q": 33,
+     "r": 105,
+     "waterside": false
+    },
+    {
+     "q": 34,
+     "r": 105,
+     "waterside": false
+    },
+    {
+     "q": 34,
+     "r": 106,
+     "waterside": false
+    },
+    {
+     "q": 34,
+     "r": 107,
+     "waterside": false
+    },
+    {
+     "q": 33,
+     "r": 108,
+     "waterside": false
+    },
+    {
+     "q": 32,
+     "r": 109,
+     "waterside": true
+    },
+    {
+     "q": 31,
+     "r": 105,
+     "waterside": false
+    },
+    {
+     "q": 33,
+     "r": 104,
+     "waterside": false
+    },
+    {
+     "q": 30,
+     "r": 106,
+     "waterside": true
+    },
+    {
+     "q": 34,
+     "r": 104,
+     "waterside": false
+    },
+    {
+     "q": 35,
+     "r": 104,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "jiangxia",
+   "center": {
+    "q": 45,
+    "r": 102
+   },
+   "tiles": [
+    {
+     "q": 45,
+     "r": 101,
+     "kind": "wall"
+    },
+    {
+     "q": 46,
+     "r": 101,
+     "kind": "wall"
+    },
+    {
+     "q": 44,
+     "r": 102,
+     "kind": "gate"
+    },
+    {
+     "q": 45,
+     "r": 102,
+     "kind": "center"
+    },
+    {
+     "q": 46,
+     "r": 102,
+     "kind": "wall"
+    },
+    {
+     "q": 44,
+     "r": 103,
+     "kind": "wall"
+    },
+    {
+     "q": 45,
+     "r": 103,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "jiangxia",
+   "facility_slots": [
+    {
+     "q": 44,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": 45,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": 47,
+     "r": 102,
+     "waterside": false
+    },
+    {
+     "q": 43,
+     "r": 103,
+     "waterside": true
+    },
+    {
+     "q": 45,
+     "r": 104,
+     "waterside": true
+    },
+    {
+     "q": 44,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 45,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 46,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 48,
+     "r": 101,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "changsha",
+   "center": {
+    "q": 27,
+    "r": 128
+   },
+   "tiles": [
+    {
+     "q": 27,
+     "r": 127,
+     "kind": "gate"
+    },
+    {
+     "q": 28,
+     "r": 127,
+     "kind": "wall"
+    },
+    {
+     "q": 26,
+     "r": 128,
+     "kind": "wall"
+    },
+    {
+     "q": 27,
+     "r": 128,
+     "kind": "center"
+    },
+    {
+     "q": 28,
+     "r": 128,
+     "kind": "wall"
+    },
+    {
+     "q": 26,
+     "r": 129,
+     "kind": "wall"
+    },
+    {
+     "q": 27,
+     "r": 129,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "changsha",
+   "facility_slots": [
+    {
+     "q": 26,
+     "r": 130,
+     "waterside": false
+    },
+    {
+     "q": 28,
+     "r": 126,
+     "waterside": false
+    },
+    {
+     "q": 29,
+     "r": 126,
+     "waterside": false
+    },
+    {
+     "q": 29,
+     "r": 127,
+     "waterside": false
+    },
+    {
+     "q": 25,
+     "r": 130,
+     "waterside": true
+    },
+    {
+     "q": 30,
+     "r": 125,
+     "waterside": false
+    },
+    {
+     "q": 30,
+     "r": 128,
+     "waterside": false
+    },
+    {
+     "q": 29,
+     "r": 129,
+     "waterside": false
+    },
+    {
+     "q": 28,
+     "r": 130,
+     "waterside": false
+    },
+    {
+     "q": 26,
+     "r": 131,
+     "waterside": false
+    },
+    {
+     "q": 25,
+     "r": 127,
+     "waterside": true
+    },
+    {
+     "q": 28,
+     "r": 125,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "wuling",
+   "center": {
+    "q": 21,
+    "r": 119
+   },
+   "tiles": [
+    {
+     "q": 21,
+     "r": 118,
+     "kind": "wall"
+    },
+    {
+     "q": 22,
+     "r": 118,
+     "kind": "gate"
+    },
+    {
+     "q": 20,
+     "r": 119,
+     "kind": "wall"
+    },
+    {
+     "q": 21,
+     "r": 119,
+     "kind": "center"
+    },
+    {
+     "q": 22,
+     "r": 119,
+     "kind": "wall"
+    },
+    {
+     "q": 20,
+     "r": 120,
+     "kind": "wall"
+    },
+    {
+     "q": 21,
+     "r": 120,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "wuling",
+   "facility_slots": [
+    {
+     "q": 20,
+     "r": 118,
+     "waterside": false
+    },
+    {
+     "q": 21,
+     "r": 117,
+     "waterside": false
+    },
+    {
+     "q": 22,
+     "r": 117,
+     "waterside": false
+    },
+    {
+     "q": 23,
+     "r": 118,
+     "waterside": false
+    },
+    {
+     "q": 23,
+     "r": 119,
+     "waterside": false
+    },
+    {
+     "q": 22,
+     "r": 120,
+     "waterside": false
+    },
+    {
+     "q": 21,
+     "r": 121,
+     "waterside": false
+    },
+    {
+     "q": 20,
+     "r": 121,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 121,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 120,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 119,
+     "waterside": false
+    },
+    {
+     "q": 19,
+     "r": 118,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "lingling",
+   "center": {
+    "q": 7,
+    "r": 147
+   },
+   "tiles": [
+    {
+     "q": 7,
+     "r": 146,
+     "kind": "wall"
+    },
+    {
+     "q": 8,
+     "r": 146,
+     "kind": "wall"
+    },
+    {
+     "q": 6,
+     "r": 147,
+     "kind": "wall"
+    },
+    {
+     "q": 7,
+     "r": 147,
+     "kind": "center"
+    },
+    {
+     "q": 8,
+     "r": 147,
+     "kind": "wall"
+    },
+    {
+     "q": 6,
+     "r": 148,
+     "kind": "wall"
+    },
+    {
+     "q": 7,
+     "r": 148,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "lingling",
+   "facility_slots": [
+    {
+     "q": 5,
+     "r": 148,
+     "waterside": false
+    },
+    {
+     "q": 9,
+     "r": 145,
+     "waterside": true
+    },
+    {
+     "q": 9,
+     "r": 146,
+     "waterside": false
+    },
+    {
+     "q": 9,
+     "r": 147,
+     "waterside": false
+    },
+    {
+     "q": 8,
+     "r": 148,
+     "waterside": false
+    },
+    {
+     "q": 5,
+     "r": 147,
+     "waterside": true
+    },
+    {
+     "q": 7,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": 5,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": 4,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 145,
+     "waterside": true
+    },
+    {
+     "q": 7,
+     "r": 144,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "guiyang",
+   "center": {
+    "q": 15,
+    "r": 149
+   },
+   "tiles": [
+    {
+     "q": 15,
+     "r": 148,
+     "kind": "gate"
+    },
+    {
+     "q": 16,
+     "r": 148,
+     "kind": "wall"
+    },
+    {
+     "q": 14,
+     "r": 149,
+     "kind": "wall"
+    },
+    {
+     "q": 15,
+     "r": 149,
+     "kind": "center"
+    },
+    {
+     "q": 16,
+     "r": 149,
+     "kind": "wall"
+    },
+    {
+     "q": 14,
+     "r": 150,
+     "kind": "gate"
+    },
+    {
+     "q": 15,
+     "r": 150,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "guiyang",
+   "facility_slots": [
+    {
+     "q": 14,
+     "r": 148,
+     "waterside": false
+    },
+    {
+     "q": 16,
+     "r": 147,
+     "waterside": false
+    },
+    {
+     "q": 17,
+     "r": 147,
+     "waterside": false
+    },
+    {
+     "q": 17,
+     "r": 148,
+     "waterside": false
+    },
+    {
+     "q": 17,
+     "r": 149,
+     "waterside": false
+    },
+    {
+     "q": 16,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": 15,
+     "r": 151,
+     "waterside": false
+    },
+    {
+     "q": 14,
+     "r": 151,
+     "waterside": false
+    },
+    {
+     "q": 13,
+     "r": 150,
+     "waterside": false
+    },
+    {
+     "q": 13,
+     "r": 149,
+     "waterside": false
+    },
+    {
+     "q": 13,
+     "r": 148,
+     "waterside": false
+    },
+    {
+     "q": 15,
+     "r": 146,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "shangyong",
+   "center": {
+    "q": 26,
+    "r": 89
+   },
+   "tiles": [
+    {
+     "q": 26,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": 27,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": 25,
+     "r": 89,
+     "kind": "gate"
+    },
+    {
+     "q": 26,
+     "r": 89,
+     "kind": "center"
+    },
+    {
+     "q": 27,
+     "r": 89,
+     "kind": "wall"
+    },
+    {
+     "q": 25,
+     "r": 90,
+     "kind": "wall"
+    },
+    {
+     "q": 26,
+     "r": 90,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "shangyong",
+   "facility_slots": [
+    {
+     "q": 25,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 26,
+     "r": 87,
+     "waterside": true
+    },
+    {
+     "q": 27,
+     "r": 87,
+     "waterside": true
+    },
+    {
+     "q": 28,
+     "r": 88,
+     "waterside": true
+    },
+    {
+     "q": 28,
+     "r": 89,
+     "waterside": false
+    },
+    {
+     "q": 26,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 25,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 24,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 24,
+     "r": 90,
+     "waterside": false
+    },
+    {
+     "q": 24,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 25,
+     "r": 87,
+     "waterside": true
+    },
+    {
+     "q": 29,
+     "r": 88,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "xuchang",
+   "center": {
+    "q": 58,
+    "r": 74
+   },
+   "tiles": [
+    {
+     "q": 58,
+     "r": 72,
+     "kind": "gate"
+    },
+    {
+     "q": 59,
+     "r": 72,
+     "kind": "wall"
+    },
+    {
+     "q": 60,
+     "r": 72,
+     "kind": "wall"
+    },
+    {
+     "q": 57,
+     "r": 73,
+     "kind": "wall"
+    },
+    {
+     "q": 58,
+     "r": 73,
+     "kind": "street"
+    },
+    {
+     "q": 59,
+     "r": 73,
+     "kind": "street"
+    },
+    {
+     "q": 60,
+     "r": 73,
+     "kind": "wall"
+    },
+    {
+     "q": 56,
+     "r": 74,
+     "kind": "wall"
+    },
+    {
+     "q": 57,
+     "r": 74,
+     "kind": "street"
+    },
+    {
+     "q": 58,
+     "r": 74,
+     "kind": "center"
+    },
+    {
+     "q": 59,
+     "r": 74,
+     "kind": "street"
+    },
+    {
+     "q": 60,
+     "r": 74,
+     "kind": "wall"
+    },
+    {
+     "q": 56,
+     "r": 75,
+     "kind": "wall"
+    },
+    {
+     "q": 57,
+     "r": 75,
+     "kind": "street"
+    },
+    {
+     "q": 58,
+     "r": 75,
+     "kind": "street"
+    },
+    {
+     "q": 59,
+     "r": 75,
+     "kind": "wall"
+    },
+    {
+     "q": 56,
+     "r": 76,
+     "kind": "gate"
+    },
+    {
+     "q": 57,
+     "r": 76,
+     "kind": "wall"
+    },
+    {
+     "q": 58,
+     "r": 76,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xuchang",
+   "facility_slots": [
+    {
+     "q": 56,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 58,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 74,
+     "waterside": false
+    },
+    {
+     "q": 60,
+     "r": 75,
+     "waterside": false
+    },
+    {
+     "q": 59,
+     "r": 76,
+     "waterside": false
+    },
+    {
+     "q": 58,
+     "r": 77,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 77,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 77,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 75,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 74,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 56,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 58,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 62,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 62,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 62,
+     "r": 74,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "runan",
+   "center": {
+    "q": 57,
+    "r": 83
+   },
+   "tiles": [
+    {
+     "q": 57,
+     "r": 82,
+     "kind": "wall"
+    },
+    {
+     "q": 58,
+     "r": 82,
+     "kind": "wall"
+    },
+    {
+     "q": 56,
+     "r": 83,
+     "kind": "gate"
+    },
+    {
+     "q": 57,
+     "r": 83,
+     "kind": "center"
+    },
+    {
+     "q": 58,
+     "r": 83,
+     "kind": "gate"
+    },
+    {
+     "q": 56,
+     "r": 84,
+     "kind": "wall"
+    },
+    {
+     "q": 57,
+     "r": 84,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "runan",
+   "facility_slots": [
+    {
+     "q": 57,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 58,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 59,
+     "r": 81,
+     "waterside": false
+    },
+    {
+     "q": 59,
+     "r": 82,
+     "waterside": false
+    },
+    {
+     "q": 58,
+     "r": 84,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 56,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 84,
+     "waterside": false
+    },
+    {
+     "q": 55,
+     "r": 82,
+     "waterside": false
+    },
+    {
+     "q": 57,
+     "r": 80,
+     "waterside": false
+    },
+    {
+     "q": 58,
+     "r": 80,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "qiao",
+   "center": {
+    "q": 71,
+    "r": 75
+   },
+   "tiles": [
+    {
+     "q": 71,
+     "r": 74,
+     "kind": "wall"
+    },
+    {
+     "q": 72,
+     "r": 74,
+     "kind": "wall"
+    },
+    {
+     "q": 70,
+     "r": 75,
+     "kind": "gate"
+    },
+    {
+     "q": 71,
+     "r": 75,
+     "kind": "center"
+    },
+    {
+     "q": 72,
+     "r": 75,
+     "kind": "wall"
+    },
+    {
+     "q": 70,
+     "r": 76,
+     "kind": "wall"
+    },
+    {
+     "q": 71,
+     "r": 76,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "qiao",
+   "facility_slots": [
+    {
+     "q": 72,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 74,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 75,
+     "waterside": false
+    },
+    {
+     "q": 72,
+     "r": 76,
+     "waterside": false
+    },
+    {
+     "q": 71,
+     "r": 77,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 77,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 74,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 71,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 74,
+     "r": 72,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "xiaopei",
+   "center": {
+    "q": 82,
+    "r": 67
+   },
+   "tiles": [
+    {
+     "q": 82,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 83,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 81,
+     "r": 67,
+     "kind": "gate"
+    },
+    {
+     "q": 82,
+     "r": 67,
+     "kind": "center"
+    },
+    {
+     "q": 83,
+     "r": 67,
+     "kind": "gate"
+    },
+    {
+     "q": 81,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 82,
+     "r": 68,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xiaopei",
+   "facility_slots": [
+    {
+     "q": 81,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 82,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 82,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 81,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 81,
+     "r": 65,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "chenliu",
+   "center": {
+    "q": 65,
+    "r": 67
+   },
+   "tiles": [
+    {
+     "q": 65,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 66,
+     "r": 66,
+     "kind": "gate"
+    },
+    {
+     "q": 64,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 65,
+     "r": 67,
+     "kind": "center"
+    },
+    {
+     "q": 66,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 64,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 65,
+     "r": 68,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "chenliu",
+   "facility_slots": [
+    {
+     "q": 66,
+     "r": 65,
+     "waterside": true
+    },
+    {
+     "q": 68,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 64,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 63,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 64,
+     "waterside": true
+    },
+    {
+     "q": 69,
+     "r": 65,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 66,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 70,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "puyang",
+   "center": {
+    "q": 74,
+    "r": 58
+   },
+   "tiles": [
+    {
+     "q": 74,
+     "r": 57,
+     "kind": "wall"
+    },
+    {
+     "q": 75,
+     "r": 57,
+     "kind": "gate"
+    },
+    {
+     "q": 73,
+     "r": 58,
+     "kind": "wall"
+    },
+    {
+     "q": 74,
+     "r": 58,
+     "kind": "center"
+    },
+    {
+     "q": 75,
+     "r": 58,
+     "kind": "wall"
+    },
+    {
+     "q": 73,
+     "r": 59,
+     "kind": "gate"
+    },
+    {
+     "q": 74,
+     "r": 59,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "puyang",
+   "facility_slots": [
+    {
+     "q": 73,
+     "r": 57,
+     "waterside": false
+    },
+    {
+     "q": 74,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 75,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 76,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 75,
+     "r": 55,
+     "waterside": false
+    },
+    {
+     "q": 76,
+     "r": 55,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 55,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 56,
+     "waterside": true
+    },
+    {
+     "q": 77,
+     "r": 58,
+     "waterside": true
+    },
+    {
+     "q": 76,
+     "r": 59,
+     "waterside": true
+    },
+    {
+     "q": 75,
+     "r": 60,
+     "waterside": true
+    },
+    {
+     "q": 74,
+     "r": 61,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "xiapi",
+   "center": {
+    "q": 87,
+    "r": 71
+   },
+   "tiles": [
+    {
+     "q": 87,
+     "r": 69,
+     "kind": "gate"
+    },
+    {
+     "q": 88,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 89,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 86,
+     "r": 70,
+     "kind": "wall"
+    },
+    {
+     "q": 87,
+     "r": 70,
+     "kind": "street"
+    },
+    {
+     "q": 88,
+     "r": 70,
+     "kind": "street"
+    },
+    {
+     "q": 89,
+     "r": 70,
+     "kind": "wall"
+    },
+    {
+     "q": 85,
+     "r": 71,
+     "kind": "wall"
+    },
+    {
+     "q": 86,
+     "r": 71,
+     "kind": "street"
+    },
+    {
+     "q": 87,
+     "r": 71,
+     "kind": "center"
+    },
+    {
+     "q": 88,
+     "r": 71,
+     "kind": "street"
+    },
+    {
+     "q": 89,
+     "r": 71,
+     "kind": "wall"
+    },
+    {
+     "q": 85,
+     "r": 72,
+     "kind": "wall"
+    },
+    {
+     "q": 86,
+     "r": 72,
+     "kind": "street"
+    },
+    {
+     "q": 87,
+     "r": 72,
+     "kind": "street"
+    },
+    {
+     "q": 88,
+     "r": 72,
+     "kind": "wall"
+    },
+    {
+     "q": 85,
+     "r": 73,
+     "kind": "wall"
+    },
+    {
+     "q": 86,
+     "r": 73,
+     "kind": "gate"
+    },
+    {
+     "q": 87,
+     "r": 73,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xiapi",
+   "facility_slots": [
+    {
+     "q": 85,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 86,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 87,
+     "r": 74,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 73,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 72,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 71,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 70,
+     "waterside": false
+    },
+    {
+     "q": 85,
+     "r": 69,
+     "waterside": false
+    },
+    {
+     "q": 86,
+     "r": 68,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 67,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 67,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 67,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "guangling",
+   "center": {
+    "q": 88,
+    "r": 88
+   },
+   "tiles": [
+    {
+     "q": 88,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": 89,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": 87,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": 88,
+     "r": 88,
+     "kind": "center"
+    },
+    {
+     "q": 89,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": 87,
+     "r": 89,
+     "kind": "gate"
+    },
+    {
+     "q": 88,
+     "r": 89,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "guangling",
+   "facility_slots": [
+    {
+     "q": 87,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 89,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 90,
+     "waterside": true
+    },
+    {
+     "q": 87,
+     "r": 90,
+     "waterside": true
+    },
+    {
+     "q": 87,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 85,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 85,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "beihai",
+   "center": {
+    "q": 103,
+    "r": 49
+   },
+   "tiles": [
+    {
+     "q": 103,
+     "r": 48,
+     "kind": "wall"
+    },
+    {
+     "q": 104,
+     "r": 48,
+     "kind": "wall"
+    },
+    {
+     "q": 102,
+     "r": 49,
+     "kind": "gate"
+    },
+    {
+     "q": 103,
+     "r": 49,
+     "kind": "center"
+    },
+    {
+     "q": 104,
+     "r": 49,
+     "kind": "wall"
+    },
+    {
+     "q": 102,
+     "r": 50,
+     "kind": "wall"
+    },
+    {
+     "q": 103,
+     "r": 50,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "beihai",
+   "facility_slots": [
+    {
+     "q": 102,
+     "r": 48,
+     "waterside": false
+    },
+    {
+     "q": 103,
+     "r": 47,
+     "waterside": false
+    },
+    {
+     "q": 104,
+     "r": 47,
+     "waterside": false
+    },
+    {
+     "q": 105,
+     "r": 47,
+     "waterside": false
+    },
+    {
+     "q": 105,
+     "r": 48,
+     "waterside": false
+    },
+    {
+     "q": 105,
+     "r": 49,
+     "waterside": false
+    },
+    {
+     "q": 104,
+     "r": 50,
+     "waterside": false
+    },
+    {
+     "q": 103,
+     "r": 51,
+     "waterside": false
+    },
+    {
+     "q": 102,
+     "r": 51,
+     "waterside": false
+    },
+    {
+     "q": 101,
+     "r": 51,
+     "waterside": false
+    },
+    {
+     "q": 101,
+     "r": 48,
+     "waterside": false
+    },
+    {
+     "q": 102,
+     "r": 47,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "pingyuan",
+   "center": {
+    "q": 90,
+    "r": 44
+   },
+   "tiles": [
+    {
+     "q": 90,
+     "r": 43,
+     "kind": "gate"
+    },
+    {
+     "q": 91,
+     "r": 43,
+     "kind": "wall"
+    },
+    {
+     "q": 89,
+     "r": 44,
+     "kind": "wall"
+    },
+    {
+     "q": 90,
+     "r": 44,
+     "kind": "center"
+    },
+    {
+     "q": 91,
+     "r": 44,
+     "kind": "wall"
+    },
+    {
+     "q": 89,
+     "r": 45,
+     "kind": "wall"
+    },
+    {
+     "q": 90,
+     "r": 45,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "pingyuan",
+   "facility_slots": [
+    {
+     "q": 89,
+     "r": 43,
+     "waterside": false
+    },
+    {
+     "q": 91,
+     "r": 42,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 42,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 43,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 44,
+     "waterside": true
+    },
+    {
+     "q": 89,
+     "r": 46,
+     "waterside": true
+    },
+    {
+     "q": 88,
+     "r": 46,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 45,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 44,
+     "waterside": false
+    },
+    {
+     "q": 88,
+     "r": 43,
+     "waterside": false
+    },
+    {
+     "q": 89,
+     "r": 42,
+     "waterside": false
+    },
+    {
+     "q": 91,
+     "r": 41,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "ye",
+   "center": {
+    "q": 73,
+    "r": 53
+   },
+   "tiles": [
+    {
+     "q": 73,
+     "r": 51,
+     "kind": "wall"
+    },
+    {
+     "q": 74,
+     "r": 51,
+     "kind": "wall"
+    },
+    {
+     "q": 75,
+     "r": 51,
+     "kind": "gate"
+    },
+    {
+     "q": 72,
+     "r": 52,
+     "kind": "wall"
+    },
+    {
+     "q": 73,
+     "r": 52,
+     "kind": "street"
+    },
+    {
+     "q": 74,
+     "r": 52,
+     "kind": "street"
+    },
+    {
+     "q": 75,
+     "r": 52,
+     "kind": "wall"
+    },
+    {
+     "q": 71,
+     "r": 53,
+     "kind": "wall"
+    },
+    {
+     "q": 72,
+     "r": 53,
+     "kind": "street"
+    },
+    {
+     "q": 73,
+     "r": 53,
+     "kind": "center"
+    },
+    {
+     "q": 74,
+     "r": 53,
+     "kind": "street"
+    },
+    {
+     "q": 75,
+     "r": 53,
+     "kind": "wall"
+    },
+    {
+     "q": 71,
+     "r": 54,
+     "kind": "wall"
+    },
+    {
+     "q": 72,
+     "r": 54,
+     "kind": "street"
+    },
+    {
+     "q": 73,
+     "r": 54,
+     "kind": "street"
+    },
+    {
+     "q": 74,
+     "r": 54,
+     "kind": "wall"
+    },
+    {
+     "q": 71,
+     "r": 55,
+     "kind": "wall"
+    },
+    {
+     "q": 72,
+     "r": 55,
+     "kind": "gate"
+    },
+    {
+     "q": 73,
+     "r": 55,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "ye",
+   "facility_slots": [
+    {
+     "q": 75,
+     "r": 50,
+     "waterside": false
+    },
+    {
+     "q": 71,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 50,
+     "waterside": false
+    },
+    {
+     "q": 74,
+     "r": 50,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 55,
+     "waterside": false
+    },
+    {
+     "q": 75,
+     "r": 49,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 50,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 51,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 52,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 53,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 57,
+     "waterside": false
+    },
+    {
+     "q": 74,
+     "r": 49,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 57,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 51,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 52,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "nanpi",
+   "center": {
+    "q": 95,
+    "r": 38
+   },
+   "tiles": [
+    {
+     "q": 95,
+     "r": 36,
+     "kind": "gate"
+    },
+    {
+     "q": 96,
+     "r": 36,
+     "kind": "wall"
+    },
+    {
+     "q": 97,
+     "r": 36,
+     "kind": "wall"
+    },
+    {
+     "q": 94,
+     "r": 37,
+     "kind": "wall"
+    },
+    {
+     "q": 95,
+     "r": 37,
+     "kind": "street"
+    },
+    {
+     "q": 96,
+     "r": 37,
+     "kind": "street"
+    },
+    {
+     "q": 97,
+     "r": 37,
+     "kind": "wall"
+    },
+    {
+     "q": 93,
+     "r": 38,
+     "kind": "gate"
+    },
+    {
+     "q": 94,
+     "r": 38,
+     "kind": "street"
+    },
+    {
+     "q": 95,
+     "r": 38,
+     "kind": "center"
+    },
+    {
+     "q": 96,
+     "r": 38,
+     "kind": "street"
+    },
+    {
+     "q": 97,
+     "r": 38,
+     "kind": "wall"
+    },
+    {
+     "q": 93,
+     "r": 39,
+     "kind": "wall"
+    },
+    {
+     "q": 94,
+     "r": 39,
+     "kind": "street"
+    },
+    {
+     "q": 95,
+     "r": 39,
+     "kind": "street"
+    },
+    {
+     "q": 96,
+     "r": 39,
+     "kind": "wall"
+    },
+    {
+     "q": 93,
+     "r": 40,
+     "kind": "wall"
+    },
+    {
+     "q": 94,
+     "r": 40,
+     "kind": "wall"
+    },
+    {
+     "q": 95,
+     "r": 40,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "nanpi",
+   "facility_slots": [
+    {
+     "q": 93,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 94,
+     "r": 36,
+     "waterside": false
+    },
+    {
+     "q": 96,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 97,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 98,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 98,
+     "r": 36,
+     "waterside": false
+    },
+    {
+     "q": 98,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 98,
+     "r": 38,
+     "waterside": false
+    },
+    {
+     "q": 97,
+     "r": 39,
+     "waterside": false
+    },
+    {
+     "q": 96,
+     "r": 40,
+     "waterside": true
+    },
+    {
+     "q": 95,
+     "r": 41,
+     "waterside": true
+    },
+    {
+     "q": 94,
+     "r": 41,
+     "waterside": false
+    },
+    {
+     "q": 93,
+     "r": 41,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 41,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 40,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 93,
+     "r": 36,
+     "waterside": false
+    },
+    {
+     "q": 94,
+     "r": 35,
+     "waterside": false
+    },
+    {
+     "q": 96,
+     "r": 34,
+     "waterside": false
+    },
+    {
+     "q": 97,
+     "r": 34,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "julu",
+   "center": {
+    "q": 80,
+    "r": 45
+   },
+   "tiles": [
+    {
+     "q": 80,
+     "r": 44,
+     "kind": "wall"
+    },
+    {
+     "q": 81,
+     "r": 44,
+     "kind": "gate"
+    },
+    {
+     "q": 79,
+     "r": 45,
+     "kind": "wall"
+    },
+    {
+     "q": 80,
+     "r": 45,
+     "kind": "center"
+    },
+    {
+     "q": 81,
+     "r": 45,
+     "kind": "wall"
+    },
+    {
+     "q": 79,
+     "r": 46,
+     "kind": "gate"
+    },
+    {
+     "q": 80,
+     "r": 46,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "julu",
+   "facility_slots": [
+    {
+     "q": 79,
+     "r": 44,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 43,
+     "waterside": false
+    },
+    {
+     "q": 81,
+     "r": 43,
+     "waterside": false
+    },
+    {
+     "q": 82,
+     "r": 44,
+     "waterside": false
+    },
+    {
+     "q": 82,
+     "r": 45,
+     "waterside": false
+    },
+    {
+     "q": 81,
+     "r": 46,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 47,
+     "waterside": false
+    },
+    {
+     "q": 79,
+     "r": 47,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 46,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 45,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 44,
+     "waterside": false
+    },
+    {
+     "q": 79,
+     "r": 43,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "beiping",
+   "center": {
+    "q": 116,
+    "r": 20
+   },
+   "tiles": [
+    {
+     "q": 116,
+     "r": 19,
+     "kind": "wall"
+    },
+    {
+     "q": 117,
+     "r": 19,
+     "kind": "gate"
+    },
+    {
+     "q": 115,
+     "r": 20,
+     "kind": "gate"
+    },
+    {
+     "q": 116,
+     "r": 20,
+     "kind": "center"
+    },
+    {
+     "q": 117,
+     "r": 20,
+     "kind": "wall"
+    },
+    {
+     "q": 115,
+     "r": 21,
+     "kind": "wall"
+    },
+    {
+     "q": 116,
+     "r": 21,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "beiping",
+   "facility_slots": [
+    {
+     "q": 116,
+     "r": 22,
+     "waterside": false
+    },
+    {
+     "q": 115,
+     "r": 22,
+     "waterside": false
+    },
+    {
+     "q": 114,
+     "r": 22,
+     "waterside": false
+    },
+    {
+     "q": 115,
+     "r": 19,
+     "waterside": false
+    },
+    {
+     "q": 118,
+     "r": 20,
+     "waterside": false
+    },
+    {
+     "q": 117,
+     "r": 21,
+     "waterside": false
+    },
+    {
+     "q": 114,
+     "r": 20,
+     "waterside": false
+    },
+    {
+     "q": 117,
+     "r": 22,
+     "waterside": false
+    },
+    {
+     "q": 116,
+     "r": 23,
+     "waterside": false
+    },
+    {
+     "q": 115,
+     "r": 23,
+     "waterside": false
+    },
+    {
+     "q": 114,
+     "r": 23,
+     "waterside": false
+    },
+    {
+     "q": 113,
+     "r": 23,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "ji_city",
+   "center": {
+    "q": 102,
+    "r": 20
+   },
+   "tiles": [
+    {
+     "q": 102,
+     "r": 19,
+     "kind": "wall"
+    },
+    {
+     "q": 103,
+     "r": 19,
+     "kind": "wall"
+    },
+    {
+     "q": 101,
+     "r": 20,
+     "kind": "gate"
+    },
+    {
+     "q": 102,
+     "r": 20,
+     "kind": "center"
+    },
+    {
+     "q": 103,
+     "r": 20,
+     "kind": "wall"
+    },
+    {
+     "q": 101,
+     "r": 21,
+     "kind": "wall"
+    },
+    {
+     "q": 102,
+     "r": 21,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "ji_city",
+   "facility_slots": [
+    {
+     "q": 101,
+     "r": 19,
+     "waterside": false
+    },
+    {
+     "q": 103,
+     "r": 18,
+     "waterside": false
+    },
+    {
+     "q": 104,
+     "r": 18,
+     "waterside": false
+    },
+    {
+     "q": 104,
+     "r": 19,
+     "waterside": false
+    },
+    {
+     "q": 104,
+     "r": 20,
+     "waterside": false
+    },
+    {
+     "q": 102,
+     "r": 22,
+     "waterside": false
+    },
+    {
+     "q": 100,
+     "r": 22,
+     "waterside": false
+    },
+    {
+     "q": 100,
+     "r": 21,
+     "waterside": false
+    },
+    {
+     "q": 102,
+     "r": 18,
+     "waterside": false
+    },
+    {
+     "q": 105,
+     "r": 18,
+     "waterside": false
+    },
+    {
+     "q": 105,
+     "r": 19,
+     "waterside": false
+    },
+    {
+     "q": 105,
+     "r": 20,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "xiangping",
+   "center": {
+    "q": 154,
+    "r": 8
+   },
+   "tiles": [
+    {
+     "q": 154,
+     "r": 7,
+     "kind": "wall"
+    },
+    {
+     "q": 155,
+     "r": 7,
+     "kind": "wall"
+    },
+    {
+     "q": 153,
+     "r": 8,
+     "kind": "gate"
+    },
+    {
+     "q": 154,
+     "r": 8,
+     "kind": "center"
+    },
+    {
+     "q": 155,
+     "r": 8,
+     "kind": "wall"
+    },
+    {
+     "q": 153,
+     "r": 9,
+     "kind": "wall"
+    },
+    {
+     "q": 154,
+     "r": 9,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xiangping",
+   "facility_slots": [
+    {
+     "q": 153,
+     "r": 7,
+     "waterside": false
+    },
+    {
+     "q": 154,
+     "r": 6,
+     "waterside": false
+    },
+    {
+     "q": 155,
+     "r": 6,
+     "waterside": false
+    },
+    {
+     "q": 156,
+     "r": 6,
+     "waterside": false
+    },
+    {
+     "q": 156,
+     "r": 7,
+     "waterside": false
+    },
+    {
+     "q": 156,
+     "r": 8,
+     "waterside": false
+    },
+    {
+     "q": 155,
+     "r": 9,
+     "waterside": false
+    },
+    {
+     "q": 154,
+     "r": 10,
+     "waterside": false
+    },
+    {
+     "q": 153,
+     "r": 10,
+     "waterside": false
+    },
+    {
+     "q": 152,
+     "r": 10,
+     "waterside": false
+    },
+    {
+     "q": 152,
+     "r": 9,
+     "waterside": false
+    },
+    {
+     "q": 152,
+     "r": 7,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "jinyang",
+   "center": {
+    "q": 67,
+    "r": 39
+   },
+   "tiles": [
+    {
+     "q": 67,
+     "r": 38,
+     "kind": "gate"
+    },
+    {
+     "q": 68,
+     "r": 38,
+     "kind": "wall"
+    },
+    {
+     "q": 66,
+     "r": 39,
+     "kind": "wall"
+    },
+    {
+     "q": 67,
+     "r": 39,
+     "kind": "center"
+    },
+    {
+     "q": 68,
+     "r": 39,
+     "kind": "wall"
+    },
+    {
+     "q": 66,
+     "r": 40,
+     "kind": "gate"
+    },
+    {
+     "q": 67,
+     "r": 40,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jinyang",
+   "facility_slots": [
+    {
+     "q": 66,
+     "r": 38,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 37,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 38,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 39,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 40,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 41,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 41,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 40,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 39,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 38,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 37,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "shangdang",
+   "center": {
+    "q": 63,
+    "r": 54
+   },
+   "tiles": [
+    {
+     "q": 63,
+     "r": 53,
+     "kind": "gate"
+    },
+    {
+     "q": 64,
+     "r": 53,
+     "kind": "wall"
+    },
+    {
+     "q": 62,
+     "r": 54,
+     "kind": "wall"
+    },
+    {
+     "q": 63,
+     "r": 54,
+     "kind": "center"
+    },
+    {
+     "q": 64,
+     "r": 54,
+     "kind": "wall"
+    },
+    {
+     "q": 62,
+     "r": 55,
+     "kind": "gate"
+    },
+    {
+     "q": 63,
+     "r": 55,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "shangdang",
+   "facility_slots": [
+    {
+     "q": 62,
+     "r": 53,
+     "waterside": false
+    },
+    {
+     "q": 64,
+     "r": 52,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 52,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 53,
+     "waterside": false
+    },
+    {
+     "q": 64,
+     "r": 55,
+     "waterside": false
+    },
+    {
+     "q": 63,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 62,
+     "r": 56,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 55,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 54,
+     "waterside": false
+    },
+    {
+     "q": 65,
+     "r": 54,
+     "waterside": false
+    },
+    {
+     "q": 61,
+     "r": 53,
+     "waterside": false
+    },
+    {
+     "q": 62,
+     "r": 52,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "jianye",
+   "center": {
+    "q": 82,
+    "r": 94
+   },
+   "tiles": [
+    {
+     "q": 82,
+     "r": 92,
+     "kind": "wall"
+    },
+    {
+     "q": 83,
+     "r": 92,
+     "kind": "wall"
+    },
+    {
+     "q": 84,
+     "r": 92,
+     "kind": "gate"
+    },
+    {
+     "q": 81,
+     "r": 93,
+     "kind": "wall"
+    },
+    {
+     "q": 82,
+     "r": 93,
+     "kind": "street"
+    },
+    {
+     "q": 83,
+     "r": 93,
+     "kind": "street"
+    },
+    {
+     "q": 84,
+     "r": 93,
+     "kind": "wall"
+    },
+    {
+     "q": 80,
+     "r": 94,
+     "kind": "gate"
+    },
+    {
+     "q": 81,
+     "r": 94,
+     "kind": "street"
+    },
+    {
+     "q": 82,
+     "r": 94,
+     "kind": "center"
+    },
+    {
+     "q": 83,
+     "r": 94,
+     "kind": "street"
+    },
+    {
+     "q": 84,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": 80,
+     "r": 95,
+     "kind": "wall"
+    },
+    {
+     "q": 81,
+     "r": 95,
+     "kind": "street"
+    },
+    {
+     "q": 82,
+     "r": 95,
+     "kind": "street"
+    },
+    {
+     "q": 83,
+     "r": 95,
+     "kind": "wall"
+    },
+    {
+     "q": 80,
+     "r": 96,
+     "kind": "wall"
+    },
+    {
+     "q": 81,
+     "r": 96,
+     "kind": "wall"
+    },
+    {
+     "q": 82,
+     "r": 96,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jianye",
+   "facility_slots": [
+    {
+     "q": 84,
+     "r": 95,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": 82,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 81,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 79,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 79,
+     "r": 93,
+     "waterside": true
+    },
+    {
+     "q": 85,
+     "r": 95,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 82,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 81,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 80,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 79,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 78,
+     "r": 94,
+     "waterside": true
+    },
+    {
+     "q": 78,
+     "r": 93,
+     "waterside": false
+    },
+    {
+     "q": 79,
+     "r": 92,
+     "waterside": false
+    },
+    {
+     "q": 87,
+     "r": 94,
+     "waterside": false
+    },
+    {
+     "q": 85,
+     "r": 96,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "shouchun",
+   "center": {
+    "q": 70,
+    "r": 88
+   },
+   "tiles": [
+    {
+     "q": 70,
+     "r": 86,
+     "kind": "gate"
+    },
+    {
+     "q": 71,
+     "r": 86,
+     "kind": "wall"
+    },
+    {
+     "q": 72,
+     "r": 86,
+     "kind": "wall"
+    },
+    {
+     "q": 69,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": 70,
+     "r": 87,
+     "kind": "street"
+    },
+    {
+     "q": 71,
+     "r": 87,
+     "kind": "street"
+    },
+    {
+     "q": 72,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": 68,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": 69,
+     "r": 88,
+     "kind": "street"
+    },
+    {
+     "q": 70,
+     "r": 88,
+     "kind": "center"
+    },
+    {
+     "q": 71,
+     "r": 88,
+     "kind": "street"
+    },
+    {
+     "q": 72,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": 68,
+     "r": 89,
+     "kind": "wall"
+    },
+    {
+     "q": 69,
+     "r": 89,
+     "kind": "street"
+    },
+    {
+     "q": 70,
+     "r": 89,
+     "kind": "street"
+    },
+    {
+     "q": 71,
+     "r": 89,
+     "kind": "wall"
+    },
+    {
+     "q": 68,
+     "r": 90,
+     "kind": "wall"
+    },
+    {
+     "q": 69,
+     "r": 90,
+     "kind": "gate"
+    },
+    {
+     "q": 70,
+     "r": 90,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "shouchun",
+   "facility_slots": [
+    {
+     "q": 68,
+     "r": 87,
+     "waterside": true
+    },
+    {
+     "q": 73,
+     "r": 85,
+     "waterside": true
+    },
+    {
+     "q": 73,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 72,
+     "r": 89,
+     "waterside": false
+    },
+    {
+     "q": 71,
+     "r": 90,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 91,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 90,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 89,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 87,
+     "waterside": true
+    },
+    {
+     "q": 72,
+     "r": 84,
+     "waterside": true
+    },
+    {
+     "q": 74,
+     "r": 85,
+     "waterside": true
+    },
+    {
+     "q": 74,
+     "r": 86,
+     "waterside": false
+    },
+    {
+     "q": 74,
+     "r": 87,
+     "waterside": false
+    },
+    {
+     "q": 74,
+     "r": 88,
+     "waterside": false
+    },
+    {
+     "q": 73,
+     "r": 89,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "lujiang",
+   "center": {
+    "q": 68,
+    "r": 99
+   },
+   "tiles": [
+    {
+     "q": 68,
+     "r": 98,
+     "kind": "gate"
+    },
+    {
+     "q": 69,
+     "r": 98,
+     "kind": "gate"
+    },
+    {
+     "q": 67,
+     "r": 99,
+     "kind": "wall"
+    },
+    {
+     "q": 68,
+     "r": 99,
+     "kind": "center"
+    },
+    {
+     "q": 69,
+     "r": 99,
+     "kind": "wall"
+    },
+    {
+     "q": 67,
+     "r": 100,
+     "kind": "gate"
+    },
+    {
+     "q": 68,
+     "r": 100,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "lujiang",
+   "facility_slots": [
+    {
+     "q": 67,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 70,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 69,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 101,
+     "waterside": true
+    },
+    {
+     "q": 67,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 66,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 67,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 68,
+     "r": 96,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "wu_city",
+   "center": {
+    "q": 91,
+    "r": 99
+   },
+   "tiles": [
+    {
+     "q": 91,
+     "r": 98,
+     "kind": "gate"
+    },
+    {
+     "q": 92,
+     "r": 98,
+     "kind": "wall"
+    },
+    {
+     "q": 90,
+     "r": 99,
+     "kind": "wall"
+    },
+    {
+     "q": 91,
+     "r": 99,
+     "kind": "center"
+    },
+    {
+     "q": 92,
+     "r": 99,
+     "kind": "wall"
+    },
+    {
+     "q": 90,
+     "r": 100,
+     "kind": "gate"
+    },
+    {
+     "q": 91,
+     "r": 100,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "wu_city",
+   "facility_slots": [
+    {
+     "q": 92,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 93,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 93,
+     "r": 98,
+     "waterside": false
+    },
+    {
+     "q": 93,
+     "r": 99,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 100,
+     "waterside": false
+    },
+    {
+     "q": 91,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": 90,
+     "r": 101,
+     "waterside": false
+    },
+    {
+     "q": 91,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": 92,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": 93,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": 94,
+     "r": 96,
+     "waterside": false
+    },
+    {
+     "q": 94,
+     "r": 97,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "kuaiji",
+   "center": {
+    "q": 85,
+    "r": 110
+   },
+   "tiles": [
+    {
+     "q": 85,
+     "r": 109,
+     "kind": "gate"
+    },
+    {
+     "q": 86,
+     "r": 109,
+     "kind": "wall"
+    },
+    {
+     "q": 84,
+     "r": 110,
+     "kind": "wall"
+    },
+    {
+     "q": 85,
+     "r": 110,
+     "kind": "center"
+    },
+    {
+     "q": 86,
+     "r": 110,
+     "kind": "wall"
+    },
+    {
+     "q": 84,
+     "r": 111,
+     "kind": "wall"
+    },
+    {
+     "q": 85,
+     "r": 111,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "kuaiji",
+   "facility_slots": [
+    {
+     "q": 86,
+     "r": 108,
+     "waterside": false
+    },
+    {
+     "q": 87,
+     "r": 108,
+     "waterside": false
+    },
+    {
+     "q": 87,
+     "r": 109,
+     "waterside": false
+    },
+    {
+     "q": 87,
+     "r": 110,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 112,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 112,
+     "waterside": false
+    },
+    {
+     "q": 84,
+     "r": 109,
+     "waterside": false
+    },
+    {
+     "q": 86,
+     "r": 111,
+     "waterside": false
+    },
+    {
+     "q": 85,
+     "r": 112,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 111,
+     "waterside": false
+    },
+    {
+     "q": 83,
+     "r": 110,
+     "waterside": false
+    },
+    {
+     "q": 87,
+     "r": 107,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "chaisang",
+   "center": {
+    "q": 51,
+    "r": 115
+   },
+   "tiles": [
+    {
+     "q": 51,
+     "r": 114,
+     "kind": "wall"
+    },
+    {
+     "q": 52,
+     "r": 114,
+     "kind": "gate"
+    },
+    {
+     "q": 50,
+     "r": 115,
+     "kind": "gate"
+    },
+    {
+     "q": 51,
+     "r": 115,
+     "kind": "center"
+    },
+    {
+     "q": 52,
+     "r": 115,
+     "kind": "wall"
+    },
+    {
+     "q": 50,
+     "r": 116,
+     "kind": "wall"
+    },
+    {
+     "q": 51,
+     "r": 116,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "chaisang",
+   "facility_slots": [
+    {
+     "q": 50,
+     "r": 114,
+     "waterside": false
+    },
+    {
+     "q": 51,
+     "r": 113,
+     "waterside": true
+    },
+    {
+     "q": 53,
+     "r": 115,
+     "waterside": true
+    },
+    {
+     "q": 52,
+     "r": 116,
+     "waterside": true
+    },
+    {
+     "q": 50,
+     "r": 117,
+     "waterside": true
+    },
+    {
+     "q": 49,
+     "r": 117,
+     "waterside": false
+    },
+    {
+     "q": 49,
+     "r": 116,
+     "waterside": false
+    },
+    {
+     "q": 49,
+     "r": 114,
+     "waterside": false
+    },
+    {
+     "q": 50,
+     "r": 113,
+     "waterside": true
+    },
+    {
+     "q": 54,
+     "r": 115,
+     "waterside": true
+    },
+    {
+     "q": 48,
+     "r": 117,
+     "waterside": false
+    },
+    {
+     "q": 48,
+     "r": 116,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "jiaozhi",
+   "center": {
+    "q": -54,
+    "r": 192
+   },
+   "tiles": [
+    {
+     "q": -54,
+     "r": 191,
+     "kind": "wall"
+    },
+    {
+     "q": -53,
+     "r": 191,
+     "kind": "gate"
+    },
+    {
+     "q": -55,
+     "r": 192,
+     "kind": "wall"
+    },
+    {
+     "q": -54,
+     "r": 192,
+     "kind": "center"
+    },
+    {
+     "q": -53,
+     "r": 192,
+     "kind": "wall"
+    },
+    {
+     "q": -55,
+     "r": 193,
+     "kind": "wall"
+    },
+    {
+     "q": -54,
+     "r": 193,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jiaozhi",
+   "facility_slots": [
+    {
+     "q": -55,
+     "r": 191,
+     "waterside": false
+    },
+    {
+     "q": -54,
+     "r": 190,
+     "waterside": false
+    },
+    {
+     "q": -53,
+     "r": 190,
+     "waterside": false
+    },
+    {
+     "q": -52,
+     "r": 191,
+     "waterside": false
+    },
+    {
+     "q": -52,
+     "r": 192,
+     "waterside": false
+    },
+    {
+     "q": -53,
+     "r": 193,
+     "waterside": false
+    },
+    {
+     "q": -54,
+     "r": 194,
+     "waterside": false
+    },
+    {
+     "q": -55,
+     "r": 194,
+     "waterside": false
+    },
+    {
+     "q": -56,
+     "r": 194,
+     "waterside": false
+    },
+    {
+     "q": -56,
+     "r": 193,
+     "waterside": false
+    },
+    {
+     "q": -56,
+     "r": 192,
+     "waterside": false
+    },
+    {
+     "q": -56,
+     "r": 191,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "nanhai",
+   "center": {
+    "q": 5,
+    "r": 173
+   },
+   "tiles": [
+    {
+     "q": 5,
+     "r": 172,
+     "kind": "gate"
+    },
+    {
+     "q": 6,
+     "r": 172,
+     "kind": "wall"
+    },
+    {
+     "q": 4,
+     "r": 173,
+     "kind": "wall"
+    },
+    {
+     "q": 5,
+     "r": 173,
+     "kind": "center"
+    },
+    {
+     "q": 6,
+     "r": 173,
+     "kind": "wall"
+    },
+    {
+     "q": 4,
+     "r": 174,
+     "kind": "wall"
+    },
+    {
+     "q": 5,
+     "r": 174,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "nanhai",
+   "facility_slots": [
+    {
+     "q": 4,
+     "r": 172,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 171,
+     "waterside": false
+    },
+    {
+     "q": 7,
+     "r": 171,
+     "waterside": false
+    },
+    {
+     "q": 7,
+     "r": 172,
+     "waterside": false
+    },
+    {
+     "q": 7,
+     "r": 173,
+     "waterside": false
+    },
+    {
+     "q": 6,
+     "r": 174,
+     "waterside": false
+    },
+    {
+     "q": 5,
+     "r": 175,
+     "waterside": false
+    },
+    {
+     "q": 4,
+     "r": 175,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 175,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 174,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 173,
+     "waterside": false
+    },
+    {
+     "q": 3,
+     "r": 172,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "hulao",
+   "center": {
+    "q": 57,
+    "r": 68
+   },
+   "tiles": [
+    {
+     "q": 57,
+     "r": 67,
+     "kind": "street"
+    },
+    {
+     "q": 57,
+     "r": 68,
+     "kind": "gate"
+    },
+    {
+     "q": 58,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 59,
+     "r": 68,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "luoyang",
+   "facility_slots": []
+  },
+  {
+   "id": "sishui",
+   "center": {
+    "q": 63,
+    "r": 64
+   },
+   "tiles": [
+    {
+     "q": 63,
+     "r": 62,
+     "kind": "wall"
+    },
+    {
+     "q": 63,
+     "r": 63,
+     "kind": "wall"
+    },
+    {
+     "q": 64,
+     "r": 63,
+     "kind": "street"
+    },
+    {
+     "q": 63,
+     "r": 64,
+     "kind": "gate"
+    },
+    {
+     "q": 63,
+     "r": 65,
+     "kind": "wall"
+    },
+    {
+     "q": 63,
+     "r": 66,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "chenliu",
+   "facility_slots": []
+  },
+  {
+   "id": "hangu",
+   "center": {
+    "q": 49,
+    "r": 65
+   },
+   "tiles": [
+    {
+     "q": 49,
+     "r": 63,
+     "kind": "wall"
+    },
+    {
+     "q": 49,
+     "r": 64,
+     "kind": "wall"
+    },
+    {
+     "q": 49,
+     "r": 65,
+     "kind": "gate"
+    },
+    {
+     "q": 48,
+     "r": 66,
+     "kind": "street"
+    },
+    {
+     "q": 49,
+     "r": 66,
+     "kind": "wall"
+    },
+    {
+     "q": 49,
+     "r": 67,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "luoyang",
+   "facility_slots": []
+  },
+  {
+   "id": "tong_gate",
+   "center": {
+    "q": 36,
+    "r": 70
+   },
+   "tiles": [
+    {
+     "q": 36,
+     "r": 69,
+     "kind": "street"
+    },
+    {
+     "q": 36,
+     "r": 70,
+     "kind": "gate"
+    },
+    {
+     "q": 37,
+     "r": 70,
+     "kind": "wall"
+    },
+    {
+     "q": 38,
+     "r": 70,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "hongnong",
+   "facility_slots": []
+  },
+  {
+   "id": "wu_gate",
+   "center": {
+    "q": 36,
+    "r": 77
+   },
+   "tiles": [
+    {
+     "q": 38,
+     "r": 75,
+     "kind": "wall"
+    },
+    {
+     "q": 37,
+     "r": 76,
+     "kind": "wall"
+    },
+    {
+     "q": 35,
+     "r": 77,
+     "kind": "street"
+    },
+    {
+     "q": 36,
+     "r": 77,
+     "kind": "gate"
+    },
+    {
+     "q": 35,
+     "r": 78,
+     "kind": "wall"
+    },
+    {
+     "q": 34,
+     "r": 79,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "hongnong",
+   "facility_slots": []
+  },
+  {
+   "id": "yique",
+   "center": {
+    "q": 48,
+    "r": 75
+   },
+   "tiles": [
+    {
+     "q": 50,
+     "r": 73,
+     "kind": "wall"
+    },
+    {
+     "q": 49,
+     "r": 74,
+     "kind": "wall"
+    },
+    {
+     "q": 47,
+     "r": 75,
+     "kind": "street"
+    },
+    {
+     "q": 48,
+     "r": 75,
+     "kind": "gate"
+    },
+    {
+     "q": 47,
+     "r": 76,
+     "kind": "wall"
+    },
+    {
+     "q": 46,
+     "r": 77,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "luoyang",
+   "facility_slots": []
+  },
+  {
+   "id": "yangping",
+   "center": {
+    "q": 3,
+    "r": 82
+   },
+   "tiles": [
+    {
+     "q": 3,
+     "r": 80,
+     "kind": "wall"
+    },
+    {
+     "q": 3,
+     "r": 82,
+     "kind": "gate"
+    },
+    {
+     "q": 3,
+     "r": 83,
+     "kind": "wall"
+    },
+    {
+     "q": 3,
+     "r": 84,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "hanzhong",
+   "facility_slots": []
+  },
+  {
+   "id": "jiameng",
+   "center": {
+    "q": -3,
+    "r": 89
+   },
+   "tiles": [
+    {
+     "q": -3,
+     "r": 87,
+     "kind": "wall"
+    },
+    {
+     "q": -3,
+     "r": 88,
+     "kind": "wall"
+    },
+    {
+     "q": -3,
+     "r": 89,
+     "kind": "gate"
+    },
+    {
+     "q": -4,
+     "r": 90,
+     "kind": "street"
+    },
+    {
+     "q": -3,
+     "r": 90,
+     "kind": "wall"
+    },
+    {
+     "q": -3,
+     "r": 91,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "zitong",
+   "facility_slots": []
+  },
+  {
+   "id": "jiange",
+   "center": {
+    "q": -6,
+    "r": 96
+   },
+   "tiles": [
+    {
+     "q": -6,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": -6,
+     "r": 95,
+     "kind": "wall"
+    },
+    {
+     "q": -6,
+     "r": 96,
+     "kind": "gate"
+    },
+    {
+     "q": -7,
+     "r": 97,
+     "kind": "street"
+    },
+    {
+     "q": -6,
+     "r": 97,
+     "kind": "wall"
+    },
+    {
+     "q": -6,
+     "r": 98,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "zitong",
+   "facility_slots": []
+  },
+  {
+   "id": "fushui",
+   "center": {
+    "q": -15,
+    "r": 98
+   },
+   "tiles": [
+    {
+     "q": -15,
+     "r": 97,
+     "kind": "street"
+    },
+    {
+     "q": -17,
+     "r": 98,
+     "kind": "wall"
+    },
+    {
+     "q": -15,
+     "r": 98,
+     "kind": "gate"
+    },
+    {
+     "q": -14,
+     "r": 98,
+     "kind": "wall"
+    },
+    {
+     "q": -13,
+     "r": 98,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "zitong",
+   "facility_slots": []
+  },
+  {
+   "id": "yanmen",
+   "center": {
+    "q": 75,
+    "r": 27
+   },
+   "tiles": [
+    {
+     "q": 75,
+     "r": 26,
+     "kind": "street"
+    },
+    {
+     "q": 73,
+     "r": 27,
+     "kind": "wall"
+    },
+    {
+     "q": 74,
+     "r": 27,
+     "kind": "wall"
+    },
+    {
+     "q": 75,
+     "r": 27,
+     "kind": "gate"
+    },
+    {
+     "q": 76,
+     "r": 27,
+     "kind": "wall"
+    },
+    {
+     "q": 77,
+     "r": 27,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "jinyang",
+   "facility_slots": []
+  },
+  {
+   "id": "juyong",
+   "center": {
+    "q": 100,
+    "r": 17
+   },
+   "tiles": [
+    {
+     "q": 102,
+     "r": 15,
+     "kind": "wall"
+    },
+    {
+     "q": 101,
+     "r": 16,
+     "kind": "wall"
+    },
+    {
+     "q": 100,
+     "r": 17,
+     "kind": "gate"
+    },
+    {
+     "q": 101,
+     "r": 17,
+     "kind": "street"
+    },
+    {
+     "q": 99,
+     "r": 18,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "ji_city",
+   "facility_slots": []
+  },
+  {
+   "id": "xiakou",
+   "center": {
+    "q": 45,
+    "r": 106
+   },
+   "tiles": [
+    {
+     "q": 45,
+     "r": 106,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "jiangxia",
+   "facility_slots": [
+    {
+     "q": 45,
+     "r": 107,
+     "waterside": true
+    },
+    {
+     "q": 47,
+     "r": 105,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "lukou",
+   "center": {
+    "q": 40,
+    "r": 110
+   },
+   "tiles": [
+    {
+     "q": 40,
+     "r": 110,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "jiangxia",
+   "facility_slots": [
+    {
+     "q": 39,
+     "r": 110,
+     "waterside": true
+    },
+    {
+     "q": 41,
+     "r": 109,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "yiling",
+   "center": {
+    "q": 27,
+    "r": 103
+   },
+   "tiles": [
+    {
+     "q": 27,
+     "r": 103,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "xiangyang",
+   "facility_slots": [
+    {
+     "q": 27,
+     "r": 102,
+     "waterside": false
+    },
+    {
+     "q": 28,
+     "r": 103,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "gongan",
+   "center": {
+    "q": 29,
+    "r": 110
+   },
+   "tiles": [
+    {
+     "q": 29,
+     "r": 110,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "jiangling",
+   "facility_slots": [
+    {
+     "q": 29,
+     "r": 109,
+     "waterside": true
+    },
+    {
+     "q": 28,
+     "r": 110,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "wulin",
+   "center": {
+    "q": 37,
+    "r": 112
+   },
+   "tiles": [
+    {
+     "q": 37,
+     "r": 112,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "jiangxia",
+   "facility_slots": [
+    {
+     "q": 38,
+     "r": 111,
+     "waterside": true
+    },
+    {
+     "q": 36,
+     "r": 113,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "ruxu",
+   "center": {
+    "q": 73,
+    "r": 98
+   },
+   "tiles": [
+    {
+     "q": 73,
+     "r": 98,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "lujiang",
+   "facility_slots": [
+    {
+     "q": 73,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 72,
+     "r": 99,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "niuzhu",
+   "center": {
+    "q": 78,
+    "r": 96
+   },
+   "tiles": [
+    {
+     "q": 78,
+     "r": 96,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "jianye",
+   "facility_slots": [
+    {
+     "q": 78,
+     "r": 97,
+     "waterside": false
+    },
+    {
+     "q": 77,
+     "r": 98,
+     "waterside": false
+    }
+   ]
+  },
+  {
+   "id": "qua",
+   "center": {
+    "q": 86,
+    "r": 93
+   },
+   "tiles": [
+    {
+     "q": 86,
+     "r": 93,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "jianye",
+   "facility_slots": [
+    {
+     "q": 87,
+     "r": 93,
+     "waterside": true
+    },
+    {
+     "q": 88,
+     "r": 93,
+     "waterside": true
+    }
+   ]
+  },
+  {
+   "id": "mengjin",
+   "center": {
+    "q": 55,
+    "r": 66
+   },
+   "tiles": [
+    {
+     "q": 55,
+     "r": 66,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "henei",
+   "facility_slots": []
+  },
+  {
+   "id": "baima",
+   "center": {
+    "q": 71,
+    "r": 61
+   },
+   "tiles": [
+    {
+     "q": 71,
+     "r": 61,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "puyang",
+   "facility_slots": []
+  },
+  {
+   "id": "yanjin",
+   "center": {
+    "q": 67,
+    "r": 63
+   },
+   "tiles": [
+    {
+     "q": 67,
+     "r": 63,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "chenliu",
+   "facility_slots": []
+  },
+  {
+   "id": "cangting",
+   "center": {
+    "q": 81,
+    "r": 55
+   },
+   "tiles": [
+    {
+     "q": 81,
+     "r": 55,
+     "kind": "center"
+    }
+   ],
+   "territory_of": "puyang",
+   "facility_slots": []
+  },
+  {
+   "id": "guandu",
+   "center": {
+    "q": 61,
+    "r": 69
+   },
+   "tiles": [
+    {
+     "q": 61,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 62,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 60,
+     "r": 69,
+     "kind": "wall"
+    },
+    {
+     "q": 61,
+     "r": 69,
+     "kind": "center"
+    },
+    {
+     "q": 62,
+     "r": 69,
+     "kind": "gate"
+    },
+    {
+     "q": 60,
+     "r": 70,
+     "kind": "gate"
+    },
+    {
+     "q": 61,
+     "r": 70,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "chenliu",
+   "facility_slots": []
+  },
+  {
+   "id": "chencang",
+   "center": {
+    "q": 18,
+    "r": 68
+   },
+   "tiles": [
+    {
+     "q": 18,
+     "r": 67,
+     "kind": "wall"
+    },
+    {
+     "q": 19,
+     "r": 67,
+     "kind": "gate"
+    },
+    {
+     "q": 17,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 18,
+     "r": 68,
+     "kind": "center"
+    },
+    {
+     "q": 19,
+     "r": 68,
+     "kind": "wall"
+    },
+    {
+     "q": 17,
+     "r": 69,
+     "kind": "gate"
+    },
+    {
+     "q": 18,
+     "r": 69,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "anding",
+   "facility_slots": []
+  },
+  {
+   "id": "qishan",
+   "center": {
+    "q": -3,
+    "r": 78
+   },
+   "tiles": [
+    {
+     "q": -3,
+     "r": 77,
+     "kind": "wall"
+    },
+    {
+     "q": -2,
+     "r": 77,
+     "kind": "wall"
+    },
+    {
+     "q": -4,
+     "r": 78,
+     "kind": "wall"
+    },
+    {
+     "q": -3,
+     "r": 78,
+     "kind": "center"
+    },
+    {
+     "q": -2,
+     "r": 78,
+     "kind": "wall"
+    },
+    {
+     "q": -4,
+     "r": 79,
+     "kind": "wall"
+    },
+    {
+     "q": -3,
+     "r": 79,
+     "kind": "gate"
+    }
+   ],
+   "territory_of": "hanzhong",
+   "facility_slots": []
+  },
+  {
+   "id": "hefei",
+   "center": {
+    "q": 71,
+    "r": 94
+   },
+   "tiles": [
+    {
+     "q": 71,
+     "r": 93,
+     "kind": "wall"
+    },
+    {
+     "q": 72,
+     "r": 93,
+     "kind": "wall"
+    },
+    {
+     "q": 70,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": 71,
+     "r": 94,
+     "kind": "center"
+    },
+    {
+     "q": 72,
+     "r": 94,
+     "kind": "wall"
+    },
+    {
+     "q": 70,
+     "r": 95,
+     "kind": "gate"
+    },
+    {
+     "q": 71,
+     "r": 95,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "lujiang",
+   "facility_slots": []
+  },
+  {
+   "id": "fancheng",
+   "center": {
+    "q": 40,
+    "r": 91
+   },
+   "tiles": [
+    {
+     "q": 40,
+     "r": 90,
+     "kind": "wall"
+    },
+    {
+     "q": 41,
+     "r": 90,
+     "kind": "wall"
+    },
+    {
+     "q": 39,
+     "r": 91,
+     "kind": "gate"
+    },
+    {
+     "q": 40,
+     "r": 91,
+     "kind": "center"
+    },
+    {
+     "q": 41,
+     "r": 91,
+     "kind": "wall"
+    },
+    {
+     "q": 39,
+     "r": 92,
+     "kind": "wall"
+    },
+    {
+     "q": 40,
+     "r": 92,
+     "kind": "wall"
+    }
+   ],
+   "territory_of": "xinye",
+   "facility_slots": []
+  }
+ ],
+ "roads": [
+  {
+   "from": "anding",
+   "to": "changan",
+   "length": 16
+  },
+  {
+   "from": "anding",
+   "to": "wuwei",
+   "length": 43
+  },
+  {
+   "from": "baima",
+   "to": "puyang",
+   "length": 3
+  },
+  {
+   "from": "baima",
+   "to": "ye",
+   "length": 8
+  },
+  {
+   "from": "beihai",
+   "to": "pingyuan",
+   "length": 18
+  },
+  {
+   "from": "beihai",
+   "to": "xiapi",
+   "length": 23
+  },
+  {
+   "from": "beiping",
+   "to": "ji_city",
+   "length": 15
+  },
+  {
+   "from": "beiping",
+   "to": "xiangping",
+   "length": 38
+  },
+  {
+   "from": "cangting",
+   "to": "pingyuan",
+   "length": 12
+  },
+  {
+   "from": "cangting",
+   "to": "puyang",
+   "length": 7
+  },
+  {
+   "from": "chaisang",
+   "to": "jiangxia",
+   "length": 20
+  },
+  {
+   "from": "chaisang",
+   "to": "lujiang",
+   "length": 19
+  },
+  {
+   "from": "chaisang",
+   "to": "niuzhu",
+   "length": 28
+  },
+  {
+   "from": "changan",
+   "to": "chencang",
+   "length": 10
+  },
+  {
+   "from": "changan",
+   "to": "tianshui",
+   "length": 22
+  },
+  {
+   "from": "changan",
+   "to": "tong_gate",
+   "length": 11
+  },
+  {
+   "from": "changan",
+   "to": "wu_gate",
+   "length": 18
+  },
+  {
+   "from": "changsha",
+   "to": "gongan",
+   "length": 19
+  },
+  {
+   "from": "changsha",
+   "to": "guiyang",
+   "length": 22
+  },
+  {
+   "from": "changsha",
+   "to": "lingling",
+   "length": 30
+  },
+  {
+   "from": "changsha",
+   "to": "lukou",
+   "length": 21
+  },
+  {
+   "from": "chencang",
+   "to": "yangping",
+   "length": 15
+  },
+  {
+   "from": "chengdu",
+   "to": "fushui",
+   "length": 7
+  },
+  {
+   "from": "chengdu",
+   "to": "jiangzhou",
+   "length": 20
+  },
+  {
+   "from": "chengdu",
+   "to": "jianning",
+   "length": 43
+  },
+  {
+   "from": "chenliu",
+   "to": "puyang",
+   "length": 10
+  },
+  {
+   "from": "chenliu",
+   "to": "qiao",
+   "length": 15
+  },
+  {
+   "from": "chenliu",
+   "to": "sishui",
+   "length": 10
+  },
+  {
+   "from": "chenliu",
+   "to": "xiaopei",
+   "length": 18
+  },
+  {
+   "from": "chenliu",
+   "to": "yanjin",
+   "length": 5
+  },
+  {
+   "from": "fancheng",
+   "to": "xiangyang",
+   "length": 5
+  },
+  {
+   "from": "fancheng",
+   "to": "xinye",
+   "length": 5
+  },
+  {
+   "from": "fushui",
+   "to": "zitong",
+   "length": 5
+  },
+  {
+   "from": "gongan",
+   "to": "jiangling",
+   "length": 3
+  },
+  {
+   "from": "gongan",
+   "to": "wuling",
+   "length": 9
+  },
+  {
+   "from": "guandu",
+   "to": "xuchang",
+   "length": 5
+  },
+  {
+   "from": "guandu",
+   "to": "yanjin",
+   "length": 11
+  },
+  {
+   "from": "guangling",
+   "to": "jianye",
+   "length": 6
+  },
+  {
+   "from": "guangling",
+   "to": "xiapi",
+   "length": 20
+  },
+  {
+   "from": "guiyang",
+   "to": "lingling",
+   "length": 12
+  },
+  {
+   "from": "guiyang",
+   "to": "nanhai",
+   "length": 24
+  },
+  {
+   "from": "hangu",
+   "to": "hongnong",
+   "length": 8
+  },
+  {
+   "from": "hangu",
+   "to": "luoyang",
+   "length": 11
+  },
+  {
+   "from": "hanzhong",
+   "to": "jiameng",
+   "length": 25
+  },
+  {
+   "from": "hanzhong",
+   "to": "qishan",
+   "length": 18
+  },
+  {
+   "from": "hanzhong",
+   "to": "shangyong",
+   "length": 24
+  },
+  {
+   "from": "hanzhong",
+   "to": "yangping",
+   "length": 7
+  },
+  {
+   "from": "hefei",
+   "to": "lujiang",
+   "length": 5
+  },
+  {
+   "from": "hefei",
+   "to": "shouchun",
+   "length": 9
+  },
+  {
+   "from": "henei",
+   "to": "mengjin",
+   "length": 4
+  },
+  {
+   "from": "henei",
+   "to": "shangdang",
+   "length": 10
+  },
+  {
+   "from": "henei",
+   "to": "ye",
+   "length": 32
+  },
+  {
+   "from": "hongnong",
+   "to": "tong_gate",
+   "length": 5
+  },
+  {
+   "from": "hulao",
+   "to": "luoyang",
+   "length": 6
+  },
+  {
+   "from": "hulao",
+   "to": "sishui",
+   "length": 22
+  },
+  {
+   "from": "ji_city",
+   "to": "juyong",
+   "length": 5
+  },
+  {
+   "from": "ji_city",
+   "to": "nanpi",
+   "length": 18
+  },
+  {
+   "from": "jiameng",
+   "to": "jiange",
+   "length": 11
+  },
+  {
+   "from": "jiange",
+   "to": "zitong",
+   "length": 5
+  },
+  {
+   "from": "jiangling",
+   "to": "wuling",
+   "length": 13
+  },
+  {
+   "from": "jiangling",
+   "to": "xiangyang",
+   "length": 12
+  },
+  {
+   "from": "jiangling",
+   "to": "yiling",
+   "length": 12
+  },
+  {
+   "from": "jiangxia",
+   "to": "xiakou",
+   "length": 5
+  },
+  {
+   "from": "jiangxia",
+   "to": "xiangyang",
+   "length": 19
+  },
+  {
+   "from": "jiangzhou",
+   "to": "yongan",
+   "length": 32
+  },
+  {
+   "from": "jianning",
+   "to": "yunnan",
+   "length": 33
+  },
+  {
+   "from": "jianye",
+   "to": "niuzhu",
+   "length": 4
+  },
+  {
+   "from": "jianye",
+   "to": "qua",
+   "length": 5
+  },
+  {
+   "from": "jianye",
+   "to": "ruxu",
+   "length": 9
+  },
+  {
+   "from": "jiaozhi",
+   "to": "lingling",
+   "length": 66
+  },
+  {
+   "from": "jiaozhi",
+   "to": "nanhai",
+   "length": 94
+  },
+  {
+   "from": "jinyang",
+   "to": "shangdang",
+   "length": 15
+  },
+  {
+   "from": "jinyang",
+   "to": "yanmen",
+   "length": 12
+  },
+  {
+   "from": "julu",
+   "to": "nanpi",
+   "length": 15
+  },
+  {
+   "from": "julu",
+   "to": "shangdang",
+   "length": 48
+  },
+  {
+   "from": "julu",
+   "to": "ye",
+   "length": 8
+  },
+  {
+   "from": "juyong",
+   "to": "yanmen",
+   "length": 26
+  },
+  {
+   "from": "kuaiji",
+   "to": "wu_city",
+   "length": 11
+  },
+  {
+   "from": "lujiang",
+   "to": "ruxu",
+   "length": 5
+  },
+  {
+   "from": "lukou",
+   "to": "wulin",
+   "length": 3
+  },
+  {
+   "from": "luoyang",
+   "to": "mengjin",
+   "length": 4
+  },
+  {
+   "from": "luoyang",
+   "to": "yique",
+   "length": 8
+  },
+  {
+   "from": "nanpi",
+   "to": "pingyuan",
+   "length": 8
+  },
+  {
+   "from": "qiao",
+   "to": "shouchun",
+   "length": 15
+  },
+  {
+   "from": "qiao",
+   "to": "xiaopei",
+   "length": 14
+  },
+  {
+   "from": "qishan",
+   "to": "tianshui",
+   "length": 36
+  },
+  {
+   "from": "qua",
+   "to": "wu_city",
+   "length": 11
+  },
+  {
+   "from": "runan",
+   "to": "shouchun",
+   "length": 18
+  },
+  {
+   "from": "runan",
+   "to": "xinye",
+   "length": 15
+  },
+  {
+   "from": "runan",
+   "to": "xuchang",
+   "length": 10
+  },
+  {
+   "from": "shangyong",
+   "to": "xiangyang",
+   "length": 15
+  },
+  {
+   "from": "shangyong",
+   "to": "yongan",
+   "length": 29
+  },
+  {
+   "from": "shouchun",
+   "to": "xiapi",
+   "length": 21
+  },
+  {
+   "from": "tianshui",
+   "to": "wuwei",
+   "length": 36
+  },
+  {
+   "from": "wan",
+   "to": "wu_gate",
+   "length": 37
+  },
+  {
+   "from": "wan",
+   "to": "xinye",
+   "length": 6
+  },
+  {
+   "from": "wan",
+   "to": "xuchang",
+   "length": 13
+  },
+  {
+   "from": "wan",
+   "to": "yique",
+   "length": 21
+  },
+  {
+   "from": "wulin",
+   "to": "xiakou",
+   "length": 8
+  },
+  {
+   "from": "xiaopei",
+   "to": "xiapi",
+   "length": 9
+  },
+  {
+   "from": "xuchang",
+   "to": "yique",
+   "length": 16
+  },
+  {
+   "from": "yiling",
+   "to": "yongan",
+   "length": 14
+  }
+ ]
+}
