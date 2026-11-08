@@ -155,5 +155,83 @@
       "return": 0.1,
       "capture": -0.1
     }
+  },
+  "economy": {
+    "tax_per_capita_gold": 0.002,
+    "harvest_per_capita": 0.06,
+    "food_per_soldier_month": 0.1,
+    "pop_growth_base": 0.002,
+    "pop_growth_per_morale": 0.0001,
+    "pop_cap": {
+      "major_city": 1000000,
+      "city": 400000,
+      "port": 60000
+    },
+    "food_cap": {
+      "major_city": 200000,
+      "city": 100000,
+      "port": 20000,
+      "gate": 50000,
+      "fortress": 50000,
+      "ferry": 5000
+    },
+    "morale_drift_target": 50,
+    "morale_drift_rate": 1,
+    "starvation": {
+      "desertion": 0.05,
+      "morale_loss": 5
+    },
+    "recruit": {
+      "base": 1000,
+      "stat_factor": 10,
+      "pop_ratio_cap": 0.05,
+      "gold_per_soldier": 0.1,
+      "morale_loss": 4
+    },
+    "train": {
+      "base": 5,
+      "ldr_divisor": 10
+    },
+    "patrol": {
+      "base": 2,
+      "stat_divisor": 40
+    },
+    "produce": {
+      "pol_divisor": 200,
+      "gold_per_unit": {
+        "horse": 0.3,
+        "crossbow": 0.2,
+        "siege_engine": 1.0,
+        "ship": 1.5
+      }
+    },
+    "charity": {
+      "food_ratio": 0.01,
+      "base": 5,
+      "cha_divisor": 20
+    },
+    "trade": {
+      "food_per_gold": 10,
+      "monthly_factor": [
+        1.0,
+        1.0,
+        0.9,
+        0.9,
+        0.8,
+        0.8,
+        0.7,
+        0.6,
+        1.4,
+        1.3,
+        1.2,
+        1.1
+      ]
+    },
+    "merit_per_command": 10,
+    "rear_supply": {
+      "target_months": 3,
+      "city_reserve_months": 3,
+      "post_reserve_months": 2
+    }
   }
 }

@@ -5,6 +5,7 @@ namespace Sam11.Core.Data
     /// <summary>data/base/rules.json — 밸런스 상수.</summary>
     public sealed class Rules
     {
+        public TimeRules Time { get; set; } = new TimeRules();
         public AffinityRules Affinity { get; set; } = new AffinityRules();
         public UnitRules Unit { get; set; } = new UnitRules();
         public ChainRules Chain { get; set; } = new ChainRules();
@@ -14,6 +15,15 @@ namespace Sam11.Core.Data
         public Dictionary<string, Dictionary<string, double>> DefeatModifiers { get; set; } = new Dictionary<string, Dictionary<string, double>>();
         public double HighGroundBonus { get; set; }
         public CombatRules Combat { get; set; } = new CombatRules();
+        public EconomyRules Economy { get; set; } = new EconomyRules();
+        public DomesticRules Domestic { get; set; } = new DomesticRules();
+    }
+
+    public sealed class TimeRules
+    {
+        public int DaysPerTurn { get; set; } = 10;
+        public int TurnsPerMonth { get; set; } = 3;
+        public int HarvestMonth { get; set; } = 9;
     }
 
     public sealed class AffinityRules

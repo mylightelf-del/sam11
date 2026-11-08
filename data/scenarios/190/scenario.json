@@ -188,7 +188,7 @@
       "population": 900000,
       "morale": 60,
       "gold": 12000,
-      "food": 60000,
+      "food": 80000,
       "troops": 80000,
       "training": 50,
       "equipment": {
@@ -1013,7 +1013,7 @@
       "population": 0,
       "morale": 60,
       "gold": 0,
-      "food": 15000,
+      "food": 40000,
       "troops": 40000,
       "training": 50,
       "equipment": {
@@ -1030,7 +1030,7 @@
       "population": 0,
       "morale": 60,
       "gold": 0,
-      "food": 15000,
+      "food": 25000,
       "troops": 25000,
       "training": 50,
       "equipment": {

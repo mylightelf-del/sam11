@@ -1,15 +1,23 @@
 // 전투 코어 시연: 호로관 앞 연합군 대 동탁군.
 // 여기의 AI는 시연용 임시 AI다 (가까운 적에게 접근, 쓸 수 있는 가장 센 전법 사용). 본 AI는 M3에서 만든다.
 // 사용법: dotnet run --project tools/Sam11.Sim -- [시드] [날씨]
+//         dotnet run --project tools/Sam11.Sim -- economy [개월]   (명령 없이 시간만 흘렸을 때의 경제 점검)
 
 using Sam11.Core.Battle;
 using Sam11.Core.Common;
 using Sam11.Core.Data;
+using Sam11.Core.World;
+
+var data = GameData.Load(GameData.FindDataDir(AppContext.BaseDirectory));
+
+if (args.Length > 0 && args[0] == "economy")
+{
+    EconomyReport(data, args.Length > 1 ? int.Parse(args[1]) : 12);
+    return;
+}
 
 ulong seed = args.Length > 0 ? ulong.Parse(args[0]) : 190;
 string weather = args.Length > 1 ? args[1] : "clear";
-
-var data = GameData.Load(GameData.FindDataDir(AppContext.BaseDirectory));
 var map = BattleMap.Rectangle(14, 9);
 // 호로관 앞: 가운데 도로, 양옆 산과 숲
 for (int r = 0; r < 9; r++)
@@ -92,4 +100,34 @@ static void Act(Battle b, Unit u)
         .OrderByDescending(t => t.Power).FirstOrDefault();
     if (tactic != null) b.UseTactic(u, tactic.Id, target);
     else b.Attack(u, target);
+}
+
+static void EconomyReport(GameData data, int months)
+{
+    var w = ScenarioLoader.Load(data, WorldMap.Load(data.DataDir), "190", 1);
+    var factions = w.Factions.Values.ToList();
+    string Row(FactionState f)
+    {
+        var cs = w.CitiesOf(f.Id).ToList();
+        int use = cs.Sum(c => Domestic.MonthlyFoodUse(w, c));
+        int starving = cs.Count(c => c.Food < Domestic.MonthlyFoodUse(w, c));
+        return $"{data.Officers[f.Ruler].Name.Ko,-5} 금 {cs.Sum(c => c.Gold),7} 군량 {cs.Sum(c => c.Food),8} (월 소비 {use,6}) " +
+               $"병력 {cs.Sum(c => c.Troops),7} 인구 {cs.Sum(c => c.Population),8} 민심 {(cs.Count > 0 ? cs.Average(c => c.Morale) : 0),3:F0}" +
+               (starving > 0 ? $"  ⚠ 군량 부족 거점 {starving}" : "");
+    }
+    Console.WriteLine($"=== 경제 점검: {w.Date}부터 {months}개월, 명령 없음 ===");
+    foreach (var f in factions) Console.WriteLine("  " + Row(f));
+    for (int m = 0; m < months; m++)
+    {
+        int month = w.Date.Month;
+        while (w.Date.Month == month) Domestic.AdvanceTurn(w);
+        if (w.Date.Month is 4 or 7 or 10 or 1)
+        {
+            Console.WriteLine($"--- {w.Date} ---");
+            foreach (var f in factions) Console.WriteLine("  " + Row(f));
+        }
+    }
+    var events = w.Log.Where(l => l.Contains("탈영") || l.Contains("수확")).ToList();
+    Console.WriteLine($"\n탈영 발생 {events.Count(l => l.Contains("탈영"))}건");
+    foreach (var l in events.Where(l => l.Contains("탈영")).Take(12)) Console.WriteLine("  " + l);
 }
