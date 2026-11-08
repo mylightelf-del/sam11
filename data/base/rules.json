@@ -115,5 +115,45 @@
   "difficulty": {
     "hell_ai_income": 0.15,
     "novice_player_income": 0.2
+  },
+  "combat": {
+    "base_ratio": 0.1,
+    "stat_smoothing": 50,
+    "random_min": 0.9,
+    "random_max": 1.1,
+    "counter_ratio": 0.5,
+    "tactic_base_success": 0.65,
+    "tactic_affinity_shift": 0.1,
+    "tactic_success_min": 0.1,
+    "tactic_success_max": 0.95,
+    "morale_loss_scale": 50,
+    "morale_gain_attack": 3,
+    "morale_gain_destroy": 10,
+    "morale_loss_surrounded": 5,
+    "morale_loss_ally_destroyed": 5,
+    "fire_damage_ratio": 0.05,
+    "fire_turns": 2,
+    "confusion_recover_ldr_ratio": 0.25,
+    "tactic_stat_divisor": 200
+  },
+  "defeat_modifiers": {
+    "surrounded": {
+      "capture": 0.15,
+      "return": -0.15
+    },
+    "on_fire": {
+      "death": 0.03,
+      "injury": 0.1,
+      "return": -0.13
+    },
+    "high_war": {
+      "threshold": 90,
+      "return": 0.1,
+      "capture": -0.1
+    },
+    "wedge": {
+      "return": 0.1,
+      "capture": -0.1
+    }
   }
 }
