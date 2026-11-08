@@ -22,6 +22,12 @@ namespace Sam11.Core.AI
         public int StartTurn;
         /// <summary>목표 대비 출진 병력 비 (축차 투입 측정용).</summary>
         public double LaunchRatio;
+        /// <summary>전투 기록에서 이 원정이 시작·끝난 위치 (분석용).</summary>
+        public int LogStart, LogEnd;
+        public bool Won;
+        /// <summary>부대가 원정에서 빠진 사연 (분석용).</summary>
+        public List<string> Exits = new List<string>();
+        public List<string> Labels = new List<string>();
         public override string ToString() => $"{Source}→{Target} ({State}, 필요 {Required})";
     }
 
@@ -38,6 +44,10 @@ namespace Sam11.Core.AI
         public int StalledUnitTurns;     // 목표가 있는데 움직이지도 공격하지도 못한 부대·턴 (정체)
         public int UnitTurns;
         public int Retreats;
+        /// <summary>공성 중인 원정군에 보낸 증원 부대 수.</summary>
+        public int Reinforcements;
+        public int RetreatsMorale;
+        public int RetreatsFood;
         /// <summary>원정 준비가 끝났는데 출진하지 못한 이유별 횟수 (병력 부족, 지휘 한도, 군량 부족 등).</summary>
         public Dictionary<string, int> LaunchBlocked = new Dictionary<string, int>();
     }
@@ -50,6 +60,8 @@ namespace Sam11.Core.AI
     {
         public AiConfig Config { get; }
         public List<Campaign> Campaigns { get; } = new List<Campaign>();
+        /// <summary>출진했다가 끝난 원정 (분석용).</summary>
+        public List<Campaign> History { get; } = new List<Campaign>();
         public AiStats Stats { get; } = new AiStats();
         public Knowledge? Knowledge { get; private set; }
 
@@ -82,11 +94,14 @@ namespace Sam11.Core.AI
             if (_plannedMonth != monthKey || Campaigns.Count == 0)
             {
                 _plannedMonth = monthKey;
+                Promotion.AppointAll(w, faction);
                 Plan(g, faction);
             }
             // 출진을 먼저: 내정이 무장을 다 써 버리면 원정군을 꾸릴 수 없다
             foreach (var camp in Campaigns.Where(c => c.State == CampaignState.Gathering).ToList())
                 TryLaunch(g, faction, camp);
+            foreach (var camp in Campaigns.Where(c => c.State == CampaignState.Marching).ToList())
+                TryReinforce(g, faction, camp);
             RunDomestic(g, faction);
             RunField(g, faction);
             Campaigns.RemoveAll(c => c.State == CampaignState.Done);
@@ -106,26 +121,34 @@ namespace Sam11.Core.AI
         {
             int baseline = c.Def.Type switch
             {
-                "major_city" => 4000, "city" => 2500, "gate" => 3000, "fortress" => 2000, "port" => 500, _ => 300,
+                "major_city" => 3000, "city" => 2000, "gate" => 2000, "fortress" => 1500, "port" => 500, _ => 300,
             };
-            if (g.World.Factions[faction].Capital == c.Id) baseline += 2000;
-            return baseline + Threat(g, c);
+            if (g.World.Factions[faction].Capital == c.Id) baseline += 1000;
+            return baseline + (int)(Threat(g, c) * 0.7);
         }
 
         public int Surplus(Game g, CityState c, string faction) => Math.Max(0, c.Troops - Reserve(g, c, faction));
 
         private static double WallFactor(string type) => type switch
         {
-            "major_city" => 1.3, "city" => 1.2, "gate" => 1.4, "fortress" => 1.25, _ => 1.0,
+            "major_city" => 1.1, "city" => 1.05, "gate" => 1.2, "fortress" => 1.1, _ => 1.0,
         };
 
         private static double Value(WorldState w, CityState t)
         {
+            double finish = 0;
+            if (t.Owner != null)
+            {
+                // 약한 세력은 끝내기를 노린다 (빠른 판)
+                int theirCities = w.Cities.Values.Count(c => c.Owner == t.Owner && c.Def.IsCity);
+                if (theirCities <= 2) finish += 4;
+                if (theirCities <= 1 && t.Def.IsCity) finish += 3;
+            }
             double v = t.Def.Type switch
             {
                 "major_city" => 8, "city" => 5, "gate" => 4, "fortress" => 3, "port" => 2, _ => 1,
             };
-            v += t.Population / 200000.0;
+            v += t.Population / 200000.0 + finish;
             if (t.Owner == null) v += 2;
             else if (w.Factions.TryGetValue(t.Owner, out var f) && f.Capital == t.Id) v += 2;
             return v;
@@ -141,7 +164,7 @@ namespace Sam11.Core.AI
                 var t = w.Cities[c.Target];
                 bool targetGone = t.Owner == faction || (t.Owner != null && w.AreAllied(t.Owner, faction));
                 bool sourceLost = w.Cities[c.Source].Owner != faction;
-                bool stale = c.State == CampaignState.Gathering && g.TurnCount - c.StartTurn > 18;
+                bool stale = c.State == CampaignState.Gathering && g.TurnCount - c.StartTurn > 30;
                 if (c.State == CampaignState.Gathering && (targetGone || sourceLost || stale))
                 {
                     c.State = CampaignState.Done;
@@ -152,7 +175,7 @@ namespace Sam11.Core.AI
 
             var own = w.Cities.Values.Where(c => c.Owner == faction).ToList();
             int cityCount = own.Count(c => c.Def.IsCity);
-            int max = cityCount >= 8 ? 3 : cityCount >= 4 ? 2 : 1;
+            int max = cityCount >= 20 ? 6 : cityCount >= 15 ? 5 : cityCount >= 10 ? 4 : cityCount >= 6 ? 3 : cityCount >= 3 ? 2 : 1;
             if (Campaigns.Count >= max) return;
 
             var p = Personality(w, faction);
@@ -165,12 +188,12 @@ namespace Sam11.Core.AI
             {
                 var connected = Domestic.ConnectedOwn(w, s.Id);
                 int available = Surplus(g, s, faction)
-                                + (int)(connected.Where(id => id != s.Id).Sum(id => Surplus(g, w.Cities[id], faction)) * 0.6);
+                                + connected.Where(id => id != s.Id).Sum(id => Surplus(g, w.Cities[id], faction));
                 // 이어진 거점의 무장들이 이끌 수 있는 병력 (원정군 지휘관이 모자라면 못 친다)
                 int capacity = w.Officers.Values
                     .Where(o => o.Status == OfficerStatus.Active && o.Faction == faction && connected.Contains(o.Location) && o.InjuredTurns == 0)
                     .Select(o => UnitStats.MaxTroops(o.Def, o.Rank != null ? w.Data.Ranks[o.Rank] : null, w.Data.Rules.Unit))
-                    .OrderByDescending(x => x).Skip(1).Take(5).Sum();
+                    .OrderByDescending(x => x).Skip(1).Take(8).Sum();
                 foreach (var tid in s.Def.Links)
                 {
                     var t = w.Cities[tid];

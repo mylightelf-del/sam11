@@ -235,3 +235,53 @@ public class AiTests
         Assert.That(under, Is.LessThanOrEqualTo(launched / 10), "축차 투입이 10%를 넘음");
     }
 }
+
+public class GarrisonRegressionTests
+{
+    [Test]
+    public void ConfusedGarrisonSkipsItsStrikeInsteadOfThrowing()
+    {
+        var w = TestData.NewWorld();
+        var g = new Game(w, 1);
+        var city = w.Cities["chenliu"];
+        var near = city.Placement.Center.Neighbors().SelectMany(n => n.Neighbors()).First(h => g.Field.UnitAt(h) == null
+                    && !g.Field.Structures.ContainsKey(h) && TestData.Data.Terrain[g.Field.Map.TerrainAt(h)].PassableLand);
+        g.Field.Deploy("dong_zhuo", new[] { "hua_xiong" }, "fish_scale", 3000, near);
+        g.SyncGarrisons();
+        var gar = g.Garrisons["chenliu"];
+        g.Field.LoseMorale(gar, 1000);
+        Assert.That(gar.Status, Is.EqualTo(UnitStatus.Confused));
+        Assert.DoesNotThrow(() => g.GarrisonStrike(gar));
+    }
+}
+
+public class PromotionTests
+{
+    [Test]
+    public void TitleRisesWithCitiesAndUnlocksHigherRanks()
+    {
+        var w = TestData.NewWorld();
+        var f = w.Factions["cao_cao"];
+        Assert.That(f.Title, Is.EqualTo(0));
+        foreach (var id in new[] { "xuchang", "puyang", "qiao", "runan" }) w.Cities[id].Owner = "cao_cao";
+        Promotion.UpdateTitle(w, f); // 진류 포함 도시 5개 → 주목
+        Assert.That(f.Title, Is.EqualTo(1));
+
+        var o = w.Officers["xiahou_dun"];
+        o.Merit = 2500;
+        Assert.That(Promotion.CanAppoint(w, o, "general_misc"), Is.Null);
+        Promotion.Appoint(w, o.Id, "general_misc");
+        Assert.That(UnitStats.MaxTroops(o.Def, w.Data.Ranks[o.Rank!], w.Data.Rules.Unit), Is.EqualTo(o.Def.Stats.Ldr * 100 + 2000));
+        Assert.That(Promotion.CanAppoint(w, o, "general_four"), Is.Not.Null, "공적·작위 부족");
+    }
+
+    [Test]
+    public void GarrisonFightingStrengthShrinksWithLosses()
+    {
+        var b = TestData.NewBattle();
+        var u = b.Deploy("a", new[] { "cao_hong" }, "square", 5000, new HexCoord(3, 3));
+        Assert.That(u.FightingTroops, Is.EqualTo(5000), "보통 부대는 남은 병력 그대로");
+        u.Troops = 2500;
+        Assert.That(u.FightingTroops, Is.EqualTo(2500));
+    }
+}

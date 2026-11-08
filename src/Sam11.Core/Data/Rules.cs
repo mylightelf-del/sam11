@@ -18,6 +18,7 @@ namespace Sam11.Core.Data
         public EconomyRules Economy { get; set; } = new EconomyRules();
         public SiegeRules Siege { get; set; } = new SiegeRules();
         public CityRules City { get; set; } = new CityRules();
+        public MeritRules Merit { get; set; } = new MeritRules();
         public DomesticRules Domestic { get; set; } = new DomesticRules();
     }
 
@@ -26,6 +27,13 @@ namespace Sam11.Core.Data
         public int DaysPerTurn { get; set; } = 10;
         public int TurnsPerMonth { get; set; } = 3;
         public int HarvestMonth { get; set; } = 9;
+    }
+
+    public sealed class MeritRules
+    {
+        public int DestroyUnitLeader { get; set; } = 100;
+        public int DestroyUnitMember { get; set; } = 50;
+        public int Capture { get; set; } = 300;
     }
 
     public sealed class CityRules

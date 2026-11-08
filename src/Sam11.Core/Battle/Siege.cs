@@ -34,6 +34,8 @@ namespace Sam11.Core.Battle
         public string Stronghold = "";
         public string? From;
         public string To = "";
+        /// <summary>정청을 점거한 부대의 무장들 (공적용).</summary>
+        public List<string> Officers = new List<string>();
     }
 
     /// <summary>수비대 부대의 주장이 없을 때 쓰는 이름 없는 지휘관.</summary>

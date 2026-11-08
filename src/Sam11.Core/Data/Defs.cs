@@ -165,5 +165,19 @@ namespace Sam11.Core.Data
         public int Tier { get; set; }
         public LocalizedText Name { get; set; } = new LocalizedText();
         public int TroopBonus { get; set; }
+        /// <summary>세력 안 정원 (null이면 제한 없음).</summary>
+        public int? Quota { get; set; }
+        /// <summary>임명하려면 군주 작위가 이 단계 이상이어야 한다.</summary>
+        public int RequiredTitle { get; set; }
+        /// <summary>필요 공적.</summary>
+        public int Merit { get; set; }
+    }
+
+    /// <summary>군주 작위 (0 없음, 1 주목, 2 공, 3 왕, 4 황제). 도시 수로 오른다.</summary>
+    public sealed class RulerTitleDef
+    {
+        public int Level { get; set; }
+        public LocalizedText Name { get; set; } = new LocalizedText();
+        public int RequiredCities { get; set; }
     }
 }

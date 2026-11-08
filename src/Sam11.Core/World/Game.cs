@@ -70,6 +70,8 @@ namespace Sam11.Core.World
                 GarrisonStrike(g);
             Resolve();
 
+            BlockadePressure();
+            Resolve();
             Field.EndRound();
             foreach (var kv in Garrisons) World.Cities[kv.Key].FieldGarrison = kv.Value.IsAlive ? kv.Value.Troops : 0;
             bool monthStart;
@@ -80,9 +82,24 @@ namespace Sam11.Core.World
             CheckVictory();
         }
 
+        /// <summary>포위된 성의 수비대는 매 턴 사기가 떨어진다 (02 맵·도시 설계서 4.2의 포위 판정).</summary>
+        public int BlockadeMoraleLoss = 5;
+
+        private void BlockadePressure()
+        {
+            foreach (var kv in Garrisons)
+                if (kv.Value.IsAlive && Field.IsBlockaded(kv.Key))
+                {
+                    Field.LoseMorale(kv.Value, BlockadeMoraleLoss);
+                    World.Log.Add($"[{World.Date}] {World.Cities[kv.Key]} 포위: 수비대 사기 {kv.Value.Morale}");
+                }
+        }
+
         /// <summary>수비대가 사거리 안의 적 중 가장 약한 부대를 친다.</summary>
         public void GarrisonStrike(Unit g)
         {
+            // 앞선 교전의 반격으로 혼란에 빠졌거나 이미 행동했을 수 있다
+            if (g.Status != UnitStatus.Ready || g.HasActed) return;
             var foe = Field.Alive.Where(e => Field.Hostile(e.Faction, g.Faction) && Field.InRange(g, e))
                                  .OrderBy(e => e.Troops).FirstOrDefault();
             if (foe != null) Field.Attack(g, foe);
@@ -144,6 +161,8 @@ namespace Sam11.Core.World
                     if (g.IsAlive) g.Status = UnitStatus.Withdrawn;
                 }
                 SiegeSetup.ApplyCapture(World, cap);
+                foreach (var id in cap.Officers)
+                    if (World.Officers.TryGetValue(id, out var o)) o.Merit += World.Data.Rules.Merit.Capture;
             }
             SiegeSetup.SyncStructures(World, Field);
 
@@ -156,6 +175,9 @@ namespace Sam11.Core.World
 
         private void ApplyFate(OfficerFate fate)
         {
+            for (int i = 0; i < fate.ByOfficers.Count; i++)
+                if (World.Officers.TryGetValue(fate.ByOfficers[i], out var hero))
+                    hero.Merit += i == 0 ? World.Data.Rules.Merit.DestroyUnitLeader : World.Data.Rules.Merit.DestroyUnitMember;
             if (!World.Officers.TryGetValue(fate.OfficerId, out var o)) return;
             switch (fate.Outcome)
             {
@@ -251,6 +273,8 @@ namespace Sam11.Core.World
 
         private void MonthlyUpkeep()
         {
+            foreach (var f in World.Factions.Values.Where(f => f.Alive))
+                Promotion.UpdateTitle(World, f);
             foreach (var o in World.Officers.Values.Where(o => o.Status == OfficerStatus.Captive))
             {
                 if (++o.CaptiveMonths < 6) continue;

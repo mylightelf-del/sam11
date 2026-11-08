@@ -309,10 +309,22 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
         {
             total.CampaignsLaunched += a.Stats.CampaignsLaunched; total.LaunchedUnderRatio += a.Stats.LaunchedUnderRatio;
             total.CampaignsWon += a.Stats.CampaignsWon; total.CampaignsFailed += a.Stats.CampaignsFailed; total.CampaignsAbandoned += a.Stats.CampaignsAbandoned;
-            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats;
+            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
             foreach (var kv in a.Stats.LaunchBlocked) total.LaunchBlocked[kv.Key] = total.LaunchBlocked.GetValueOrDefault(kv.Key) + kv.Value;
         }
         captures += w.Log.Count(l => l.Contains("함락:"));
+        if (Environment.GetEnvironmentVariable("SIM_DEBUG") == "3")
+        {
+            foreach (var (f, camp) in ais.SelectMany(kv => kv.Value.History.Select(c => (kv.Key, c))).Where(x => !x.c.Won).Take(2))
+            {
+                var names = camp.Labels;
+                Console.WriteLine($"=== 실패한 원정: {w.NameOf(f)} → {w.Cities[camp.Target]} (추정 수비 {camp.EstimatedDefense:F0}, 필요 {camp.Required}) ===");
+                foreach (var e in camp.Exits) Console.WriteLine("  [이탈] " + e);
+                foreach (var l in game.Field.Log.Lines.Skip(camp.LogStart).Take(camp.LogEnd - camp.LogStart)
+                                       .Where(l => l.Contains(w.Cities[camp.Target].Def.Name.Ko) || names.Any(n => l.Contains(n))).Take(70))
+                    Console.WriteLine("  " + l);
+            }
+        }
         if (Environment.GetEnvironmentVariable("SIM_DEBUG") == "2")
         {
             var L = game.Field.Log.Lines;
@@ -345,7 +357,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
     }
     Console.WriteLine($"함락 {captures}건, 전사 {deaths}명, 통일 {unifications}판");
     Console.WriteLine("AI 지표 (06 설계서 2장):");
-    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회), 출진 전 포기 {total.CampaignsAbandoned}");
+    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회: 사기·병력 {total.RetreatsMorale}, 군량 {total.RetreatsFood}), 출진 전 포기 {total.CampaignsAbandoned}, 증원 부대 {total.Reinforcements}");
     Console.WriteLine($"  축차 투입(전력비 1.5배 미달 출진): {total.LaunchedUnderRatio}회 ({Pct(total.LaunchedUnderRatio, total.CampaignsLaunched)})");
     Console.WriteLine($"  정체(목표가 있는데 제자리): {total.StalledUnitTurns}/{total.UnitTurns} 부대·턴 ({Pct(total.StalledUnitTurns, total.UnitTurns)})");
     Console.WriteLine($"  출진을 미룬 이유(턴 수): {string.Join(", ", total.LaunchBlocked.OrderByDescending(kv => kv.Value).Select(kv => $"{kv.Key} {kv.Value}"))}");

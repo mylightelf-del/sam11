@@ -20,6 +20,8 @@ namespace Sam11.Core.Battle
         public string Faction = "";
         /// <summary>궤멸시킨 쪽 세력 (화재·굶주림이면 null). 포로는 이 세력에 잡힌다.</summary>
         public string? By;
+        /// <summary>궤멸시킨 부대의 무장들 (공적용, 주장 먼저).</summary>
+        public List<string> ByOfficers = new List<string>();
         public string? Home;
         public bool Garrison;
         public Common.HexCoord Position;

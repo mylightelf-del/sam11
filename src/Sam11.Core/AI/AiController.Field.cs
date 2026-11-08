@@ -35,11 +35,16 @@ namespace Sam11.Core.AI
 
             foreach (var camp in Campaigns.Where(c => c.State == CampaignState.Marching))
             {
+                foreach (var gone in camp.Units.Where(u => !u.IsAlive && u.Status != UnitStatus.Withdrawn))
+                    camp.Exits.Add($"{gone.Label}: {gone.Status}");
                 camp.Units.RemoveAll(u => !u.IsAlive);
                 if (camp.Units.Count == 0)
                 {
                     camp.State = CampaignState.Done;
-                    if (w.Cities[camp.Target].Owner == faction) Stats.CampaignsWon++;
+                    camp.Won = w.Cities[camp.Target].Owner == faction;
+                    camp.LogEnd = g.Field.Log.Lines.Count;
+                    History.Add(camp);
+                    if (camp.Won) Stats.CampaignsWon++;
                     else Stats.CampaignsFailed++;
                 }
             }
@@ -67,10 +72,11 @@ namespace Sam11.Core.AI
             if (officers.Count >= 2) officers.RemoveAt(officers.Count - 1); // 한 명은 남겨 성을 지킨다
             if (officers.Count == 0) { W("무장 없음"); return; }
             // 무장들이 이끌 수 있는 병력이 필요 병력에 못 미치면 나가지 않는다 (축차 투입 방지)
-            int capacity = officers.Take(5).Sum(o => UnitStats.MaxTroops(o.Def, o.Rank != null ? w.Data.Ranks[o.Rank] : null, w.Data.Rules.Unit));
+            int capacity = officers.Take(8).Sum(o => UnitStats.MaxTroops(o.Def, o.Rank != null ? w.Data.Ranks[o.Rank] : null, w.Data.Rules.Unit));
             if (capacity < camp.Required) { W("지휘 한도"); return; }
 
-            int toSend = Math.Min(sendable, (int)(camp.Required * 1.2));
+            // 작은 목표에도 최소 3,000명은 보낸다 (그 사이 수비가 늘었을 수 있다)
+            int toSend = Math.Min(sendable, Math.Max((int)(camp.Required * 1.2), 3000));
             int dist = src.Placement.Center.DistanceTo(target.Placement.Center);
             // 왕복 진군 + 공성 15턴 (성문을 깨고 수비대를 깎는 데 걸리는 시간)
             int turns = dist / 4 * 2 + 15;
@@ -82,7 +88,7 @@ namespace Sam11.Core.AI
             var launched = new List<Unit>();
             var used = new HashSet<string>();
             bool haveSiege = false;
-            for (int i = 0; i < 5 && toSend >= 1000; i++)
+            for (int i = 0; i < 8 && toSend >= 300; i++)
             {
                 var leader = officers.FirstOrDefault(o => !used.Contains(o.Id));
                 if (leader == null) break;
@@ -96,7 +102,7 @@ namespace Sam11.Core.AI
                 int max = UnitStats.MaxTroops(memberDefs[0], leader.Rank != null ? w.Data.Ranks[leader.Rank] : null, w.Data.Rules.Unit);
                 int troops = Math.Min(max, toSend);
                 string? formation = ChooseFormation(g, memberDefs, troops, src, walls && !haveSiege);
-                if (formation == null) continue;
+                if (formation == null) { W("펼칠 진형 없음"); continue; }
                 if (formation == "siege") haveSiege = true;
                 int perTurn = (int)Math.Ceiling(troops * w.Data.Rules.Economy.FoodPerSoldierMonth / w.Data.Rules.Time.TurnsPerMonth);
                 int food = Math.Min(perTurn * turns * 12 / 10, Math.Max(0, src.Food - Domestic.MonthlyFoodUse(w, src)));
@@ -107,15 +113,63 @@ namespace Sam11.Core.AI
                     _unitCampaign[u] = camp;
                     toSend -= troops;
                 }
-                catch (InvalidOperationException) { break; }
+                catch (InvalidOperationException ex) { W("출진 오류: " + ex.Message.Split(':')[0]); break; }
             }
-            if (launched.Count == 0) return;
+            if (launched.Count == 0) { W("부대 0개"); return; }
             camp.Units.AddRange(launched);
+            camp.LogStart = g.Field.Log.Lines.Count;
+            camp.Labels.AddRange(launched.Select(u => u.Label));
             camp.State = CampaignState.Marching;
             camp.LaunchRatio = launched.Sum(u => u.Troops) / Math.Max(1.0, camp.EstimatedDefense);
             Stats.CampaignsLaunched++;
             if (camp.LaunchRatio < 1.5 * 0.95) Stats.LaunchedUnderRatio++;
             w.Log.Add($"[{w.Date}] (AI) {w.NameOf(faction)} 세력, {w.Cities[camp.Target]} 공략군 출진: {launched.Count}개 부대 {launched.Sum(u => u.Troops)}명 (추정 수비 {camp.EstimatedDefense:F0})");
+        }
+
+        /// <summary>
+        /// 증원: 원정군이 목표에 붙어 싸우는 중인데 병력이 남은 수비의 1.2배에 못 미치면,
+        /// 출발 거점의 여유 병력으로 부대를 더 보낸다. 주력이 이미 붙어 있으므로 축차 투입으로 세지 않는다.
+        /// </summary>
+        private void TryReinforce(Game g, string faction, Campaign camp)
+        {
+            var w = g.World;
+            if ((g.TurnCount - camp.StartTurn) % 3 != 0) return;
+            var src = w.Cities[camp.Source];
+            var target = w.Cities[camp.Target];
+            if (src.Owner != faction || target.Owner == faction) return;
+            var alive = camp.Units.Where(u => u.IsAlive).ToList();
+            if (alive.Count == 0) return;
+            bool engaged = alive.Any(u => u.Position.DistanceTo(target.Placement.Center) <= 6);
+            if (!engaged) return;
+            double defense = Knowledge!.EstimateTroops(g, target);
+            if (alive.Sum(u => u.Troops) >= defense * 1.2) return;
+            int sendable = Surplus(g, src, faction);
+            if (sendable < 3000) return;
+            var officers = w.OfficersAt(src.Id).Where(o => o.Faction == faction && !o.Acted && o.InjuredTurns == 0)
+                            .OrderByDescending(o => o.Def.Stats.Ldr + o.Def.Stats.War).ToList();
+            if (officers.Count >= 2) officers.RemoveAt(officers.Count - 1);
+            int dist = src.Placement.Center.DistanceTo(target.Placement.Center);
+            double perTurn = w.Data.Rules.Economy.FoodPerSoldierMonth / w.Data.Rules.Time.TurnsPerMonth;
+            foreach (var leader in officers.Take(2))
+            {
+                if (sendable < 3000) break;
+                var defs = new List<OfficerDef> { leader.Def };
+                int troops = Math.Min(sendable, UnitStats.MaxTroops(leader.Def, leader.Rank != null ? w.Data.Ranks[leader.Rank] : null, w.Data.Rules.Unit));
+                string? formation = ChooseFormation(g, defs, troops, src, false);
+                if (formation == null) continue;
+                int food = Math.Min((int)(troops * perTurn * (dist / 4 * 2 + 12)), Math.Max(0, src.Food - Domestic.MonthlyFoodUse(w, src) * 2));
+                if (food <= 0) break;
+                try
+                {
+                    var u = SiegeSetup.Sortie(w, g.Field, src.Id, new[] { leader.Id }, formation, troops, food);
+                    camp.Units.Add(u);
+                    camp.Labels.Add(u.Label);
+                    _unitCampaign[u] = camp;
+                    sendable -= troops;
+                    Stats.Reinforcements++;
+                }
+                catch (InvalidOperationException) { break; }
+            }
         }
 
         /// <summary>
@@ -174,7 +228,14 @@ namespace Sam11.Core.AI
             }
             if (camp == null || retreat || camp.State == CampaignState.Done)
             {
-                if (retreat && camp != null) { Stats.Retreats++; _unitCampaign.Remove(u); }
+                if (camp != null)
+                    camp.Exits.Add($"{u.Label}: {(retreat ? "퇴각" : "원정 종료")} 사기 {u.Morale} 병력 {u.Troops}/{u.MaxTroops} 군량 {u.Food} 보급 {b.IsSupplied(u)} 상태 {camp.State}");
+                if (retreat && camp != null)
+                {
+                    Stats.Retreats++;
+                    if (u.Food == 0) Stats.RetreatsFood++; else Stats.RetreatsMorale++;
+                    _unitCampaign.Remove(u);
+                }
                 string? home = u.Home != null && w.Cities[u.Home].Owner == faction ? u.Home : g.NearestCityOf(faction, u.Position);
                 if (home != null) GoHome(g, u, home);
                 return;

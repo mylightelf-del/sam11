@@ -15,6 +15,7 @@ namespace Sam11.Core.AI
             var gathering = Campaigns.Where(c => c.State == CampaignState.Gathering).ToList();
             foreach (var camp in gathering)
                 PrepareCampaign(g, faction, camp);
+            ReturnStrandedTroops(g, faction);
             foreach (var c in w.Cities.Values.Where(c => c.Owner == faction).OrderBy(c => c.Id).ToList())
             {
                 var pool = w.OfficersAt(c.Id).Where(o => o.Faction == faction && !o.Acted).ToList();
@@ -34,11 +35,13 @@ namespace Sam11.Core.AI
                     if (c.Training < 70) Try(pool, o => Domestic.Train(w, o.Id, c.Id), byLeadership: true);
                 }
 
-                // 원정 거점으로 남는 병력·군량을 모은다
+                // 원정 거점으로 모자란 만큼만 병력·군량을 보낸다 (계획이 바뀌어도 병력이 엉뚱한 곳에 갇히지 않게)
                 var feed = gathering.FirstOrDefault(x => x.Source != c.Id && Domestic.ConnectedOwn(w, c.Id).Contains(x.Source));
                 if (feed != null)
                 {
-                    int troops = Surplus(g, c, faction);
+                    var src = w.Cities[feed.Source];
+                    int deficit = (int)(feed.Required * 1.2) - Surplus(g, src, faction);
+                    int troops = Math.Min(Surplus(g, c, faction), Math.Max(0, deficit));
                     int food = Math.Max(0, c.Food - use * 4);
                     if (troops >= 1000 || food >= 5000)
                         Try(pool, o => Domestic.Transport(w, o.Id, c.Id, feed.Source, 0, food, troops));
@@ -52,7 +55,9 @@ namespace Sam11.Core.AI
 
                 BuildSomething(g, c, pool);
 
-                if (c.Def.IsCity && c.Troops < Reserve(g, c, faction) * 2 && c.Population > 30000 && CanFeedMore(g, c))
+                // 군비 확충 (빠른 판): 군량이 감당되는 한 인구 상한의 90%까지 병력을 채운다
+                int troopCap = (int)(c.Population * w.Data.Rules.Economy.Recruit.MaxTroopRatio * 0.9);
+                if (c.Def.IsCity && c.Troops + c.FieldGarrison < troopCap && c.Population > 30000 && CanFeedMore(g, c))
                     Try(pool, o => Domestic.Recruit(w, o.Id, c.Id), byCharisma: true);
                 if (c.Training < 60) Try(pool, o => Domestic.Train(w, o.Id, c.Id), byLeadership: true);
 
@@ -71,6 +76,39 @@ namespace Sam11.Core.AI
         }
 
         /// <summary>
+        /// 원정 출발지가 아닌 관문·항구 등에 여유 병력이 쌓여 있으면, 무장이 있는 이어진 도시로 되돌려 보낸다.
+        /// 거점에 무장이 없으면 이어진 도시의 무장이 와서 옮긴다고 보고, 그 도시 무장의 행동을 쓴다.
+        /// </summary>
+        private void ReturnStrandedTroops(Game g, string faction)
+        {
+            var w = g.World;
+            foreach (var post in w.Cities.Values.Where(c => c.Owner == faction && !c.Def.IsCity).OrderBy(c => c.Id).ToList())
+            {
+                if (Campaigns.Any(x => x.Source == post.Id)) continue;
+                int surplus = Surplus(g, post, faction);
+                if (surplus < 3000) continue;
+                var home = post.Def.Links.Select(l => w.Cities[l]).Where(x => x.Owner == faction && x.Def.IsCity)
+                               .OrderByDescending(x => w.OfficersAt(x.Id).Count(o => o.Faction == faction)).FirstOrDefault();
+                if (home == null) continue;
+                var mover = w.OfficersAt(post.Id).Concat(w.OfficersAt(home.Id))
+                              .FirstOrDefault(o => o.Faction == faction && !o.Acted);
+                if (mover == null) continue;
+                string original = mover.Location;
+                try
+                {
+                    // 거점에 무장이 없으면 도시 무장이 거점으로 건너가 병력을 이끌어 온다
+                    mover.Location = post.Id;
+                    Domestic.Transport(w, mover.Id, post.Id, home.Id, 0, 0, surplus);
+                    mover.Location = home.Id;
+                }
+                catch (InvalidOperationException)
+                {
+                    mover.Location = original;
+                }
+            }
+        }
+
+        /// <summary>
         /// 원정 준비: 출발 거점에 지휘관이 모자라면 이어진 거점에서 무장을 불러 모으고 (각 거점에 한 명은 남긴다),
         /// 원정 군량이 모자라면 금으로 사 둔다.
         /// </summary>
@@ -81,7 +119,7 @@ namespace Sam11.Core.AI
             var rules = w.Data.Rules;
             int Cap(OfficerState o) => UnitStats.MaxTroops(o.Def, o.Rank != null ? w.Data.Ranks[o.Rank] : null, rules.Unit);
             var here = w.OfficersAt(src.Id).Where(o => o.Faction == faction && o.InjuredTurns == 0).ToList();
-            int capacity = here.Select(Cap).OrderByDescending(x => x).Skip(1).Take(5).Sum();
+            int capacity = here.Select(Cap).OrderByDescending(x => x).Skip(1).Take(8).Sum();
             if (capacity < camp.Required)
             {
                 foreach (var id in Domestic.ConnectedOwn(w, src.Id).Where(id => id != src.Id).OrderBy(id => id))
@@ -171,8 +209,14 @@ namespace Sam11.Core.AI
             int harvest = Domestic.Harvest(w, c);
             int count(string id) => c.Facilities.Values.Count(f => f.FacilityId == id);
 
+            // 세력 전체에 군사 시설이 없으면 하나씩: 공성창(성문 깨기), 마구간(추행), 공방(안행)
+            var factionFacilities = w.Cities.Values.Where(x => x.Owner == c.Owner).SelectMany(x => x.Facilities.Values).Select(f => f.FacilityId).ToList();
+            string? military = new[] { "siege_works", "stable", "workshop" }.FirstOrDefault(id => !factionFacilities.Contains(id));
+            bool frontline = Campaigns.Any(x => x.Source == c.Id) || c.Def.Links.Any(l => w.Cities[l].Owner != c.Owner);
+
             string want;
-            if (harvest < use * 1.1) want = "farm";
+            if (military != null && frontline && c.Gold > 1500) want = military;
+            else if (harvest < use * 1.1) want = "farm";
             else if (count("market") <= count("farm")) want = "market";
             else if (count("barracks") == 0) want = "barracks";
             else if (count("mint") < count("market")) want = "mint";

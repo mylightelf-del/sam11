@@ -30,8 +30,15 @@ namespace Sam11.Core.Battle
         public int Troops { get; set; }
         public int MaxTroops { get; }
 
-        /// <summary>실제로 칼을 맞대는 병력: 지휘 한도(MaxTroops)를 넘는 병력은 공격에 보태지 못한다.</summary>
-        public int FightingTroops => Math.Min(Troops, MaxTroops);
+        /// <summary>배치될 때의 병력.</summary>
+        public int StartTroops { get; }
+
+        /// <summary>
+        /// 실제로 칼을 맞대는 병력: 지휘 한도(MaxTroops)를 넘는 병력은 공격에 보태지 못하고,
+        /// 병력을 잃은 만큼 비율로 줄어든다 (3만 수비대가 절반을 잃으면 지휘 한도의 절반).
+        /// 병력이 지휘 한도 이하인 보통 부대는 남은 병력 그대로다.
+        /// </summary>
+        public int FightingTroops => Math.Min(Troops, (int)((long)MaxTroops * Troops / Math.Max(1, StartTroops)));
         public int Energy { get; set; }
         public int Morale { get; set; }
 
@@ -76,6 +83,7 @@ namespace Sam11.Core.Battle
             Subs = subs;
             Formation = formation;
             Troops = troops;
+            StartTroops = Math.Max(troops, 1);
             MaxTroops = maxTroops;
             Energy = energy;
             Morale = morale;

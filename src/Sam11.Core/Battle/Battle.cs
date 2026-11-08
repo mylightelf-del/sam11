@@ -374,7 +374,11 @@ namespace Sam11.Core.Battle
                 var held = tiles.Any(kv => kv.Value.IsInterior) ? tiles.Where(kv => kv.Value.IsInterior) : tiles;
                 bool defended = held.Any(kv => UnitAt(kv.Key)?.Faction == sh.Owner);
                 if (defended) continue;
-                Captures.Add(new CaptureEvent { Stronghold = sh.Id, From = sh.Owner, To = occupant.Faction });
+                Captures.Add(new CaptureEvent
+                {
+                    Stronghold = sh.Id, From = sh.Owner, To = occupant.Faction,
+                    Officers = occupant.Members.Select(m => m.Id).ToList(),
+                });
                 Log.Add($"{sh.Name} 함락! {Korean.IGa(occupant.Label)} 정청을 점거했다");
                 sh.Owner = occupant.Faction;
             }
@@ -658,6 +662,7 @@ namespace Sam11.Core.Battle
                 {
                     OfficerId = o.Id, Outcome = fate, Faction = u.Faction, By = by?.Faction,
                     Home = u.Home, Garrison = u.IsGarrison, Position = u.Position,
+                    ByOfficers = by?.Members.Select(m => m.Id).ToList() ?? new List<string>(),
                 });
                 Log.Add($"  {o.Name.Ko}: {FateText(fate)}");
             }

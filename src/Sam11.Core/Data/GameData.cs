@@ -19,6 +19,7 @@ namespace Sam11.Core.Data
         public Dictionary<string, TerrainDef> Terrain { get; } = new Dictionary<string, TerrainDef>();
         public Dictionary<string, WeatherDef> Weather { get; } = new Dictionary<string, WeatherDef>();
         public Dictionary<string, RankDef> Ranks { get; } = new Dictionary<string, RankDef>();
+        public List<RulerTitleDef> RulerTitles { get; } = new List<RulerTitleDef>();
         public Dictionary<string, StrongholdDef> Strongholds { get; } = new Dictionary<string, StrongholdDef>();
         public Dictionary<string, FacilityDef> Facilities { get; } = new Dictionary<string, FacilityDef>();
 
@@ -45,6 +46,7 @@ namespace Sam11.Core.Data
             Fill(d.Terrain, ReadList<TerrainDef>(b, "terrain.json", "terrain"), t => t.Id);
             Fill(d.Weather, ReadList<WeatherDef>(b, "weather.json", "weather"), w => w.Id);
             Fill(d.Ranks, ReadList<RankDef>(b, "ranks.json", "ranks"), r => r.Id);
+            d.RulerTitles.AddRange(ReadList<RulerTitleDef>(b, "ranks.json", "ruler_titles").OrderBy(t => t.Level));
             Fill(d.Strongholds, ReadList<StrongholdDef>(b, "strongholds.json", "strongholds"), s => s.Id);
             Fill(d.Facilities, ReadList<FacilityDef>(b, "facilities.json", "facilities"), f => f.Id);
             d.DataDir = dataDir;

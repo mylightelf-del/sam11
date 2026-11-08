@@ -187,7 +187,7 @@
       "pop_ratio_cap": 0.05,
       "gold_per_soldier": 0.1,
       "morale_loss": 4,
-      "max_troop_ratio": 0.15
+      "max_troop_ratio": 0.1
     },
     "train": {
       "base": 5,
@@ -248,5 +248,10 @@
       "crane_wing"
     ],
     "blockade_ratio": 0.5
+  },
+  "merit": {
+    "destroy_unit_leader": 100,
+    "destroy_unit_member": 50,
+    "capture": 300
   }
 }

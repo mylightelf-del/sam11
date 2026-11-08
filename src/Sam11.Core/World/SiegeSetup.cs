@@ -64,7 +64,8 @@ namespace Sam11.Core.World
             if (food < 0 || food > c.Food) throw new InvalidOperationException($"군량 부족: {c.Food}/{food}");
             var spot = at ?? SortieSpot(b, c);
             string? eq = w.Data.Formations[formation].RequiredEquipment;
-            var u = b.Deploy(c.Owner!, officerIds, formation, troops, spot, c.Equipment, officers[0].Rank);
+            // 출진 부대의 사기는 성의 훈련도를 따른다 (수비대와 같은 공식)
+            var u = b.Deploy(c.Owner!, officerIds, formation, troops, spot, c.Equipment, officers[0].Rank, morale: 50 + c.Training / 2);
             c.Troops -= troops;
             c.Food -= food;
             if (eq != null)
