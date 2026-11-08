@@ -66,7 +66,9 @@
               "from": "luoyang",
               "to": "changan",
               "gold": 0.8,
-              "food": 0.8
+              "food": 0.8,
+              "troops": 0.7,
+              "officers": 0.6
             },
             {
               "type": "trust",
@@ -91,7 +93,8 @@
             }
           ]
         }
-      ]
+      ],
+      "decider": "dong_zhuo"
     },
     {
       "id": "imperial_seal",
@@ -161,7 +164,8 @@
             }
           ]
         }
-      ]
+      ],
+      "decider": "sun_jian"
     },
     {
       "id": "chain_stratagem",
@@ -212,11 +216,23 @@
           "cause": "assassination"
         },
         {
-          "type": "special",
-          "key": "dong_zhuo_succession",
-          "note": "동탁 세력을 여포(장안)와 이각·곽사(서량 출신 장수) 세력으로 분열"
+          "type": "split_faction",
+          "new_faction": "lu_bu",
+          "ruler": "lu_bu",
+          "color": "#7b1fa2",
+          "officers": [
+            "lu_bu",
+            "gao_shun",
+            "zhang_liao",
+            "wang_yun",
+            "chen_gong"
+          ],
+          "take_location_of": "lu_bu",
+          "successor": "li_jue",
+          "note": "여포가 동탁을 죽이고 독립한다. 남은 동탁 세력은 이각이 잇는다."
         }
-      ]
+      ],
+      "decider": "dong_zhuo"
     }
   ]
 }

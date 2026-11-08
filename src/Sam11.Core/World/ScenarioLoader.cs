@@ -96,6 +96,14 @@ namespace Sam11.Core.World
                 };
                 w.Officers[id] = os;
             }
+            foreach (var t in (root["treasures"] as JArray) ?? new JArray())
+                w.TreasureOwner[t.Value<string>("treasure")!] = t.Value<string>("owner");
+            string? eventsFile = root.Value<string>("events");
+            if (eventsFile != null)
+            {
+                var evRoot = GameData.ReadObject(Path.Combine(data.DataDir, "scenarios", scenarioId, eventsFile));
+                foreach (var e in evRoot["events"]!) w.Events.Add(EventDef.Parse(e));
+            }
             foreach (var d in (root["diplomacy"] as JArray) ?? new JArray())
             {
                 if (d.Value<string>("type") != "alliance") continue;

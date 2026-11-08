@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sam11.Core.Common;
@@ -133,6 +134,28 @@ namespace Sam11.Core.World
         public Dictionary<string, OfficerState> Officers { get; } = new Dictionary<string, OfficerState>();
         public List<string> Log { get; } = new List<string>();
         public List<Alliance> Alliances { get; } = new List<Alliance>();
+
+        public List<EventDef> Events { get; } = new List<EventDef>();
+        public HashSet<string> EventsDone { get; } = new HashSet<string>();
+
+        /// <summary>보물 → 소유 무장 (null이면 아직 아무도 갖지 않음).</summary>
+        public Dictionary<string, string?> TreasureOwner { get; } = new Dictionary<string, string?>();
+
+        /// <summary>세력별 신용 (0~100, 기본 50). 약속을 깨면 떨어진다 (05 외교 설계서 2.1).</summary>
+        public Dictionary<string, int> Trust { get; } = new Dictionary<string, int>();
+        /// <summary>세력 쌍의 우호도 (0~100, 기본 50).</summary>
+        public Dictionary<string, int> Friendship { get; } = new Dictionary<string, int>();
+
+        public int TrustOf(string faction) => Trust.TryGetValue(faction, out var t) ? t : 50;
+
+        public void ChangeTrust(string faction, int delta) => Trust[faction] = Math.Max(0, Math.Min(100, TrustOf(faction) + delta));
+
+        private static string PairKey(string a, string b) => string.CompareOrdinal(a, b) < 0 ? a + "|" + b : b + "|" + a;
+
+        public int FriendshipOf(string a, string b) => Friendship.TryGetValue(PairKey(a, b), out var v) ? v : 50;
+
+        public void ChangeFriendship(string a, string b, int delta) =>
+            Friendship[PairKey(a, b)] = Math.Max(0, Math.Min(100, FriendshipOf(a, b) + delta));
 
         public bool AreAllied(string a, string b) =>
             a == b || Alliances.Any(x => x.Active(Date) && x.Members.Contains(a) && x.Members.Contains(b));

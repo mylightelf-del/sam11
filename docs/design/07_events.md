@@ -119,9 +119,27 @@
 - 만든 무장은 가상 시나리오와 역사 시나리오 양쪽에 넣을 수 있다 (역사 시나리오에는 재야로만 등장, 안).
 - 편집 데이터는 파일로 저장해 공유할 수 있다.
 
-## 6. 미결 사항
+## 6. 구현 현황 (M5-1)
+
+`src/Sam11.Core/World/Events.cs`
+
+- 이벤트는 월초마다 판정한다. 잠기지 않았고(`locked`), 아직 일어나지 않았고(`once`), 결정권 세력(`decider`)이 살아 있고, 조건이 맞으면 일어난다.
+- 선택지는 결정권 세력의 컨트롤러가 고른다 (AI는 `ai_weight` 가중치, 플레이어 UI도 같은 통로). 결정권 세력이 없으면 가중치로 무작위.
+- 조건: `all` `any` `not` `after` `before` `chance` `ruler_of` `owns` `officer_in` `officer_in_faction` `loyalty_lte` `faction_alive` `faction_destroyed` `event_done` `enemy_units_near`
+- 결과: `move_capital` `city_population` `city_morale` `destroy_facilities` `transfer_resources`(금·군량·병력·무장 비율) `trust` `friendship` `unlock_event` `give_treasure` `loyalty` `kill_officer` `split_faction`
+- 모르는 조건·결과는 오류로 멈춘다 (데이터 오타를 조용히 넘기지 않게).
+- `split_faction` (세력 분열): 지정한 무장들이 새 세력을 세우고 주동자가 있는 거점을 가져간다. 남은 세력은 `successor`가 잇는다. 게임은 새 세력에 컨트롤러(AI)를 붙인다.
+
+### 6.1 190년 이벤트 효과 (자동 대전 5판 × 10년)
+- 장안 천도: 190년 3월, 낙양 병력·무장 일부가 장안으로 옮겨 낙양이 약해진다.
+- 연환계: 192년부터 매월 30%, 여포가 동탁을 죽이고 독립, 동탁 세력은 이각이 잇는다.
+- 이벤트 전 동탁은 평균 도시 18.8개로 독주 → 이벤트 후 6.8개. 원소가 평균 11.2개로 앞서고, 조조도 일부 판에서 11개까지 성장.
+
+## 7. 미결 사항
 
 - [ ] 시나리오별 세력·무장·도시 배치 데이터
-- [ ] 역사 이벤트 전체 목록
+- [ ] 역사 이벤트 전체 목록 (현재 190년 3개)
+- [ ] 보물 효과를 무장 능력치·특기에 반영 (소유만 기록 중)
+- [ ] AI 이벤트 선택에 군주 성향 반영
 - [ ] 세력마다의 목표 승리 조건
 - [ ] 자녀 등장 나이, 특기 계승 규칙

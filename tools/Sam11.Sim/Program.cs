@@ -284,6 +284,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
         var ais = new Dictionary<string, Sam11.Core.AI.AiController>();
         foreach (var f in w.Factions.Keys)
             game.Controllers[f] = ais[f] = new Sam11.Core.AI.AiController(Sam11.Core.AI.AiConfig.For(level));
+        game.ControllerFactory = f => ais[f] = new Sam11.Core.AI.AiController(Sam11.Core.AI.AiConfig.For(level));
         int turns = years * 36;
         int logged = 0;
         for (int t = 0; t < turns && !game.IsOver; t++)
@@ -291,7 +292,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
             game.PlayTurn();
             if (runs == 1)
             {
-                foreach (var l in w.Log.Skip(logged).Where(l => l.Contains("함락") || l.Contains("멸망") || l.Contains("전사")
+                foreach (var l in w.Log.Skip(logged).Where(l => l.Contains("함락") || l.Contains("멸망") || l.Contains("전사") || l.Contains("◆") || l.Contains("→ ") || l.Contains("독립")
                                                                || l.Contains("통일") || l.Contains("출진:") || l.Contains("뒤를 이어")))
                     Console.WriteLine(l);
                 logged = w.Log.Count;

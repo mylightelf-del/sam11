@@ -23,6 +23,15 @@ namespace Sam11.Core.World
         public Dictionary<string, IFactionController> Controllers { get; } = new Dictionary<string, IFactionController>();
         public Dictionary<string, Unit> Garrisons { get; } = new Dictionary<string, Unit>();
         public int TurnCount { get; private set; }
+
+        /// <summary>이벤트로 새 세력이 생겼을 때 그 세력의 컨트롤러를 만드는 방법 (예: AI). 없으면 아무도 조종하지 않는다.</summary>
+        public Func<string, IFactionController>? ControllerFactory { get; set; }
+
+        public void OnFactionCreated(string faction)
+        {
+            if (ControllerFactory != null && !Controllers.ContainsKey(faction))
+                Controllers[faction] = ControllerFactory(faction);
+        }
         public string? Winner { get; private set; }
 
         /// <summary>적이 이 거리 안에 오면 수비대를 성에 배치한다.</summary>
@@ -77,7 +86,12 @@ namespace Sam11.Core.World
             bool monthStart;
             Domestic.AdvanceTurn(World);
             monthStart = World.Date.IsMonthStart;
-            if (monthStart) MonthlyUpkeep();
+            if (monthStart)
+            {
+                MonthlyUpkeep();
+                EventSystem.RunMonthly(this);
+                Resolve();
+            }
             TurnCount++;
             CheckVictory();
         }

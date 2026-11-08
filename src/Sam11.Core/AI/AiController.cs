@@ -60,7 +60,7 @@ namespace Sam11.Core.AI
     /// 3계층 AI (06 AI 설계서 3장).
     /// 전략(매월: 목표 선정) → 작전(원정군 편성·진군) → 전술(부대별 행동). 내정 AI가 이를 뒷받침한다.
     /// </summary>
-    public sealed partial class AiController : IFactionController
+    public sealed partial class AiController : IFactionController, IEventChooser
     {
         public AiConfig Config { get; }
         public List<Campaign> Campaigns { get; } = new List<Campaign>();
@@ -110,6 +110,9 @@ namespace Sam11.Core.AI
             RunField(g, faction);
             Campaigns.RemoveAll(c => c.State == CampaignState.Done);
         }
+
+        /// <summary>이벤트 선택: 데이터의 ai_weight 가중치로 고른다 (06 AI 설계서: 성향 반영은 추후).</summary>
+        public EventChoice Choose(Game g, EventDef ev, string faction) => EventSystem.WeightedPick(g.World.Rng, ev.Choices);
 
         // ------------------------------------------------------------------ 공통 판단
 
