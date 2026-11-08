@@ -212,11 +212,19 @@ namespace Sam11.Core.Battle
         /// from 칸에 닿은 뒤 margin만큼만 더 넓히고 멈추는 경로 지도 (맵 전체를 다 돌지 않는다).
         /// covered: 이 비용까지는 지도가 완전하다. from에 닿지 못하면 maxCost까지 돈다.
         /// </summary>
-        public Dictionary<HexCoord, int> PathField(Unit u, HexCoord goal, HexCoord? from, int margin, int maxCost, out int covered)
+        public Dictionary<HexCoord, int> PathField(Unit u, HexCoord goal, HexCoord? from, int margin, int maxCost, out int covered) =>
+            PathField(u, new[] { goal }, from, margin, maxCost, out covered);
+
+        /// <summary>여러 목표 칸 중 가장 가까운 곳까지의 비용 지도 (성벽·성문 전체를 목표로 삼을 때).</summary>
+        public Dictionary<HexCoord, int> PathField(Unit u, IEnumerable<HexCoord> goals, HexCoord? from, int margin, int maxCost, out int covered)
         {
-            var dist = new Dictionary<HexCoord, int> { [goal] = 0 };
+            var dist = new Dictionary<HexCoord, int>();
             var heap = new MinHeap<HexCoord>();
-            heap.Push(goal, 0);
+            foreach (var goal in goals)
+            {
+                dist[goal] = 0;
+                heap.Push(goal, 0);
+            }
             int limit = maxCost;
             covered = maxCost;
             while (heap.Count > 0)

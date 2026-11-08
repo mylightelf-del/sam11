@@ -28,6 +28,8 @@ namespace Sam11.Core.AI
         /// <summary>부대가 원정에서 빠진 사연 (분석용).</summary>
         public List<string> Exits = new List<string>();
         public List<string> Labels = new List<string>();
+        /// <summary>집중 공격할 성벽·성문 칸 (무너지면 다시 고른다).</summary>
+        public HexCoord? Focus;
         public override string ToString() => $"{Source}→{Target} ({State}, 필요 {Required})";
     }
 
@@ -50,6 +52,8 @@ namespace Sam11.Core.AI
         public int RetreatsFood;
         /// <summary>원정 준비가 끝났는데 출진하지 못한 이유별 횟수 (병력 부족, 지휘 한도, 군량 부족 등).</summary>
         public Dictionary<string, int> LaunchBlocked = new Dictionary<string, int>();
+        /// <summary>정체 원인별 횟수 (아군에 막힘, 적에 막힘, 이동 불가, 도착 후 할 일 없음, 경로 없음).</summary>
+        public Dictionary<string, int> StallReasons = new Dictionary<string, int>();
     }
 
     /// <summary>
@@ -70,8 +74,8 @@ namespace Sam11.Core.AI
         /// 목표까지의 경로 지도 캐시. 원정 목표는 몇 달씩 같으므로 턴을 넘겨 쓰고,
         /// 함락이나 성벽·성문 붕괴로 길이 바뀌었을 때만 버린다.
         /// </summary>
-        private readonly Dictionary<(HexCoord, string, string), (Dictionary<HexCoord, int> Field, int Covered)> _pathCache =
-            new Dictionary<(HexCoord, string, string), (Dictionary<HexCoord, int>, int)>();
+        private readonly Dictionary<(string, string, string), (Dictionary<HexCoord, int> Field, int Covered)> _pathCache =
+            new Dictionary<(string, string, string), (Dictionary<HexCoord, int>, int)>();
         private (int Captures, int Broken) _pathVersion = (-1, -1);
         private int _plannedMonth = -1;
 

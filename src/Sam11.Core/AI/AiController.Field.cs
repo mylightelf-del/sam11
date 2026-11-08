@@ -197,19 +197,22 @@ namespace Sam11.Core.AI
 
         // ------------------------------------------------------------------ 전술: 부대 행동
 
+        private Dictionary<HexCoord, int> PathTo(Game g, Unit u, HexCoord goal) =>
+            PathTo(g, u, goal.ToString(), new[] { goal });
+
         /// <summary>
-        /// goal까지의 경로 지도. 이 부대 위치와 이번 턴 이동 범위를 덮는 만큼만 계산하고,
-        /// 이미 계산해 둔 지도가 그 범위를 덮으면 그대로 쓴다.
+        /// 목표 칸들까지의 경로 지도. 이 부대 위치와 이번 턴 이동 범위를 덮는 만큼만 계산하고,
+        /// 이미 계산해 둔 지도가 그 범위를 덮으면 그대로 쓴다. key는 목표 칸 묶음을 구별하는 이름.
         /// </summary>
-        private Dictionary<HexCoord, int> PathTo(Game g, Unit u, HexCoord goal)
+        private Dictionary<HexCoord, int> PathTo(Game g, Unit u, string key, IReadOnlyCollection<HexCoord> goals)
         {
-            var key = (goal, u.Formation.Id, u.Faction);
+            var cacheKey = (key, u.Formation.Id, u.Faction);
             int margin = g.Field.MovePoints(u) * 2 + 12;
-            if (_pathCache.TryGetValue(key, out var cached)
+            if (_pathCache.TryGetValue(cacheKey, out var cached)
                 && cached.Field.TryGetValue(u.Position, out var here) && here + margin <= cached.Covered)
                 return cached.Field;
-            var field = g.Field.PathField(u, goal, u.Position, margin, 1600, out int covered);
-            _pathCache[key] = (field, covered);
+            var field = g.Field.PathField(u, goals, u.Position, margin, 1600, out int covered);
+            _pathCache[cacheKey] = (field, covered);
             return field;
         }
 
@@ -241,11 +244,32 @@ namespace Sam11.Core.AI
                 return;
             }
 
-            var gates = target!.Placement.Tiles.Keys.Where(h => b.Structures.TryGetValue(h, out var s) && s.Blocking && s.Kind == StructureKind.Gate).ToList();
-            HexCoord goal = gates.Count > 0 ? gates.OrderBy(h => h.DistanceTo(u.Position)).First() : target.Placement.Center;
-            var field = PathTo(g, u, goal);
+            // 성벽·성문이 모두 서 있으면 성 둘레 어디든 가까운 곳으로 가서 두드린다 (한 성문에 몰리지 않게).
+            // 한 곳이라도 뚫렸으면 정청을 향해 들어간다.
+            var walls = target!.Placement.Tiles.Keys.Where(h => b.Structures.TryGetValue(h, out var s) && s.Blocking).ToList();
+            bool breached = target.Placement.Tiles.Keys.Any(h => b.Structures.TryGetValue(h, out var s)
+                                && (s.Kind == StructureKind.Wall || s.Kind == StructureKind.Gate) && s.MaxDurability > 0 && !s.Blocking);
+            bool encircle = walls.Count > 0 && !breached;
+            // 뚫린 뒤에는 성 안으로 들어가 수비대를 치고 정청을 차지하는 게 먼저다.
+            // 틈 앞에 줄이 막혀 나아갈 수 없는 부대만 옆 성벽을 쳐서 두 번째 틈을 낸다 (ChooseAction의 breach 점수).
+            List<HexCoord> cluster = walls;
+            if (encircle)
+            {
+                // 집중 공격 지점: 남은 내구가 가장 낮은 곳(성문 우선). 반경 2칸 안의 성벽도 함께 공격 대상으로 삼는다.
+                if (camp.Focus == null || !walls.Contains(camp.Focus.Value))
+                {
+                    var centroid = camp.Units.Where(x => x.IsAlive).Select(x => x.Position).DefaultIfEmpty(u.Position).First();
+                    camp.Focus = walls.OrderBy(h => b.Structures[h].Durability * (b.Structures[h].Kind == StructureKind.Gate ? 1.0 : 1.5)
+                                                    + h.DistanceTo(centroid) * 60).First();
+                }
+                var focus = camp.Focus.Value;
+                cluster = walls.Where(h => h.DistanceTo(focus) <= 2).ToList();
+            }
+            // 이동은 집중 지점 하나를 향해 모이고, 공격은 그 둘레 성벽까지 (자리가 없는 부대도 옆 성벽을 친다)
+            var field = encircle ? PathTo(g, u, camp.Focus!.Value) : PathTo(g, u, target.Placement.Center);
+            HexCoord goal = encircle ? camp.Focus!.Value : target.Placement.Center;
 
-            var best = ChooseAction(g, u, goal, gates.Count > 0 ? goal : (HexCoord?)null, field);
+            var best = ChooseAction(g, u, goal, cluster, field, target.Placement.Center, breached: !encircle && walls.Count > 0);
             var before = u.Position;
             if (best.Pos != u.Position) b.Move(u, best.Pos);
             if (!u.IsAlive || u.HasActed) return;
@@ -258,9 +282,25 @@ namespace Sam11.Core.AI
                     else b.AttackStructure(u, best.Structure!.Value);
                     break;
                 default:
-                    if (before == u.Position) Stats.StalledUnitTurns++;
+                    if (before == u.Position)
+                    {
+                        Stats.StalledUnitTurns++;
+                        string why = StallReason(b, u, field);
+                        Stats.StallReasons[why] = Stats.StallReasons.TryGetValue(why, out var n) ? n + 1 : 1;
+                    }
                     break;
             }
+        }
+
+        /// <summary>제자리에 선 이유: 목표 쪽 이웃 칸이 왜 막혔는지.</summary>
+        private static string StallReason(Battle.Battle b, Unit u, Dictionary<HexCoord, int> field)
+        {
+            if (!field.TryGetValue(u.Position, out var here)) return "경로 없음";
+            var better = u.Position.Neighbors().Where(n => field.TryGetValue(n, out var v) && v < here).ToList();
+            if (better.Count == 0) return "도착 후 할 일 없음";
+            if (better.All(n => b.UnitAt(n) is Unit x && x.Faction == u.Faction)) return "아군에 막힘";
+            if (better.All(n => b.UnitAt(n) is Unit x)) return "부대에 막힘(적 포함)";
+            return "이동 불가(지배 영역 등)";
         }
 
         private void GoHome(Game g, Unit u, string cityId)
@@ -297,7 +337,8 @@ namespace Sam11.Core.AI
         /// 이동 가능한 모든 칸에서 공격·전법·성문 공격·이동을 평가해 가장 좋은 행동을 고른다.
         /// 점수 = 기대 피해 − 기대 반격 + 궤멸 보너스 + 연쇄 기대치, 이동은 목표까지 남은 경로로 평가.
         /// </summary>
-        private Choice ChooseAction(Game g, Unit u, HexCoord goal, HexCoord? gate, Dictionary<HexCoord, int> field)
+        private Choice ChooseAction(Game g, Unit u, HexCoord goal, IReadOnlyList<HexCoord> structures, Dictionary<HexCoord, int> field,
+                                    HexCoord? capturePoint = null, bool breached = false)
         {
             var b = g.Field;
             var reach = b.Reachable(u);
@@ -308,6 +349,7 @@ namespace Sam11.Core.AI
             var siegeTactics = u.Formation.Id == "siege"
                 ? b.AvailableTactics(u).Where(t => t.EnergyCost <= u.Energy && t.Formation == "siege" && !t.Effects.Any(e => e.Type == "target_on_wall")).ToList()
                 : new List<TacticDef>();
+            int maxStructureRange = Math.Max(u.Formation.Range, siegeTactics.Select(t => b.TacticRange(u, t)).DefaultIfEmpty(1).Max());
             var best = new Choice { Pos = origin, Kind = ActionKind.Move };
             try
             {
@@ -327,7 +369,9 @@ namespace Sam11.Core.AI
                 double terrain = Combat.TerrainMod(u.Formation, b.Map.TerrainAt(pos)) * 8;
                 int adjacentFoes = pos.Neighbors().Count(n => b.UnitAt(n) is Unit x && b.Hostile(x.Faction, u.Faction));
                 double danger = adjacentFoes * (u.Morale < 40 ? 120 : 40);
-                Consider(best, progress + terrain - danger, pos, ActionKind.Move);
+                // 정청에 들어서면 (수비 부대가 없을 때) 함락이다
+                double capture = capturePoint != null && pos == capturePoint.Value ? 5000 : 0;
+                Consider(best, progress + terrain - danger + capture, pos, ActionKind.Move);
 
                 u.Position = pos;
                 foreach (var e in enemies)
@@ -356,15 +400,23 @@ namespace Sam11.Core.AI
                         Consider(best, p * (dmg + chain + Kill(dmg, e)) + terrain - danger * 0.3, pos, ActionKind.Tactic, e, t);
                     }
                 }
-                if (gate != null)
+                // 성벽·성문 공격: 성문은 내구가 낮아 더 높이 친다. 공성진은 언제나 구조물 우선
+                foreach (var st in structures)
                 {
-                    int d = pos.DistanceTo(gate.Value);
-                    double weight = u.Formation.Id == "siege" ? 2.0 : (enemies.Count == 0 ? 0.8 : 0.3);
+                    int d = pos.DistanceTo(st);
+                    if (d > maxStructureRange) continue;
+                    bool isGate = b.Structures[st].Kind == StructureKind.Gate;
+                    double weight = (u.Formation.Id == "siege" ? 2.0 : (enemies.Count == 0 ? 0.8 : 0.3)) * (isGate ? 1.0 : 0.7)
+                                    * (st == goal ? 1.3 : 1.0); // 집중 지점을 먼저
+                    // 이미 뚫렸으면(공성진 제외): 성 안으로 한 칸이라도 나아갈 수 있으면 그게 낫고(1칸 = 2점),
+                    // 막혔을 때만 성벽을 친다 (진척 + 아주 작은 가산점)
+                    bool sideJob = breached && u.Formation.Id != "siege";
+                    double Score(double dmg) => sideJob ? progress + terrain + 1 + dmg * 0.002 : dmg * weight + terrain;
                     if (d <= u.Formation.Range)
-                        Consider(best, b.StructureDamage(u, 1.0, false) * weight + terrain, pos, ActionKind.Structure, null, null, gate);
+                        Consider(best, Score(b.StructureDamage(u, 1.0, false)), pos, ActionKind.Structure, null, null, st);
                     foreach (var t in siegeTactics)
                         if (d <= b.TacticRange(u, t))
-                            Consider(best, b.StructureDamage(u, t.Power, false) * weight + terrain, pos, ActionKind.Structure, null, t, gate);
+                            Consider(best, Score(b.StructureDamage(u, t.Power, false)), pos, ActionKind.Structure, null, t, st);
                 }
             }
             }
