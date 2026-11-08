@@ -244,6 +244,7 @@
       "wild_geese",
       "fish_scale",
       "crane_wing"
-    ]
+    ],
+    "blockade_ratio": 0.5
   }
 }

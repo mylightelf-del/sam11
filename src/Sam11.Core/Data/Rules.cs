@@ -41,6 +41,8 @@ namespace Sam11.Core.Data
         /// <summary>구조물의 방어 능력치 (부대의 통솔 자리에 들어간다).</summary>
         public int StructureDefenseStat { get; set; } = 70;
         public int CaptureMoraleLoss { get; set; } = 20;
+        /// <summary>도시 바깥 둘레 칸 중 이 비율 이상을 적이 점거하면 포위 (보급 차단).</summary>
+        public double BlockadeRatio { get; set; } = 0.5;
         public List<string> GarrisonFormationPreference { get; set; } = new List<string>();
     }
 

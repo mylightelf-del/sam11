@@ -12,6 +12,7 @@ namespace Sam11.Core.World
         public static Battle.Battle CreateBattle(WorldState w, ulong seed, BattleOptions? options = null)
         {
             var b = new Battle.Battle(w.Data, w.Map.ToBattleMap(), seed, options);
+            b.TerritoryOf = h => w.Map.Territory.TryGetValue(h, out var city) ? city : null;
             foreach (var c in w.Cities.Values)
             {
                 b.Strongholds[c.Id] = new StrongholdOnField
@@ -36,15 +37,75 @@ namespace Sam11.Core.World
                         MaxDurability = st?.MaxDurability ?? 0,
                     };
                 }
-                // 관문은 성문 칸 자체가 중심이라, 성내 칸이 있으면 그 칸을 정청으로 본다
-                if (c.Def.Type == "gate")
-                {
-                    var inner = c.Placement.Tiles.FirstOrDefault(t => t.Value == TileKind.Street);
-                    if (inner.Value == TileKind.Street)
-                        b.Strongholds[c.Id].Center = inner.Key;
-                }
             }
             return b;
+        }
+
+        /// <summary>
+        /// 출진: 거점의 병력·병장기·군량을 떼어 부대를 만든다. 부대원은 그 턴에 행동을 마친다.
+        /// at을 주지 않으면 거점 둘레의 빈 칸 중 첫 칸에 선다.
+        /// </summary>
+        public static Unit Sortie(WorldState w, Battle.Battle b, string cityId, IReadOnlyList<string> officerIds,
+                                  string formation, int troops, int food, HexCoord? at = null)
+        {
+            var c = w.Cities[cityId];
+            var officers = officerIds.Select(id => w.Officers[id]).ToList();
+            if (officers.Count == 0) throw new InvalidOperationException("부대원이 없음");
+            foreach (var o in officers)
+            {
+                if (o.Status != OfficerStatus.Active || o.Faction != c.Owner || o.Location != cityId)
+                    throw new InvalidOperationException($"{Korean.EunNeun(o.ToString())} {c}에서 출진할 수 없음");
+                if (o.Acted) throw new InvalidOperationException($"{Korean.EunNeun(o.ToString())} 이번 턴에 이미 행동함");
+            }
+            if (troops <= 0 || troops > c.Troops) throw new InvalidOperationException($"병력 부족: {c.Troops}/{troops}");
+            if (food < 0 || food > c.Food) throw new InvalidOperationException($"군량 부족: {c.Food}/{food}");
+            var spot = at ?? SortieSpot(b, c);
+            string? eq = w.Data.Formations[formation].RequiredEquipment;
+            var u = b.Deploy(c.Owner!, officerIds, formation, troops, spot, c.Equipment, officers[0].Rank);
+            c.Troops -= troops;
+            c.Food -= food;
+            if (eq != null)
+            {
+                c.Equipment[eq] -= troops;
+                u.Equipment[eq] = troops;
+            }
+            u.Food = food;
+            u.Home = cityId;
+            foreach (var o in officers)
+            {
+                o.Acted = true;
+                o.Location = "";
+            }
+            w.Log.Add($"[{w.Date}] {officers[0]} 부대 {c}에서 출진 ({w.Data.Formations[formation].Name.Ko}, {troops}명, 군량 {food})");
+            return u;
+        }
+
+        private static HexCoord SortieSpot(Battle.Battle b, CityState c)
+        {
+            var tiles = c.Placement.Tiles.Keys.ToList();
+            foreach (var gate in c.Placement.Tiles.Where(t => t.Value == TileKind.Gate).Select(t => t.Key).Concat(tiles))
+                foreach (var n in gate.Neighbors())
+                    if (!c.Placement.Tiles.ContainsKey(n) && b.UnitAt(n) == null && b.Map.Contains(n)
+                        && b.Data.Terrain.TryGetValue(b.Map.TerrainAt(n), out var t) && t.PassableLand)
+                        return n;
+            throw new InvalidOperationException($"{c} 둘레에 출진할 빈 칸이 없음");
+        }
+
+        /// <summary>귀환: 아군 거점에 인접(또는 성 안)한 부대가 병력·군량·병장기를 반납하고 무장은 그 거점으로 들어간다.</summary>
+        public static void Withdraw(WorldState w, Battle.Battle b, Unit u, string cityId)
+        {
+            var c = w.Cities[cityId];
+            if (c.Owner != u.Faction) throw new InvalidOperationException($"{Korean.EunNeun(c.ToString())} 아군 거점이 아님");
+            bool near = c.Placement.Tiles.ContainsKey(u.Position) || c.Placement.Tiles.Keys.Any(t => t.DistanceTo(u.Position) == 1);
+            if (!near) throw new InvalidOperationException($"{Korean.EunNeun(u.Label)} {c}에 붙어 있지 않음");
+            c.Troops += u.Troops;
+            c.Food = Math.Min(Domestic.FoodCap(w, c), c.Food + Math.Max(0, u.Food));
+            foreach (var kv in u.Equipment) c.Equipment[kv.Key] += Math.Min(kv.Value, u.Troops);
+            foreach (var o in u.Members)
+                if (w.Officers.TryGetValue(o.Id, out var os)) os.Location = cityId;
+            u.Status = UnitStatus.Withdrawn;
+            u.Troops = 0;
+            w.Log.Add($"[{w.Date}] {u.Label} {Korean.EuRo(c.ToString())} 귀환");
         }
 
         /// <summary>
@@ -78,7 +139,7 @@ namespace Sam11.Core.World
                         w.Log.Add($"[{w.Date}] {o}, {c} 함락으로 포로가 됨");
                     }
                 }
-                w.Log.Add($"[{w.Date}] {c} 함락: {w.Factions[cap.To].Ruler} 세력이 차지");
+                w.Log.Add($"[{w.Date}] {c} 함락: {w.Officers[w.Factions[cap.To].Ruler].Def.Name.Ko} 세력이 차지");
             }
             foreach (var kv in b.Structures)
             {

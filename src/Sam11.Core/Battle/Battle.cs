@@ -34,6 +34,9 @@ namespace Sam11.Core.Battle
         public Dictionary<HexCoord, SiegeStructure> Structures { get; } = new Dictionary<HexCoord, SiegeStructure>();
         public Dictionary<string, StrongholdOnField> Strongholds { get; } = new Dictionary<string, StrongholdOnField>();
         public List<CaptureEvent> Captures { get; } = new List<CaptureEvent>();
+
+        /// <summary>칸이 어느 도시 영역인지 (전국 맵에서만). null이면 보급을 따지지 않는다.</summary>
+        public Func<HexCoord, string?>? TerritoryOf { get; set; }
         public string WeatherId { get; set; }
 
         private int _nextId = 1;
@@ -316,8 +319,10 @@ namespace Sam11.Core.Battle
                 if (sh.Owner == null) continue;
                 var occupant = UnitAt(sh.Center);
                 if (occupant == null || occupant.Faction == sh.Owner) continue;
-                bool defended = Structures.Where(kv => kv.Value.Stronghold == sh.Id && kv.Value.IsInterior)
-                                          .Any(kv => UnitAt(kv.Key)?.Faction == sh.Owner);
+                var tiles = Structures.Where(kv => kv.Value.Stronghold == sh.Id).ToList();
+                // 성내 칸이 있으면 성내만, 없으면(관문) 성벽·성문 위 수비 부대까지 본다
+                var held = tiles.Any(kv => kv.Value.IsInterior) ? tiles.Where(kv => kv.Value.IsInterior) : tiles;
+                bool defended = held.Any(kv => UnitAt(kv.Key)?.Faction == sh.Owner);
                 if (defended) continue;
                 Captures.Add(new CaptureEvent { Stronghold = sh.Id, From = sh.Owner, To = occupant.Faction });
                 Log.Add($"{sh.Name} 함락! {Korean.IGa(occupant.Label)} 정청을 점거했다");
@@ -460,6 +465,7 @@ namespace Sam11.Core.Battle
                         break;
                     case "pull":
                     {
+                        if (Anchored(target)) break;
                         var to = target.Position.StepToward(attacker.Position);
                         if (to != attacker.Position && CanStand(target, to)) target.Position = to;
                         break;
@@ -498,8 +504,12 @@ namespace Sam11.Core.Battle
 
         private bool CanStand(Unit u, HexCoord h) => MoveCost2(u, h) != null && UnitAt(h) == null;
 
+        /// <summary>성벽 위나 성 안에 자리 잡은 부대는 밀리거나 끌려 나오지 않는다.</summary>
+        private bool Anchored(Unit u) => Structures.ContainsKey(u.Position);
+
         private void Push(Unit attacker, Unit target, int distance)
         {
+            if (Anchored(target)) return;
             for (int i = 0; i < distance; i++)
             {
                 var to = target.Position.StepAwayFrom(attacker.Position);
@@ -654,6 +664,50 @@ namespace Sam11.Core.Battle
             _ => f.ToString(),
         };
 
+        // ------------------------------------------------------------------ 보급
+
+        /// <summary>도시 바깥 둘레 칸 중 적 부대가 선 칸의 비율이 기준 이상이면 포위 (02 맵·도시 설계서 4.2).</summary>
+        public bool IsBlockaded(string strongholdId)
+        {
+            if (!Strongholds.TryGetValue(strongholdId, out var sh) || sh.Owner == null) return false;
+            var footprint = new HashSet<HexCoord>(Structures.Where(kv => kv.Value.Stronghold == strongholdId).Select(kv => kv.Key));
+            if (footprint.Count == 0) footprint.Add(sh.Center);
+            var ring = footprint.SelectMany(h => h.Neighbors()).Where(n => !footprint.Contains(n) && Map.Contains(n))
+                                .Where(n => Data.Terrain.TryGetValue(Map.TerrainAt(n), out var t) && t.PassableLand)
+                                .Distinct().ToList();
+            if (ring.Count == 0) return false;
+            int enemies = ring.Count(n => UnitAt(n) is Unit u && u.Faction != sh.Owner);
+            return enemies >= ring.Count * Data.Rules.Siege.BlockadeRatio;
+        }
+
+        /// <summary>아군 영역 안이고 그 영역의 도시가 포위되지 않았으면 보급 상태.</summary>
+        public bool IsSupplied(Unit u)
+        {
+            if (TerritoryOf == null) return true;
+            string? city = TerritoryOf(u.Position);
+            if (city == null || !Strongholds.TryGetValue(city, out var sh)) return false;
+            return sh.Owner == u.Faction && !IsBlockaded(city);
+        }
+
+        /// <summary>원정 중인 부대는 매 턴 휴대 군량을 쓴다. 떨어지면 사기 하락과 탈영.</summary>
+        private void ConsumeFood(Unit u)
+        {
+            if (u.Food < 0 || IsSupplied(u)) return;
+            var eco = Data.Rules.Economy;
+            int use = (int)Math.Ceiling(u.Troops * eco.FoodPerSoldierMonth / Data.Rules.Time.TurnsPerMonth);
+            if (u.Food >= use)
+            {
+                u.Food -= use;
+                return;
+            }
+            u.Food = 0;
+            int deserters = Math.Max(1, (int)(u.Troops * eco.Starvation.Desertion));
+            u.Troops -= deserters;
+            Log.Add($"{u.Label} 군량 부족! 병사 {deserters}명 탈영");
+            LoseMorale(u, eco.Starvation.MoraleLoss * 2);
+            if (u.Troops <= 0) Destroy(u, null);
+        }
+
         // ------------------------------------------------------------------ 턴
 
         /// <summary>
@@ -690,6 +744,8 @@ namespace Sam11.Core.Battle
                 }
 
                 u.Energy = Math.Min(Data.Rules.Energy.Max, u.Energy + Data.Rules.Energy.RegenPerTurn);
+                ConsumeFood(u);
+                if (!u.IsAlive) continue;
                 if (AdjacentUnits(u.Position).Count(o => o.Faction != faction) >= Data.Rules.Morale.SurroundedThreshold)
                     LoseMorale(u, Data.Rules.Combat.MoraleLossSurrounded);
 

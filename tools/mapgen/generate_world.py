@@ -348,7 +348,9 @@ for a, b in links:
         else:
             terrain[x] = "road"
 
-# 관문 구조: 중심이 성문, 도로와 엇갈린 방향으로 성벽 2칸씩, 성내 1칸
+# 관문 구조: 중심이 성문, 도로와 엇갈린 방향으로 성벽 2칸씩.
+# 관문은 길목이어야 하므로 성벽 바깥으로 산을 이어 붙여 옆으로 돌아갈 수 없게 한다.
+GATE_RIDGE = 4
 for sid, c in placed.items():
     if STRONGHOLDS[sid]["type"] != "gate":
         continue
@@ -359,17 +361,20 @@ for sid, c in placed.items():
     tiles[sid][c] = "gate"
     for side in ((k + 2) % 6, (k + 5) % 6):
         x = c
-        for _ in range(2):
+        for step in range(2 + GATE_RIDGE):
             x = (x[0] + DIRS[side][0], x[1] + DIRS[side][1])
-            if x in terrain and terrain[x] not in ("road", "ford", "sea") and x not in occupied:
+            if x not in terrain or terrain[x] in ("road", "ford", "sea", "river") or x in occupied:
+                break
+            if step < 2:
                 terrain[x] = "city_wall"
                 occupied[x] = sid
                 tiles[sid][x] = "wall"
-    inner = (c[0] + DIRS[(k + 1) % 6][0], c[1] + DIRS[(k + 1) % 6][1])
-    if inner in terrain and inner not in occupied and terrain[inner] not in ("road", "ford", "sea"):
-        terrain[inner] = "street"
-        occupied[inner] = sid
-        tiles[sid][inner] = "street"
+            else:
+                terrain[x] = "mountain"
+            # 산줄기를 두 줄로 두껍게 해 대각선으로 빠져나가지 못하게 한다
+            y = (x[0] + DIRS[(side + 1) % 6][0], x[1] + DIRS[(side + 1) % 6][1])
+            if step >= 2 and y in terrain and terrain[y] in ("plain", "forest", "marsh") and y not in occupied:
+                terrain[y] = "mountain"
 
 # 성문이 하나도 없는 도시는 첫 성벽을 성문으로
 for sid, t in tiles.items():

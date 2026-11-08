@@ -144,3 +144,20 @@ public class SiegeTests
         Assert.That(Combat.Compute(f.Battle, attacker, inside, 1, 0, 0, false).Traits, Is.EqualTo(1 / 1.1).Within(1e-9));
     }
 }
+
+public class AnchorTests
+{
+    [Test]
+    public void UnitsHoldingStructuresCannotBePushedOut()
+    {
+        var w = TestData.NewWorld();
+        var b = SiegeSetup.CreateBattle(w, 1, new BattleOptions { TacticSuccessOverride = 1 });
+        var city = w.Map.Strongholds["chenliu"];
+        var gate = city.Tiles.First(t => t.Value == TileKind.Gate).Key;
+        var outside = gate.Neighbors().First(n => !city.Tiles.ContainsKey(n) && TestData.Data.Terrain[b.Map.TerrainAt(n)].PassableLand);
+        var defender = b.Deploy("cao_cao", new[] { "cao_ren" }, "square", 9000, gate);
+        var lu = b.Deploy("dong_zhuo", new[] { "lu_bu" }, "wedge", 8000, outside, TestData.PlentyOfEquipment);
+        b.UseTactic(lu, "charge", defender);
+        Assert.That(defender.Position, Is.EqualTo(gate));
+    }
+}

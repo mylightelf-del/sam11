@@ -359,7 +359,7 @@ namespace Sam11.Core.World
             }
             if (harvest)
                 foreach (var kv in harvested.OrderByDescending(kv => kv.Value))
-                    w.Log.Add($"[{w.Date}] 가을 수확: {w.Factions[kv.Key].Ruler} 세력 군량 +{kv.Value}");
+                    w.Log.Add($"[{w.Date}] 가을 수확: {w.Officers[w.Factions[kv.Key].Ruler].Def.Name.Ko} 세력 군량 +{kv.Value}");
         }
     }
 }

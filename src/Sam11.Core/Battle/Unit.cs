@@ -6,7 +6,7 @@ using Sam11.Core.Data;
 
 namespace Sam11.Core.Battle
 {
-    public enum UnitStatus { Ready, Confused, Destroyed, Routed }
+    public enum UnitStatus { Ready, Confused, Destroyed, Routed, Withdrawn }
 
     /// <summary>일정 턴 동안만 걸리는 효과 (견수의 방어 증가, 고수의 연쇄 무효 등).</summary>
     public sealed class TimedEffect
@@ -31,6 +31,12 @@ namespace Sam11.Core.Battle
         public int MaxTroops { get; }
         public int Energy { get; set; }
         public int Morale { get; set; }
+
+        /// <summary>휴대 군량. 0 미만이면 보급을 따지지 않는다 (단독 전투 시험용).</summary>
+        public int Food { get; set; } = -1;
+        public Dictionary<string, int> Equipment { get; } = new Dictionary<string, int>();
+        /// <summary>출진한 거점 (귀환할 곳).</summary>
+        public string? Home { get; set; }
         public UnitStatus Status { get; set; } = UnitStatus.Ready;
         public int TurnsSinceSortie { get; set; }
         public bool HasActed { get; set; }
