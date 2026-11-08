@@ -106,14 +106,21 @@ namespace Sam11.Core.World
         public int InjuredTurns;
         /// <summary>포로가 된 뒤 지난 달 수.</summary>
         public int CaptiveMonths;
+        /// <summary>포로가 되기 전 세력 (포로 교환에 쓴다).</summary>
+        public string? PreviousFaction;
 
         public string Id => Def.Id;
         public override string ToString() => Def.Name.Ko;
     }
 
     /// <summary>동맹 (05 외교 설계서). 기한이 지나면 풀린다.</summary>
+    public enum PactKind { Alliance, Truce, Coalition }
+
     public sealed class Alliance
     {
+        public PactKind Kind = PactKind.Alliance;
+        /// <summary>연합의 대상 세력 (반최강세력 연합일 때).</summary>
+        public string? Target;
         public string Name = "";
         public HashSet<string> Members = new HashSet<string>();
         public int UntilYear;
@@ -158,7 +165,26 @@ namespace Sam11.Core.World
             Friendship[PairKey(a, b)] = Math.Max(0, Math.Min(100, FriendshipOf(a, b) + delta));
 
         public bool AreAllied(string a, string b) =>
-            a == b || Alliances.Any(x => x.Active(Date) && x.Members.Contains(a) && x.Members.Contains(b));
+            a == b || Alliances.Any(x => x.Kind != PactKind.Truce && x.Active(Date) && x.Members.Contains(a) && x.Members.Contains(b));
+
+        /// <summary>종속국 → 종주국.</summary>
+        public Dictionary<string, string> Vassals { get; } = new Dictionary<string, string>();
+
+        /// <summary>서로 싸우지 않는 사이: 같은 세력, 동맹·연합, 정전, 종속 관계.</summary>
+        public bool AtPeace(string a, string b) =>
+            a == b
+            || Alliances.Any(x => x.Active(Date) && x.Members.Contains(a) && x.Members.Contains(b))
+            || (Vassals.TryGetValue(a, out var sa) && sa == b) || (Vassals.TryGetValue(b, out var sb) && sb == a);
+
+        public Alliance AddPact(PactKind kind, string a, string b, int months, string name = "")
+        {
+            int total = Date.Year * 12 + (Date.Month - 1) + months;
+            var p = new Alliance { Kind = kind, Name = name, UntilYear = total / 12, UntilMonth = total % 12 + 1 };
+            p.Members.Add(a);
+            p.Members.Add(b);
+            Alliances.Add(p);
+            return p;
+        }
 
         public string NameOf(string factionId) =>
             Factions.TryGetValue(factionId, out var f) && Officers.TryGetValue(f.Ruler, out var r) ? r.Def.Name.Ko : factionId;

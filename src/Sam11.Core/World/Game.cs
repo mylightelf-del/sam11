@@ -45,7 +45,7 @@ namespace Sam11.Core.World
         {
             World = world;
             Field = SiegeSetup.CreateBattle(world, seed);
-            Field.Hostile = (a, b) => a != b && !world.AreAllied(a, b);
+            Field.Hostile = (a, b) => !world.AtPeace(a, b);
         }
 
         public IEnumerable<string> AliveFactions => World.Factions.Values.Where(f => f.Alive).Select(f => f.Id);
@@ -89,6 +89,7 @@ namespace Sam11.Core.World
             if (monthStart)
             {
                 MonthlyUpkeep();
+                Diplomacy.Monthly(this);
                 EventSystem.RunMonthly(this);
                 Resolve();
             }
@@ -174,6 +175,8 @@ namespace Sam11.Core.World
                     Garrisons.Remove(cap.Stronghold);
                     if (g.IsAlive) g.Status = UnitStatus.Withdrawn;
                 }
+                if (World.Cities[cap.Stronghold].Owner is string loser && World.Factions.ContainsKey(cap.To))
+                    World.ChangeFriendship(loser, cap.To, World.Data.Rules.Diplomacy.CaptureFriendship);
                 SiegeSetup.ApplyCapture(World, cap);
                 foreach (var id in cap.Officers)
                     if (World.Officers.TryGetValue(id, out var o)) o.Merit += World.Data.Rules.Merit.Capture;
@@ -201,6 +204,8 @@ namespace Sam11.Core.World
                     World.Log.Add($"[{World.Date}] {Korean.IGa(o.ToString())} 전사했다");
                     return;
                 case DefeatOutcome.Capture when fate.By != null && World.Factions.ContainsKey(fate.By):
+                    o.PreviousFaction = o.Faction;
+                    if (o.Faction != null) World.ChangeFriendship(o.Faction, fate.By, -5);
                     o.Status = OfficerStatus.Captive;
                     o.Faction = fate.By;
                     o.CaptiveMonths = 0;

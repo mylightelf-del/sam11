@@ -229,6 +229,12 @@ namespace Sam11.Core.AI
                 GoHome(g, u, target.Id);
                 return;
             }
+            // 원정 도중 목표 세력과 평화 관계가 되면 원정을 그만둔다
+            if (camp != null && target != null && target.Owner != null && w.AtPeace(target.Owner, faction))
+            {
+                camp.State = CampaignState.Done;
+                camp = null;
+            }
             if (camp == null || retreat || camp.State == CampaignState.Done)
             {
                 if (camp != null)

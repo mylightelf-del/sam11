@@ -49,6 +49,8 @@ namespace Sam11.Core.AI
         /// <summary>공성 중인 원정군에 보낸 증원 부대 수.</summary>
         public int Reinforcements;
         public int Duels;
+        public int DiplomacyAttempts;
+        public int DiplomacySuccesses;
         public int RetreatsMorale;
         public int RetreatsFood;
         /// <summary>원정 준비가 끝났는데 출진하지 못한 이유별 횟수 (병력 부족, 지휘 한도, 군량 부족 등).</summary>
@@ -79,6 +81,9 @@ namespace Sam11.Core.AI
             new Dictionary<(string, string, string), (Dictionary<HexCoord, int>, int)>();
         private (int Captures, int Broken) _pathVersion = (-1, -1);
         private int _plannedMonth = -1;
+        private int _diplomacyMonth = -1;
+        /// <summary>(상대, 종류) → 거절당한 달. 같은 제안을 석 달 동안 다시 하지 않는다.</summary>
+        private readonly Dictionary<(string, DiploType), int> _refused = new Dictionary<(string, DiploType), int>();
 
         public AiController(AiConfig? config = null) => Config = config ?? AiConfig.For(Difficulty.Normal);
 
@@ -100,6 +105,11 @@ namespace Sam11.Core.AI
             {
                 _plannedMonth = monthKey;
                 Promotion.AppointAll(w, faction);
+                if (_diplomacyMonth != monthKey)
+                {
+                    _diplomacyMonth = monthKey;
+                    PlanDiplomacy(g, faction);
+                }
                 Plan(g, faction);
             }
             // 출진을 먼저: 내정이 무장을 다 써 버리면 원정군을 꾸릴 수 없다
@@ -170,7 +180,7 @@ namespace Sam11.Core.AI
             foreach (var c in Campaigns)
             {
                 var t = w.Cities[c.Target];
-                bool targetGone = t.Owner == faction || (t.Owner != null && w.AreAllied(t.Owner, faction));
+                bool targetGone = t.Owner == faction || (t.Owner != null && w.AtPeace(t.Owner, faction));
                 bool sourceLost = w.Cities[c.Source].Owner != faction;
                 bool stale = c.State == CampaignState.Gathering && g.TurnCount - c.StartTurn > 30;
                 if (c.State == CampaignState.Gathering && (targetGone || sourceLost || stale))
@@ -205,7 +215,7 @@ namespace Sam11.Core.AI
                 foreach (var tid in s.Def.Links)
                 {
                     var t = w.Cities[tid];
-                    if (t.Owner == faction || (t.Owner != null && w.AreAllied(t.Owner, faction))) continue;
+                    if (t.Owner == faction || (t.Owner != null && w.AtPeace(t.Owner, faction))) continue;
                     if (Campaigns.Any(c => c.Target == tid)) continue;
                     double d = Knowledge!.EstimateTroops(g, t) * WallFactor(t.Def.Type)
                                + Knowledge.VisibleEnemies(g).Where(u => !u.IsGarrison && u.Position.DistanceTo(t.Placement.Center) <= 6).Sum(u => u.Troops);

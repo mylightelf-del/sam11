@@ -147,6 +147,7 @@ namespace Sam11.Core.World
                     }
                     else
                     {
+                        o.PreviousFaction = o.Faction;
                         o.Status = OfficerStatus.Captive;
                         o.Faction = cap.To;
                         o.CaptiveMonths = 0;

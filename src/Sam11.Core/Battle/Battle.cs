@@ -296,8 +296,8 @@ namespace Sam11.Core.Battle
         public AttackResult Attack(Unit attacker, Unit target)
         {
             EnsureCanAct(attacker);
-            if (target.Faction == attacker.Faction || !target.IsAlive || !InRange(attacker, target))
-                throw new InvalidOperationException("공격할 수 없는 대상");
+            if (!Hostile(attacker.Faction, target.Faction) || !target.IsAlive || !InRange(attacker, target))
+                throw new InvalidOperationException("공격할 수 없는 대상 (같은 편이거나 동맹·정전 중이면 먼저 약속을 깨야 한다)");
             var r = new AttackResult();
             r.Damage = DealDamage(attacker, target, 1.0, 0, 0, true, $"{attacker.Label}의 공격 → {target.Label} {{0}} 피해");
             if (attacker.Formation.Trait.Id == "charge" && target.IsAlive)
@@ -345,8 +345,8 @@ namespace Sam11.Core.Battle
             EnsureCanAct(attacker);
             if (!Structures.TryGetValue(target, out var st) || !st.Blocking)
                 throw new InvalidOperationException("공격할 성벽·성문이 없음");
-            if (OwnerOf(st) == attacker.Faction)
-                throw new InvalidOperationException("아군 구조물");
+            if (OwnerOf(st) is string owner && !Hostile(attacker.Faction, owner))
+                throw new InvalidOperationException("아군·동맹 구조물");
             int range = tactic != null ? TacticRange(attacker, tactic) : attacker.Formation.Range;
             if (attacker.Position.DistanceTo(target) > range)
                 throw new InvalidOperationException("사거리 밖");
@@ -513,7 +513,7 @@ namespace Sam11.Core.Battle
                 throw new InvalidOperationException($"{Korean.EunNeun(t.Name.Ko)} 성벽 위 부대에만 쓸 수 있음");
             if (attacker.Energy < t.EnergyCost)
                 throw new InvalidOperationException($"기력 부족: {attacker.Energy}/{t.EnergyCost}");
-            if (!selfOnly && (target.Faction == attacker.Faction || !target.IsAlive || !InRange(attacker, target, TacticRange(attacker, t))))
+            if (!selfOnly && (!Hostile(attacker.Faction, target.Faction) || !target.IsAlive || !InRange(attacker, target, TacticRange(attacker, t))))
                 throw new InvalidOperationException("전법 대상이 아님");
 
             attacker.Energy -= t.EnergyCost;

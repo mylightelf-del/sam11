@@ -20,6 +20,7 @@ namespace Sam11.Core.Data
         public CityRules City { get; set; } = new CityRules();
         public MeritRules Merit { get; set; } = new MeritRules();
         public Duel.DuelRules Duel { get; set; } = new Duel.DuelRules();
+        public DiplomacyRules Diplomacy { get; set; } = new DiplomacyRules();
         public DomesticRules Domestic { get; set; } = new DomesticRules();
     }
 
@@ -28,6 +29,43 @@ namespace Sam11.Core.Data
         public int DaysPerTurn { get; set; } = 10;
         public int TurnsPerMonth { get; set; } = 3;
         public int HarvestMonth { get; set; } = 9;
+    }
+
+    public sealed class CoalitionRules
+    {
+        public bool Enabled { get; set; } = true;
+        public double CityShare { get; set; } = 0.3;
+        public double PowerRatioVsSecond { get; set; } = 2.0;
+        public int Months { get; set; } = 24;
+    }
+
+    /// <summary>외교 (05 외교 설계서 2장).</summary>
+    public sealed class DiplomacyRules
+    {
+        public int AllianceMonths { get; set; } = 24;
+        public int TruceMonths { get; set; } = 12;
+        public double BaseChance { get; set; } = 0.3;
+        public int EnvoyStatCenter { get; set; } = 60;
+        public double EnvoyStatDivisor { get; set; } = 100;
+        public double FriendshipDivisor { get; set; } = 100;
+        public double TrustDivisor { get; set; } = 200;
+        public double UnwillingFactor { get; set; } = 0.15;
+        public double DebateMinChance { get; set; } = 0.2;
+        public int GiftGoldPerFriendship { get; set; } = 100;
+        public int GiftMaxFriendship { get; set; } = 20;
+        public int BreakTrust { get; set; } = -30;
+        public int BreakFriendship { get; set; } = -40;
+        public int CaptureFriendship { get; set; } = -15;
+        public int MonthlyDrift { get; set; } = 1;
+        public double VassalTribute { get; set; } = 0.1;
+        public int AbsorbFriendship { get; set; } = 80;
+        public double AbsorbPowerRatio { get; set; } = 4.0;
+        public int RansomGoldPerStat { get; set; } = 10;
+        public int MaxAlliances { get; set; } = 2;
+        /// <summary>종속 관계에서 공물이 오가는 동안 매달 오르는 우호도 (병합으로 가는 길).</summary>
+        public int VassalMonthlyFriendship { get; set; } = 2;
+        public double AidRatio { get; set; } = 0.2;
+        public CoalitionRules Coalition { get; set; } = new CoalitionRules();
     }
 
     public sealed class MeritRules

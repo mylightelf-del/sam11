@@ -292,7 +292,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
             game.PlayTurn();
             if (runs == 1)
             {
-                foreach (var l in w.Log.Skip(logged).Where(l => l.Contains("함락") || l.Contains("멸망") || l.Contains("전사") || l.Contains("◆") || l.Contains("→ ") || l.Contains("독립")
+                foreach (var l in w.Log.Skip(logged).Where(l => l.Contains("함락") || l.Contains("멸망") || l.Contains("전사") || l.Contains("◆") || l.Contains("→ ") || l.Contains("독립") || l.Contains("외교:") || l.Contains("연합") || l.Contains("병합") || l.Contains("약속을 깼다")
                                                                || l.Contains("통일") || l.Contains("출진:") || l.Contains("뒤를 이어")))
                     Console.WriteLine(l);
                 logged = w.Log.Count;
@@ -310,11 +310,18 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
         {
             total.CampaignsLaunched += a.Stats.CampaignsLaunched; total.LaunchedUnderRatio += a.Stats.LaunchedUnderRatio;
             total.CampaignsWon += a.Stats.CampaignsWon; total.CampaignsFailed += a.Stats.CampaignsFailed; total.CampaignsAbandoned += a.Stats.CampaignsAbandoned;
-            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.Duels += a.Stats.Duels; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
+            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.Duels += a.Stats.Duels; total.DiplomacyAttempts += a.Stats.DiplomacyAttempts; total.DiplomacySuccesses += a.Stats.DiplomacySuccesses; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
             foreach (var kv in a.Stats.LaunchBlocked) total.LaunchBlocked[kv.Key] = total.LaunchBlocked.GetValueOrDefault(kv.Key) + kv.Value;
             foreach (var kv in a.Stats.StallReasons) total.StallReasons[kv.Key] = total.StallReasons.GetValueOrDefault(kv.Key) + kv.Value;
         }
         captures += w.Log.Count(l => l.Contains("함락:"));
+        if (Environment.GetEnvironmentVariable("SIM_DEBUG") == "4")
+        {
+            Console.WriteLine($"  [외교] 협정: {string.Join(" / ", w.Alliances.Where(a => a.Active(w.Date)).Select(a => $"{a.Kind}:{string.Join("+", a.Members.Select(w.NameOf))}~{a.UntilYear}.{a.UntilMonth}"))}");
+            Console.WriteLine($"  [외교] 종속: {string.Join(", ", w.Vassals.Select(kv => $"{w.NameOf(kv.Key)}→{w.NameOf(kv.Value)}"))}");
+            Console.WriteLine($"  [외교] 생존: {string.Join(", ", w.Factions.Values.Where(f => f.Alive).Select(f => $"{w.NameOf(f.Id)}({w.Cities.Values.Count(c => c.Owner == f.Id && c.Def.IsCity)})"))}");
+            Console.WriteLine($"  [외교] 연대기: 병합 {w.Log.Count(l => l.Contains("병합되었다"))}, 종속 성사 {w.Log.Count(l => l.Contains("종속 성사"))}, 동맹 성사 {w.Log.Count(l => l.Contains("동맹 성사"))}, 정전 성사 {w.Log.Count(l => l.Contains("정전 성사"))}, 배신 {w.Log.Count(l => l.Contains("약속을 깼다"))}");
+        }
         if (Environment.GetEnvironmentVariable("SIM_DEBUG") == "3")
         {
             foreach (var (f, camp) in ais.SelectMany(kv => kv.Value.History.Select(c => (kv.Key, c))).Where(x => !x.c.Won).Take(2))
@@ -359,7 +366,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
     }
     Console.WriteLine($"함락 {captures}건, 전사 {deaths}명, 통일 {unifications}판");
     Console.WriteLine("AI 지표 (06 설계서 2장):");
-    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회: 사기·병력 {total.RetreatsMorale}, 군량 {total.RetreatsFood}), 출진 전 포기 {total.CampaignsAbandoned}, 증원 부대 {total.Reinforcements}, 일기토 신청 {total.Duels}");
+    Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회: 사기·병력 {total.RetreatsMorale}, 군량 {total.RetreatsFood}), 출진 전 포기 {total.CampaignsAbandoned}, 증원 부대 {total.Reinforcements}, 일기토 신청 {total.Duels}, 외교 {total.DiplomacySuccesses}/{total.DiplomacyAttempts} 성사");
     Console.WriteLine($"  축차 투입(전력비 1.5배 미달 출진): {total.LaunchedUnderRatio}회 ({Pct(total.LaunchedUnderRatio, total.CampaignsLaunched)})");
     Console.WriteLine($"  정체(목표가 있는데 제자리): {total.StalledUnitTurns}/{total.UnitTurns} 부대·턴 ({Pct(total.StalledUnitTurns, total.UnitTurns)})");
     Console.WriteLine($"  정체 원인: {string.Join(", ", total.StallReasons.OrderByDescending(kv => kv.Value).Select(kv => $"{kv.Key} {kv.Value}"))}");

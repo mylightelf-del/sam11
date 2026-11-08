@@ -276,5 +276,35 @@
     "gauge_stat_ratio": 0.5,
     "card_offset": 40,
     "loser_block_ratio": 0.3
+  },
+  "diplomacy": {
+    "alliance_months": 12,
+    "truce_months": 6,
+    "base_chance": 0.3,
+    "envoy_stat_center": 60,
+    "envoy_stat_divisor": 100,
+    "friendship_divisor": 100,
+    "trust_divisor": 200,
+    "unwilling_factor": 0.15,
+    "debate_min_chance": 0.2,
+    "gift_gold_per_friendship": 100,
+    "gift_max_friendship": 20,
+    "break_trust": -30,
+    "break_friendship": -40,
+    "capture_friendship": -15,
+    "monthly_drift": 1,
+    "vassal_tribute": 0.1,
+    "absorb_friendship": 75,
+    "absorb_power_ratio": 3.0,
+    "ransom_gold_per_stat": 10,
+    "aid_ratio": 0.2,
+    "coalition": {
+      "enabled": true,
+      "city_share": 0.3,
+      "power_ratio_vs_second": 2.0,
+      "months": 24
+    },
+    "max_alliances": 2,
+    "vassal_monthly_friendship": 1
   }
 }
