@@ -339,6 +339,21 @@ namespace Sam11.Core.Play
             while (!Game.IsOver && Game.CurrentPlayer == null) Game.Advance();
         }
 
+        // ------------------------------------------------------------------ 시야
+
+        /// <summary>
+        /// 플레이어에게 보이는 부대: 우리·동맹 부대는 늘, 적은 우리 부대 5칸·우리 거점 8칸 안에서 (AI의 Knowledge와 같은 거리).
+        /// 매복 중인 적은 보이지 않는다.
+        /// </summary>
+        public bool IsVisible(Unit u, string? viewer = null)
+        {
+            string me = viewer ?? Faction ?? Options.Players.FirstOrDefault() ?? "";
+            if (u.Faction == me || World.AreAllied(u.Faction, me)) return true;
+            if (u.Hidden) return false;
+            if (Game.Field.Alive.Any(m => m.Faction == me && m.Position.DistanceTo(u.Position) <= Knowledge.UnitVision)) return true;
+            return World.Cities.Values.Any(c => c.Owner == me && c.Placement.Center.DistanceTo(u.Position) <= Knowledge.StrongholdVision);
+        }
+
         // ------------------------------------------------------------------ 저장·불러오기
 
         public JObject Save() => new JObject

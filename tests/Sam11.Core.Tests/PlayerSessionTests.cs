@@ -188,4 +188,19 @@ public class PlayerSessionTests
         Assert.That(s.Execute(C("corps_remove", new { corps = "서부" })).Ok);
         Assert.That(s.Corps, Is.Empty);
     }
+
+    [Test]
+    public void FarEnemiesAreHiddenFromPlayer()
+    {
+        var s = New("cao_cao");
+        var b = s.Game.Field;
+        var mine = b.Alive.Where(u => u.Faction == "cao_cao").ToList();
+        foreach (var u in b.Alive)
+        {
+            bool near = mine.Any(m => m.Position.DistanceTo(u.Position) <= 5)
+                        || s.World.Cities.Values.Any(c => c.Owner == "cao_cao" && c.Placement.Center.DistanceTo(u.Position) <= 8);
+            bool friendly = u.Faction == "cao_cao" || s.World.AreAllied(u.Faction, "cao_cao");
+            Assert.That(s.IsVisible(u), Is.EqualTo(friendly || (near && !u.Hidden)), u.Label);
+        }
+    }
 }

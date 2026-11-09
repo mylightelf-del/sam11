@@ -12,6 +12,9 @@
 | `tests/Sam11.Core.Tests/` | 코어 단위 테스트 |
 | `tools/validate_data.py` | 데이터 형식·참조 검증 |
 | `tools/Sam11.Play/` | 콘솔 클라이언트 — 한 판을 처음부터 끝까지 직접 플레이 (M4 수직 단면) |
+| `Unity/` | Unity 프로젝트 뼈대 (맵·거점·부대 표시, 카메라, 선택·명령, 임시 UI, 수묵 셰이더) — `Unity/README.md` |
+| `tools/unity/sync.sh` | 코어 DLL·데이터를 Unity 프로젝트에 넣기 |
+| `tools/UnityCheck/` | Unity 없이 Unity 스크립트 컴파일 검사 |
 | `tools/Sam11.ModTool/` | 모드 목록·검사, 신무장 만들기 |
 | `Mods/` | 모드 폴더 (예시: `example_officers`) |
 | `tools/Sam11.Sim/` | 시연 콘솔 (호로관 전투, 경제 점검, 사수관 공략, AI 자동 대전, `SIM_SCENARIO`로 시나리오 선택) |

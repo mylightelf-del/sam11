@@ -1,0 +1,17 @@
+# Unity가 만드는 것
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+*.csproj
+*.sln
+# tools/unity/sync.sh가 복사해 넣는 것 (원본은 src/, data/, Mods/)
+/Assets/Plugins/Sam11/*.dll
+/Assets/Plugins/Sam11/*.dll.meta
+/Assets/StreamingAssets/data/
+/Assets/StreamingAssets/data.meta
+/Assets/StreamingAssets/Mods/
+/Assets/StreamingAssets/Mods.meta
