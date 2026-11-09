@@ -46,6 +46,9 @@ namespace Sam11.Core.Common
         private static uint RotL(uint x, int k) => (x << k) | (x >> (32 - k));
 
         /// <summary>[0, 1) 범위 실수.</summary>
+        /// <summary>상태를 바꾸지 않고 내부 상태를 요약한다 (저장 파일 검증용).</summary>
+        public string StateDigest => $"{_s0:x8}{_s1:x8}{_s2:x8}{_s3:x8}";
+
         public double NextDouble() => (NextUInt() >> 8) * (1.0 / (1 << 24));
 
         public bool Chance(double p) => NextDouble() < p;

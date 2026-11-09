@@ -86,6 +86,13 @@ namespace Sam11.Core.World
             if (ev.Choices.Count > 0)
             {
                 EventChoice choice;
+                if (choiceId == null && ev.Decider != null && w.Options.Players.Contains(ev.Decider) && !g.Controllers.ContainsKey(ev.Decider))
+                {
+                    // 플레이어가 결정권자: 그 세력 차례에 고르게 미룬다 (선택지 없는 효과는 지금 적용)
+                    w.PendingEvents.Add(new PendingEvent { Event = ev.Id, Faction = ev.Decider });
+                    Apply(g, ev.Effects);
+                    return;
+                }
                 if (choiceId != null) choice = ev.Choices.First(c => c.Id == choiceId);
                 else if (ev.Decider != null && g.Controllers.TryGetValue(ev.Decider, out var ctl) && ctl is IEventChooser chooser)
                     choice = chooser.Choose(g, ev, ev.Decider);

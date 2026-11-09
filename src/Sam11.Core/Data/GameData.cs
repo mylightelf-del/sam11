@@ -26,6 +26,8 @@ namespace Sam11.Core.Data
 
         /// <summary>불러온 data 폴더 경로 (맵·시나리오 로딩에 쓴다).</summary>
         public string DataDir { get; private set; } = "";
+        /// <summary>불러온 모드 (불러온 순서).</summary>
+        public List<string> Mods { get; } = new List<string>();
         public Rules Rules { get; private set; } = new Rules();
 
         public static readonly JsonSerializer Serializer = JsonSerializer.Create(new JsonSerializerSettings

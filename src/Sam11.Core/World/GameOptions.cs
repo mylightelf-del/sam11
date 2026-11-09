@@ -18,6 +18,8 @@ namespace Sam11.Core.World
         public bool GoalVictory = true;
         /// <summary>플레이어가 조종하는 세력. 비어 있으면 AI끼리의 자동 대전.</summary>
         public HashSet<string> Players = new HashSet<string>();
+        /// <summary>AI 난이도.</summary>
+        public AI.Difficulty Difficulty = AI.Difficulty.Normal;
     }
 
     /// <summary>시나리오 목표 (07 설계서 2.1). 조건은 이벤트 조건 문법을 그대로 쓴다.</summary>
@@ -26,6 +28,12 @@ namespace Sam11.Core.World
         public string Id = "";
         public string Description = "";
         public JToken Conditions = new JObject();
+    }
+
+    public sealed class PendingEvent
+    {
+        public string Event = "";
+        public string Faction = "";
     }
 
     public enum GameOutcome { None, Unification, Goal, Defeat }

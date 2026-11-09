@@ -58,28 +58,99 @@ namespace Sam11.Core.World
 
         public bool IsOver => Outcome != GameOutcome.None;
 
-        /// <summary>한 턴(10일)을 진행한다.</summary>
+        // ------------------------------------------------------------------ 턴 진행
+
+        private List<string>? _order;
+        private int _next;
+
+        /// <summary>지금 입력을 기다리는 플레이어 세력 (없으면 null).</summary>
+        public string? CurrentPlayer { get; private set; }
+
+        private bool IsHuman(string f) => World.Options.Players.Contains(f) && !Controllers.ContainsKey(f);
+
+        /// <summary>
+        /// 한 턴(10일)을 끝까지 진행한다. 플레이어 세력 차례에 입력이 없으면 그냥 넘긴다 (자동 대전·테스트용).
+        /// </summary>
         public void PlayTurn()
         {
             if (IsOver) return;
-            var order = AliveFactions.OrderBy(f => f).ToList();
-            if (order.Count > 0)
+            int turn = TurnCount;
+            while (!IsOver && TurnCount == turn)
             {
-                int shift = TurnCount % order.Count; // 매 턴 순서를 돌려 선공 이점을 고르게
-                order = order.Skip(shift).Concat(order.Take(shift)).ToList();
+                Advance();
+                if (CurrentPlayer != null) EndPlayerTurn();
             }
-            Missions.Tick(World);
-            foreach (var f in order)
+        }
+
+        /// <summary>
+        /// 다음 플레이어 차례가 오거나 이번 턴이 끝날 때까지 진행한다. 플레이어 차례면 CurrentPlayer가 정해진 채로 멈춘다.
+        /// </summary>
+        public void Advance()
+        {
+            if (IsOver || CurrentPlayer != null) return;
+            if (_order == null)
             {
-                if (!World.Factions[f].Alive) continue;
+                _order = AliveFactions.OrderBy(f => f).ToList();
+                if (_order.Count > 0)
+                {
+                    int shift = TurnCount % _order.Count; // 매 턴 순서를 돌려 선공 이점을 고르게
+                    _order = _order.Skip(shift).Concat(_order.Take(shift)).ToList();
+                }
+                _next = 0;
+                Missions.Tick(World);
+            }
+            while (_next < _order.Count)
+            {
+                string f = _order[_next];
+                if (!World.Factions[f].Alive) { _next++; continue; }
                 Missions.TriggerInsiders(this);
                 SyncGarrisons();
                 Field.BeginTurn(f);
                 Resolve();
+                if (IsHuman(f))
+                {
+                    CurrentPlayer = f;
+                    return;
+                }
                 if (Controllers.TryGetValue(f, out var c))
                     c.TakeTurn(this, f);
                 Resolve();
+                _next++;
             }
+            EndTurn();
+        }
+
+        /// <summary>플레이어가 차례를 마친다. 답하지 않은 이벤트·외교 제안은 기본값으로 정리한다.</summary>
+        public void EndPlayerTurn()
+        {
+            if (CurrentPlayer == null) return;
+            string f = CurrentPlayer;
+            foreach (var pe in World.PendingEvents.Where(x => x.Faction == f).ToList())
+            {
+                var ev = World.Events.First(e => e.Id == pe.Event);
+                ResolvePendingEvent(pe, ev.Choices.OrderByDescending(c => c.AiWeight).First().Id);
+            }
+            foreach (var pp in World.PendingProposals.Where(x => x.To == f).ToList())
+                Diplomacy.Respond(this, pp, false);
+            Resolve();
+            CurrentPlayer = null;
+            _next++;
+        }
+
+        /// <summary>플레이어가 기다리던 이벤트의 선택지를 고른다.</summary>
+        public void ResolvePendingEvent(PendingEvent pe, string choiceId)
+        {
+            var ev = World.Events.First(e => e.Id == pe.Event);
+            var choice = ev.Choices.FirstOrDefault(c => c.Id == choiceId) ?? throw new InvalidOperationException($"없는 선택지: {choiceId}");
+            World.PendingEvents.Remove(pe);
+            World.Log.Add($"[{World.Date}] ◆ {ev.Name}   → {choice.Text}");
+            EventSystem.Apply(this, choice.Effects);
+            Resolve();
+        }
+
+        private void EndTurn()
+        {
+            _order = null;
             // 무주지 수비대: 붙어 있는 적을 공격만 한다
             SyncGarrisons();
             Field.BeginTurn(SiegeSetup.Neutral);
@@ -91,10 +162,8 @@ namespace Sam11.Core.World
             Resolve();
             Field.EndRound();
             foreach (var kv in Garrisons) World.Cities[kv.Key].FieldGarrison = kv.Value.IsAlive ? kv.Value.Troops : 0;
-            bool monthStart;
             Domestic.AdvanceTurn(World);
-            monthStart = World.Date.IsMonthStart;
-            if (monthStart)
+            if (World.Date.IsMonthStart)
             {
                 MonthlyUpkeep();
                 NaturalDeaths();

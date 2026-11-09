@@ -143,6 +143,10 @@ namespace Sam11.Core.World
         public List<string> Log { get; } = new List<string>();
         public List<Alliance> Alliances { get; } = new List<Alliance>();
         public GameOptions Options { get; set; } = new GameOptions();
+        /// <summary>플레이어의 답을 기다리는 이벤트 (선택지는 그 세력 차례에 고른다).</summary>
+        public List<PendingEvent> PendingEvents { get; } = new List<PendingEvent>();
+        /// <summary>플레이어에게 온 외교 제안 (그 세력 차례에 수락·거절한다).</summary>
+        public List<Proposal> PendingProposals { get; } = new List<Proposal>();
 
         public List<EventDef> Events { get; } = new List<EventDef>();
         public HashSet<string> EventsDone { get; } = new HashSet<string>();

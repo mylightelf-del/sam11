@@ -1,0 +1,117 @@
+using Newtonsoft.Json.Linq;
+using Sam11.Core.Play;
+using Sam11.Core.World;
+
+namespace Sam11.Core.Tests;
+
+public class PlayerSessionTests
+{
+    private static PlayerSession New(string faction, ulong seed = 7) =>
+        PlayerSession.NewGame(TestData.Data, TestData.Map, "190", seed, new GameOptions { Players = { faction } });
+
+    private static JObject C(string type, object? args = null)
+    {
+        var o = args == null ? new JObject() : JObject.FromObject(args);
+        o["type"] = type;
+        return o;
+    }
+
+    [Test]
+    public void WaitsForPlayerAndEndTurnAdvancesDate()
+    {
+        var s = New("cao_cao");
+        Assert.That(s.Faction, Is.EqualTo("cao_cao"));
+        string date = s.World.Date.ToString();
+        var o = s.World.Officers.Values.First(x => x.Faction == "cao_cao" && x.Status == OfficerStatus.Active);
+        var r = s.Execute(C("train", new { officer = o.Id, city = o.Location }));
+        Assert.That(r.Ok, r.Message);
+        var again = s.Execute(C("train", new { officer = o.Id, city = o.Location }));
+        Assert.That(again.Ok, Is.False, "한 차례에 한 번만 행동");
+        s.Execute(C("end_turn"));
+        Assert.That(s.Faction, Is.EqualTo("cao_cao"));
+        Assert.That(s.World.Date.ToString(), Is.Not.EqualTo(date));
+    }
+
+    [Test]
+    public void RejectsOtherFactionsOfficersAndUnknownCommands()
+    {
+        var s = New("cao_cao");
+        var foe = s.World.Officers.Values.First(x => x.Faction == "dong_zhuo" && x.Status == OfficerStatus.Active);
+        Assert.That(s.Execute(C("train", new { officer = foe.Id, city = foe.Location })).Ok, Is.False);
+        Assert.That(s.Execute(C("fly_to_moon")).Ok, Is.False);
+        Assert.That(s.Execute(C("train", new { })).Ok, Is.False);
+    }
+
+    [Test]
+    public void SaveAndLoadReproducesStateAndFuture()
+    {
+        var s = New("cao_cao");
+        var cao = s.World.Officers["cao_cao"];
+        for (int t = 0; t < 12; t++)
+        {
+            if (t == 2) s.Execute(C("recruit", new { officer = "cao_cao", city = cao.Location }));
+            if (t == 4) s.Execute(C("sortie", new { city = cao.Location, officers = new[] { "cao_cao" }, formation = "column", troops = 2000, food = 2000 }));
+            if (t % 3 == 1) s.Execute(C("delegate"));
+            s.Execute(C("end_turn"));
+        }
+        var save = s.Save();
+        var json = save.ToString();
+        var loaded = PlayerSession.Load(TestData.Data, TestData.Map, JObject.Parse(json));
+        Assert.That(loaded.Digest(), Is.EqualTo(s.Digest()));
+        Assert.That(loaded.World.Date.ToString(), Is.EqualTo(s.World.Date.ToString()));
+        for (int t = 0; t < 6; t++)
+        {
+            s.Execute(C("delegate")); s.Execute(C("end_turn"));
+            loaded.Execute(C("delegate")); loaded.Execute(C("end_turn"));
+        }
+        Assert.That(loaded.Digest(), Is.EqualTo(s.Digest()), "불러온 뒤에도 같은 미래");
+    }
+
+    [Test]
+    public void TamperedSaveIsRejected()
+    {
+        var s = New("cao_cao");
+        s.Execute(C("end_turn"));
+        var save = s.Save();
+        save["seed"] = "8";
+        Assert.Throws<InvalidOperationException>(() => PlayerSession.Load(TestData.Data, TestData.Map, save));
+    }
+
+    [Test]
+    public void PlayerDecidesOwnEvents()
+    {
+        var s = New("dong_zhuo");
+        for (int t = 0; t < 9 && !s.World.PendingEvents.Any(); t++) s.Execute(C("end_turn"));
+        var pe = s.World.PendingEvents.FirstOrDefault(p => p.Event == "relocate_changan");
+        Assert.That(pe, Is.Not.Null, "장안 천도는 플레이어(동탁)가 고른다");
+        var ev = s.World.Events.First(e => e.Id == "relocate_changan");
+        string other = ev.Choices.OrderBy(c => c.AiWeight).First().Id;
+        var r = s.Execute(C("event_choice", new { @event = "relocate_changan", choice = other }));
+        Assert.That(r.Ok, r.Message);
+        Assert.That(s.World.PendingEvents, Is.Empty);
+    }
+
+    [Test]
+    public void UnansweredEventGetsDefaultAtEndOfTurn()
+    {
+        var s = New("dong_zhuo");
+        for (int t = 0; t < 9 && !s.World.PendingEvents.Any(); t++) s.Execute(C("end_turn"));
+        Assert.That(s.World.PendingEvents, Is.Not.Empty);
+        s.Execute(C("end_turn"));
+        Assert.That(s.World.PendingEvents.Where(p => p.Event == "relocate_changan"), Is.Empty);
+        Assert.That(s.World.Factions["dong_zhuo"].Capital, Is.EqualTo("changan"), "기본값은 가중치가 가장 큰 선택지(천도)");
+    }
+
+    [Test]
+    public void DelegatedPlayerCanFinishYears()
+    {
+        var s = New("liu_bei", 3);
+        for (int t = 0; t < 72 && !s.IsOver; t++)
+        {
+            s.Execute(C("delegate"));
+            s.Execute(C("end_turn"));
+        }
+        Assert.That(s.World.Date.Year, Is.GreaterThanOrEqualTo(191));
+        Assert.That(s.Commands.Count, Is.GreaterThan(100));
+    }
+}

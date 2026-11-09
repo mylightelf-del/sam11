@@ -66,6 +66,13 @@ namespace Sam11.Core.World
             Validate(g, p);
             envoy.Acted = true;
 
+            if (w.Options.Players.Contains(p.To) && !g.Controllers.ContainsKey(p.To))
+            {
+                // 플레이어에게 온 제안: 그 세력 차례에 답한다
+                w.PendingProposals.Add(p);
+                w.Log.Add($"[{w.Date}] 외교: {w.NameOf(p.From)}의 사자 {envoy}, {w.NameOf(p.To)}에 {Describe(p)} 제안");
+                return false;
+            }
             bool wants = g.Controllers.TryGetValue(p.To, out var ctl) && ctl is IDiplomacyResponder resp ? resp.Wants(g, p) : true;
             double chance = Chance(g, p, wants);
             bool ok = w.Rng.Chance(chance);
@@ -87,7 +94,22 @@ namespace Sam11.Core.World
             return ok;
         }
 
-        private static string Describe(Proposal p) => p.Type switch
+        /// <summary>플레이어가 받은 제안에 답한다. 조건이 그새 안 맞게 되었으면 거절로 본다.</summary>
+        public static bool Respond(Game g, Proposal p, bool accept)
+        {
+            var w = g.World;
+            if (!w.PendingProposals.Remove(p)) throw new InvalidOperationException("기다리는 제안이 아님");
+            bool ok = accept && w.Factions[p.From].Alive && w.Factions[p.To].Alive;
+            if (ok)
+                try { Validate(g, p); }
+                catch (InvalidOperationException) { ok = false; }
+            w.Log.Add($"[{w.Date}] 외교: {w.NameOf(p.From)} → {w.NameOf(p.To)} {Describe(p)} {(ok ? "성사" : "거절")} (플레이어 판단)");
+            if (ok) Apply(g, p);
+            else w.ChangeFriendship(p.From, p.To, -2);
+            return ok;
+        }
+
+        public static string Describe(Proposal p) => p.Type switch
         {
             DiploType.Alliance => "동맹",
             DiploType.Truce => "정전",
