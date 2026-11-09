@@ -1472,6 +1472,342 @@
         "siege_engine": 0,
         "ship": 0
       }
+    },
+    {
+      "stronghold": "hedong",
+      "owner": "dong_zhuo",
+      "population": 250000,
+      "morale": 60,
+      "gold": 1000,
+      "food": 20000,
+      "troops": 10000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "langya",
+      "owner": "tao_qian",
+      "population": 220000,
+      "morale": 60,
+      "gold": 1000,
+      "food": 20000,
+      "troops": 10000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "yuzhang",
+      "owner": null,
+      "population": 180000,
+      "morale": 45,
+      "gold": 0,
+      "food": 20000,
+      "troops": 3000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "jincheng",
+      "owner": "ma_teng",
+      "population": 90000,
+      "morale": 60,
+      "gold": 1000,
+      "food": 20000,
+      "troops": 10000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "jianwei",
+      "owner": "liu_yan",
+      "population": 150000,
+      "morale": 60,
+      "gold": 1000,
+      "food": 20000,
+      "troops": 10000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "langzhong",
+      "owner": "liu_yan",
+      "population": 120000,
+      "morale": 60,
+      "gold": 1000,
+      "food": 20000,
+      "troops": 10000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "zhuoxian",
+      "owner": "gongsun_zan",
+      "population": 160000,
+      "morale": 60,
+      "gold": 1000,
+      "food": 20000,
+      "troops": 10000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "jingxing",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 2000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "lulong",
+      "owner": "gongsun_zan",
+      "population": 0,
+      "morale": 60,
+      "gold": 0,
+      "food": 6000,
+      "troops": 6000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "sanguan",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 2000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "tianjing",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 2000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "wuchang",
+      "owner": null,
+      "population": 30000,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 800,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "hepu",
+      "owner": null,
+      "population": 30000,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 800,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "dongye",
+      "owner": null,
+      "population": 30000,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 800,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "donglai",
+      "owner": "kong_rong",
+      "population": 30000,
+      "morale": 60,
+      "gold": 0,
+      "food": 2000,
+      "troops": 2000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "changban",
+      "owner": "liu_biao",
+      "population": 0,
+      "morale": 60,
+      "gold": 0,
+      "food": 5000,
+      "troops": 5000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "jieting",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 1500,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "mianzhu",
+      "owner": "liu_yan",
+      "population": 0,
+      "morale": 60,
+      "gold": 0,
+      "food": 5000,
+      "troops": 5000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "wuzhangyuan",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 1500,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "xincheng",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 0,
+      "troops": 1500,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "pubanjin",
+      "owner": "dong_zhuo",
+      "population": 0,
+      "morale": 60,
+      "gold": 0,
+      "food": 1000,
+      "troops": 1000,
+      "training": 50,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
     }
   ],
   "officers": [
