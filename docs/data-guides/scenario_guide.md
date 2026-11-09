@@ -1,0 +1,417 @@
+# 시나리오 제작 안내
+
+이 문서는 시나리오 데이터를 만들 때 따르는 규칙이다. 완성본 예시는 `data/scenarios/190/` (scenario.json, events.json).
+설계 배경: `docs/design/07_events.md`, 형식: `docs/design/09_data.md` 3.4~3.5.
+
+## 필수 규칙
+- `cities`에 **거점 100개 전부**의 상태가 있어야 한다 (owner가 null이면 무주지).
+- 세력: `id`는 그 시나리오 시작 군주의 무장 ID와 같게 (예: cao_cao). `capital`은 그 세력 소유 거점, `ruler`는 그 세력 소속 active 무장.
+- 무장 배치: 시작 연도 기준 살아 있고(사망년 ≥ 시작 연도) 15세 이상이면 active/free, 15세 미만이면 status `unborn` (위치는 성인이 될 곳). 시작 전에 죽은 무장은 넣지 않는다.
+- active 무장은 소속 세력이 소유한 거점에 있어야 한다. `governor`는 그 거점에 있는 그 세력 무장.
+- free(재야) 무장은 아무 거점에나 둘 수 있다. 역사적으로 그 시점 어딘가에 숨어 있던 인물.
+- 병력·인구·금·군량: 190년 예시의 크기를 참고. 군량은 병력 이상 (병사 1명당 월 0.1 소비, 10개월분 이상). 도시 병력 상한은 인구 × 10% 정도가 자연스럽다 (시작 시점에는 조금 넘어도 됨).
+- 병장기(horse/crossbow/siege_engine/ship)는 세력 특색에 맞게 (서량·북방 군마, 오·형주 함선).
+- `relations`: 의형제(sworn), 부부(spouse), 친애(like), 혐오(dislike).
+- `diplomacy`: 시작 시 동맹 `{type: alliance, factions:[...], name, months}` (예: 적벽의 손유 동맹).
+- `goals`: 주요 세력마다 1~2개 목표 승리. 조건은 아래 이벤트 조건과 같은 문법 + `{"owns": [거점들]}`(그 세력이 소유) 축약형, `{"before": "YYYY-MM"}`.
+- `treasures`: 보물 위치 (`base/treasures.json` ID만). 소유자는 시나리오에 배치된 무장.
+- `events`: `events.json` 파일 이름.
+
+## 이벤트 문법 (events.json)
+- 필드: id, name{ko}, decider(선택지를 고르는 세력 ID), once(true), locked(선택), trigger, text, choices[{id, text, ai_weight, effects}], effects(선택지와 무관하게 적용)
+- 조건: all, any, not, after "YYYY-MM", before, chance(0~1, 매월 판정), ruler_of{faction,officer}, owns{faction,strongholds[]}, officer_in{officer,stronghold}, officer_in_faction{officer,faction}, loyalty_lte{officer,value}, faction_alive "id", faction_destroyed "id", event_done "id", enemy_units_near{stronghold,radius,troops_gte}
+- 결과: move_capital{faction,to}, city_population{stronghold,mult}, city_morale{stronghold,delta}, destroy_facilities{stronghold,ratio}, transfer_resources{from,to,gold,food,troops,officers (비율 0~1)}, trust{faction,delta}, friendship{a,b,delta}, unlock_event{event}, give_treasure{treasure,officer}, loyalty{officer,delta}, kill_officer{officer,cause}, split_faction{new_faction,ruler,color,officers[],take_location_of,successor}
+- 모르는 조건·결과를 쓰면 게임이 멈춘다. 위 목록만 쓸 것. 이벤트는 매월 초 판정되고 once면 한 번만 일어난다.
+- 이벤트는 역사 흐름을 살리되 선택지로 역사와 다른 길도 열어 둔다 (예: 삼고초려 세 번 방문 / 한 번 / 안 함).
+
+## 검증
+`python3 tools/validate_data.py` — 모든 시나리오 폴더를 검사한다. 오류 0이 될 때까지 고친다.
+
+## 거점 100개 (id 이름 종류 주 | 이어진 거점)
+- luoyang 낙양 major_city sili | hangu, hulao, mengjin, yique
+- changan 장안 major_city sili | anding, chencang, tianshui, tong_gate, wu_gate, wuzhangyuan
+- hongnong 홍농 city sili | hangu, tong_gate
+- henei 하내 city sili | mengjin, tianjing, ye
+- tianshui 천수 city liang | changan, jieting, jincheng, qishan, wuwei
+- wuwei 무위 city liang | anding, jincheng, tianshui
+- anding 안정 city liang | changan, wuwei
+- chengdu 성도 major_city yi | jiangzhou, jianwei, mianzhu
+- hanzhong 한중 city yi | jiameng, langzhong, qishan, sanguan, shangyong, yangping
+- zitong 재동 city yi | fushui, jiange, langzhong
+- jiangzhou 강주 city yi | chengdu, jianwei, langzhong, yongan
+- yongan 영안 city yi | jiangzhou, shangyong, yiling
+- jianning 건녕 city yi | jianwei, yunnan
+- yunnan 운남 city yi | jianning
+- xiangyang 양양 major_city jing | changban, fancheng, jiangxia, xincheng
+- wan 완 city jing | wu_gate, xinye, xuchang, yique
+- xinye 신야 city jing | fancheng, runan, wan
+- jiangling 강릉 city jing | changban, gongan, wuling, yiling
+- jiangxia 강하 city jing | chaisang, xiakou, xiangyang
+- changsha 장사 city jing | gongan, guiyang, lingling, lukou, yuzhang
+- wuling 무릉 city jing | gongan, jiangling
+- lingling 영릉 city jing | changsha, guiyang, jiaozhi
+- guiyang 계양 city jing | changsha, lingling, nanhai
+- shangyong 상용 city jing | hanzhong, xincheng, yongan
+- xuchang 허창 major_city yu | guandu, runan, wan, yique
+- runan 여남 city yu | shouchun, xinye, xuchang
+- qiao 초 city yu | chenliu, shouchun, xiaopei
+- xiaopei 소패 city yu | chenliu, qiao, xiapi
+- chenliu 진류 city yan | puyang, qiao, sishui, xiaopei, yanjin
+- puyang 복양 city yan | baima, cangting, chenliu
+- xiapi 하비 major_city xu | guangling, langya, shouchun, xiaopei
+- guangling 광릉 city xu | jianye, xiapi
+- beihai 북해 city qing | donglai, langya, pingyuan
+- pingyuan 평원 city qing | beihai, cangting, nanpi
+- ye 업 major_city ji | baima, henei, julu
+- nanpi 남피 major_city ji | julu, pingyuan, zhuoxian
+- julu 거록 city ji | jingxing, nanpi, shangdang, ye
+- beiping 북평 city you | ji_city, lulong
+- ji_city 계 city you | beiping, juyong, zhuoxian
+- xiangping 양평 city you | lulong
+- jinyang 진양 city bing | hedong, jingxing, shangdang, yanmen
+- shangdang 상당 city bing | hedong, jinyang, julu, tianjing
+- jianye 건업 major_city yang | guangling, niuzhu, qua, ruxu
+- shouchun 수춘 major_city yang | hefei, qiao, runan, xiapi
+- lujiang 여강 city yang | chaisang, hefei, ruxu
+- wu_city 오 city yang | kuaiji, qua
+- kuaiji 회계 city yang | dongye, wu_city
+- chaisang 시상 city yang | jiangxia, lujiang, niuzhu, wuchang, yuzhang
+- jiaozhi 교지 city jiao | hepu, lingling, nanhai
+- nanhai 남해 city jiao | guiyang, hepu, jiaozhi
+- hulao 호로관 gate sili | luoyang, sishui
+- sishui 사수관 gate sili | chenliu, hulao
+- hangu 함곡관 gate sili | hongnong, luoyang
+- tong_gate 동관 gate sili | changan, hongnong, pubanjin
+- wu_gate 무관 gate sili | changan, wan
+- yique 이궐관 gate sili | luoyang, wan, xuchang
+- yangping 양평관 gate yi | hanzhong, qishan
+- jiameng 가맹관 gate yi | hanzhong, jiange
+- jiange 검각 gate yi | jiameng, zitong
+- fushui 부수관 gate yi | mianzhu, zitong
+- yanmen 안문관 gate bing | jinyang, juyong
+- juyong 거용관 gate you | ji_city, yanmen
+- xiakou 하구 port jing | jiangxia, wuchang, wulin
+- lukou 육구 port jing | changsha, wulin
+- yiling 이릉 port jing | jiangling, yongan
+- gongan 공안 port jing | changsha, jiangling, wuling
+- wulin 오림 port jing | lukou, xiakou
+- ruxu 유수구 port yang | jianye, lujiang
+- niuzhu 우저 port yang | chaisang, jianye
+- qua 곡아 port yang | jianye, wu_city
+- mengjin 맹진 ferry sili | henei, luoyang
+- baima 백마진 ferry yan | puyang, ye
+- yanjin 연진 ferry yan | chenliu, guandu
+- cangting 창정진 ferry yan | pingyuan, puyang
+- guandu 관도 fortress yan | xuchang, yanjin
+- chencang 진창 fortress liang | changan, jieting, sanguan, wuzhangyuan
+- qishan 기산 fortress liang | hanzhong, tianshui, yangping
+- hefei 합비 fortress yang | lujiang, shouchun
+- fancheng 번성 fortress jing | xiangyang, xinye
+- hedong 하동 city sili | jinyang, pubanjin, shangdang
+- langya 낭야 city xu | beihai, xiapi
+- yuzhang 예장 city yang | chaisang, changsha, dongye
+- jincheng 금성 city liang | tianshui, wuwei
+- jianwei 건위 city yi | chengdu, jiangzhou, jianning
+- langzhong 낭중 city yi | hanzhong, jiangzhou, zitong
+- zhuoxian 탁현 city you | ji_city, nanpi
+- jingxing 정형관 gate ji | jinyang, julu
+- lulong 노룡새 gate you | beiping, xiangping
+- sanguan 산관 gate yi | chencang, hanzhong
+- tianjing 천정관 gate bing | henei, shangdang
+- wuchang 무창 port jing | chaisang, xiakou
+- hepu 합포 port jiao | jiaozhi, nanhai
+- dongye 동야 port yang | kuaiji, yuzhang
+- donglai 동래 port qing | beihai
+- changban 장판 fortress jing | jiangling, xiangyang
+- jieting 가정 fortress liang | chencang, tianshui
+- mianzhu 면죽 fortress yi | chengdu, fushui
+- wuzhangyuan 오장원 fortress sili | changan, chencang
+- xincheng 신성 fortress jing | shangyong, xiangyang
+- pubanjin 포판진 ferry sili | hedong, tong_gate
+
+## 무장 (id 이름 출생-사망 통/무/지/정/매 상성)
+- dong_zhuo 동탁 139-192 82/86/62/35/38 c140
+- lu_bu 여포 156-198 88/100/30/18/40 c138
+- li_ru 이유 151-192 40/25/89/75/35 c140
+- li_jue 이각 150-198 74/80/34/20/28 c140
+- guo_si 곽사 150-197 72/78/30/18/26 c141
+- hua_xiong 화웅 155-191 78/90/32/24/38 c139
+- xu_rong 서영 150-192 84/76/70/45/50 c138
+- zhang_ji 장제 150-196 70/72/50/40/48 c137
+- jia_xu 가후 147-223 86/52/97/82/60 c136
+- zhang_liao 장료 169-222 94/92/80/58/80 c120
+- gao_shun 고순 160-198 87/86/52/42/60 c135
+- zhang_xiu 장수 165-207 76/84/56/40/62 c137
+- wang_yun 왕윤 137-192 30/22/78/85/74 c70
+- niu_fu 우보 150-192 60/68/28/30/30 c140
+- yuan_shao 원소 154-202 82/70/72/76/92 c100
+- yan_liang 안량 160-200 80/93/38/30/52 c100
+- wen_chou 문추 160-200 78/93/30/24/48 c101
+- tian_feng 전풍 150-200 70/30/93/82/58 c95
+- feng_ji 봉기 150-202 40/30/76/74/48 c102
+- guo_tu 곽도 150-205 46/32/78/70/50 c103
+- xu_you 허유 155-204 38/30/85/66/52 c60
+- xun_chen 순심 160-210 50/30/80/76/70 c100
+- gao_lan 고람 160-210 74/80/46/38/50 c100
+- han_fu 한복 140-191 40/32/52/64/48 c90
+- zhang_he 장합 167-231 90/88/72/56/64 c30
+- shen_pei 심배 155-204 76/52/80/72/66 c100
+- ju_shou 저수 155-200 82/40/92/86/70 c95
+- qu_yi 국의 160-199 84/82/60/36/52 c105
+- cao_cao 조조 155-220 97/74/92/92/95 c25
+- xiahou_dun 하후돈 157-220 88/89/58/70/78 c25
+- xiahou_yuan 하후연 160-219 86/90/56/50/68 c26
+- cao_ren 조인 168-223 90/86/64/52/70 c24
+- cao_hong 조홍 170-232 72/78/40/44/54 c27
+- yue_jin 악진 160-218 80/84/50/40/50 c26
+- li_dian 이전 174-209 80/76/74/66/70 c28
+- chen_gong 진궁 155-198 78/46/90/80/66 c120
+- dian_wei 전위 160-197 52/96/30/20/40 c26
+- sun_jian 손견 155-191 93/90/74/70/86 c50
+- cheng_pu 정보 150-215 86/80/72/64/76 c50
+- huang_gai 황개 150-215 82/82/70/62/66 c51
+- han_dang 한당 153-227 80/82/50/44/56 c49
+- zu_mao 조무 155-191 64/72/38/36/50 c50
+- sun_ce 손책 175-200 92/94/70/68/94 c50
+- sun_quan 손권 182-252 80/66/80/86/95 c50
+- zhou_yu 주유 175-210 97/72/97/86/94 c52
+- lu_su 노숙 172-217 82/52/92/90/88 c53
+- yuan_shu 원술 155-199 70/64/66/60/72 c101
+- ji_ling 기령 160-199 80/88/44/34/52 c101
+- zhang_xun 장훈 160-199 70/70/48/46/50 c102
+- qiao_rui 교유 160-197 64/70/40/40/46 c102
+- yan_xiang 염상 150-200 30/22/74/76/60 c101
+- lei_bo 뇌박 160-200 60/72/30/30/34 c103
+- gongsun_zan 공손찬 153-199 84/86/58/50/72 c70
+- gongsun_yue 공손월 160-191 60/66/40/40/52 c70
+- yan_gang 엄강 155-191 66/70/40/36/46 c71
+- tian_kai 전해 155-199 62/60/50/50/54 c70
+- guan_jing 관정 150-199 30/20/70/72/40 c70
+- zhao_yun 조운 168-229 92/96/76/68/86 c75
+- liu_bei 유비 161-223 76/74/74/78/99 c75
+- guan_yu 관우 160-220 96/98/76/64/94 c76
+- zhang_fei 장비 165-221 88/98/44/30/50 c76
+- jian_yong 간옹 160-225 30/26/66/70/76 c76
+- liu_biao 유표 142-208 64/48/72/82/86 c85
+- kuai_liang 괴량 155-210 50/30/84/82/66 c85
+- kuai_yue 괴월 155-214 60/40/86/80/64 c84
+- cai_mao 채모 158-210 74/66/64/62/46 c86
+- huang_zu 황조 150-208 70/64/50/44/40 c86
+- wen_pin 문빙 165-230 82/80/60/56/66 c85
+- zhang_yun 장윤 160-208 58/60/46/40/40 c86
+- huang_zhong 황충 148-220 88/94/62/50/70 c78
+- wei_yan 위연 175-234 84/90/66/46/50 c80
+- liu_yan 유언 135-194 60/40/70/78/74 c88
+- liu_zhang 유장 162-219 40/30/46/60/64 c88
+- zhang_ren 장임 165-214 86/84/72/50/64 c88
+- yan_yan 엄안 150-220 80/82/60/50/66 c87
+- huang_quan 황권 165-240 76/50/80/74/70 c89
+- zhang_song 장송 165-212 30/20/86/76/30 c90
+- zhang_lu 장로 160-216 60/40/72/80/84 c89
+- wu_yi 오의 160-237 76/70/64/60/64 c88
+- ma_teng 마등 156-212 86/84/50/54/80 c60
+- han_sui 한수 145-215 80/72/74/62/70 c61
+- ma_chao 마초 176-222 88/98/50/30/80 c60
+- pang_de 방덕 170-219 82/94/60/40/64 c60
+- ma_dai 마대 175-240 72/80/50/40/52 c60
+- tao_qian 도겸 132-194 50/40/62/72/72 c75
+- mi_zhu 미축 165-221 30/30/64/78/84 c76
+- mi_fang 미방 167-222 56/60/30/40/44 c76
+- chen_deng 진등 163-201 80/64/86/84/76 c70
+- chen_gui 진규 140-200 30/20/80/76/62 c70
+- cao_bao 조표 150-196 62/64/32/32/34 c75
+- kong_rong 공융 153-208 40/26/74/78/86 c77
+- taishi_ci 태사자 166-206 86/94/64/50/72 c52
+- gongsun_du 공손도 150-204 72/60/60/66/60 c10
+- gongsun_kang 공손강 170-221 70/66/56/60/54 c10
+- xun_yu 순욱 163-212 70/30/96/98/92 c30
+- guo_jia 곽가 170-207 60/40/98/80/78 c30
+- cheng_yu 정욱 141-220 78/50/90/80/54 c29
+- xu_huang 서황 169-227 90/90/72/54/66 c28
+- zhuge_liang 제갈량 181-234 98/40/100/96/98 c75
+- pang_tong 방통 179-214 84/36/98/86/66 c74
+- cao_pi 조비 187-226 74/66/80/82/78 c25
+- cao_zhi 조식 192-232 24/22/84/56/82 c25
+- cao_zhang 조창 189-223 82/90/34/30/60 c25
+- cao_rui 조예 204-239 70/50/80/80/80 c25
+- cao_zhen 조진 185-231 84/78/66/60/70 c24
+- cao_xiu 조휴 175-228 76/74/54/50/58 c25
+- cao_shuang 조상 200-249 50/44/40/44/56 c26
+- cao_chun 조순 170-210 76/76/56/52/62 c24
+- cao_ang 조앙 177-197 60/62/60/58/74 c25
+- xiahou_ba 하후패 200-259 78/80/54/44/56 c32
+- xiahou_mao 하후무 190-None 30/30/30/50/40 c26
+- xiahou_shang 하후상 180-226 72/70/64/60/60 c26
+- yu_jin 우금 160-221 84/76/64/54/56 c27
+- xu_chu 허저 170-None 64/96/34/26/50 c25
+- man_chong 만총 170-242 80/66/80/78/64 c28
+- xun_you 순유 157-214 62/32/95/82/66 c29
+- sima_yi 사마의 179-251 95/64/97/92/84 c33
+- sima_shi 사마사 208-255 84/66/86/80/76 c33
+- sima_zhao 사마소 211-265 82/62/84/86/80 c33
+- sima_fu 사마부 180-272 50/34/74/82/78 c30
+- deng_ai 등애 197-264 92/80/90/76/62 c30
+- zhong_hui 종회 225-264 84/56/92/72/66 c31
+- guo_huai 곽회 187-255 84/72/78/72/66 c29
+- chen_tai 진태 200-260 78/64/80/76/70 c30
+- wang_shuang 왕쌍 185-228 70/86/26/20/34 c27
+- hao_zhao 학소 190-229 82/72/66/50/62 c28
+- zang_ba 장패 165-230 78/80/54/50/66 c35
+- sun_li 손례 190-250 70/74/58/64/58 c28
+- liu_ye 유엽 180-234 50/30/90/70/54 c30
+- chen_qun 진군 180-237 34/24/80/90/72 c29
+- hua_xin 화흠 157-232 28/24/76/82/70 c30
+- wang_lang 왕랑 152-228 40/32/72/78/70 c31
+- zhong_yao 종요 151-230 46/30/80/84/74 c29
+- cui_yan 최염 163-216 30/34/72/76/84 c32
+- mao_jie 모개 160-216 34/30/74/82/70 c28
+- jiang_ji 장제 188-249 56/40/84/80/66 c29
+- xin_pi 신비 170-235 40/30/78/74/72 c32
+- yang_xiu 양수 175-219 26/22/88/66/56 c30
+- tian_chou 전주 169-214 50/56/74/72/76 c30
+- wen_qin 문흠 200-258 70/78/48/36/42 c34
+- guanqiu_jian 관구검 195-255 82/74/70/64/66 c31
+- zhuge_dan 제갈탄 200-258 76/66/66/70/74 c34
+- li_tong 이통 168-209 74/78/50/46/66 c27
+- cai_yan 채염 177-None 10/8/80/60/74 c30
+- he_yan 하안 195-249 18/16/76/54/60 c28
+- wang_chang 왕창 200-259 76/60/76/76/66 c30
+- zhang_ji_wei 장기 170-223 66/50/78/82/74 c30
+- han_hao 한호 165-215 66/64/60/72/58 c27
+- zhu_ling 주령 165-225 74/76/46/40/54 c31
+- wang_ling 왕릉 172-251 76/64/70/70/68 c32
+- he_jin 하진 150-189 52/50/30/50/66 c66
+- lu_zhi 노식 139-192 80/60/80/80/84 c68
+- huangfu_song 황보숭 140-195 90/76/74/66/80 c67
+- zhu_jun 주준 145-195 84/72/62/64/74 c67
+- ding_yuan 정원 140-189 70/70/46/44/60 c69
+- dong_cheng 동승 150-200 58/60/50/48/60 c66
+- zhang_jue 장각 140-184 78/30/82/70/92 c126
+- zhang_bao_yt 장보 145-184 70/66/74/40/66 c126
+- zhang_liang_yt 장량 148-184 72/72/50/30/60 c127
+- guan_hai 관해 160-None 64/80/26/18/34 c125
+- li_su 이숙 155-192 56/62/60/40/44 c139
+- yang_feng 양봉 155-197 66/72/34/30/44 c128
+- han_xian 한섬 155-197 62/70/30/26/38 c127
+- fa_zheng 법정 176-220 78/46/94/80/54 c74
+- ma_liang 마량 187-222 40/30/84/84/80 c76
+- ma_su 마속 190-228 66/52/84/70/64 c75
+- xu_shu 서서 177-234 84/64/92/82/78 c73
+- li_yan 이엄 180-234 82/74/80/82/62 c80
+- guan_ping 관평 178-219 74/80/62/54/66 c76
+- guan_xing 관흥 198-234 76/84/62/48/68 c76
+- zhang_bao 장포 197-229 72/86/40/30/56 c76
+- zhang_yi 장익 190-264 76/74/60/58/62 c75
+- wang_ping 왕평 195-248 82/74/64/52/60 c77
+- jiang_wei 강유 202-264 92/88/90/70/80 c75
+- jiang_wan 장완 188-246 70/40/82/90/82 c76
+- fei_yi 비의 195-253 64/34/84/90/84 c76
+- dong_yun 동윤 194-246 30/20/74/86/72 c76
+- ma_zhong 마충 194-249 76/72/66/70/66 c77
+- liao_hua 요화 185-264 72/74/54/50/58 c77
+- wu_ban 오반 180-None 70/72/48/40/50 c79
+- li_hui 이회 180-231 68/60/72/72/66 c78
+- sun_qian 손건 160-215 26/24/70/74/76 c76
+- yi_ji 이적 165-None 28/22/72/72/72 c78
+- liu_feng 유봉 190-220 76/80/50/40/56 c76
+- meng_da 맹달 175-228 74/72/68/60/58 c80
+- liu_shan 유선 207-271 24/18/38/40/72 c75
+- chen_dao 진도 170-None 80/82/56/44/62 c75
+- deng_zhi 등지 178-251 70/62/78/80/76 c77
+- zhang_ni 장억 200-254 80/82/64/60/70 c77
+- guo_youzhi 곽유지 185-None 20/16/62/64/62 c76
+- dong_he 동화 160-221 30/22/66/80/74 c80
+- yang_yi 양의 190-235 50/30/78/82/40 c74
+- fei_shi 비시 180-None 26/20/68/70/60 c80
+- qiao_zhou 초주 201-270 18/12/80/74/62 c80
+- zhuge_zhan 제갈첨 227-263 64/58/64/70/74 c75
+- fu_qian 부첨 220-263 72/84/50/40/56 c76
+- meng_huo 맹획 180-None 76/86/40/46/78 c115
+- zhu_rong 축융 185-None 72/84/36/30/64 c115
+- meng_you 맹우 182-None 60/70/30/24/40 c116
+- wutugu 올돌골 170-None 74/92/16/12/36 c118
+- mulu 목록대왕 180-None 62/74/40/20/42 c117
+- shamoke 사마가 180-222 68/86/24/16/40 c112
+- leng_bao 냉포 175-214 66/72/44/36/42 c88
+- deng_xian 등현 175-214 62/68/40/34/40 c88
+- liu_gui 유괴 170-None 70/68/56/46/50 c88
+- gao_pei 고패 170-212 64/66/40/36/42 c89
+- yang_huai 양회 170-212 62/64/46/40/40 c89
+- liu_ba 유파 186-222 22/16/80/88/58 c86
+- yan_pu 염포 170-None 34/22/78/74/60 c89
+- yang_song 양송 170-215 20/16/58/56/38 c90
+- yang_ang 양앙 170-215 64/70/36/30/38 c89
+- zhang_wei 장위 175-None 66/68/44/40/46 c89
+- liu_qi 유기 180-209 46/40/62/64/70 c85
+- liu_cong 유종 190-None 30/24/46/50/56 c86
+- han_xuan 한현 160-209 50/46/40/52/36 c85
+- jin_xuan 김선 165-209 52/54/40/44/40 c86
+- zhao_fan 조범 165-None 42/36/54/56/44 c86
+- liu_du 유도 160-None 46/40/48/58/52 c85
+- xing_daorong 형도영 170-209 56/76/22/18/30 c85
+- wang_wei 왕위 170-None 66/64/64/48/56 c86
+- lu_meng 여몽 178-220 91/82/89/76/78 c51
+- lu_xun 육손 183-245 95/66/95/88/86 c53
+- gan_ning 감녕 175-220 86/94/64/30/62 c48
+- zhou_tai 주태 165-225 80/91/40/32/50 c50
+- jiang_qin 장흠 168-219 74/80/50/52/56 c50
+- chen_wu 진무 177-215 72/82/42/34/58 c49
+- ling_tong 능통 189-217 80/88/48/40/66 c51
+- ling_cao 능조 160-203 70/80/34/30/46 c50
+- xu_sheng 서성 177-228 84/84/64/52/64 c50
+- ding_feng 정봉 190-271 80/84/58/44/60 c49
+- pan_zhang 반장 175-234 76/82/40/30/40 c48
+- zhu_huan 주환 177-238 84/82/64/46/64 c51
+- zhu_ran 주연 182-249 84/78/66/56/64 c50
+- sun_yi 손익 184-204 66/80/32/30/60 c50
+- sun_shao 손소 188-241 74/70/56/56/62 c50
+- sun_huan 손환 198-223 70/72/62/50/66 c50
+- sun_shangxiang 손상향 189-None 50/76/52/46/74 c50
+- zhang_zhao 장소 156-236 30/18/82/92/80 c52
+- zhang_hong 장굉 153-212 30/18/82/84/70 c52
+- gu_yong 고옹 168-243 30/20/80/90/76 c51
+- zhuge_jin 제갈근 174-241 66/40/80/82/86 c53
+- zhuge_ke 제갈각 203-253 76/52/86/76/60 c54
+- yu_fan 우번 164-233 40/46/82/70/42 c52
+- kan_ze 감택 170-243 30/26/80/72/60 c51
+- bu_zhi 보즐 175-247 66/40/78/80/70 c52
+- luo_tong 낙통 193-228 50/36/72/78/66 c51
+- lu_ji 육적 188-219 30/18/76/62/60 c53
+- lu_fan 여범 165-228 70/60/66/74/66 c50
+- zhu_zhi 주치 156-224 70/60/62/70/70 c50
+- quan_cong 전종 198-249 74/72/56/58/64 c50
+- he_qi 하제 170-227 80/76/60/56/66 c50
+- dong_xi 동습 170-217 72/84/38/30/52 c50
+- lu_kang 육항 226-274 90/70/86/78/80 c53
+- wu_jing 오경 155-203 64/62/50/56/58 c50
+- sun_jing 손정 158-None 60/58/52/56/62 c50
+- yuan_tan 원담 173-205 70/70/48/50/60 c100
+- yuan_xi 원희 176-207 62/58/50/52/58 c101
+- yuan_shang 원상 178-207 68/72/48/46/70 c102
+- chunyu_qiong 순우경 150-200 66/70/44/40/44 c103
+- zhang_yan 장연 165-None 72/74/58/48/70 c126
+- gao_gan 고간 168-206 70/66/58/52/60 c100
+- liu_yu 유우 140-193 40/26/70/86/92 c68
+- liu_dai 유대 150-192 56/50/56/64/66 c72
+- qiao_mao 교모 145-190 50/40/62/64/70 c72
+- zhang_miao 장막 150-195 56/44/64/66/80 c115
+- zhang_chao 장초 155-195 54/50/56/58/62 c116
+- liu_yao 유요 156-197 58/44/64/70/74 c73
+- yan_baihu 엄백호 160-None 60/68/30/34/44 c40
+- shi_xie 사섭 137-226 54/40/76/86/82 c44
+- song_xian 송헌 165-200 62/70/34/30/36 c136
+- wei_xu 위속 165-200 60/68/34/28/32 c136
+- hou_cheng 후성 165-None 62/68/38/32/36 c135
+- hao_meng 학맹 160-196 58/66/36/28/30 c137
+- cao_xing 조성 170-None 56/72/34/26/30 c136
+- hu_cheer 호거아 165-None 50/80/30/22/30 c137
+- cheng_yi 성의 170-211 58/68/30/28/34 c61
+- yan_xing 염행 170-None 74/86/56/44/50 c60
+- yang_qiu 양추 170-None 64/66/44/44/48 c60
+- hou_xuan 후선 170-None 58/64/32/32/38 c61
+- diao_chan 초선 176-None 20/18/72/60/92 c70
+- wang_kuang 왕광 150-190 60/54/54/56/64 c68
+- bao_xin 포신 152-192 70/64/70/64/74 c32
+
+## 보물 ID
+green_dragon(청룡언월도), serpent_spear(장팔사모), sky_piercer(방천화극), seven_star(칠성검), blue_steel(청강검), red_hare(적토마), dilu(적로), shadow_runner(절영), art_of_war(손자병법), mengde_book(맹덕신서), dunjia_book(둔갑천서), six_secret(육도), imperial_seal(옥새), qingnang(청낭서), bronze_sparrow(동작), book_of_rites(예기)

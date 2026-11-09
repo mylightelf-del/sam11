@@ -6,7 +6,7 @@ public class DataTests
     public void LoadsAllBaseData()
     {
         var d = TestData.Data;
-        Assert.That(d.Officers, Has.Count.EqualTo(100));
+        Assert.That(d.Officers.Count, Is.GreaterThanOrEqualTo(280));
         Assert.That(d.Formations, Has.Count.EqualTo(8));
         Assert.That(d.Tactics, Has.Count.EqualTo(24));
         Assert.That(d.Officers["cao_cao"].Stats.Ldr, Is.EqualTo(97));
