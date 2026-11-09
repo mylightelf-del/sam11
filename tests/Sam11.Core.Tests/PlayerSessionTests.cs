@@ -50,7 +50,15 @@ public class PlayerSessionTests
         for (int t = 0; t < 12; t++)
         {
             if (t == 2) s.Execute(C("recruit", new { officer = "cao_cao", city = cao.Location }));
-            if (t == 4) s.Execute(C("sortie", new { city = cao.Location, officers = new[] { "cao_cao" }, formation = "column", troops = 2000, food = 2000 }));
+            if (t == 4)
+            {
+                var r = s.Execute(C("sortie", new { city = cao.Location, officers = new[] { "cao_cao" }, formation = "fish_scale", troops = 2000, food = 2000 }));
+                Assert.That(r.Ok, r.Message);
+                var u = s.Game.Field.Alive.First(x => x.Faction == "cao_cao" && !x.IsGarrison && x.Leader.Id == "cao_cao");
+                var dest = s.Game.Field.Reachable(u).Keys.OrderByDescending(h => h.DistanceTo(u.Position)).First();
+                Assert.That(s.Execute(C("move", new { unit = u.Id, q = dest.Q, r = dest.R })).Ok);
+                Assert.That(s.Execute(C("move", new { unit = u.Id, q = u.Position.Q, r = u.Position.R })).Ok, Is.False, "한 차례에 한 번 이동");
+            }
             if (t % 3 == 1) s.Execute(C("delegate"));
             s.Execute(C("end_turn"));
         }
@@ -113,5 +121,46 @@ public class PlayerSessionTests
         }
         Assert.That(s.World.Date.Year, Is.GreaterThanOrEqualTo(191));
         Assert.That(s.Commands.Count, Is.GreaterThan(100));
+    }
+
+    [Test]
+    public void ManualCampaignMarchesAndFights()
+    {
+        // 사람이 하듯 명령만으로: 출진 → 가장 가까운 적 거점으로 행군 → 붙으면 전법·공격
+        var s = New("cao_cao", 5);
+        var w = s.World;
+        var home = w.Cities[w.Officers["cao_cao"].Location];
+        var r = s.Execute(C("sortie", new { city = home.Id, officers = new[] { "cao_cao", "xiahou_dun", "xiahou_yuan" }, formation = "fish_scale", troops = 9000, food = 9000 }));
+        Assert.That(r.Ok, r.Message);
+        int id = s.Game.Field.Alive.First(u => u.Faction == "cao_cao" && u.Leader.Id == "cao_cao").Id;
+        int fights = 0;
+        for (int t = 0; t < 40 && !s.IsOver; t++)
+        {
+            var b = s.Game.Field;
+            var u = b.Units.FirstOrDefault(x => x.Id == id);
+            if (u == null || !u.IsAlive) break;
+            var foe = b.Alive.Where(e => b.Hostile(e.Faction, "cao_cao")).OrderBy(e => e.Position.DistanceTo(u.Position)).FirstOrDefault();
+            var target = w.Cities.Values.Where(c => c.Owner != null && c.Owner != "cao_cao" && !w.AtPeace(c.Owner, "cao_cao"))
+                          .OrderBy(c => c.Placement.Center.DistanceTo(u.Position)).First();
+            if (foe == null || !b.InRange(u, foe))
+            {
+                var field = b.PathField(u, target.Placement.Center);
+                var reach = b.Reachable(u);
+                var dest = reach.Keys.Where(field.ContainsKey).OrderBy(h => field[h]).FirstOrDefault(u.Position);
+                if (dest != u.Position) s.Execute(C("move", new { unit = id, q = dest.Q, r = dest.R }));
+                foe = b.Alive.Where(e => b.Hostile(e.Faction, "cao_cao")).OrderBy(e => e.Position.DistanceTo(u.Position)).FirstOrDefault();
+            }
+            if (foe != null && u.IsAlive && b.InRange(u, foe))
+            {
+                var tac = b.AvailableTactics(u).FirstOrDefault(x => x.EnergyCost <= u.Energy && x.Power > 0 && b.InRange(u, foe, b.TacticRange(u, x)) && !b.TacticTargetsStructureOnly(x));
+                var res = tac != null ? s.Execute(C("tactic", new { unit = id, tactic = tac.Id, target = foe.Id }))
+                                      : s.Execute(C("attack", new { unit = id, target = foe.Id }));
+                if (res.Ok) fights++;
+            }
+            s.Execute(C("end_turn"));
+        }
+        Assert.That(fights, Is.GreaterThan(0), "적과 싸웠다");
+        var save = s.Save();
+        Assert.That(PlayerSession.Load(TestData.Data, TestData.Map, save).Digest(), Is.EqualTo(s.Digest()));
     }
 }

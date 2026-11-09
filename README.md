@@ -11,7 +11,8 @@
 | `src/Sam11.Core/` | 게임 코어 (순수 C#, .NET Standard 2.1 — Unity에서 그대로 사용): 전투, 세계·내정, 게임 루프, AI |
 | `tests/Sam11.Core.Tests/` | 코어 단위 테스트 |
 | `tools/validate_data.py` | 데이터 형식·참조 검증 |
-| `tools/Sam11.Sim/` | 시연 콘솔 (호로관 전투, 경제 점검, 사수관 공략, AI 자동 대전) |
+| `tools/Sam11.Play/` | 콘솔 클라이언트 — 한 판을 처음부터 끝까지 직접 플레이 (M4 수직 단면) |
+| `tools/Sam11.Sim/` | 시연 콘솔 (호로관 전투, 경제 점검, 사수관 공략, AI 자동 대전, `SIM_SCENARIO`로 시나리오 선택) |
 | `tools/mapgen/` | 전국 맵 생성기와 미리보기 렌더러 |
 | `data/map/` | 지리 원본(`geography.json`)과 생성된 맵(`world.json`) |
 
@@ -27,6 +28,24 @@ python3 tools/validate_data.py
 
 ```bash
 dotnet test tests/Sam11.Core.Tests
+```
+
+직접 플레이 (시나리오, 세력, 시드). 들어가서 `도움말`을 입력하면 명령 목록이 나온다:
+
+```bash
+dotnet run --project tools/Sam11.Play -- 190 cao_cao 1
+```
+
+저장한 판 이어 하기:
+
+```bash
+dotnet run --project tools/Sam11.Play -- load save1.json
+```
+
+명령을 파일에 적어 대본처럼 돌릴 수도 있다 (예: `자동 360`은 10년을 AI에게 맡김):
+
+```bash
+dotnet run --project tools/Sam11.Play -- 190 cao_cao 1 < script.txt
 ```
 
 전투 시연 (시드, 날씨: clear / rain / snow / fog / gale):
