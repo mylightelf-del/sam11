@@ -1167,7 +1167,8 @@
         "crossbow": 0,
         "siege_engine": 0,
         "ship": 0
-      }
+      },
+      "governor": "gao_pei"
     },
     {
       "stronghold": "yanmen",
@@ -1503,7 +1504,8 @@
         "crossbow": 0,
         "siege_engine": 0,
         "ship": 0
-      }
+      },
+      "governor": "zang_ba"
     },
     {
       "stronghold": "yuzhang",
@@ -1812,11 +1814,36 @@
   ],
   "officers": [
     {
+      "officer": "bao_xin",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "bu_zhi",
+      "faction": null,
+      "location": "guangling",
+      "status": "free"
+    },
+    {
       "officer": "cai_mao",
       "faction": "liu_biao",
       "location": "xiangyang",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "cai_yan",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "cao_ang",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
     },
     {
       "officer": "cao_bao",
@@ -1834,6 +1861,13 @@
       "rank": "general_misc"
     },
     {
+      "officer": "cao_chun",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
       "officer": "cao_hong",
       "faction": "cao_cao",
       "location": "chenliu",
@@ -1841,9 +1875,66 @@
       "loyalty": 80
     },
     {
+      "officer": "cao_pi",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
       "officer": "cao_ren",
       "faction": "cao_cao",
       "location": "chenliu",
+      "status": "active",
+      "loyalty": 80
+    },
+    {
+      "officer": "cao_rui",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "cao_shuang",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "cao_xing",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "cao_xiu",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cao_zhang",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "cao_zhen",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "cao_zhi",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "chen_dao",
+      "faction": "liu_bei",
+      "location": "pingyuan",
       "status": "active",
       "loyalty": 80
     },
@@ -1869,6 +1960,24 @@
       "loyalty": 60
     },
     {
+      "officer": "chen_qun",
+      "faction": null,
+      "location": "xuchang",
+      "status": "unborn"
+    },
+    {
+      "officer": "chen_tai",
+      "faction": null,
+      "location": "xuchang",
+      "status": "unborn"
+    },
+    {
+      "officer": "chen_wu",
+      "faction": null,
+      "location": "lujiang",
+      "status": "unborn"
+    },
+    {
       "officer": "cheng_pu",
       "faction": "sun_jian",
       "location": "changsha",
@@ -1877,16 +1986,92 @@
       "rank": "colonel"
     },
     {
+      "officer": "cheng_yi",
+      "faction": "ma_teng",
+      "location": "anding",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
       "officer": "cheng_yu",
       "faction": null,
       "location": "puyang",
       "status": "free"
     },
     {
+      "officer": "chunyu_qiong",
+      "faction": "yuan_shao",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 80
+    },
+    {
+      "officer": "cui_yan",
+      "faction": null,
+      "location": "julu",
+      "status": "free"
+    },
+    {
+      "officer": "deng_ai",
+      "faction": null,
+      "location": "wan",
+      "status": "unborn"
+    },
+    {
+      "officer": "deng_xian",
+      "faction": "liu_yan",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
+      "officer": "deng_zhi",
+      "faction": null,
+      "location": "xinye",
+      "status": "unborn"
+    },
+    {
       "officer": "dian_wei",
       "faction": null,
       "location": "chenliu",
       "status": "free"
+    },
+    {
+      "officer": "diao_chan",
+      "faction": null,
+      "location": "luoyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "ding_feng",
+      "faction": null,
+      "location": "lujiang",
+      "status": "unborn"
+    },
+    {
+      "officer": "dong_cheng",
+      "faction": "dong_zhuo",
+      "location": "hongnong",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "dong_he",
+      "faction": null,
+      "location": "jiangling",
+      "status": "free"
+    },
+    {
+      "officer": "dong_xi",
+      "faction": null,
+      "location": "kuaiji",
+      "status": "free"
+    },
+    {
+      "officer": "dong_yun",
+      "faction": null,
+      "location": "chengdu",
+      "status": "unborn"
     },
     {
       "officer": "dong_zhuo",
@@ -1897,6 +2082,24 @@
       "rank": "general_grand"
     },
     {
+      "officer": "fa_zheng",
+      "faction": null,
+      "location": "changan",
+      "status": "unborn"
+    },
+    {
+      "officer": "fei_shi",
+      "faction": null,
+      "location": "chengdu",
+      "status": "unborn"
+    },
+    {
+      "officer": "fei_yi",
+      "faction": null,
+      "location": "jiangxia",
+      "status": "unborn"
+    },
+    {
       "officer": "feng_ji",
       "faction": "yuan_shao",
       "location": "nanpi",
@@ -1904,11 +2107,37 @@
       "loyalty": 80
     },
     {
+      "officer": "fu_qian",
+      "faction": null,
+      "location": "chengdu",
+      "status": "unborn"
+    },
+    {
+      "officer": "gan_ning",
+      "faction": null,
+      "location": "jiangzhou",
+      "status": "free"
+    },
+    {
+      "officer": "gao_gan",
+      "faction": "yuan_shao",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
       "officer": "gao_lan",
       "faction": "yuan_shao",
       "location": "nanpi",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "gao_pei",
+      "faction": "liu_yan",
+      "location": "fushui",
+      "status": "active",
+      "loyalty": 75
     },
     {
       "officer": "gao_shun",
@@ -1947,6 +2176,18 @@
       "rank": "general_misc"
     },
     {
+      "officer": "gu_yong",
+      "faction": null,
+      "location": "wu_city",
+      "status": "free"
+    },
+    {
+      "officer": "guan_hai",
+      "faction": null,
+      "location": "beihai",
+      "status": "free"
+    },
+    {
       "officer": "guan_jing",
       "faction": "gongsun_zan",
       "location": "ji_city",
@@ -1954,11 +2195,35 @@
       "loyalty": 80
     },
     {
+      "officer": "guan_ping",
+      "faction": null,
+      "location": "pingyuan",
+      "status": "unborn"
+    },
+    {
+      "officer": "guan_xing",
+      "faction": null,
+      "location": "pingyuan",
+      "status": "unborn"
+    },
+    {
       "officer": "guan_yu",
       "faction": "liu_bei",
       "location": "pingyuan",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "guanqiu_jian",
+      "faction": null,
+      "location": "hedong",
+      "status": "unborn"
+    },
+    {
+      "officer": "guo_huai",
+      "faction": null,
+      "location": "jinyang",
+      "status": "unborn"
     },
     {
       "officer": "guo_jia",
@@ -1982,6 +2247,12 @@
       "loyalty": 80
     },
     {
+      "officer": "guo_youzhi",
+      "faction": null,
+      "location": "wan",
+      "status": "unborn"
+    },
+    {
       "officer": "han_dang",
       "faction": "sun_jian",
       "location": "changsha",
@@ -1996,11 +2267,82 @@
       "loyalty": 100
     },
     {
+      "officer": "han_hao",
+      "faction": null,
+      "location": "henei",
+      "status": "free"
+    },
+    {
       "officer": "han_sui",
       "faction": "ma_teng",
       "location": "anding",
       "status": "active",
       "loyalty": 60
+    },
+    {
+      "officer": "han_xian",
+      "faction": null,
+      "location": "hedong",
+      "status": "free"
+    },
+    {
+      "officer": "han_xuan",
+      "faction": null,
+      "location": "changsha",
+      "status": "free"
+    },
+    {
+      "officer": "hao_meng",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 65
+    },
+    {
+      "officer": "hao_zhao",
+      "faction": null,
+      "location": "jinyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "he_qi",
+      "faction": null,
+      "location": "kuaiji",
+      "status": "free"
+    },
+    {
+      "officer": "he_yan",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "hou_cheng",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "hou_xuan",
+      "faction": "ma_teng",
+      "location": "anding",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "hu_cheer",
+      "faction": "dong_zhuo",
+      "location": "changan",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
+      "officer": "hua_xin",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 50
     },
     {
       "officer": "hua_xiong",
@@ -2039,6 +2381,13 @@
       "loyalty": 80
     },
     {
+      "officer": "huangfu_song",
+      "faction": "dong_zhuo",
+      "location": "changan",
+      "status": "active",
+      "loyalty": 50
+    },
+    {
       "officer": "ji_ling",
       "faction": "yuan_shu",
       "location": "wan",
@@ -2061,11 +2410,47 @@
       "loyalty": 80
     },
     {
+      "officer": "jiang_ji",
+      "faction": null,
+      "location": "shouchun",
+      "status": "unborn"
+    },
+    {
+      "officer": "jiang_qin",
+      "faction": null,
+      "location": "shouchun",
+      "status": "free"
+    },
+    {
+      "officer": "jiang_wan",
+      "faction": null,
+      "location": "lingling",
+      "status": "unborn"
+    },
+    {
+      "officer": "jiang_wei",
+      "faction": null,
+      "location": "tianshui",
+      "status": "unborn"
+    },
+    {
+      "officer": "jin_xuan",
+      "faction": null,
+      "location": "wuling",
+      "status": "free"
+    },
+    {
       "officer": "ju_shou",
       "faction": "han_fu",
       "location": "ye",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "kan_ze",
+      "faction": null,
+      "location": "kuaiji",
+      "status": "free"
     },
     {
       "officer": "kong_rong",
@@ -2096,11 +2481,24 @@
       "loyalty": 80
     },
     {
+      "officer": "leng_bao",
+      "faction": "liu_yan",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
       "officer": "li_dian",
       "faction": "cao_cao",
       "location": "chenliu",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "li_hui",
+      "faction": null,
+      "location": "jianning",
+      "status": "unborn"
     },
     {
       "officer": "li_jue",
@@ -2118,6 +2516,49 @@
       "loyalty": 80
     },
     {
+      "officer": "li_su",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 65
+    },
+    {
+      "officer": "li_tong",
+      "faction": null,
+      "location": "runan",
+      "status": "free"
+    },
+    {
+      "officer": "li_yan",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "liao_hua",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "ling_cao",
+      "faction": null,
+      "location": "wu_city",
+      "status": "free"
+    },
+    {
+      "officer": "ling_tong",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
+      "officer": "liu_ba",
+      "faction": null,
+      "location": "lingling",
+      "status": "unborn"
+    },
+    {
       "officer": "liu_bei",
       "faction": "liu_bei",
       "location": "pingyuan",
@@ -2132,11 +2573,72 @@
       "loyalty": 100
     },
     {
+      "officer": "liu_cong",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "liu_dai",
+      "faction": null,
+      "location": "puyang",
+      "status": "free"
+    },
+    {
+      "officer": "liu_du",
+      "faction": null,
+      "location": "lingling",
+      "status": "free"
+    },
+    {
+      "officer": "liu_feng",
+      "faction": null,
+      "location": "changsha",
+      "status": "unborn"
+    },
+    {
+      "officer": "liu_gui",
+      "faction": "liu_yan",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 80
+    },
+    {
+      "officer": "liu_qi",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "liu_shan",
+      "faction": null,
+      "location": "pingyuan",
+      "status": "unborn"
+    },
+    {
       "officer": "liu_yan",
       "faction": "liu_yan",
       "location": "chengdu",
       "status": "active",
       "loyalty": 100
+    },
+    {
+      "officer": "liu_yao",
+      "faction": null,
+      "location": "donglai",
+      "status": "free"
+    },
+    {
+      "officer": "liu_ye",
+      "faction": null,
+      "location": "shouchun",
+      "status": "unborn"
+    },
+    {
+      "officer": "liu_yu",
+      "faction": null,
+      "location": "ji_city",
+      "status": "free"
     },
     {
       "officer": "liu_zhang",
@@ -2154,10 +2656,52 @@
       "rank": "general_misc"
     },
     {
+      "officer": "lu_fan",
+      "faction": null,
+      "location": "shouchun",
+      "status": "free"
+    },
+    {
+      "officer": "lu_ji",
+      "faction": null,
+      "location": "lujiang",
+      "status": "unborn"
+    },
+    {
+      "officer": "lu_kang",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
+      "officer": "lu_meng",
+      "faction": null,
+      "location": "runan",
+      "status": "unborn"
+    },
+    {
       "officer": "lu_su",
       "faction": null,
       "location": "xiapi",
       "status": "free"
+    },
+    {
+      "officer": "lu_xun",
+      "faction": null,
+      "location": "lujiang",
+      "status": "unborn"
+    },
+    {
+      "officer": "lu_zhi",
+      "faction": null,
+      "location": "ji_city",
+      "status": "free"
+    },
+    {
+      "officer": "luo_tong",
+      "faction": null,
+      "location": "kuaiji",
+      "status": "unborn"
     },
     {
       "officer": "ma_chao",
@@ -2173,12 +2717,60 @@
       "loyalty": 80
     },
     {
+      "officer": "ma_liang",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "ma_su",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
       "officer": "ma_teng",
       "faction": "ma_teng",
       "location": "wuwei",
       "status": "active",
       "loyalty": 100,
       "rank": "general_misc"
+    },
+    {
+      "officer": "ma_zhong",
+      "faction": null,
+      "location": "langzhong",
+      "status": "unborn"
+    },
+    {
+      "officer": "man_chong",
+      "faction": null,
+      "location": "chenliu",
+      "status": "free"
+    },
+    {
+      "officer": "mao_jie",
+      "faction": null,
+      "location": "chenliu",
+      "status": "free"
+    },
+    {
+      "officer": "meng_da",
+      "faction": null,
+      "location": "changan",
+      "status": "free"
+    },
+    {
+      "officer": "meng_huo",
+      "faction": null,
+      "location": "yunnan",
+      "status": "unborn"
+    },
+    {
+      "officer": "meng_you",
+      "faction": null,
+      "location": "yunnan",
+      "status": "unborn"
     },
     {
       "officer": "mi_fang",
@@ -2195,11 +2787,23 @@
       "loyalty": 80
     },
     {
+      "officer": "mulu",
+      "faction": null,
+      "location": "yunnan",
+      "status": "unborn"
+    },
+    {
       "officer": "niu_fu",
       "faction": "dong_zhuo",
       "location": "hongnong",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "pan_zhang",
+      "faction": null,
+      "location": "puyang",
+      "status": "free"
     },
     {
       "officer": "pang_de",
@@ -2215,11 +2819,23 @@
       "status": "unborn"
     },
     {
+      "officer": "qiao_mao",
+      "faction": null,
+      "location": "puyang",
+      "status": "free"
+    },
+    {
       "officer": "qiao_rui",
       "faction": "yuan_shu",
       "location": "wan",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "qiao_zhou",
+      "faction": null,
+      "location": "langzhong",
+      "status": "unborn"
     },
     {
       "officer": "qu_yi",
@@ -2229,6 +2845,18 @@
       "loyalty": 80
     },
     {
+      "officer": "quan_cong",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
+      "officer": "shamoke",
+      "faction": null,
+      "location": "wuling",
+      "status": "unborn"
+    },
+    {
       "officer": "shen_pei",
       "faction": "han_fu",
       "location": "ye",
@@ -2236,11 +2864,54 @@
       "loyalty": 80
     },
     {
+      "officer": "shi_xie",
+      "faction": null,
+      "location": "jiaozhi",
+      "status": "free"
+    },
+    {
+      "officer": "sima_fu",
+      "faction": null,
+      "location": "henei",
+      "status": "unborn"
+    },
+    {
+      "officer": "sima_shi",
+      "faction": null,
+      "location": "henei",
+      "status": "unborn"
+    },
+    {
+      "officer": "sima_yi",
+      "faction": null,
+      "location": "henei",
+      "status": "unborn"
+    },
+    {
+      "officer": "sima_zhao",
+      "faction": null,
+      "location": "henei",
+      "status": "unborn"
+    },
+    {
+      "officer": "song_xian",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
       "officer": "sun_ce",
       "faction": "sun_jian",
       "location": "changsha",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "sun_huan",
+      "faction": null,
+      "location": "changsha",
+      "status": "unborn"
     },
     {
       "officer": "sun_jian",
@@ -2251,7 +2922,44 @@
       "rank": "general_misc"
     },
     {
+      "officer": "sun_jing",
+      "faction": "sun_jian",
+      "location": "changsha",
+      "status": "active",
+      "loyalty": 95
+    },
+    {
+      "officer": "sun_li",
+      "faction": null,
+      "location": "zhuoxian",
+      "status": "unborn"
+    },
+    {
+      "officer": "sun_qian",
+      "faction": null,
+      "location": "beihai",
+      "status": "free"
+    },
+    {
       "officer": "sun_quan",
+      "faction": null,
+      "location": "changsha",
+      "status": "unborn"
+    },
+    {
+      "officer": "sun_shangxiang",
+      "faction": null,
+      "location": "changsha",
+      "status": "unborn"
+    },
+    {
+      "officer": "sun_shao",
+      "faction": null,
+      "location": "changsha",
+      "status": "unborn"
+    },
+    {
+      "officer": "sun_yi",
       "faction": null,
       "location": "changsha",
       "status": "unborn"
@@ -2270,6 +2978,12 @@
       "loyalty": 100
     },
     {
+      "officer": "tian_chou",
+      "faction": null,
+      "location": "ji_city",
+      "status": "free"
+    },
+    {
       "officer": "tian_feng",
       "faction": "yuan_shao",
       "location": "nanpi",
@@ -2284,11 +2998,63 @@
       "loyalty": 80
     },
     {
+      "officer": "wang_chang",
+      "faction": null,
+      "location": "jinyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "wang_kuang",
+      "faction": null,
+      "location": "henei",
+      "status": "free"
+    },
+    {
+      "officer": "wang_lang",
+      "faction": "tao_qian",
+      "location": "xiapi",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "wang_ling",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 55
+    },
+    {
+      "officer": "wang_ping",
+      "faction": null,
+      "location": "langzhong",
+      "status": "unborn"
+    },
+    {
+      "officer": "wang_shuang",
+      "faction": null,
+      "location": "tianshui",
+      "status": "unborn"
+    },
+    {
+      "officer": "wang_wei",
+      "faction": "liu_biao",
+      "location": "xiangyang",
+      "status": "active",
+      "loyalty": 80
+    },
+    {
       "officer": "wang_yun",
       "faction": "dong_zhuo",
       "location": "luoyang",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "wei_xu",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 70
     },
     {
       "officer": "wei_yan",
@@ -2312,11 +3078,42 @@
       "loyalty": 80
     },
     {
+      "officer": "wen_qin",
+      "faction": null,
+      "location": "qiao",
+      "status": "unborn"
+    },
+    {
+      "officer": "wu_ban",
+      "faction": null,
+      "location": "chengdu",
+      "status": "unborn"
+    },
+    {
+      "officer": "wu_jing",
+      "faction": "sun_jian",
+      "location": "changsha",
+      "status": "active",
+      "loyalty": 90
+    },
+    {
       "officer": "wu_yi",
       "faction": "liu_yan",
       "location": "chengdu",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "wutugu",
+      "faction": null,
+      "location": "yunnan",
+      "status": "free"
+    },
+    {
+      "officer": "xiahou_ba",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
     },
     {
       "officer": "xiahou_dun",
@@ -2327,11 +3124,42 @@
       "rank": "colonel"
     },
     {
+      "officer": "xiahou_mao",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "xiahou_shang",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
       "officer": "xiahou_yuan",
       "faction": "cao_cao",
       "location": "chenliu",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "xin_pi",
+      "faction": "han_fu",
+      "location": "ye",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "xing_daorong",
+      "faction": null,
+      "location": "lingling",
+      "status": "free"
+    },
+    {
+      "officer": "xu_chu",
+      "faction": null,
+      "location": "qiao",
+      "status": "free"
     },
     {
       "officer": "xu_huang",
@@ -2348,6 +3176,18 @@
       "rank": "colonel"
     },
     {
+      "officer": "xu_sheng",
+      "faction": null,
+      "location": "langya",
+      "status": "unborn"
+    },
+    {
+      "officer": "xu_shu",
+      "faction": null,
+      "location": "xuchang",
+      "status": "unborn"
+    },
+    {
       "officer": "xu_you",
       "faction": "yuan_shao",
       "location": "nanpi",
@@ -2362,9 +3202,21 @@
       "loyalty": 80
     },
     {
+      "officer": "xun_you",
+      "faction": null,
+      "location": "luoyang",
+      "status": "free"
+    },
+    {
       "officer": "xun_yu",
       "faction": null,
       "location": "xuchang",
+      "status": "free"
+    },
+    {
+      "officer": "yan_baihu",
+      "faction": null,
+      "location": "wu_city",
       "status": "free"
     },
     {
@@ -2383,6 +3235,13 @@
       "rank": "colonel"
     },
     {
+      "officer": "yan_pu",
+      "faction": "liu_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
       "officer": "yan_xiang",
       "faction": "yuan_shu",
       "location": "wan",
@@ -2390,11 +3249,90 @@
       "loyalty": 80
     },
     {
+      "officer": "yan_xing",
+      "faction": "ma_teng",
+      "location": "anding",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
       "officer": "yan_yan",
       "faction": "liu_yan",
       "location": "jiangzhou",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "yang_ang",
+      "faction": "liu_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
+      "officer": "yang_feng",
+      "faction": null,
+      "location": "hedong",
+      "status": "free"
+    },
+    {
+      "officer": "yang_huai",
+      "faction": "liu_yan",
+      "location": "fushui",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
+      "officer": "yang_qiu",
+      "faction": "ma_teng",
+      "location": "anding",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "yang_song",
+      "faction": "liu_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "yang_xiu",
+      "faction": null,
+      "location": "luoyang",
+      "status": "free"
+    },
+    {
+      "officer": "yang_yi",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "yi_ji",
+      "faction": "liu_biao",
+      "location": "xiangyang",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
+      "officer": "yu_fan",
+      "faction": null,
+      "location": "kuaiji",
+      "status": "free"
+    },
+    {
+      "officer": "yu_jin",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 75
+    },
+    {
+      "officer": "yuan_shang",
+      "faction": null,
+      "location": "nanpi",
+      "status": "unborn"
     },
     {
       "officer": "yuan_shao",
@@ -2413,11 +3351,43 @@
       "rank": "general_four"
     },
     {
+      "officer": "yuan_tan",
+      "faction": "yuan_shao",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 90
+    },
+    {
+      "officer": "yuan_xi",
+      "faction": null,
+      "location": "nanpi",
+      "status": "unborn"
+    },
+    {
       "officer": "yue_jin",
       "faction": "cao_cao",
       "location": "chenliu",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "zang_ba",
+      "faction": "tao_qian",
+      "location": "langya",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "zhang_bao",
+      "faction": null,
+      "location": "pingyuan",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhang_chao",
+      "faction": null,
+      "location": "guangling",
+      "status": "free"
     },
     {
       "officer": "zhang_fei",
@@ -2434,11 +3404,23 @@
       "loyalty": 80
     },
     {
+      "officer": "zhang_hong",
+      "faction": null,
+      "location": "guangling",
+      "status": "free"
+    },
+    {
       "officer": "zhang_ji",
       "faction": "dong_zhuo",
       "location": "changan",
       "status": "active",
       "loyalty": 80
+    },
+    {
+      "officer": "zhang_ji_wei",
+      "faction": null,
+      "location": "changan",
+      "status": "free"
     },
     {
       "officer": "zhang_liao",
@@ -2456,6 +3438,19 @@
       "loyalty": 80
     },
     {
+      "officer": "zhang_miao",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 60
+    },
+    {
+      "officer": "zhang_ni",
+      "faction": null,
+      "location": "jianwei",
+      "status": "unborn"
+    },
+    {
       "officer": "zhang_ren",
       "faction": "liu_yan",
       "location": "zitong",
@@ -2466,6 +3461,13 @@
       "officer": "zhang_song",
       "faction": "liu_yan",
       "location": "chengdu",
+      "status": "active",
+      "loyalty": 80
+    },
+    {
+      "officer": "zhang_wei",
+      "faction": "liu_yan",
+      "location": "hanzhong",
       "status": "active",
       "loyalty": 80
     },
@@ -2484,6 +3486,18 @@
       "loyalty": 80
     },
     {
+      "officer": "zhang_yan",
+      "faction": null,
+      "location": "shangdang",
+      "status": "free"
+    },
+    {
+      "officer": "zhang_yi",
+      "faction": null,
+      "location": "jianwei",
+      "status": "unborn"
+    },
+    {
       "officer": "zhang_yun",
       "faction": "liu_biao",
       "location": "xiangyang",
@@ -2491,9 +3505,40 @@
       "loyalty": 80
     },
     {
+      "officer": "zhang_zhao",
+      "faction": null,
+      "location": "xiapi",
+      "status": "free"
+    },
+    {
+      "officer": "zhao_fan",
+      "faction": null,
+      "location": "guiyang",
+      "status": "free"
+    },
+    {
       "officer": "zhao_yun",
       "faction": null,
       "location": "julu",
+      "status": "free"
+    },
+    {
+      "officer": "zhong_hui",
+      "faction": null,
+      "location": "xuchang",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhong_yao",
+      "faction": "dong_zhuo",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 55
+    },
+    {
+      "officer": "zhou_tai",
+      "faction": null,
+      "location": "shouchun",
       "status": "free"
     },
     {
@@ -2503,9 +3548,71 @@
       "status": "free"
     },
     {
+      "officer": "zhu_huan",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhu_jun",
+      "faction": null,
+      "location": "xuchang",
+      "status": "free"
+    },
+    {
+      "officer": "zhu_ling",
+      "faction": "yuan_shao",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 70
+    },
+    {
+      "officer": "zhu_ran",
+      "faction": null,
+      "location": "jianye",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhu_rong",
+      "faction": null,
+      "location": "yunnan",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhu_zhi",
+      "faction": "sun_jian",
+      "location": "changsha",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhuge_dan",
+      "faction": null,
+      "location": "langya",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhuge_jin",
+      "faction": null,
+      "location": "langya",
+      "status": "free"
+    },
+    {
+      "officer": "zhuge_ke",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
       "officer": "zhuge_liang",
       "faction": null,
       "location": "xiangyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhuge_zhan",
+      "faction": null,
+      "location": "chengdu",
       "status": "unborn"
     },
     {
@@ -2551,6 +3658,41 @@
       "members": [
         "cao_cao",
         "xiahou_dun"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "liu_dai",
+        "liu_yao"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "zhang_miao",
+        "zhang_chao"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "cao_cao",
+        "zhang_miao"
+      ]
+    },
+    {
+      "type": "dislike",
+      "members": [
+        "liu_dai",
+        "qiao_mao"
+      ]
+    },
+    {
+      "type": "dislike",
+      "members": [
+        "liu_yu",
+        "gongsun_zan"
       ]
     }
   ],

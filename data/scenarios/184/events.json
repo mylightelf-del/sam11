@@ -1,0 +1,337 @@
+{
+  "events": [
+    {
+      "id": "peach_garden",
+      "name": {
+        "ko": "도원결의"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "184-02"
+          },
+          {
+            "officer_in_faction": {
+              "officer": "liu_bei",
+              "faction": "he_jin"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "guan_yu",
+              "faction": "he_jin"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhang_fei",
+              "faction": "he_jin"
+            }
+          },
+          {
+            "officer_in": {
+              "officer": "liu_bei",
+              "stronghold": "zhuoxian"
+            }
+          },
+          {
+            "owns": {
+              "faction": "he_jin",
+              "strongholds": [
+                "zhuoxian"
+              ]
+            }
+          }
+        ]
+      },
+      "text": "황건적 토벌의 방문이 탁현에 붙는다. 돗자리를 짜던 유비가 관우·장비와 장비의 복숭아밭에서 형제의 의를 맺고, 향리의 젊은이를 모아 의용군을 일으킨다.",
+      "choices": [
+        {
+          "id": "volunteers",
+          "text": "의용군이 스스로 싸우도록 탁현을 맡긴다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_bei",
+              "ruler": "liu_bei",
+              "color": "#2e8b57",
+              "officers": [
+                "liu_bei",
+                "guan_yu",
+                "zhang_fei",
+                "jian_yong"
+              ],
+              "take_location_of": "liu_bei",
+              "note": "유비 의용군이 탁현에서 독립 세력이 된다. 한 조정은 하진이 그대로 이끈다."
+            },
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "he_jin",
+              "delta": 60
+            }
+          ]
+        },
+        {
+          "id": "enlist",
+          "text": "의용군을 관군에 편입한다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "liu_bei",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "guan_yu",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_fei",
+              "delta": 10
+            }
+          ]
+        }
+      ],
+      "decider": "he_jin"
+    },
+    {
+      "id": "zhang_jue_illness",
+      "name": {
+        "ko": "천공장군 병사"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "184-08"
+          },
+          {
+            "ruler_of": {
+              "faction": "zhang_jue",
+              "officer": "zhang_jue"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhang_bao_yt",
+              "faction": "zhang_jue"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhang_liang_yt",
+              "faction": "zhang_jue"
+            }
+          },
+          {
+            "chance": 0.35
+          }
+        ]
+      },
+      "text": "광종성에서 천공장군 장각이 병으로 쓰러진다. 황건의 무리가 동요하는 가운데, 지공장군 장보와 인공장군 장량이 뒷일을 의논한다.",
+      "choices": [
+        {
+          "id": "split",
+          "text": "장량이 뒤를 잇고, 장보는 따로 군을 이끈다",
+          "ai_weight": 6,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "zhang_bao_yt",
+              "ruler": "zhang_bao_yt",
+              "color": "#c8a415",
+              "officers": [
+                "zhang_bao_yt"
+              ],
+              "take_location_of": "zhang_bao_yt",
+              "successor": "zhang_liang_yt",
+              "note": "장보가 자신이 있는 거점에서 갈라서고, 장각의 본대는 장량이 잇는다."
+            }
+          ]
+        },
+        {
+          "id": "unite",
+          "text": "갈라서지 않고 무리가 새 우두머리를 추대한다",
+          "ai_weight": 4,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "zhang_bao_yt",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_liang_yt",
+              "delta": 10
+            }
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "type": "kill_officer",
+          "officer": "zhang_jue",
+          "cause": "illness"
+        },
+        {
+          "type": "city_morale",
+          "stronghold": "julu",
+          "delta": -15
+        }
+      ],
+      "decider": "zhang_jue"
+    },
+    {
+      "id": "zhang_jue_illness_late",
+      "name": {
+        "ko": "장각의 죽음"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "184-10"
+          },
+          {
+            "not": {
+              "event_done": "zhang_jue_illness"
+            }
+          },
+          {
+            "ruler_of": {
+              "faction": "zhang_jue",
+              "officer": "zhang_jue"
+            }
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "오랜 병을 앓던 천공장군 장각이 끝내 숨을 거둔다. 황건의 무리는 남은 장수를 받들어 싸움을 이어간다.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "kill_officer",
+          "officer": "zhang_jue",
+          "cause": "illness"
+        },
+        {
+          "type": "city_morale",
+          "stronghold": "julu",
+          "delta": -15
+        }
+      ],
+      "decider": "zhang_jue"
+    },
+    {
+      "id": "ten_attendants",
+      "name": {
+        "ko": "십상시의 난"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "189-04"
+          },
+          {
+            "ruler_of": {
+              "faction": "he_jin",
+              "officer": "he_jin"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "dong_zhuo",
+              "faction": "he_jin"
+            }
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "영제가 붕어하자 대장군 하진은 환관을 없애려 한다. 원소는 지방의 군벌을 불러들이자 진언하고, 진림과 조조는 화를 부를 것이라 말린다.",
+      "choices": [
+        {
+          "id": "summon",
+          "text": "동탁을 불러들여 환관을 압박한다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "kill_officer",
+              "officer": "he_jin",
+              "cause": "assassination"
+            },
+            {
+              "type": "kill_officer",
+              "officer": "ding_yuan",
+              "cause": "assassination"
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "dong_zhuo",
+              "ruler": "dong_zhuo",
+              "color": "#3b3b3b",
+              "officers": [
+                "dong_zhuo",
+                "li_ru",
+                "li_jue",
+                "guo_si",
+                "hua_xiong",
+                "xu_rong",
+                "niu_fu",
+                "zhang_ji",
+                "lu_bu",
+                "gao_shun",
+                "zhang_liao",
+                "song_xian",
+                "wei_xu",
+                "hou_cheng",
+                "hao_meng",
+                "li_su"
+              ],
+              "take_location_of": "dong_zhuo",
+              "successor": "yuan_shao",
+              "note": "하진은 환관에게 살해되고, 동탁이 여포 등을 거두어 독립한다. 남은 조정 세력은 원소가 잇는다."
+            },
+            {
+              "type": "trust",
+              "faction": "he_jin",
+              "delta": -15
+            }
+          ]
+        },
+        {
+          "id": "purge",
+          "text": "외병 없이 금군으로 환관을 먼저 친다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "dong_zhuo",
+              "delta": -20
+            },
+            {
+              "type": "loyalty",
+              "officer": "yuan_shao",
+              "delta": -10
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "luoyang",
+              "delta": -10
+            }
+          ]
+        }
+      ],
+      "decider": "he_jin"
+    }
+  ]
+}

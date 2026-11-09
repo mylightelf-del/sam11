@@ -11,7 +11,7 @@ public class EventTests
     public void ScenarioEventsAreLoaded()
     {
         var w = TestData.NewWorld();
-        Assert.That(w.Events.Select(e => e.Id), Is.EquivalentTo(new[] { "relocate_changan", "imperial_seal", "chain_stratagem" }));
+        Assert.That(w.Events.Select(e => e.Id), Is.SupersetOf(new[] { "relocate_changan", "imperial_seal", "chain_stratagem" }));
         Assert.That(w.Events.First(e => e.Id == "imperial_seal").Locked, "옥새는 천도 뒤에 풀린다");
         Assert.That(w.TreasureOwner["red_hare"], Is.EqualTo("lu_bu"));
     }

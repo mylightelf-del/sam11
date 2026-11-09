@@ -233,6 +233,208 @@
         }
       ],
       "decider": "dong_zhuo"
+    },
+    {
+      "id": "sun_jian_xianshan",
+      "name": {
+        "ko": "현산의 화살"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "191-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "sun_jian",
+              "officer": "sun_jian"
+            }
+          },
+          {
+            "faction_alive": "liu_biao"
+          },
+          {
+            "any": [
+              {
+                "enemy_units_near": {
+                  "stronghold": "xiangyang",
+                  "radius": 8,
+                  "troops_gte": 8000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "jiangxia",
+                  "radius": 8,
+                  "troops_gte": 8000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "fancheng",
+                  "radius": 8,
+                  "troops_gte": 8000
+                }
+              }
+            ]
+          },
+          {
+            "chance": 0.4
+          }
+        ]
+      },
+      "text": "유표군을 몰아붙이던 손견이 패주하는 황조를 쫓아 현산으로 들어선다. 숲속에는 여공의 복병이 활을 겨누고 있다.",
+      "choices": [
+        {
+          "id": "pursue",
+          "text": "단기로 현산까지 추격한다",
+          "ai_weight": 6,
+          "effects": [
+            {
+              "type": "kill_officer",
+              "officer": "sun_jian",
+              "cause": "ambush"
+            },
+            {
+              "type": "friendship",
+              "a": "sun_jian",
+              "b": "liu_biao",
+              "delta": -40
+            }
+          ]
+        },
+        {
+          "id": "halt",
+          "text": "날이 저물었으니 추격을 멈춘다",
+          "ai_weight": 4,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "sun_jian",
+              "b": "liu_biao",
+              "delta": -10
+            }
+          ]
+        }
+      ],
+      "decider": "sun_jian"
+    },
+    {
+      "id": "jizhou_handover",
+      "name": {
+        "ko": "기주 양도"
+      },
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "191-03"
+          },
+          {
+            "before": "193-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "han_fu",
+              "officer": "han_fu"
+            }
+          },
+          {
+            "ruler_of": {
+              "faction": "yuan_shao",
+              "officer": "yuan_shao"
+            }
+          },
+          {
+            "owns": {
+              "faction": "han_fu",
+              "strongholds": [
+                "ye"
+              ]
+            }
+          },
+          {
+            "owns": {
+              "faction": "yuan_shao",
+              "strongholds": [
+                "nanpi"
+              ]
+            }
+          },
+          {
+            "chance": 0.25
+          }
+        ]
+      },
+      "text": "공손찬이 남하한다는 소문 속에 순심과 곽도가 한복을 찾아와, 기주를 원소에게 맡기고 화를 피하라고 권한다. 저수와 심배는 극구 반대한다.",
+      "choices": [
+        {
+          "id": "yield",
+          "text": "원소에게 기주의 병권과 재물을 넘긴다",
+          "ai_weight": 6,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "ye",
+              "to": "nanpi",
+              "gold": 0.5,
+              "food": 0.5,
+              "troops": 0.5
+            },
+            {
+              "type": "loyalty",
+              "officer": "ju_shou",
+              "delta": -25
+            },
+            {
+              "type": "loyalty",
+              "officer": "shen_pei",
+              "delta": -25
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_he",
+              "delta": -25
+            },
+            {
+              "type": "loyalty",
+              "officer": "qu_yi",
+              "delta": -25
+            },
+            {
+              "type": "friendship",
+              "a": "han_fu",
+              "b": "yuan_shao",
+              "delta": 30
+            },
+            {
+              "type": "trust",
+              "faction": "han_fu",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "text": "저수의 말을 따라 거절한다",
+          "ai_weight": 4,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "han_fu",
+              "b": "yuan_shao",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "qu_yi",
+              "delta": -15
+            }
+          ]
+        }
+      ],
+      "decider": "han_fu"
     }
   ]
 }
