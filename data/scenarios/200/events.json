@@ -1,0 +1,451 @@
+{
+  "events": [
+    {
+      "id": "xu_you_counsel",
+      "name": {
+        "ko": "허유의 진언"
+      },
+      "decider": "yuan_shao",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "200-08"
+          },
+          {
+            "ruler_of": {
+              "faction": "yuan_shao",
+              "officer": "yuan_shao"
+            }
+          },
+          {
+            "owns": {
+              "faction": "yuan_shao",
+              "strongholds": [
+                "ye"
+              ]
+            }
+          },
+          {
+            "owns": {
+              "faction": "cao_cao",
+              "strongholds": [
+                "guandu",
+                "xuchang"
+              ]
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "xu_you",
+              "faction": "yuan_shao"
+            }
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "대치가 길어지자 허유가 원소에게 아뢴다. \"조조의 주력은 관도에 묶여 허창이 비었습니다. 경기병으로 허창을 치십시오.\" 그때 업에서 허유의 가솔이 법을 어겨 심배에게 잡혔다는 소식이 들어온다.",
+      "choices": [
+        {
+          "id": "ignore",
+          "text": "허유를 꾸짖어 물리친다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "xu_you",
+              "delta": -40
+            },
+            {
+              "type": "unlock_event",
+              "event": "wuchao_raid"
+            }
+          ]
+        },
+        {
+          "id": "heed",
+          "text": "허유의 계책대로 허창을 급습한다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "xu_you",
+              "delta": 15
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xuchang",
+              "delta": -15
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": -5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wuchao_raid",
+      "name": {
+        "ko": "오소 기습"
+      },
+      "decider": "cao_cao",
+      "once": true,
+      "locked": true,
+      "trigger": {
+        "all": [
+          {
+            "owns": {
+              "faction": "cao_cao",
+              "strongholds": [
+                "guandu"
+              ]
+            }
+          },
+          {
+            "owns": {
+              "faction": "yuan_shao",
+              "strongholds": [
+                "ye"
+              ]
+            }
+          },
+          {
+            "not": {
+              "officer_in_faction": {
+                "officer": "xu_you",
+                "faction": "yuan_shao"
+              }
+            }
+          },
+          {
+            "chance": 0.5
+          }
+        ]
+      },
+      "text": "원소 진영을 떠난 허유가 맨발로 달려 나온 조조에게 말한다. \"원소의 군량은 모두 오소에 있고, 지키는 순우경은 술에 빠져 있습니다.\"",
+      "choices": [
+        {
+          "id": "raid",
+          "text": "몸소 오천 기병을 이끌고 오소를 불사른다",
+          "ai_weight": 9,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "ye",
+              "to": "guandu",
+              "food": 0.5,
+              "gold": 0.1,
+              "troops": 0.1
+            },
+            {
+              "type": "kill_officer",
+              "officer": "chunyu_qiong",
+              "cause": "battle"
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "ye",
+              "delta": -20
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_he",
+              "delta": -35
+            },
+            {
+              "type": "loyalty",
+              "officer": "gao_lan",
+              "delta": -35
+            },
+            {
+              "type": "trust",
+              "faction": "yuan_shao",
+              "delta": -10
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "doubt",
+          "text": "거짓 투항일지 모른다. 관도를 굳게 지킨다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "guandu",
+              "delta": -5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sun_ce_death",
+      "name": {
+        "ko": "손책 피살"
+      },
+      "decider": "sun_ce",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "200-04"
+          },
+          {
+            "ruler_of": {
+              "faction": "sun_ce",
+              "officer": "sun_ce"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "sun_quan",
+              "faction": "sun_ce"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "hua_xin",
+              "faction": "sun_ce"
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "hua_xin",
+                "stronghold": "wu_city"
+              }
+            }
+          },
+          {
+            "chance": 0.4
+          }
+        ]
+      },
+      "text": "홀로 사냥에 나선 손책이 옛 오군태수 허공의 식객들에게 습격당한다. 얼굴에 화살을 맞은 손책은 장소와 아우들을 불러 뒷일을 맡긴다. 어수선한 틈에 예장의 화흠은 조정의 부름에 응해 떨어져 나간다.",
+      "choices": [
+        {
+          "id": "sun_quan",
+          "text": "\"강동의 무리를 이끌고 천하와 다투는 것은 네가 나만 못하나, 인재를 써서 강동을 지키는 것은 내가 너만 못하다\" — 손권에게 인수를 넘긴다",
+          "ai_weight": 9,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "hua_xin",
+              "ruler": "hua_xin",
+              "color": "#90a4ae",
+              "officers": [
+                "hua_xin"
+              ],
+              "take_location_of": "hua_xin",
+              "successor": "sun_quan",
+              "note": "화흠이 예장을 들고 이탈하고, 손책의 세력은 손권이 잇는다."
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhou_yu",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_zhao",
+              "delta": 10
+            },
+            {
+              "type": "friendship",
+              "a": "hua_xin",
+              "b": "cao_cao",
+              "delta": 40
+            }
+          ]
+        },
+        {
+          "id": "zhou_yu",
+          "text": "아우들이 어리니 의형제 주유에게 뒤를 부탁한다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "hua_xin",
+              "ruler": "hua_xin",
+              "color": "#90a4ae",
+              "officers": [
+                "hua_xin"
+              ],
+              "take_location_of": "hua_xin",
+              "successor": "zhou_yu"
+            },
+            {
+              "type": "loyalty",
+              "officer": "sun_quan",
+              "delta": -20
+            },
+            {
+              "type": "friendship",
+              "a": "hua_xin",
+              "b": "cao_cao",
+              "delta": 40
+            }
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "type": "kill_officer",
+          "officer": "sun_ce",
+          "cause": "assassination"
+        }
+      ]
+    },
+    {
+      "id": "guan_yu_journey",
+      "name": {
+        "ko": "관우 천리행"
+      },
+      "decider": "cao_cao",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "200-04"
+          },
+          {
+            "officer_in_faction": {
+              "officer": "guan_yu",
+              "faction": "cao_cao"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "liu_bei",
+              "faction": "yuan_shao"
+            }
+          },
+          {
+            "not": {
+              "faction_alive": "liu_bei"
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "guan_yu",
+                "stronghold": "xuchang"
+              }
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "liu_bei",
+                "stronghold": "ye"
+              }
+            }
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "유비가 하북에 있다는 소식을 들은 관우가 조조에게 받은 금은을 봉해 두고 하직 편지를 남긴다. 원소 진영의 유비도 여남의 유벽과 손잡겠다며 원소 곁을 떠날 채비를 한다.",
+      "choices": [
+        {
+          "id": "release",
+          "text": "\"각자 주인을 위함이니 쫓지 말라\" — 관우를 보내준다",
+          "ai_weight": 6,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_bei",
+              "ruler": "liu_bei",
+              "color": "#2e8b57",
+              "officers": [
+                "liu_bei",
+                "zhang_fei",
+                "jian_yong",
+                "sun_qian",
+                "mi_zhu",
+                "mi_fang",
+                "chen_dao",
+                "zhao_yun"
+              ],
+              "take_location_of": "liu_bei"
+            },
+            {
+              "type": "officer_join",
+              "officer": "guan_yu",
+              "faction": "liu_bei",
+              "allow_defect": true,
+              "loyalty": 100
+            },
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "yuan_shao",
+              "delta": 60
+            },
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "cao_cao",
+              "delta": 30
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "detain",
+          "text": "관우를 붙잡아 둔다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "guan_yu",
+              "delta": -20
+            },
+            {
+              "type": "loyalty",
+              "officer": "liu_bei",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "execute",
+          "text": "후환을 없애려 관우를 벤다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "kill_officer",
+              "officer": "guan_yu",
+              "cause": "execution"
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_liao",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

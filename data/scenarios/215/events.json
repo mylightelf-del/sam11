@@ -148,17 +148,16 @@
           "ai_weight": 6,
           "effects": [
             {
-              "type": "transfer_resources",
-              "from": "hanzhong",
-              "to": "changan",
-              "gold": 0.5,
-              "troops": 0.6
+              "type": "transfer_city",
+              "stronghold": "yangping",
+              "to": "cao_cao",
+              "with_officers": true
             },
             {
-              "type": "transfer_resources",
-              "from": "yangping",
-              "to": "chencang",
-              "troops": 0.6
+              "type": "transfer_city",
+              "stronghold": "hanzhong",
+              "to": "cao_cao",
+              "with_officers": true
             },
             {
               "type": "city_morale",
@@ -204,11 +203,10 @@
           "ai_weight": 1,
           "effects": [
             {
-              "type": "transfer_resources",
-              "from": "hanzhong",
-              "to": "langzhong",
-              "gold": 0.3,
-              "troops": 0.4
+              "type": "transfer_city",
+              "stronghold": "hanzhong",
+              "to": "liu_bei",
+              "with_officers": true
             },
             {
               "type": "loyalty",
@@ -444,19 +442,16 @@
           "ai_weight": 7,
           "effects": [
             {
-              "type": "transfer_resources",
-              "from": "jiangling",
-              "to": "lukou",
-              "gold": 0.6,
-              "food": 0.6,
-              "troops": 0.6
+              "type": "transfer_city",
+              "stronghold": "jiangling",
+              "to": "sun_quan",
+              "with_officers": false
             },
             {
-              "type": "transfer_resources",
-              "from": "gongan",
-              "to": "lukou",
-              "food": 0.5,
-              "troops": 0.5
+              "type": "transfer_city",
+              "stronghold": "gongan",
+              "to": "sun_quan",
+              "with_officers": false
             },
             {
               "type": "city_morale",

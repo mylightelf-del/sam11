@@ -43,6 +43,13 @@
           "ai_weight": 7,
           "effects": [
             {
+              "type": "officer_join",
+              "officer": "zhuge_liang",
+              "faction": "liu_bei",
+              "location": "xinye",
+              "loyalty": 100
+            },
+            {
               "type": "trust",
               "faction": "liu_bei",
               "delta": 10
@@ -199,20 +206,16 @@
               "note": "유기가 강하에서 자립하고, 유표 세력은 유종이 잇는다."
             },
             {
-              "type": "transfer_resources",
-              "from": "xiangyang",
-              "to": "wan",
-              "gold": 0.6,
-              "food": 0.6,
-              "troops": 0.7
+              "type": "transfer_city",
+              "stronghold": "xiangyang",
+              "to": "cao_cao",
+              "with_officers": true
             },
             {
-              "type": "transfer_resources",
-              "from": "jiangling",
-              "to": "wan",
-              "gold": 0.5,
-              "food": 0.5,
-              "troops": 0.5
+              "type": "transfer_city",
+              "stronghold": "jiangling",
+              "to": "cao_cao",
+              "with_officers": true
             },
             {
               "type": "city_morale",

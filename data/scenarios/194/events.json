@@ -1,0 +1,333 @@
+{
+  "events": [
+    {
+      "id": "xuzhou_handover",
+      "name": {
+        "ko": "도겸, 서주를 양보하다"
+      },
+      "decider": "tao_qian",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "194-03"
+          },
+          {
+            "ruler_of": {
+              "faction": "tao_qian",
+              "officer": "tao_qian"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "liu_bei",
+              "faction": "tao_qian"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "cao_bao",
+              "faction": "tao_qian"
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "cao_bao",
+                "stronghold": "xiapi"
+              }
+            }
+          },
+          {
+            "chance": 0.25
+          }
+        ]
+      },
+      "text": "병이 깊어진 도겸이 미축을 불러 말한다. \"유비가 아니면 이 주를 편안히 할 사람이 없다.\" 그러나 조표는 외지인 유비를 따르지 않겠다며 반발한다.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "유비가 서주목을 이어받는다 (조표는 떨어져 나간다)",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "cao_bao",
+              "ruler": "cao_bao",
+              "color": "#78909c",
+              "officers": [
+                "cao_bao"
+              ],
+              "take_location_of": "cao_bao",
+              "successor": "liu_bei",
+              "note": "조표가 자기 성을 들고 이탈하고, 남은 서주는 유비가 잇는다."
+            },
+            {
+              "type": "loyalty",
+              "officer": "mi_zhu",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "chen_deng",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "faction": "tao_qian",
+              "delta": 5
+            }
+          ]
+        },
+        {
+          "id": "decline",
+          "text": "유비가 끝내 사양하고 소패에서 자립한다 (서주는 미축이 잇는다)",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_bei",
+              "ruler": "liu_bei",
+              "color": "#2e8b57",
+              "officers": [
+                "liu_bei",
+                "guan_yu",
+                "zhang_fei",
+                "jian_yong",
+                "sun_qian",
+                "chen_dao"
+              ],
+              "take_location_of": "liu_bei",
+              "successor": "mi_zhu"
+            },
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "tao_qian",
+              "delta": 70
+            }
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "type": "kill_officer",
+          "officer": "tao_qian",
+          "cause": "illness"
+        }
+      ]
+    },
+    {
+      "id": "yan_revolt",
+      "name": {
+        "ko": "연주 반란"
+      },
+      "decider": "lu_bu",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "194-04"
+          },
+          {
+            "faction_alive": "lu_bu"
+          },
+          {
+            "owns": {
+              "faction": "lu_bu",
+              "strongholds": [
+                "baima"
+              ]
+            }
+          },
+          {
+            "owns": {
+              "faction": "cao_cao",
+              "strongholds": [
+                "puyang",
+                "chenliu"
+              ]
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhang_miao",
+              "faction": "cao_cao"
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "zhang_miao",
+                "stronghold": "puyang"
+              }
+            }
+          },
+          {
+            "chance": 0.25
+          }
+        ]
+      },
+      "text": "조조가 서주로 출정한 틈에 진궁이 진류태수 장막을 설득한다. \"여포를 맞아 연주의 주인으로 삼읍시다.\"",
+      "choices": [
+        {
+          "id": "seize",
+          "text": "진궁의 계책대로 연주를 친다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "zhang_miao",
+              "ruler": "zhang_miao",
+              "color": "#ab47bc",
+              "officers": [
+                "zhang_miao",
+                "zhang_chao"
+              ],
+              "take_location_of": "zhang_miao",
+              "note": "장막이 진류를 들고 조조에게서 등을 돌린다."
+            },
+            {
+              "type": "friendship",
+              "a": "zhang_miao",
+              "b": "lu_bu",
+              "delta": 70
+            },
+            {
+              "type": "transfer_resources",
+              "from": "puyang",
+              "to": "baima",
+              "troops": 0.25,
+              "food": 0.2
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "puyang",
+              "delta": -15
+            },
+            {
+              "type": "friendship",
+              "a": "lu_bu",
+              "b": "cao_cao",
+              "delta": -30
+            }
+          ]
+        },
+        {
+          "id": "wait",
+          "text": "아직 때가 아니다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "chen_gong",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sun_ce_crosses",
+      "name": {
+        "ko": "손책, 강을 건너다"
+      },
+      "decider": "yuan_shu",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "195-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "yuan_shu",
+              "officer": "yuan_shu"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "sun_ce",
+              "faction": "yuan_shu"
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "sun_ce",
+                "stronghold": "shouchun"
+              }
+            }
+          },
+          {
+            "faction_alive": "liu_yao"
+          },
+          {
+            "chance": 0.2
+          }
+        ]
+      },
+      "text": "손책이 아버지의 옛 부하들을 돌려 달라며, 유요를 쳐서 강동을 평정하겠다고 청한다. 담보로 전국옥새를 내놓는다.",
+      "choices": [
+        {
+          "id": "lend",
+          "text": "옥새를 받고 군사를 빌려준다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "give_treasure",
+              "treasure": "imperial_seal",
+              "officer": "yuan_shu"
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "sun_ce",
+              "ruler": "sun_ce",
+              "color": "#c0392b",
+              "officers": [
+                "sun_ce",
+                "zhou_yu",
+                "cheng_pu",
+                "huang_gai",
+                "han_dang",
+                "zhu_zhi",
+                "wu_jing",
+                "sun_jing",
+                "lu_fan",
+                "zhou_tai",
+                "jiang_qin",
+                "lu_meng",
+                "chen_wu"
+              ],
+              "take_location_of": "sun_ce",
+              "note": "손책이 원술 밑을 떠나 강동 정벌에 나선다."
+            },
+            {
+              "type": "friendship",
+              "a": "sun_ce",
+              "b": "yuan_shu",
+              "delta": 60
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "text": "손책을 곁에 붙잡아 둔다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "sun_ce",
+              "delta": -25
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhou_yu",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

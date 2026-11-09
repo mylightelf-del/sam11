@@ -247,6 +247,12 @@ namespace Sam11.Core.World
                     w.Log.Add($"[{w.Date}]   {Korean.IGa(o.ToString())} 죽었다");
                     break;
                 }
+                case "officer_join":
+                    OfficerJoin(g, fx);
+                    break;
+                case "transfer_city":
+                    g.TransferCity(fx.Value<string>("stronghold")!, fx.Value<string>("to")!, fx.Value<bool?>("with_officers") ?? true);
+                    break;
                 case "split_faction":
                     SplitFaction(g, fx);
                     break;
@@ -256,6 +262,31 @@ namespace Sam11.Core.World
                 default:
                     throw new InvalidOperationException($"알 수 없는 이벤트 결과: {type}");
             }
+        }
+
+        /// <summary>
+        /// 무장 합류: 재야·미등장 무장이 세력에 들어온다. allow_defect면 다른 세력 무장도 옮겨 온다 (군주는 제외).
+        /// 위치는 location(그 세력 소유일 때)이나 세력 본거지.
+        /// </summary>
+        private static void OfficerJoin(Game g, JObject fx)
+        {
+            var w = g.World;
+            if (!w.Officers.TryGetValue(fx.Value<string>("officer")!, out var o)) return;
+            string faction = fx.Value<string>("faction")!;
+            if (!w.Factions.TryGetValue(faction, out var f) || !f.Alive || o.Faction == faction && o.Status == OfficerStatus.Active) return;
+            bool defect = fx.Value<bool?>("allow_defect") ?? false;
+            bool ok = o.Status == OfficerStatus.Free || o.Status == OfficerStatus.Unborn
+                      || (defect && o.Status == OfficerStatus.Active && o.Faction != null
+                          && !(w.Factions.TryGetValue(o.Faction, out var cur) && cur.Ruler == o.Id));
+            if (!ok) return;
+            string? loc = fx.Value<string>("location");
+            if (loc == null || !w.Cities.TryGetValue(loc, out var lc) || lc.Owner != faction) loc = f.Capital;
+            o.Status = OfficerStatus.Active;
+            o.Faction = faction;
+            o.Location = loc;
+            o.Loyalty = fx.Value<int?>("loyalty") ?? 90;
+            o.CaptiveMonths = 0;
+            w.Log.Add($"[{w.Date}]   {Korean.IGa(o.ToString())} {w.NameOf(faction)} 세력에 합류했다");
         }
 
         /// <summary>

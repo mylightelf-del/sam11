@@ -241,6 +241,52 @@ namespace Sam11.Core.World
             World.Cities.Values.Where(c => anyOwner || (faction != null && c.Owner == faction))
                  .OrderBy(c => c.Placement.Center.DistanceTo(from)).ThenBy(c => c.Id).Select(c => c.Id).FirstOrDefault();
 
+        /// <summary>
+        /// 거점을 싸움 없이 넘긴다 (항복·양도 이벤트). 병력과 물자는 그대로 남는다.
+        /// withOfficers면 그 거점의 옛 세력 무장도 함께 귀순하고, 아니면 이웃한 옛 세력 거점으로 물러난다.
+        /// </summary>
+        public void TransferCity(string stronghold, string to, bool withOfficers)
+        {
+            var c = World.Cities[stronghold];
+            string? from = c.Owner;
+            if (from == to || !World.Factions.TryGetValue(to, out var target) || !target.Alive) return;
+            if (Garrisons.TryGetValue(c.Id, out var g))
+            {
+                if (g.IsAlive) { c.Troops += g.Troops; g.Status = UnitStatus.Withdrawn; }
+                Garrisons.Remove(c.Id);
+                c.FieldGarrison = 0;
+            }
+            c.Owner = to;
+            c.Governor = null;
+            Field.Strongholds[c.Id].Owner = to;
+            if (from != null)
+            {
+                foreach (var o in World.OfficersAt(c.Id).Where(o => o.Faction == from).ToList())
+                {
+                    if (withOfficers && World.Factions.TryGetValue(from, out var ff) && ff.Ruler != o.Id)
+                    {
+                        o.Faction = to;
+                        o.Loyalty = Math.Max(o.Loyalty, 70);
+                        continue;
+                    }
+                    var retreat = c.Def.Links.Select(id => World.Cities[id]).FirstOrDefault(x => x.Owner == from)
+                                  ?? World.Cities.Values.Where(x => x.Owner == from).OrderBy(x => x.Id).FirstOrDefault();
+                    if (retreat != null) o.Location = retreat.Id;
+                    else
+                    {
+                        // 갈 곳이 없으면 (마지막 거점을 바친 군주 포함) 새 주인의 신하가 된다
+                        o.Faction = to;
+                        o.Loyalty = Math.Max(o.Loyalty, 60);
+                    }
+                }
+                if (World.Factions.TryGetValue(from, out var old) && old.Capital == c.Id)
+                    old.Capital = World.Cities.Values.Where(x => x.Owner == from).OrderByDescending(x => x.Def.IsCity).ThenBy(x => x.Id)
+                                       .Select(x => x.Id).FirstOrDefault() ?? old.Capital;
+            }
+            World.Log.Add($"[{World.Date}]   ★ {Korean.IGa(c.ToString())} {World.NameOf(to)} 세력에게 넘어갔다" + (from == null ? "" : $" ({World.NameOf(from)} 세력에게서)"));
+            if (from != null && World.Factions.TryGetValue(from, out var lost) && lost.Alive) CheckFaction(lost);
+        }
+
         // ------------------------------------------------------------------ 세력 존망
 
         private void CheckFaction(FactionState f)
