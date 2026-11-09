@@ -5,6 +5,7 @@ namespace Sam11.Core.Data
     /// <summary>data/base/rules.json — 밸런스 상수.</summary>
     public sealed class Rules
     {
+        public TraitRules Traits { get; set; } = new TraitRules();
         public TimeRules Time { get; set; } = new TimeRules();
         public AffinityRules Affinity { get; set; } = new AffinityRules();
         public UnitRules Unit { get; set; } = new UnitRules();
@@ -32,6 +33,12 @@ namespace Sam11.Core.Data
         public int DaysPerTurn { get; set; } = 10;
         public int TurnsPerMonth { get; set; } = 3;
         public int HarvestMonth { get; set; } = 9;
+    }
+
+    /// <summary>특기 (01 무장 설계서 3장): 타고난 것 + 습득, 최대 개수.</summary>
+    public sealed class TraitRules
+    {
+        public int Max { get; set; } = 4;
     }
 
     public sealed class CoalitionRules

@@ -334,6 +334,9 @@ namespace Sam11.Core.Play
         public static PlayerSession Load(GameData data, WorldMap map, JObject save)
         {
             if (save.Value<int>("format") != SaveFormat) throw new InvalidOperationException("지원하지 않는 저장 형식");
+            var savedMods = (save["mods"] as JArray)?.Values<string>().Select(x => x!).ToList() ?? new List<string>();
+            if (!savedMods.SequenceEqual(data.Mods))
+                throw new InvalidOperationException($"저장할 때와 모드가 다름: 저장 [{string.Join(", ", savedMods)}] / 지금 [{string.Join(", ", data.Mods)}]");
             var o = save["options"]!;
             var options = new GameOptions
             {

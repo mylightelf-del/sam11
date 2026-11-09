@@ -30,9 +30,40 @@ namespace Sam11.Core.World
             };
         }
 
+        /// <summary>
+        /// 모드 무장 배치 (07 설계서 5장). scenario가 "*"이면 모든 시나리오에 재야로, 시나리오를 콕 집으면 적힌 세력으로.
+        /// 시작 때 15세가 안 되면 미등장. 이미 그 시나리오에 있는 무장, 없는 세력·거점은 건너뛴다.
+        /// </summary>
+        private static void PlaceModOfficers(GameData data, WorldState w, string scenarioId)
+        {
+            // 시나리오를 콕 집은 배치가 "*"보다 먼저
+            foreach (var p in data.Placements.OrderBy(x => (x.Value<string>("scenario") ?? "*") == "*"))
+            {
+                string sc = p.Value<string>("scenario") ?? "*";
+                if (sc != "*" && sc != scenarioId) continue;
+                string id = p.Value<string>("officer")!;
+                if (w.Officers.ContainsKey(id) || !data.Officers.TryGetValue(id, out var def)) continue;
+                string loc = p.Value<string>("location")!;
+                if (!w.Cities.ContainsKey(loc)) continue;
+                string? faction = sc == "*" ? null : p.Value<string>("faction");
+                if (faction != null && (!w.Factions.ContainsKey(faction) || w.Cities[loc].Owner != faction)) faction = null;
+                bool born = w.Date.Year - def.Birth >= 15;
+                if (def.Death != null && def.Death < w.Date.Year) continue;
+                w.Officers[id] = new OfficerState
+                {
+                    Def = def,
+                    Faction = born ? faction : null,
+                    Location = loc,
+                    Status = !born ? OfficerStatus.Unborn : faction != null ? OfficerStatus.Active : OfficerStatus.Free,
+                    Loyalty = born && faction != null ? p.Value<int?>("loyalty") ?? 80 : 0,
+                };
+            }
+        }
+
         public static WorldState Load(GameData data, WorldMap map, string scenarioId, ulong seed)
         {
-            var root = GameData.ReadObject(Path.Combine(data.DataDir, "scenarios", scenarioId, "scenario.json"));
+            string scenarioDir = data.ScenarioDir(scenarioId);
+            var root = GameData.ReadObject(Path.Combine(scenarioDir, "scenario.json"));
             var w = new WorldState(data, map, seed);
             var start = root["start"]!;
             w.Date.Year = start.Value<int>("year");
@@ -108,9 +139,19 @@ namespace Sam11.Core.World
             string? eventsFile = root.Value<string>("events");
             if (eventsFile != null)
             {
-                var evRoot = GameData.ReadObject(Path.Combine(data.DataDir, "scenarios", scenarioId, eventsFile));
+                var evRoot = GameData.ReadObject(Path.Combine(scenarioDir, eventsFile));
                 foreach (var e in evRoot["events"]!) w.Events.Add(EventDef.Parse(e));
             }
+            // 모드가 더하는 이벤트 (같은 id면 바꾼다)
+            foreach (var patch in data.ScenarioEventPatches(scenarioId))
+                foreach (var e in GameData.ReadObject(patch)["events"]!)
+                {
+                    var ev = EventDef.Parse(e);
+                    int i = w.Events.FindIndex(x => x.Id == ev.Id);
+                    if (i >= 0) w.Events[i] = ev;
+                    else w.Events.Add(ev);
+                }
+            PlaceModOfficers(data, w, scenarioId);
             foreach (var d in (root["diplomacy"] as JArray) ?? new JArray())
             {
                 if (d.Value<string>("type") == "friendship")
