@@ -92,6 +92,8 @@
     "title.options": "<b>Options</b>",
     "title.scenario": "<b>Scenario</b>",
     "title.start": "<b>Start</b>",
+    "title.version": "Version {0}",
+    "toast.achievement": "Achievement unlocked: {0}",
     "unit.label": "{0}'s army",
     "xun.0": "early",
     "xun.1": "mid",

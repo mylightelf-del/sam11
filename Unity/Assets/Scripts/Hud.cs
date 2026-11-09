@@ -53,6 +53,14 @@ namespace Sam11.Unity
             NewsPanel();
             if (_showLoad) LoadPanel();
             if (Root.Session.IsOver) GameOverPanel();
+            Toasts();
+        }
+
+        private void Toasts()
+        {
+            Root.Toasts.RemoveAll(t => t.Until < Time.unscaledTime);
+            for (int i = 0; i < Root.Toasts.Count; i++)
+                GUI.Box(new Rect(Screen.width / 2 - 180, 44 + i * 34, 360, 30), Root.Toasts[i].Text, _box);
         }
 
         private Rect Track(Rect r)

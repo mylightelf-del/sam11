@@ -92,6 +92,8 @@
     "title.options": "<b>옵션</b>",
     "title.scenario": "<b>시나리오</b>",
     "title.start": "<b>시작</b>",
+    "title.version": "버전 {0}",
+    "toast.achievement": "업적 달성: {0}",
     "unit.label": "{0} 부대",
     "xun.0": "상순",
     "xun.1": "중순",

@@ -147,6 +147,12 @@ namespace Sam11.Core.World
                     "faction_destroyed" => w.Factions.TryGetValue(v.Value<string>()!, out var fd) && !fd.Alive,
                     "event_done" => w.EventsDone.Contains(v.Value<string>()!),
                     "enemy_units_near" => EnemyNear(g, v),
+                    // 목표·업적용 (self 세력 기준)
+                    "cities_gte" => self != null && w.Cities.Values.Count(c => c.Owner == self && c.Def.IsCity) >= v.Value<int>(),
+                    "officers_gte" => self != null && w.Officers.Values.Count(o => o.Faction == self && o.Status == OfficerStatus.Active) >= v.Value<int>(),
+                    "title_gte" => self != null && w.Factions.TryGetValue(self, out var sf) && sf.Title >= v.Value<int>(),
+                    "treasures_gte" => self != null && w.TreasureOwner.Count(t => t.Value != null && w.Officers.TryGetValue(t.Value, out var th) && th.Faction == self)
+                                                       + w.TreasureVault.Count(t => t.Value == self) >= v.Value<int>(),
                     _ => throw new InvalidOperationException($"알 수 없는 이벤트 조건: {p.Name}"),
                 };
                 if (!ok) return false;

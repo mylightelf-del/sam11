@@ -128,6 +128,8 @@ namespace Sam11.Unity
             GUI.enabled = true;
             GUILayout.EndHorizontal();
             GUILayout.Label(Root.LastMessage);
+            GUILayout.FlexibleSpace();
+            GUILayout.Label(L.T("title.version", Sam11.Core.GameInfo.Version));
             GUILayout.EndArea();
         }
 

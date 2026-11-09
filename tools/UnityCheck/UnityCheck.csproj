@@ -11,6 +11,13 @@
   <ItemGroup>
     <Compile Include="../../Unity/Assets/Scripts/**/*.cs" />
   </ItemGroup>
+  <!-- Steam 연동까지 검사: dotnet build tools/UnityCheck -p:Steam=true -->
+  <PropertyGroup Condition="'$(Steam)' == 'true'">
+    <DefineConstants>$(DefineConstants);STEAMWORKS_NET</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(Steam)' == 'true'">
+    <PackageReference Include="Steamworks.NET" Version="20.1.0" IncludeAssets="compile" PrivateAssets="all" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" IncludeAssets="compile" PrivateAssets="all" />
     <ProjectReference Include="../../src/Sam11.Core/Sam11.Core.csproj" />

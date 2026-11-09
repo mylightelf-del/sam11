@@ -55,6 +55,17 @@ namespace Sam11.Core.Play
             foreach (var f in w.Factions.Keys.Where(f => !options.Players.Contains(f)))
                 Game.Controllers[f] = new AiController(AiConfig.For(options.Difficulty));
             Game.ControllerFactory = f => new AiController(AiConfig.For(options.Difficulty));
+            Achievements = new AchievementTracker(data, scenario, w);
+        }
+
+        /// <summary>업적 판정 (플레이어 세력 기준). 새로 이룬 것은 NewAchievements에 쌓이고, UI·플랫폼이 가져간다.</summary>
+        public AchievementTracker Achievements { get; }
+        public List<AchievementDef> NewAchievements { get; } = new List<AchievementDef>();
+
+        private void CheckAchievements()
+        {
+            foreach (var p in Options.Players.OrderBy(x => x, StringComparer.Ordinal))
+                NewAchievements.AddRange(Achievements.Check(Game, p));
         }
 
         /// <summary>새 게임을 시작하고 첫 플레이어 차례까지 진행한다.</summary>
@@ -337,6 +348,7 @@ namespace Sam11.Core.Play
             Game.Advance();
             // 플레이어 세력이 망해 차례가 없으면 끝날 때까지 진행
             while (!Game.IsOver && Game.CurrentPlayer == null) Game.Advance();
+            if (World.Date.IsMonthStart || Game.IsOver) CheckAchievements();
         }
 
         // ------------------------------------------------------------------ 시야
@@ -359,6 +371,7 @@ namespace Sam11.Core.Play
         public JObject Save() => new JObject
         {
             ["format"] = SaveFormat,
+            ["version"] = GameInfo.Version,
             ["scenario"] = Scenario,
             ["seed"] = Seed.ToString(),
             ["options"] = new JObject

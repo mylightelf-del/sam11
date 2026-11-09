@@ -93,3 +93,39 @@ public class GameOptionsTests
         }
     }
 }
+
+public class AchievementTests
+{
+    [Test]
+    public void AchievementsLoadAndEvaluateInEveryScenario()
+    {
+        var defs = AchievementTracker.LoadDefs(TestData.Data);
+        Assert.That(defs.Count, Is.GreaterThanOrEqualTo(10));
+        Assert.That(defs.Select(d => d.Id).Distinct().Count(), Is.EqualTo(defs.Count));
+        foreach (var sc in TestData.Data.ScenarioIds())
+        {
+            var w = ScenarioLoader.Load(TestData.Data, TestData.Map, sc, 1);
+            var g = new Game(w, 1);
+            var t = new AchievementTracker(TestData.Data, sc, w);
+            foreach (var f in w.Factions.Keys) Assert.DoesNotThrow(() => t.Check(g, f), sc);
+        }
+    }
+
+    [Test]
+    public void UnlocksOnceWhenConditionMet()
+    {
+        var s = Sam11.Core.Play.PlayerSession.NewGame(TestData.Data, TestData.Map, "190", 1, new GameOptions { Players = { "cao_cao" } });
+        var w = s.World;
+        foreach (var id in new[] { "xuchang", "puyang" })
+        {
+            w.Cities[id].Owner = "cao_cao";
+            s.Game.Field.Strongholds[id].Owner = "cao_cao";
+        }
+        for (int i = 0; i < 4; i++) s.Execute(new Newtonsoft.Json.Linq.JObject { ["type"] = "end_turn" });
+        Assert.That(s.NewAchievements.Select(a => a.Id), Has.Member("first_conquest"));
+        int count = s.NewAchievements.Count(a => a.Id == "first_conquest");
+        for (int i = 0; i < 4; i++) s.Execute(new Newtonsoft.Json.Linq.JObject { ["type"] = "end_turn" });
+        Assert.That(s.NewAchievements.Count(a => a.Id == "first_conquest"), Is.EqualTo(count), "한 번만");
+        Assert.That(s.Save().Value<string>("version"), Is.EqualTo(Sam11.Core.GameInfo.Version));
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "achievements": [
+    { "id": "first_conquest", "name": { "ko": "첫 함락", "en": "First Conquest" }, "description": { "ko": "도시 두 곳을 다스린다", "en": "Rule two cities" }, "conditions": { "cities_gte": 2 } },
+    { "id": "regional_power", "name": { "ko": "한 지방의 패자", "en": "Regional Power" }, "description": { "ko": "도시 열 곳을 다스린다", "en": "Rule ten cities" }, "conditions": { "cities_gte": 10 } },
+    { "id": "half_the_realm", "name": { "ko": "천하의 절반", "en": "Half the Realm" }, "description": { "ko": "도시 스물다섯 곳을 다스린다", "en": "Rule twenty-five cities" }, "conditions": { "cities_gte": 25 } },
+    { "id": "gathering_of_talent", "name": { "ko": "인재가 모이다", "en": "Gathering of Talent" }, "description": { "ko": "무장 쉰 명을 거느린다", "en": "Command fifty officers" }, "conditions": { "officers_gte": 50 } },
+    { "id": "treasure_hunter", "name": { "ko": "보물 수집가", "en": "Treasure Hunter" }, "description": { "ko": "보물 다섯 점을 모은다", "en": "Own five treasures" }, "conditions": { "treasures_gte": 5 } },
+    { "id": "crowned", "name": { "ko": "왕위에 오르다", "en": "Crowned" }, "description": { "ko": "군주 작위가 왕 이상이 된다", "en": "Rise to king or higher" }, "conditions": { "title_gte": 4 } },
+    { "id": "unifier", "name": { "ko": "천하 통일", "en": "Unifier" }, "description": { "ko": "천하를 통일한다", "en": "Unify the realm" }, "outcome": "unification" },
+    { "id": "goal_achieved", "name": { "ko": "뜻을 이루다", "en": "Ambition Fulfilled" }, "description": { "ko": "시나리오 목표를 이룬다", "en": "Complete a scenario goal" }, "outcome": "goal" },
+    { "id": "unifier_hard", "name": { "ko": "난세의 영웅", "en": "Hero of Chaos" }, "description": { "ko": "어려움 이상에서 천하를 통일한다", "en": "Unify the realm on Hard or above" }, "outcome": "unification", "min_difficulty": "Hard" },
+    { "id": "yellow_turban", "name": { "ko": "창천이 죽었다", "en": "The Azure Sky Is Dead" }, "description": { "ko": "184년 시나리오에서 장각 세력을 멸망시킨다", "en": "Destroy Zhang Jue in the 184 scenario" }, "scenario": "184", "conditions": { "faction_destroyed": "zhang_jue" } },
+    { "id": "dong_zhuo_falls", "name": { "ko": "폭군의 최후", "en": "Fall of the Tyrant" }, "description": { "ko": "190년 시나리오에서 동탁 세력을 멸망시킨다", "en": "Destroy Dong Zhuo in the 190 scenario" }, "scenario": "190", "conditions": { "faction_destroyed": "dong_zhuo" } },
+    { "id": "red_cliffs", "name": { "ko": "적벽의 불길", "en": "Fires of Red Cliffs" }, "description": { "ko": "207년 시나리오에서 적벽 화공을 일으킨다", "en": "Set the fire at Red Cliffs in the 207 scenario" }, "scenario": "207", "conditions": { "event_done": "chibi_fire" } },
+    { "id": "survivor", "name": { "ko": "살아남은 자", "en": "Survivor" }, "description": { "ko": "도시 하나로 시작해 10년을 버틴다", "en": "Start with one city and survive ten years" }, "survive_years": 10, "max_start_cities": 1 }
+  ]
+}

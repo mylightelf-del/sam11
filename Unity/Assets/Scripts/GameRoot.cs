@@ -41,9 +41,15 @@ namespace Sam11.Unity
         public readonly List<string> News = new List<string>();
         private int _logShown;
 
+        /// <summary>새로 이룬 업적 알림 (화면 위쪽에 잠깐).</summary>
+        public readonly List<(string Text, float Until)> Toasts = new List<(string, float)>();
+
         private void Awake()
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+            ErrorLog.Install();
+            Debug.Log($"삼국지 {Sam11.Core.GameInfo.Version} / {Platform.Current.Name}");
             if (!Directory.Exists(DataDir))
             {
                 LastMessage = $"Game data not found: {DataDir}\nRun tools/unity/sync.sh first.";
@@ -125,12 +131,29 @@ namespace Sam11.Unity
         /// <summary>명령을 실행하고 결과를 알린다.</summary>
         public CommandResult Execute(JObject cmd)
         {
+            string type = cmd.Value<string>("type");
+            var dateBefore = Session.World.Date.ToString();
             var r = Session.Execute(cmd);
             LastMessage = r.Ok ? r.Message : "✗ " + r.Message;
             CollectNews();
+            foreach (var a in Session.NewAchievements)
+            {
+                if (!Platform.Current.IsUnlocked(a.Id))
+                    Toasts.Add((L.T("toast.achievement", L.N(a.Name)), Time.unscaledTime + 5f));
+                Platform.Current.Unlock(a.Id);
+            }
+            Session.NewAchievements.Clear();
+            // 자동 저장: 매월 첫 턴 또는 매 턴 (설정)
+            if (type == "end_turn" && r.Ok && !Session.IsOver && Session.World.Date.ToString() != dateBefore
+                && (Settings.AutoSave == 2 || (Settings.AutoSave == 1 && Session.World.Date.IsMonthStart)))
+                SaveGame("autosave");
             Changed?.Invoke();
             return r;
         }
+
+        private void Update() => Platform.Current.Tick();
+
+        private void OnApplicationQuit() => Platform.Current.Shutdown();
 
         public CommandResult Execute(string type, object args = null)
         {

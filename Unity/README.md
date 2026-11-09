@@ -49,6 +49,13 @@ dotnet build tools/UnityCheck
 
 셰이더와 실제 화면은 Unity 에디터에서 확인해야 한다.
 
+## 빌드·Steam
+
+- 빌드: 메뉴 `Sam11 > 빌드 > Windows / macOS / Linux` (`Assets/Editor/BuildScript.cs`). 빈 장면 하나를 Build Settings에 넣어 둔다.
+- Steam: `docs/release/steam.md` (Steamworks.NET, `STEAMWORKS_NET` 정의, 업적 API 이름, 자동 클라우드, SteamPipe).
+- 설정(`Settings`): 언어(처음엔 시스템 언어), 자동 저장(끔·매월·매 턴), 음량. 오류는 `persistentDataPath/logs`에 남는다.
+- 에디터 스크립트(`Assets/Editor`)는 이 저장소에서 컴파일 검사를 하지 못한다 (UnityEditor 참조 어셈블리가 없음).
+
 ## M0에서 이어 할 것
 
 - 병사 군집으로 진형 보여 주기 (지금은 깃발 하나), 성능 측정
