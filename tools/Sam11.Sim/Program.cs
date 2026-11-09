@@ -22,6 +22,17 @@ if (args.Length > 0 && args[0] == "auto")
     return;
 }
 
+if (args.Length > 0 && args[0] == "difficulty")
+{
+    // 난이도 곡선: 한 세력(플레이어 대역)은 보통 AI, 나머지는 난이도별 AI. 대역 세력의 성적이 난이도에 따라 떨어져야 한다.
+    string scenario = args.Length > 1 ? args[1] : "190";
+    var factions = (args.Length > 2 ? args[2] : "cao_cao").Split(',');
+    int years = args.Length > 3 ? int.Parse(args[3]) : 10;
+    int runs = args.Length > 4 ? int.Parse(args[4]) : 4;
+    DifficultyCurve(data, scenario, factions, years, runs);
+    return;
+}
+
 if (args.Length > 0 && args[0] == "siege")
 {
     SiegeDemo(data, args.Length > 1 ? ulong.Parse(args[1]) : 190);
@@ -387,4 +398,40 @@ static void PrintStandings(WorldState w, Game game)
         Console.WriteLine($"  {w.NameOf(f.Id),-5} 도시 {cs.Count(c => c.Def.IsCity),2} 거점 {cs.Count,2}  병력 {cs.Sum(c => c.Troops + c.FieldGarrison) + field,7}  " +
                           $"금 {cs.Sum(c => c.Gold),6} 군량 {cs.Sum(c => c.Food),7}  무장 {w.Officers.Values.Count(o => o.Faction == f.Id && o.Status == OfficerStatus.Active),2}");
     }
+}
+
+
+static void DifficultyCurve(GameData data, string scenario, string[] proxies, int years, int runs)
+{
+    var map = WorldMap.Load(data.DataDir);
+    Console.WriteLine($"난이도 곡선 ({scenario}, {years}년, 세력당 {runs}판): 대역 세력 = 보통 AI, 상대 = 해당 난이도");
+    Console.WriteLine($"{"세력",-12} {"난이도",-7} {"생존",5} {"도시(평균)",9} {"목표 달성",8}");
+    foreach (var proxy in proxies)
+        foreach (var level in Enum.GetValues<Sam11.Core.AI.Difficulty>())
+        {
+            int alive = 0, goals = 0;
+            double cities = 0;
+            for (int run = 0; run < runs; run++)
+            {
+                ulong seed = 100 + (ulong)run;
+                var w = ScenarioLoader.Load(data, map, scenario, seed);
+                w.Options.Players.Add(proxy); // 플레이어로 표시 (AI가 플레이어를 노리는 정도가 적용되게). 조종은 AI가 한다.
+                w.Options.GoalVictory = false;
+                var game = new Game(w, seed);
+                foreach (var f in w.Factions.Keys)
+                    game.Controllers[f] = new Sam11.Core.AI.AiController(Sam11.Core.AI.AiConfig.For(f == proxy ? Sam11.Core.AI.Difficulty.Normal : level));
+                game.ControllerFactory = f => new Sam11.Core.AI.AiController(Sam11.Core.AI.AiConfig.For(level));
+                bool achieved = false;
+                for (int t = 0; t < years * 36 && !game.IsOver; t++)
+                {
+                    game.PlayTurn();
+                    if (!achieved && w.Date.IsMonthStart && w.Factions[proxy].Alive)
+                        achieved = w.Factions[proxy].Goals.Any(gl => EventSystem.Check(game, gl.Conditions, proxy));
+                }
+                if (w.Factions[proxy].Alive) alive++;
+                if (achieved) goals++;
+                cities += w.Cities.Values.Count(c => c.Owner == proxy && c.Def.IsCity);
+            }
+            Console.WriteLine($"{proxy,-12} {level,-7} {100 * alive / runs,4}% {cities / runs,9:F1} {100 * goals / runs,7}%");
+        }
 }

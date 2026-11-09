@@ -19,6 +19,7 @@ namespace Sam11.Core.AI
             foreach (var c in w.Cities.Values.Where(c => c.Owner == faction && InScope(c.Id)).OrderBy(c => c.Id).ToList())
             {
                 var pool = w.OfficersAt(c.Id).Where(o => o.Faction == faction && !o.Acted).ToList();
+                if (Config.IdleOfficers > 0) pool = pool.Where(_ => !w.Rng.Chance(Config.IdleOfficers)).ToList();
                 if (c.Governor == null || !w.Officers.TryGetValue(c.Governor, out var gov) || gov.Location != c.Id || gov.Faction != faction)
                     c.Governor = w.OfficersAt(c.Id).Where(o => o.Faction == faction).OrderByDescending(o => o.Def.Stats.Pol).Select(o => o.Id).FirstOrDefault();
 

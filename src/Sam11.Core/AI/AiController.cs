@@ -124,7 +124,7 @@ namespace Sam11.Core.AI
                 {
                     _diplomacyMonth = monthKey;
                     PlanDiplomacy(g, faction);
-                    PlanMissions(g, faction);
+                    if (Config.StrategicMissions) PlanMissions(g, faction);
                     PlanTreasures(g, faction);
                     PlanCaptives(g, faction);
                 }
@@ -276,6 +276,7 @@ namespace Sam11.Core.AI
             var own = w.Cities.Values.Where(c => c.Owner == faction && InScope(c.Id)).ToList();
             int cityCount = own.Count(c => c.Def.IsCity);
             int max = cityCount >= 20 ? 6 : cityCount >= 15 ? 5 : cityCount >= 10 ? 4 : cityCount >= 6 ? 3 : cityCount >= 3 ? 2 : 1;
+            max = Math.Max(1, (int)Math.Round(max * Config.CampaignFactor));
             if (Campaigns.Count(c => !c.Defense) >= max) return;
 
             var p = Personality(w, faction);
@@ -307,6 +308,7 @@ namespace Sam11.Core.AI
                                    / (1 + s.Placement.Center.DistanceTo(t.Placement.Center) / 40.0);
                     // 공동 작전: 동맹이 지금 치고 있는 세력이면 함께 친다
                     bool joint = t.Owner != null && AllyIsFighting(g, faction, t.Owner);
+                    if (t.Owner != null && w.Options.Players.Contains(t.Owner)) score *= Config.PlayerFocus;
                     if (joint) score *= 1.5;
                     int foodNeed = (int)(need * w.Data.Rules.Economy.FoodPerSoldierMonth * 6);
                     bool lean = preHarvest && s.Food - Domestic.MonthlyFoodUse(w, s) * 3 < foodNeed;

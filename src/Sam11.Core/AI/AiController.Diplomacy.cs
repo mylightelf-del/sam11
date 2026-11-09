@@ -101,7 +101,8 @@ namespace Sam11.Core.AI
             }
 
             // 병합: 오래 따른 약한 종속국
-            foreach (var v in w.Vassals.Where(kv => kv.Value == me).Select(kv => kv.Key).ToList())
+            // 망한 종속국은 월초 정리 전까지 목록에 남아 있다
+            foreach (var v in w.Vassals.Where(kv => kv.Value == me && power.ContainsKey(kv.Key)).Select(kv => kv.Key).ToList())
                 if (w.FriendshipOf(me, v) >= w.Data.Rules.Diplomacy.AbsorbFriendship && mine >= power[v] * w.Data.Rules.Diplomacy.AbsorbPowerRatio
                     && TryPropose(g, new Proposal { Type = DiploType.Absorb, From = me, To = v })) return;
 

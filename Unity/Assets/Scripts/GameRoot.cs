@@ -23,6 +23,9 @@ namespace Sam11.Unity
         public string SaveDir => Path.Combine(Application.persistentDataPath, "saves");
 
         public GameData Data { get; private set; }
+        public Localization Loc { get; private set; }
+        /// <summary>쓸 수 있는 언어 (코드 → 이름).</summary>
+        public System.Collections.Generic.Dictionary<string, string> Languages { get; private set; } = new System.Collections.Generic.Dictionary<string, string>();
         public WorldMap Map { get; private set; }
         public PlayerSession Session { get; private set; }
         public List<ModInfo> AvailableMods { get; private set; } = new List<ModInfo>();
@@ -43,12 +46,13 @@ namespace Sam11.Unity
             Instance = this;
             if (!Directory.Exists(DataDir))
             {
-                LastMessage = $"데이터가 없음: {DataDir}\ntools/unity/sync.sh를 먼저 실행하세요.";
+                LastMessage = $"Game data not found: {DataDir}\nRun tools/unity/sync.sh first.";
                 Debug.LogError(LastMessage);
                 gameObject.AddComponent<TitleScreen>();
                 return;
             }
             AvailableMods = ModLoader.Discover(Directory.Exists(ModsDir) ? ModsDir : null);
+            Languages = Localization.Available(DataDir);
             LoadData(new List<string>());
             gameObject.AddComponent<TitleScreen>();
         }
@@ -59,6 +63,16 @@ namespace Sam11.Unity
             var mods = ModLoader.Order(AvailableMods, modIds);
             Data = GameData.Load(DataDir, mods);
             Map ??= WorldMap.Load(DataDir);
+            SetLanguage(Settings.Language);
+        }
+
+        /// <summary>화면 언어를 바꾼다 (설정에 저장).</summary>
+        public void SetLanguage(string lang)
+        {
+            if (!Languages.ContainsKey(lang)) lang = Localization.Default;
+            Settings.Language = lang;
+            Loc = Localization.Load(DataDir, lang, Data?.ModInfos);
+            Changed?.Invoke();
         }
 
         public void StartNew(string scenario, GameOptions options, ulong seed)
@@ -80,7 +94,7 @@ namespace Sam11.Unity
             Directory.CreateDirectory(SaveDir);
             string path = Path.Combine(SaveDir, (name ?? $"{Session.Scenario}_{Session.Faction}_{DateTime.Now:yyyyMMdd_HHmmss}") + ".json");
             File.WriteAllText(path, Session.Save().ToString());
-            LastMessage = $"저장했다: {Path.GetFileName(path)}";
+            LastMessage = L.T("msg.saved", Path.GetFileName(path));
             return path;
         }
 
@@ -128,7 +142,7 @@ namespace Sam11.Unity
         private void CollectNews()
         {
             var w = Session.World;
-            string me = w.NameOf(Session.Faction ?? "");
+            string me = w.NameOf(Session.Faction ?? ""); // 소식 거르기는 엔진 기록(한국어) 기준
             foreach (var l in w.Log.Skip(_logShown))
                 if (l.Contains("★") || l.Contains("◆") || l.Contains("함락") || l.Contains(me) || l.Contains("외교"))
                     News.Add(l);

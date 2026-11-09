@@ -12,6 +12,16 @@ namespace Sam11.Core.Data
     {
         public string Ko { get; set; } = "";
         public string? Zh { get; set; }
+        public string? En { get; set; }
+
+        /// <summary>언어별 이름. 없으면 영어는 한자(병음 대신), 그 밖에는 한국어.</summary>
+        public string Get(string lang) => lang switch
+        {
+            "zh" => Zh ?? Ko,
+            "en" => En ?? Zh ?? Ko,
+            _ => Ko,
+        };
+
         public override string ToString() => Ko;
     }
 

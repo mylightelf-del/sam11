@@ -117,3 +117,17 @@ public class DiplomacyTests
         Assert.That(ai.Wants(g, new Proposal { Type = DiploType.Alliance, From = "kong_rong", To = "tao_qian" }), Is.True);
     }
 }
+
+public class DiplomacyRegressionTests
+{
+    [Test]
+    public void DeadVassalDoesNotCrashAi()
+    {
+        var w = TestData.NewWorld();
+        var g = new Sam11.Core.World.Game(w, 1);
+        w.Vassals["liu_bei"] = "cao_cao";
+        w.Factions["liu_bei"].Alive = false;
+        var ai = new Sam11.Core.AI.AiController(Sam11.Core.AI.AiConfig.For(Sam11.Core.AI.Difficulty.Normal));
+        Assert.DoesNotThrow(() => ai.TakeTurn(g, "cao_cao"));
+    }
+}

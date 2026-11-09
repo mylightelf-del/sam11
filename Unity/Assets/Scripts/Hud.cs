@@ -73,13 +73,13 @@ namespace Sam11.Unity
             GUI.Box(r, "");
             GUILayout.BeginArea(new Rect(8, 5, Screen.width - 16, 26));
             GUILayout.BeginHorizontal();
-            GUILayout.Label($"<b>{w.Date}</b>  {w.NameOf(me)}  도시 {mine.Count(c => c.Def.IsCity)}  금 {mine.Sum(c => c.Gold)}  군량 {mine.Sum(c => c.Food)}  병력 {mine.Sum(c => c.Troops + c.FieldGarrison)}  신용 {w.TrustOf(me)}", _small, GUILayout.Width(560));
+            GUILayout.Label(L.T("hud.topbar", L.Date(w.Date), L.Faction(me), mine.Count(c => c.Def.IsCity), mine.Sum(c => c.Gold), mine.Sum(c => c.Food), mine.Sum(c => c.Troops + c.FieldGarrison), w.TrustOf(me)), _small, GUILayout.Width(560));
             GUILayout.FlexibleSpace();
-            if (GUILayout.Button("차례 끝 (Enter)", GUILayout.Width(120))) Root.Execute("end_turn");
-            if (GUILayout.Button("위임", GUILayout.Width(60))) Root.Execute("delegate");
-            if (GUILayout.Button("저장", GUILayout.Width(60))) Root.SaveGame();
-            if (GUILayout.Button("불러오기", GUILayout.Width(80))) _showLoad = !_showLoad;
-            if (GUILayout.Button("소식", GUILayout.Width(60))) _showLog = !_showLog;
+            if (GUILayout.Button(L.T("hud.end_turn"), GUILayout.Width(120))) Root.Execute("end_turn");
+            if (GUILayout.Button(L.T("hud.delegate"), GUILayout.Width(60))) Root.Execute("delegate");
+            if (GUILayout.Button(L.T("hud.save"), GUILayout.Width(60))) Root.SaveGame();
+            if (GUILayout.Button(L.T("hud.load"), GUILayout.Width(80))) _showLoad = !_showLoad;
+            if (GUILayout.Button(L.T("hud.news"), GUILayout.Width(60))) _showLog = !_showLog;
             GUILayout.EndHorizontal();
             GUILayout.EndArea();
         }
@@ -94,27 +94,27 @@ namespace Sam11.Unity
             var r = Track(new Rect(8, 42, 380, Screen.height - 220));
             GUILayout.BeginArea(r, _box);
             _scrollCity = GUILayout.BeginScrollView(_scrollCity);
-            GUILayout.Label($"<b>{c.Def.Name.Ko}</b> ({w.NameOf(c.Owner ?? "")})", _box);
+            GUILayout.Label($"<b>{L.N(c.Def.Name)}</b> ({L.Faction(c.Owner)})", _box);
             if (c.Owner != me)
             {
-                GUILayout.Label(c.Owner == null ? "무주지" : $"{w.NameOf(c.Owner)} 세력의 거점. 병력은 첩보로 알 수 있다.", _small);
+                GUILayout.Label(c.Owner == null ? L.T("hud.city.unowned") : L.T("hud.city.enemy", L.Faction(c.Owner)), _small);
                 GUILayout.EndScrollView();
                 GUILayout.EndArea();
                 return;
             }
-            GUILayout.Label($"병력 {c.Troops} (훈련 {c.Training})  금 {c.Gold}  군량 {c.Food}\n인구 {c.Population}  민심 {c.Morale}\n병장기: {string.Join(" ", c.Equipment.Select(kv => $"{EquipName(kv.Key)} {kv.Value}"))}", _small);
+            GUILayout.Label(L.T("hud.city.stats", c.Troops, c.Training, c.Gold, c.Food, c.Population, c.Morale, string.Join(" ", c.Equipment.Select(kv => $"{EquipName(kv.Key)} {kv.Value}"))), _small);
 
             var officers = w.OfficersAt(c.Id).Where(o => o.Faction == me && o.Status == OfficerStatus.Active).OrderByDescending(o => o.Def.Stats.Ldr).ToList();
-            GUILayout.Label("<b>무장</b> (이름을 눌러 고르고 아래에서 명령)", _small);
+            GUILayout.Label(L.T("hud.officers"), _small);
             foreach (var o in officers)
             {
                 var st = o.Def.Stats;
                 GUILayout.BeginHorizontal();
                 bool chosen = _officer == o.Id;
-                if (GUILayout.Toggle(chosen, $"{o.Def.Name.Ko}{(o.Acted ? " ·" : "")}", GUILayout.Width(110)) != chosen) _officer = chosen ? null : o.Id;
-                GUILayout.Label($"통{st.Ldr} 무{st.War} 지{st.Int} 정{st.Pol} 매{st.Cha} 충{o.Loyalty}", _small);
+                if (GUILayout.Toggle(chosen, $"{L.N(o.Def.Name)}{(o.Acted ? " ·" : "")}", GUILayout.Width(110)) != chosen) _officer = chosen ? null : o.Id;
+                GUILayout.Label(L.T("hud.officer.stats", st.Ldr, st.War, st.Int, st.Pol, st.Cha, o.Loyalty), _small);
                 bool inSortie = _sortieOfficers.Contains(o.Id) && _sortieCity == c.Id;
-                if (GUILayout.Toggle(inSortie, "출진", GUILayout.Width(50)) != inSortie)
+                if (GUILayout.Toggle(inSortie, L.T("hud.sortie.pick"), GUILayout.Width(50)) != inSortie)
                 {
                     if (_sortieCity != c.Id) { _sortieOfficers.Clear(); _sortieCity = c.Id; }
                     if (inSortie) _sortieOfficers.Remove(o.Id); else if (_sortieOfficers.Count < 3) _sortieOfficers.Add(o.Id);
@@ -124,31 +124,31 @@ namespace Sam11.Unity
 
             if (_officer != null && officers.Any(o => o.Id == _officer))
             {
-                GUILayout.Label($"<b>{w.Officers[_officer]}에게 맡길 일</b>", _small);
+                GUILayout.Label(L.T("hud.orders_for", L.N(w.Officers[_officer].Def.Name)), _small);
                 GUILayout.BeginHorizontal();
-                foreach (var (label, type) in new[] { ("징병", "recruit"), ("훈련", "train"), ("순찰", "patrol"), ("시혜", "charity") })
-                    if (GUILayout.Button(label)) Root.Execute(type, new { officer = _officer, city = c.Id });
+                foreach (var type in new[] { "recruit", "train", "patrol", "charity" })
+                    if (GUILayout.Button(L.T("cmd." + type))) Root.Execute(type, new { officer = _officer, city = c.Id });
                 GUILayout.EndHorizontal();
                 GUILayout.BeginHorizontal();
                 foreach (var eq in new[] { "horse", "crossbow", "siege_engine", "ship" })
-                    if (GUILayout.Button($"{EquipName(eq)} 생산")) Root.Execute("produce", new { officer = _officer, city = c.Id, equipment = eq });
+                    if (GUILayout.Button(L.T("cmd.produce", EquipName(eq)))) Root.Execute("produce", new { officer = _officer, city = c.Id, equipment = eq });
                 GUILayout.EndHorizontal();
-                GUILayout.Label("시설 (빈터를 누르면 지을 시설을 고른다)", _small);
+                GUILayout.Label(L.T("hud.facilities"), _small);
                 for (int i = 0; i < c.Placement.Slots.Count; i++)
                 {
                     GUILayout.BeginHorizontal();
                     if (c.Facilities.TryGetValue(i, out var f))
                     {
                         var def = s.Data.Facilities[f.FacilityId];
-                        GUILayout.Label($"{i}. {def.Name.Ko} {f.Level}단계{(f.BuildTurnsLeft > 0 ? $" (공사 {f.BuildTurnsLeft})" : "")}", _small, GUILayout.Width(200));
-                        if (f.BuildTurnsLeft == 0 && f.Level < def.MaxLevel && GUILayout.Button("증축"))
+                        GUILayout.Label(L.T("hud.facility", i, L.N(def.Name), f.Level) + (f.BuildTurnsLeft > 0 ? L.T("hud.facility.building", f.BuildTurnsLeft) : ""), _small, GUILayout.Width(200));
+                        if (f.BuildTurnsLeft == 0 && f.Level < def.MaxLevel && GUILayout.Button(L.T("cmd.upgrade")))
                             Root.Execute("build", new { officer = _officer, city = c.Id, slot = i, facility = f.FacilityId });
                     }
                     else
                     {
-                        GUILayout.Label($"{i}. 빈터{(c.Placement.Slots[i].Waterside ? " (물가)" : "")}", _small, GUILayout.Width(110));
+                        GUILayout.Label(L.T("hud.lot", i) + (c.Placement.Slots[i].Waterside ? L.T("hud.lot.water") : ""), _small, GUILayout.Width(110));
                         foreach (var def in s.Data.Facilities.Values.Where(d => !d.RequiresWaterside || c.Placement.Slots[i].Waterside).Take(6))
-                            if (GUILayout.Button(def.Name.Ko, GUILayout.Width(44)))
+                            if (GUILayout.Button(L.N(def.Name), GUILayout.Width(44)))
                                 Root.Execute("build", new { officer = _officer, city = c.Id, slot = i, facility = def.Id });
                     }
                     GUILayout.EndHorizontal();
@@ -168,22 +168,22 @@ namespace Sam11.Unity
             var members = ids.Select(id => Treasures.Effective(w, id)).ToList();
             var leader = w.Officers[ids[0]];
             int max = UnitStats.MaxTroops(members[0], leader.Rank != null ? s.Data.Ranks[leader.Rank] : null, s.Data.Rules.Unit);
-            GUILayout.Label($"<b>출진</b> 대장 {leader} (최대 {max}명)", _small);
+            GUILayout.Label(L.T("hud.sortie.title", L.N(leader.Def.Name), max), _small);
             GUILayout.BeginHorizontal();
             foreach (var f in s.Data.Formations.Values)
             {
                 bool ok = Battle.CanDeploy(s.Data, members, f.Id, Mathf.Max(1, (int)_troops), c.Equipment) == null;
                 GUI.enabled = ok;
-                if (GUILayout.Toggle(_formation == f.Id, f.Name.Ko, GUILayout.Width(42))) _formation = f.Id;
+                if (GUILayout.Toggle(_formation == f.Id, L.N(f.Name), GUILayout.Width(42))) _formation = f.Id;
                 GUI.enabled = true;
             }
             GUILayout.EndHorizontal();
             _troops = GUILayout.HorizontalSlider(_troops, 0, Mathf.Min(c.Troops, max));
-            GUILayout.Label($"병력 {(int)_troops}", _small);
+            GUILayout.Label(L.T("hud.sortie.troops", (int)_troops), _small);
             _food = GUILayout.HorizontalSlider(_food, 0, c.Food);
-            GUILayout.Label($"군량 {(int)_food} (병력×{s.Data.Rules.Economy.FoodPerSoldierMonth}/월)", _small);
+            GUILayout.Label(L.T("hud.sortie.food", (int)_food, s.Data.Rules.Economy.FoodPerSoldierMonth), _small);
             GUI.enabled = _formation != null && _troops >= 1;
-            if (GUILayout.Button("출진"))
+            if (GUILayout.Button(L.T("cmd.sortie")))
             {
                 var r = Root.Execute("sortie", new { city = c.Id, officers = ids, formation = _formation, troops = (int)_troops, food = (int)_food });
                 if (r.Ok)
@@ -196,10 +196,7 @@ namespace Sam11.Unity
             GUI.enabled = true;
         }
 
-        private static string EquipName(string id) => id switch
-        {
-            "horse" => "군마", "crossbow" => "노", "siege_engine" => "병기", "ship" => "배", _ => id,
-        };
+        private static string EquipName(string id) => L.T("equip." + id);
 
         // ------------------------------------------------------------------ 부대
 
@@ -211,17 +208,17 @@ namespace Sam11.Unity
             bool mine = u.Faction == s.Faction;
             var r = Track(new Rect(8, 42, 340, 360));
             GUILayout.BeginArea(r, _box);
-            GUILayout.Label($"<b>{u.Label}</b> ({w.NameOf(u.Faction)}) {u.Formation.Name.Ko}", _box);
-            GUILayout.Label($"병력 {u.Troops}/{u.StartTroops}  사기 {u.Morale}  기력 {u.Energy}  군량 {u.Food}\n" +
-                            $"부대원: {string.Join(", ", u.Members.Select(m => m.Name.Ko))}{(u.Status == UnitStatus.Confused ? "\n혼란" : "")}", _small);
+            GUILayout.Label($"<b>{L.UnitLabel(u)}</b> ({L.Faction(u.Faction)}) {L.N(u.Formation.Name)}", _box);
+            GUILayout.Label(L.T("hud.unit.stats", u.Troops, u.StartTroops, u.Morale, u.Energy, u.Food, string.Join(", ", u.Members.Select(m => L.N(m.Name))))
+                            + (u.Status == UnitStatus.Confused ? "\n" + L.T("status.confused") : ""), _small);
             if (mine && !u.HasActed && u.Status == UnitStatus.Ready)
             {
-                GUILayout.Label("오른쪽 클릭: 이동 / 공격 / 성벽 공격", _small);
-                GUILayout.Label("<b>전법</b> (고른 뒤 적을 왼쪽 클릭)", _small);
+                GUILayout.Label(L.T("hud.unit.rightclick"), _small);
+                GUILayout.Label(L.T("hud.unit.tactics"), _small);
                 foreach (var t in b.AvailableTactics(u).Where(t => !b.TacticTargetsStructureOnly(t)))
                 {
                     GUI.enabled = u.Energy >= t.EnergyCost;
-                    if (GUILayout.Button($"{t.Name.Ko} (기력 {t.EnergyCost}, 사거리 {b.TacticRange(u, t)})"))
+                    if (GUILayout.Button(L.T("hud.tactic", L.N(t.Name), t.EnergyCost, b.TacticRange(u, t))))
                     {
                         if (t.Power <= 0) Root.Execute("tactic", new { unit = u.Id, tactic = t.Id, target = u.Id });
                         else Sel.BeginTargeting(Selection.Mode.Tactic, t.Id);
@@ -229,21 +226,21 @@ namespace Sam11.Unity
                     GUI.enabled = true;
                 }
                 GUILayout.BeginHorizontal();
-                foreach (var (kind, label) in new[] { ("fire", "화계"), ("confuse", "혼란"), ("false_report", "허보") })
-                    if (GUILayout.Button(label)) Sel.BeginTargeting(Selection.Mode.Stratagem, kind);
-                if (GUILayout.Button("매복")) Root.Execute("stratagem", new { unit = u.Id, kind = "ambush" });
-                if (GUILayout.Button("진정")) Root.Execute("stratagem", new { unit = u.Id, kind = "calm" });
+                foreach (var kind in new[] { "fire", "confuse", "false_report" })
+                    if (GUILayout.Button(L.T("stratagem." + kind))) Sel.BeginTargeting(Selection.Mode.Stratagem, kind);
+                if (GUILayout.Button(L.T("stratagem.ambush"))) Root.Execute("stratagem", new { unit = u.Id, kind = "ambush" });
+                if (GUILayout.Button(L.T("stratagem.calm"))) Root.Execute("stratagem", new { unit = u.Id, kind = "calm" });
                 GUILayout.EndHorizontal();
                 GUILayout.BeginHorizontal();
-                if (GUILayout.Button("일기토")) Sel.BeginTargeting(Selection.Mode.Duel, "");
+                if (GUILayout.Button(L.T("cmd.duel"))) Sel.BeginTargeting(Selection.Mode.Duel, "");
                 var home = w.Cities.Values.FirstOrDefault(c => c.Owner == u.Faction
                                                                && (c.Placement.Tiles.ContainsKey(u.Position) || c.Placement.Tiles.Keys.Any(t => t.DistanceTo(u.Position) == 1)));
                 GUI.enabled = home != null;
-                if (GUILayout.Button(home != null ? $"{home.Def.Name.Ko}로 귀환" : "귀환 (거점 옆에서)"))
+                if (GUILayout.Button(home != null ? L.T("cmd.withdraw", L.N(home.Def.Name)) : L.T("cmd.withdraw.none")))
                     Root.Execute("withdraw", new { unit = u.Id, city = home.Id });
                 GUI.enabled = true;
                 GUILayout.EndHorizontal();
-                if (Sel.Targeting != Selection.Mode.None) GUILayout.Label("대상을 고르세요 (Esc 취소)", _small);
+                if (Sel.Targeting != Selection.Mode.None) GUILayout.Label(L.T("hud.pick_target"), _small);
             }
             GUILayout.EndArea();
         }
@@ -273,12 +270,12 @@ namespace Sam11.Unity
             var p0 = props[0];
             var pr = Track(new Rect(Screen.width / 2 - 220, Screen.height / 2 - 90, 440, 180));
             GUILayout.BeginArea(pr, _box);
-            GUILayout.Label($"<b>{w.NameOf(p0.From)}의 사자 {w.Officers[p0.Envoy]}</b>", _box);
-            GUILayout.Label($"{Diplomacy.Describe(p0)}을(를) 청한다. (우호도 {w.FriendshipOf(p0.From, s.Faction)})", _small);
+            GUILayout.Label(L.T("hud.envoy", L.Faction(p0.From), L.N(w.Officers[p0.Envoy].Def.Name)), _box);
+            GUILayout.Label(L.T("hud.proposal", L.T("diplo." + p0.Type.ToString().ToLowerInvariant()), w.FriendshipOf(p0.From, s.Faction)), _small);
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("받아들인다")) Root.Execute("respond", new { index = 0, accept = true });
-            if (GUILayout.Button("거절한다")) Root.Execute("respond", new { index = 0, accept = false });
+            if (GUILayout.Button(L.T("hud.accept"))) Root.Execute("respond", new { index = 0, accept = true });
+            if (GUILayout.Button(L.T("hud.reject"))) Root.Execute("respond", new { index = 0, accept = false });
             GUILayout.EndHorizontal();
             GUILayout.EndArea();
         }
@@ -302,7 +299,7 @@ namespace Sam11.Unity
         {
             var r = Track(new Rect(Screen.width / 2 - 200, 60, 400, 300));
             GUILayout.BeginArea(r, _box);
-            GUILayout.Label("<b>불러오기</b>", _box);
+            GUILayout.Label(L.T("hud.load.title"), _box);
             _scrollLoad = GUILayout.BeginScrollView(_scrollLoad);
             foreach (var f in Root.SaveFiles().Take(30))
                 if (GUILayout.Button(Path.GetFileNameWithoutExtension(f)))
@@ -312,7 +309,7 @@ namespace Sam11.Unity
                     catch (System.Exception e) { Debug.LogError(e); }
                 }
             GUILayout.EndScrollView();
-            if (GUILayout.Button("닫기")) _showLoad = false;
+            if (GUILayout.Button(L.T("hud.close"))) _showLoad = false;
             GUILayout.EndArea();
         }
 
@@ -322,15 +319,15 @@ namespace Sam11.Unity
             var w = Root.Session.World;
             string text = g.Outcome switch
             {
-                GameOutcome.Unification => $"{w.NameOf(g.Winner)} 세력이 천하를 통일했다",
-                GameOutcome.Goal => $"목표 달성: {g.AchievedGoal.Description}",
-                GameOutcome.Defeat => "우리 세력이 멸망했다",
+                GameOutcome.Unification => L.T("end.unification", L.Faction(g.Winner)),
+                GameOutcome.Goal => L.T("end.goal", g.AchievedGoal.Description),
+                GameOutcome.Defeat => L.T("end.defeat"),
                 _ => "",
             };
             var r = Track(new Rect(Screen.width / 2 - 220, Screen.height / 2 - 60, 440, 120));
             GUILayout.BeginArea(r, _box);
-            GUILayout.Label($"<size=20><b>{text}</b></size>\n{w.Date}", _box);
-            if (GUILayout.Button("처음 화면으로"))
+            GUILayout.Label($"<size=20><b>{text}</b></size>\n{L.Date(w.Date)}", _box);
+            if (GUILayout.Button(L.T("end.to_title")))
             {
                 var title = Root.GetComponent<TitleScreen>();
                 title.enabled = true;

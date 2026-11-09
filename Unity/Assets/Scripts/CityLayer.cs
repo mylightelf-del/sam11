@@ -58,7 +58,7 @@ namespace Sam11.Unity
                 var label = new GameObject("label").AddComponent<TextMesh>();
                 label.transform.SetParent(go.transform, false);
                 label.transform.position = HexMetrics.ToWorld(c.Placement.Center, y + 1.6f);
-                label.text = c.Def.Name.Ko;
+                label.text = L.N(c.Def.Name);
                 label.anchor = TextAnchor.MiddleCenter;
                 label.characterSize = c.Def.IsCity ? 0.35f : 0.25f;
                 label.fontSize = 48;
@@ -77,7 +77,7 @@ namespace Sam11.Unity
                 var c = w.Cities[kv.Key];
                 var color = c.Owner != null ? InkPalette.Faction(w.Factions[c.Owner].Color) : new Color(0.7f, 0.68f, 0.62f);
                 kv.Value.Base.material.color = color;
-                kv.Value.Label.text = c.Owner != null ? $"{c.Def.Name.Ko}\n<size=30>{w.NameOf(c.Owner)}</size>" : c.Def.Name.Ko;
+                kv.Value.Label.text = c.Owner != null ? $"{L.N(c.Def.Name)}\n<size=30>{L.Faction(c.Owner)}</size>" : L.N(c.Def.Name);
             }
         }
     }

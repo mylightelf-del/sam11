@@ -66,8 +66,8 @@ namespace Sam11.Unity
                 v.Flag.material.color = InkPalette.Faction(w.Factions[u.Faction].Color);
                 float ratio = Mathf.Clamp01(u.Troops / Mathf.Max(1f, u.StartTroops));
                 v.Bar.localScale = new Vector3(0.9f * ratio, 0.08f, 0.08f);
-                string state = u.Status == UnitStatus.Confused ? " (혼란)" : u.HasActed ? " ·" : "";
-                v.Label.text = $"{u.Label}{state}\n<size=28>{u.Troops}</size>";
+                string state = u.Status == UnitStatus.Confused ? $" ({L.T("status.confused")})" : u.HasActed ? " ·" : "";
+                v.Label.text = $"{L.UnitLabel(u)}{state}\n<size=28>{u.Troops}</size>";
             }
             foreach (var id in _views.Keys.Where(id => !alive.Contains(id)).ToList())
             {
