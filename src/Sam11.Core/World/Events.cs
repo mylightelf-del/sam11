@@ -110,24 +110,27 @@ namespace Sam11.Core.World
 
         // ------------------------------------------------------------------ 조건
 
-        public static bool Check(Game g, JToken cond)
+        /// <param name="self">목표 판정일 때 그 목표의 세력. "owns"에 거점 목록만 주면 이 세력 소유인지 본다.</param>
+        public static bool Check(Game g, JToken cond, string? self = null)
         {
             var w = g.World;
-            if (cond is JArray arr) return arr.All(c => Check(g, c));
+            if (cond is JArray arr) return arr.All(c => Check(g, c, self));
             if (!(cond is JObject o)) return true;
             foreach (var p in o.Properties())
             {
                 var v = p.Value;
                 bool ok = p.Name switch
                 {
-                    "all" => v.All(c => Check(g, c)),
-                    "any" => v.Any(c => Check(g, c)),
-                    "not" => !Check(g, v),
+                    "all" => v.All(c => Check(g, c, self)),
+                    "any" => v.Any(c => Check(g, c, self)),
+                    "not" => !Check(g, v, self),
                     "after" => DateKey(w.Date.Year, w.Date.Month) >= ParseDate(v.Value<string>()!),
                     "before" => DateKey(w.Date.Year, w.Date.Month) < ParseDate(v.Value<string>()!),
                     "chance" => w.Rng.Chance(v.Value<double>()),
                     "ruler_of" => w.Factions.TryGetValue(v.Value<string>("faction")!, out var f) && f.Alive && f.Ruler == v.Value<string>("officer"),
-                    "owns" => v["strongholds"]!.Values<string>().All(id => w.Cities[id!].Owner == v.Value<string>("faction")),
+                    "owns" => v is JArray mine
+                        ? self != null && mine.Values<string>().All(id => w.Cities[id!].Owner == self)
+                        : v["strongholds"]!.Values<string>().All(id => w.Cities[id!].Owner == v.Value<string>("faction")),
                     "officer_in" => w.Officers.TryGetValue(v.Value<string>("officer")!, out var oi)
                                     && oi.Status == OfficerStatus.Active && oi.Location == v.Value<string>("stronghold"),
                     "officer_in_faction" => w.Officers.TryGetValue(v.Value<string>("officer")!, out var of)

@@ -47,11 +47,16 @@ namespace Sam11.Core.World
             Field = SiegeSetup.CreateBattle(world, seed);
             Field.Hostile = (a, b) => !world.AtPeace(a, b);
             Field.OfficerResolver = id => Treasures.Effective(world, id);
+            Field.Options.DeathEnabled = world.Options.DeathInBattle;
         }
 
         public IEnumerable<string> AliveFactions => World.Factions.Values.Where(f => f.Alive).Select(f => f.Id);
 
-        public bool IsOver => Winner != null;
+        public GameOutcome Outcome { get; private set; }
+        /// <summary>목표 승리일 때 이룬 목표.</summary>
+        public FactionGoal? AchievedGoal { get; private set; }
+
+        public bool IsOver => Outcome != GameOutcome.None;
 
         /// <summary>한 턴(10일)을 진행한다.</summary>
         public void PlayTurn()
@@ -92,6 +97,7 @@ namespace Sam11.Core.World
             if (monthStart)
             {
                 MonthlyUpkeep();
+                NaturalDeaths();
                 Missions.Defections(World);
                 Diplomacy.Monthly(this);
                 EventSystem.RunMonthly(this);
@@ -362,7 +368,58 @@ namespace Sam11.Core.World
             var cityOwners = World.Cities.Values.Where(c => c.Def.IsCity).Select(c => c.Owner).Distinct().ToList();
             if (alive.Count == 1) Winner = alive[0];
             else if (cityOwners.Count == 1 && cityOwners[0] != null) Winner = cityOwners[0];
-            if (Winner != null) World.Log.Add($"[{World.Date}] ★★ {World.NameOf(Winner)} 세력이 천하를 통일했다");
+            if (Winner != null)
+            {
+                Outcome = GameOutcome.Unification;
+                World.Log.Add($"[{World.Date}] ★★ {World.NameOf(Winner)} 세력이 천하를 통일했다");
+                return;
+            }
+            var players = World.Options.Players;
+            if (players.Count == 0) return;
+            if (World.Options.GoalVictory && World.Date.IsMonthStart)
+                foreach (var p in players.Where(p => World.Factions.TryGetValue(p, out var f) && f.Alive))
+                {
+                    var goal = World.Factions[p].Goals.FirstOrDefault(gl => EventSystem.Check(this, gl.Conditions, p));
+                    if (goal == null) continue;
+                    Winner = p;
+                    AchievedGoal = goal;
+                    Outcome = GameOutcome.Goal;
+                    World.Log.Add($"[{World.Date}] ★★ {World.NameOf(p)} 세력이 목표를 이루었다: {goal.Description}");
+                    return;
+                }
+            if (players.All(p => !World.Factions.TryGetValue(p, out var f) || !f.Alive))
+            {
+                Outcome = GameOutcome.Defeat;
+                World.Log.Add($"[{World.Date}] ★★ 플레이어 세력이 모두 멸망했다");
+            }
         }
+
+        // ------------------------------------------------------------------ 수명
+
+        /// <summary>
+        /// 병사: 사망 연도(가상 수명이면 무장마다 흔들린 연도)가 되면 매월 1/12, 지나면 1/4 확률로 죽는다.
+        /// 군주가 죽으면 다음 판정에서 후계가 정해진다.
+        /// </summary>
+        private void NaturalDeaths()
+        {
+            var mode = World.Options.Lifespan;
+            if (mode == LifespanMode.Off) return;
+            foreach (var o in World.Officers.Values.Where(o => o.Def.Death != null
+                         && (o.Status == OfficerStatus.Active || o.Status == OfficerStatus.Free || o.Status == OfficerStatus.Captive)).OrderBy(o => o.Id).ToList())
+            {
+                int death = DeathYear(o, mode);
+                if (World.Date.Year < death) continue;
+                if (!World.Rng.Chance(World.Date.Year == death ? 1.0 / 12 : 0.25)) continue;
+                Treasures.Seize(World, o.Id, o.Faction);
+                o.Status = OfficerStatus.Dead;
+                o.Location = "";
+                World.Log.Add($"[{World.Date}] {Korean.IGa(o.ToString())} 병으로 세상을 떠났다");
+            }
+            foreach (var f in World.Factions.Values.Where(f => f.Alive).ToList())
+                CheckFaction(f);
+        }
+
+        public static int DeathYear(OfficerState o, LifespanMode mode) =>
+            mode == LifespanMode.Fictional ? o.Def.Death!.Value + (int)(Rng.StableHash("life:" + o.Id) % 21) - 5 : o.Def.Death!.Value;
     }
 }

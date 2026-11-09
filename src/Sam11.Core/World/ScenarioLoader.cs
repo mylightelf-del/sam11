@@ -49,6 +49,13 @@ namespace Sam11.Core.World
                     Title = f.Value<int>("title"),
                     Capital = f.Value<string>("capital")!,
                 };
+                foreach (var goal in (f["goals"] as JArray) ?? new JArray())
+                    fs.Goals.Add(new FactionGoal
+                    {
+                        Id = goal.Value<string>("id") ?? "",
+                        Description = goal.Value<string>("description") ?? "",
+                        Conditions = goal["conditions"] ?? new JObject(),
+                    });
                 w.Factions[fs.Id] = fs;
             }
 

@@ -248,7 +248,7 @@ namespace Sam11.Core.World
                 from.Gold -= gold; to.Gold += gold;
                 from.Food -= food; to.Food = Math.Min(Domestic.FoodCap(w, to), to.Food + food);
             }
-            if (r.Coalition.Enabled) UpdateCoalition(g);
+            if (r.Coalition.Enabled && w.Options.Coalition) UpdateCoalition(g);
         }
 
         /// <summary>

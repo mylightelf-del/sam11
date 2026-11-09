@@ -40,6 +40,7 @@ namespace Sam11.Core.World
         public bool Alive = true;
         /// <summary>금 수입 보너스 (지옥 난이도 AI 등).</summary>
         public double IncomeBonus;
+        public List<FactionGoal> Goals = new List<FactionGoal>();
     }
 
     public sealed class FacilityState
@@ -141,6 +142,7 @@ namespace Sam11.Core.World
         public Dictionary<string, OfficerState> Officers { get; } = new Dictionary<string, OfficerState>();
         public List<string> Log { get; } = new List<string>();
         public List<Alliance> Alliances { get; } = new List<Alliance>();
+        public GameOptions Options { get; set; } = new GameOptions();
 
         public List<EventDef> Events { get; } = new List<EventDef>();
         public HashSet<string> EventsDone { get; } = new HashSet<string>();
