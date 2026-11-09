@@ -4,7 +4,8 @@
       "id": "green_dragon",
       "name": {
         "ko": "청룡언월도",
-        "zh": "青龍偃月刀"
+        "zh": "青龍偃月刀",
+        "en": "Green Dragon Blade"
       },
       "slot": "weapon",
       "stat_bonus": {
@@ -18,7 +19,8 @@
       "id": "serpent_spear",
       "name": {
         "ko": "장팔사모",
-        "zh": "丈八蛇矛"
+        "zh": "丈八蛇矛",
+        "en": "Serpent Spear"
       },
       "slot": "weapon",
       "stat_bonus": {
@@ -32,7 +34,8 @@
       "id": "sky_piercer",
       "name": {
         "ko": "방천화극",
-        "zh": "方天畫戟"
+        "zh": "方天畫戟",
+        "en": "Sky Piercer"
       },
       "slot": "weapon",
       "stat_bonus": {
@@ -46,7 +49,8 @@
       "id": "seven_star",
       "name": {
         "ko": "칠성검",
-        "zh": "七星劍"
+        "zh": "七星劍",
+        "en": "Seven Star Sword"
       },
       "slot": "weapon",
       "stat_bonus": {
@@ -59,7 +63,8 @@
       "id": "blue_steel",
       "name": {
         "ko": "청강검",
-        "zh": "青釭劍"
+        "zh": "青釭劍",
+        "en": "Blue Steel Sword"
       },
       "slot": "weapon",
       "stat_bonus": {
@@ -73,7 +78,8 @@
       "id": "red_hare",
       "name": {
         "ko": "적토마",
-        "zh": "赤兔馬"
+        "zh": "赤兔馬",
+        "en": "Red Hare"
       },
       "slot": "horse",
       "stat_bonus": {
@@ -92,7 +98,8 @@
       "id": "dilu",
       "name": {
         "ko": "적로",
-        "zh": "的盧"
+        "zh": "的盧",
+        "en": "Dilu"
       },
       "slot": "horse",
       "stat_bonus": {},
@@ -104,7 +111,8 @@
       "id": "shadow_runner",
       "name": {
         "ko": "절영",
-        "zh": "絕影"
+        "zh": "絕影",
+        "en": "Shadow Runner"
       },
       "slot": "horse",
       "stat_bonus": {
@@ -118,7 +126,8 @@
       "id": "art_of_war",
       "name": {
         "ko": "손자병법",
-        "zh": "孫子兵法"
+        "zh": "孫子兵法",
+        "en": "The Art of War"
       },
       "slot": "book",
       "stat_bonus": {
@@ -133,7 +142,8 @@
       "id": "mengde_book",
       "name": {
         "ko": "맹덕신서",
-        "zh": "孟德新書"
+        "zh": "孟德新書",
+        "en": "Mengde New Book"
       },
       "slot": "book",
       "stat_bonus": {
@@ -148,7 +158,8 @@
       "id": "dunjia_book",
       "name": {
         "ko": "둔갑천서",
-        "zh": "遁甲天書"
+        "zh": "遁甲天書",
+        "en": "Dunjia Tianshu"
       },
       "slot": "book",
       "stat_bonus": {
@@ -162,7 +173,8 @@
       "id": "six_secret",
       "name": {
         "ko": "육도",
-        "zh": "六韜"
+        "zh": "六韜",
+        "en": "Six Secret Teachings"
       },
       "slot": "book",
       "stat_bonus": {
@@ -176,7 +188,8 @@
       "id": "imperial_seal",
       "name": {
         "ko": "옥새",
-        "zh": "玉璽"
+        "zh": "玉璽",
+        "en": "Imperial Seal"
       },
       "slot": "artifact",
       "stat_bonus": {
@@ -195,7 +208,8 @@
       "id": "qingnang",
       "name": {
         "ko": "청낭서",
-        "zh": "青囊書"
+        "zh": "青囊書",
+        "en": "Qingnang Book"
       },
       "slot": "artifact",
       "stat_bonus": {
@@ -209,7 +223,8 @@
       "id": "bronze_sparrow",
       "name": {
         "ko": "동작",
-        "zh": "銅雀"
+        "zh": "銅雀",
+        "en": "Bronze Sparrow"
       },
       "slot": "artifact",
       "stat_bonus": {
@@ -224,7 +239,8 @@
       "id": "book_of_rites",
       "name": {
         "ko": "예기",
-        "zh": "禮記"
+        "zh": "禮記",
+        "en": "Book of Rites"
       },
       "slot": "artifact",
       "stat_bonus": {

@@ -2,7 +2,8 @@
   "id": "hero",
   "name": {
     "ko": "영웅집결",
-    "zh": "英雄集結"
+    "zh": "英雄集結",
+    "en": "Gathering of Heroes"
   },
   "start": {
     "year": 210,

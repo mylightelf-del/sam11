@@ -2,7 +2,8 @@
   "id": "225",
   "name": {
     "ko": "남만 정벌",
-    "zh": "南蠻征伐"
+    "zh": "南蠻征伐",
+    "en": "Southern Campaign"
   },
   "start": {
     "year": 225,

@@ -4,7 +4,8 @@
       "id": "clear",
       "name": {
         "ko": "맑음",
-        "zh": "晴"
+        "zh": "晴",
+        "en": "Clear"
       },
       "effects": []
     },
@@ -12,7 +13,8 @@
       "id": "rain",
       "name": {
         "ko": "비",
-        "zh": "雨"
+        "zh": "雨",
+        "en": "Rain"
       },
       "effects": [
         {
@@ -43,7 +45,8 @@
       "id": "snow",
       "name": {
         "ko": "눈",
-        "zh": "雪"
+        "zh": "雪",
+        "en": "Snow"
       },
       "effects": [
         {
@@ -61,7 +64,8 @@
       "id": "fog",
       "name": {
         "ko": "안개",
-        "zh": "霧"
+        "zh": "霧",
+        "en": "Fog"
       },
       "effects": [
         {
@@ -80,7 +84,8 @@
       "id": "gale",
       "name": {
         "ko": "강풍",
-        "zh": "強風"
+        "zh": "強風",
+        "en": "Gale"
       },
       "effects": [
         {

@@ -5,7 +5,8 @@
       "tier": 1,
       "name": {
         "ko": "교위·도위",
-        "zh": "校尉·都尉"
+        "zh": "校尉·都尉",
+        "en": "Colonel"
       },
       "troop_bonus": 1000,
       "quota": null,
@@ -17,7 +18,8 @@
       "tier": 2,
       "name": {
         "ko": "잡호장군",
-        "zh": "雜號將軍"
+        "zh": "雜號將軍",
+        "en": "General"
       },
       "troop_bonus": 2000,
       "quota": 10,
@@ -29,7 +31,8 @@
       "tier": 3,
       "name": {
         "ko": "사방장군",
-        "zh": "四方將軍"
+        "zh": "四方將軍",
+        "en": "Cardinal General"
       },
       "troop_bonus": 3000,
       "quota": 4,
@@ -41,7 +44,8 @@
       "tier": 4,
       "name": {
         "ko": "사정·사진장군",
-        "zh": "四征·四鎮將軍"
+        "zh": "四征·四鎮將軍",
+        "en": "Conquest General"
       },
       "troop_bonus": 4000,
       "quota": 8,
@@ -53,7 +57,8 @@
       "tier": 5,
       "name": {
         "ko": "대장군·표기·거기장군",
-        "zh": "大將軍·驃騎·車騎將軍"
+        "zh": "大將軍·驃騎·車騎將軍",
+        "en": "Grand General"
       },
       "troop_bonus": 5000,
       "quota": 3,
@@ -65,14 +70,16 @@
     {
       "level": 0,
       "name": {
-        "ko": "없음"
+        "ko": "없음",
+        "en": "None"
       }
     },
     {
       "level": 1,
       "name": {
         "ko": "주목",
-        "zh": "州牧"
+        "zh": "州牧",
+        "en": "Governor"
       },
       "required_cities": 5
     },
@@ -80,7 +87,8 @@
       "level": 2,
       "name": {
         "ko": "공",
-        "zh": "公"
+        "zh": "公",
+        "en": "Duke"
       },
       "required_cities": 12
     },
@@ -88,7 +96,8 @@
       "level": 3,
       "name": {
         "ko": "왕",
-        "zh": "王"
+        "zh": "王",
+        "en": "King"
       },
       "required_cities": 20
     },
@@ -96,7 +105,8 @@
       "level": 4,
       "name": {
         "ko": "황제",
-        "zh": "皇帝"
+        "zh": "皇帝",
+        "en": "Emperor"
       },
       "required_cities": 30
     }

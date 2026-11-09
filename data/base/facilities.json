@@ -4,7 +4,8 @@
       "id": "market",
       "name": {
         "ko": "시장",
-        "zh": "市場"
+        "zh": "市場",
+        "en": "Market"
       },
       "category": "economy",
       "max_level": 3,
@@ -34,7 +35,8 @@
       "id": "mint",
       "name": {
         "ko": "조폐",
-        "zh": "造幣"
+        "zh": "造幣",
+        "en": "Mint"
       },
       "category": "economy",
       "max_level": 1,
@@ -60,7 +62,8 @@
       "id": "farm",
       "name": {
         "ko": "농장",
-        "zh": "農場"
+        "zh": "農場",
+        "en": "Farm"
       },
       "category": "economy",
       "max_level": 3,
@@ -90,7 +93,8 @@
       "id": "granary",
       "name": {
         "ko": "곡창",
-        "zh": "穀倉"
+        "zh": "穀倉",
+        "en": "Granary"
       },
       "category": "economy",
       "max_level": 1,
@@ -120,7 +124,8 @@
       "id": "housing",
       "name": {
         "ko": "민가",
-        "zh": "民家"
+        "zh": "民家",
+        "en": "Housing"
       },
       "category": "population",
       "max_level": 2,
@@ -151,7 +156,8 @@
       "id": "barracks",
       "name": {
         "ko": "병영",
-        "zh": "兵營"
+        "zh": "兵營",
+        "en": "Barracks"
       },
       "category": "military",
       "max_level": 3,
@@ -186,7 +192,8 @@
       "id": "stable",
       "name": {
         "ko": "마구간",
-        "zh": "廏舍"
+        "zh": "廏舍",
+        "en": "Stable"
       },
       "category": "military",
       "max_level": 3,
@@ -216,7 +223,8 @@
       "id": "workshop",
       "name": {
         "ko": "공방",
-        "zh": "工房"
+        "zh": "工房",
+        "en": "Workshop"
       },
       "category": "military",
       "max_level": 3,
@@ -246,7 +254,8 @@
       "id": "siege_works",
       "name": {
         "ko": "공성창",
-        "zh": "攻城廠"
+        "zh": "攻城廠",
+        "en": "Siege Works"
       },
       "category": "military",
       "max_level": 3,
@@ -276,7 +285,8 @@
       "id": "shipyard",
       "name": {
         "ko": "조선소",
-        "zh": "造船所"
+        "zh": "造船所",
+        "en": "Shipyard"
       },
       "category": "military",
       "max_level": 3,
@@ -307,7 +317,8 @@
       "id": "academy",
       "name": {
         "ko": "서원",
-        "zh": "書院"
+        "zh": "書院",
+        "en": "Academy"
       },
       "category": "research",
       "max_level": 2,
@@ -338,7 +349,8 @@
       "id": "beacon",
       "name": {
         "ko": "봉화대",
-        "zh": "烽火臺"
+        "zh": "烽火臺",
+        "en": "Beacon Tower"
       },
       "category": "defense",
       "max_level": 1,

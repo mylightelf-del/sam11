@@ -19,7 +19,8 @@
       "id": "luoyang",
       "name": {
         "ko": "낙양",
-        "zh": "洛陽"
+        "zh": "洛陽",
+        "en": "Luoyang"
       },
       "type": "major_city",
       "province": "sili",
@@ -39,7 +40,8 @@
       "id": "changan",
       "name": {
         "ko": "장안",
-        "zh": "長安"
+        "zh": "長安",
+        "en": "Chang'an"
       },
       "type": "major_city",
       "province": "sili",
@@ -61,7 +63,8 @@
       "id": "hongnong",
       "name": {
         "ko": "홍농",
-        "zh": "弘農"
+        "zh": "弘農",
+        "en": "Hongnong"
       },
       "type": "city",
       "province": "sili",
@@ -79,7 +82,8 @@
       "id": "henei",
       "name": {
         "ko": "하내",
-        "zh": "河內"
+        "zh": "河內",
+        "en": "Henei"
       },
       "type": "city",
       "province": "sili",
@@ -98,7 +102,8 @@
       "id": "tianshui",
       "name": {
         "ko": "천수",
-        "zh": "天水"
+        "zh": "天水",
+        "en": "Tianshui"
       },
       "type": "city",
       "province": "liang",
@@ -119,7 +124,8 @@
       "id": "wuwei",
       "name": {
         "ko": "무위",
-        "zh": "武威"
+        "zh": "武威",
+        "en": "Wuwei"
       },
       "type": "city",
       "province": "liang",
@@ -138,7 +144,8 @@
       "id": "anding",
       "name": {
         "ko": "안정",
-        "zh": "安定"
+        "zh": "安定",
+        "en": "Anding"
       },
       "type": "city",
       "province": "liang",
@@ -156,7 +163,8 @@
       "id": "chengdu",
       "name": {
         "ko": "성도",
-        "zh": "成都"
+        "zh": "成都",
+        "en": "Chengdu"
       },
       "type": "major_city",
       "province": "yi",
@@ -175,7 +183,8 @@
       "id": "hanzhong",
       "name": {
         "ko": "한중",
-        "zh": "漢中"
+        "zh": "漢中",
+        "en": "Hanzhong"
       },
       "type": "city",
       "province": "yi",
@@ -197,7 +206,8 @@
       "id": "zitong",
       "name": {
         "ko": "재동",
-        "zh": "梓潼"
+        "zh": "梓潼",
+        "en": "Zitong"
       },
       "type": "city",
       "province": "yi",
@@ -216,7 +226,8 @@
       "id": "jiangzhou",
       "name": {
         "ko": "강주",
-        "zh": "江州"
+        "zh": "江州",
+        "en": "Jiangzhou"
       },
       "type": "city",
       "province": "yi",
@@ -236,7 +247,8 @@
       "id": "yongan",
       "name": {
         "ko": "영안",
-        "zh": "永安"
+        "zh": "永安",
+        "en": "Yong'an"
       },
       "type": "city",
       "province": "yi",
@@ -255,7 +267,8 @@
       "id": "jianning",
       "name": {
         "ko": "건녕",
-        "zh": "建寧"
+        "zh": "建寧",
+        "en": "Jianning"
       },
       "type": "city",
       "province": "yi",
@@ -273,7 +286,8 @@
       "id": "yunnan",
       "name": {
         "ko": "운남",
-        "zh": "雲南"
+        "zh": "雲南",
+        "en": "Yunnan"
       },
       "type": "city",
       "province": "yi",
@@ -290,7 +304,8 @@
       "id": "xiangyang",
       "name": {
         "ko": "양양",
-        "zh": "襄陽"
+        "zh": "襄陽",
+        "en": "Xiangyang"
       },
       "type": "major_city",
       "province": "jing",
@@ -310,7 +325,8 @@
       "id": "wan",
       "name": {
         "ko": "완",
-        "zh": "宛"
+        "zh": "宛",
+        "en": "Wan"
       },
       "type": "city",
       "province": "jing",
@@ -330,7 +346,8 @@
       "id": "xinye",
       "name": {
         "ko": "신야",
-        "zh": "新野"
+        "zh": "新野",
+        "en": "Xinye"
       },
       "type": "city",
       "province": "jing",
@@ -349,7 +366,8 @@
       "id": "jiangling",
       "name": {
         "ko": "강릉",
-        "zh": "江陵"
+        "zh": "江陵",
+        "en": "Jiangling"
       },
       "type": "city",
       "province": "jing",
@@ -369,7 +387,8 @@
       "id": "jiangxia",
       "name": {
         "ko": "강하",
-        "zh": "江夏"
+        "zh": "江夏",
+        "en": "Jiangxia"
       },
       "type": "city",
       "province": "jing",
@@ -388,7 +407,8 @@
       "id": "changsha",
       "name": {
         "ko": "장사",
-        "zh": "長沙"
+        "zh": "長沙",
+        "en": "Changsha"
       },
       "type": "city",
       "province": "jing",
@@ -409,7 +429,8 @@
       "id": "wuling",
       "name": {
         "ko": "무릉",
-        "zh": "武陵"
+        "zh": "武陵",
+        "en": "Wuling"
       },
       "type": "city",
       "province": "jing",
@@ -427,7 +448,8 @@
       "id": "lingling",
       "name": {
         "ko": "영릉",
-        "zh": "零陵"
+        "zh": "零陵",
+        "en": "Lingling"
       },
       "type": "city",
       "province": "jing",
@@ -446,7 +468,8 @@
       "id": "guiyang",
       "name": {
         "ko": "계양",
-        "zh": "桂陽"
+        "zh": "桂陽",
+        "en": "Guiyang"
       },
       "type": "city",
       "province": "jing",
@@ -465,7 +488,8 @@
       "id": "shangyong",
       "name": {
         "ko": "상용",
-        "zh": "上庸"
+        "zh": "上庸",
+        "en": "Shangyong"
       },
       "type": "city",
       "province": "jing",
@@ -484,7 +508,8 @@
       "id": "xuchang",
       "name": {
         "ko": "허창",
-        "zh": "許昌"
+        "zh": "許昌",
+        "en": "Xuchang"
       },
       "type": "major_city",
       "province": "yu",
@@ -504,7 +529,8 @@
       "id": "runan",
       "name": {
         "ko": "여남",
-        "zh": "汝南"
+        "zh": "汝南",
+        "en": "Runan"
       },
       "type": "city",
       "province": "yu",
@@ -523,7 +549,8 @@
       "id": "qiao",
       "name": {
         "ko": "초",
-        "zh": "譙"
+        "zh": "譙",
+        "en": "Qiao"
       },
       "type": "city",
       "province": "yu",
@@ -542,7 +569,8 @@
       "id": "xiaopei",
       "name": {
         "ko": "소패",
-        "zh": "小沛"
+        "zh": "小沛",
+        "en": "Xiaopei"
       },
       "type": "city",
       "province": "yu",
@@ -561,7 +589,8 @@
       "id": "chenliu",
       "name": {
         "ko": "진류",
-        "zh": "陳留"
+        "zh": "陳留",
+        "en": "Chenliu"
       },
       "type": "city",
       "province": "yan",
@@ -582,7 +611,8 @@
       "id": "puyang",
       "name": {
         "ko": "복양",
-        "zh": "濮陽"
+        "zh": "濮陽",
+        "en": "Puyang"
       },
       "type": "city",
       "province": "yan",
@@ -601,7 +631,8 @@
       "id": "xiapi",
       "name": {
         "ko": "하비",
-        "zh": "下邳"
+        "zh": "下邳",
+        "en": "Xiapi"
       },
       "type": "major_city",
       "province": "xu",
@@ -621,7 +652,8 @@
       "id": "guangling",
       "name": {
         "ko": "광릉",
-        "zh": "廣陵"
+        "zh": "廣陵",
+        "en": "Guangling"
       },
       "type": "city",
       "province": "xu",
@@ -639,7 +671,8 @@
       "id": "beihai",
       "name": {
         "ko": "북해",
-        "zh": "北海"
+        "zh": "北海",
+        "en": "Beihai"
       },
       "type": "city",
       "province": "qing",
@@ -658,7 +691,8 @@
       "id": "pingyuan",
       "name": {
         "ko": "평원",
-        "zh": "平原"
+        "zh": "平原",
+        "en": "Pingyuan"
       },
       "type": "city",
       "province": "qing",
@@ -677,7 +711,8 @@
       "id": "ye",
       "name": {
         "ko": "업",
-        "zh": "鄴"
+        "zh": "鄴",
+        "en": "Ye"
       },
       "type": "major_city",
       "province": "ji",
@@ -696,7 +731,8 @@
       "id": "nanpi",
       "name": {
         "ko": "남피",
-        "zh": "南皮"
+        "zh": "南皮",
+        "en": "Nanpi"
       },
       "type": "major_city",
       "province": "ji",
@@ -715,7 +751,8 @@
       "id": "julu",
       "name": {
         "ko": "거록",
-        "zh": "鉅鹿"
+        "zh": "鉅鹿",
+        "en": "Julu"
       },
       "type": "city",
       "province": "ji",
@@ -735,7 +772,8 @@
       "id": "beiping",
       "name": {
         "ko": "북평",
-        "zh": "北平"
+        "zh": "北平",
+        "en": "Beiping"
       },
       "type": "city",
       "province": "you",
@@ -753,7 +791,8 @@
       "id": "ji_city",
       "name": {
         "ko": "계",
-        "zh": "薊"
+        "zh": "薊",
+        "en": "Ji"
       },
       "type": "city",
       "province": "you",
@@ -772,7 +811,8 @@
       "id": "xiangping",
       "name": {
         "ko": "양평",
-        "zh": "襄平"
+        "zh": "襄平",
+        "en": "Xiangping"
       },
       "type": "city",
       "province": "you",
@@ -789,7 +829,8 @@
       "id": "jinyang",
       "name": {
         "ko": "진양",
-        "zh": "晉陽"
+        "zh": "晉陽",
+        "en": "Jinyang"
       },
       "type": "city",
       "province": "bing",
@@ -809,7 +850,8 @@
       "id": "shangdang",
       "name": {
         "ko": "상당",
-        "zh": "上黨"
+        "zh": "上黨",
+        "en": "Shangdang"
       },
       "type": "city",
       "province": "bing",
@@ -829,7 +871,8 @@
       "id": "jianye",
       "name": {
         "ko": "건업",
-        "zh": "建業"
+        "zh": "建業",
+        "en": "Jianye"
       },
       "type": "major_city",
       "province": "yang",
@@ -849,7 +892,8 @@
       "id": "shouchun",
       "name": {
         "ko": "수춘",
-        "zh": "壽春"
+        "zh": "壽春",
+        "en": "Shouchun"
       },
       "type": "major_city",
       "province": "yang",
@@ -869,7 +913,8 @@
       "id": "lujiang",
       "name": {
         "ko": "여강",
-        "zh": "廬江"
+        "zh": "廬江",
+        "en": "Lujiang"
       },
       "type": "city",
       "province": "yang",
@@ -888,7 +933,8 @@
       "id": "wu_city",
       "name": {
         "ko": "오",
-        "zh": "吳"
+        "zh": "吳",
+        "en": "Wu"
       },
       "type": "city",
       "province": "yang",
@@ -906,7 +952,8 @@
       "id": "kuaiji",
       "name": {
         "ko": "회계",
-        "zh": "會稽"
+        "zh": "會稽",
+        "en": "Kuaiji"
       },
       "type": "city",
       "province": "yang",
@@ -924,7 +971,8 @@
       "id": "chaisang",
       "name": {
         "ko": "시상",
-        "zh": "柴桑"
+        "zh": "柴桑",
+        "en": "Chaisang"
       },
       "type": "city",
       "province": "yang",
@@ -945,7 +993,8 @@
       "id": "jiaozhi",
       "name": {
         "ko": "교지",
-        "zh": "交趾"
+        "zh": "交趾",
+        "en": "Jiaozhi"
       },
       "type": "city",
       "province": "jiao",
@@ -964,7 +1013,8 @@
       "id": "nanhai",
       "name": {
         "ko": "남해",
-        "zh": "南海"
+        "zh": "南海",
+        "en": "Nanhai"
       },
       "type": "city",
       "province": "jiao",
@@ -983,7 +1033,8 @@
       "id": "hulao",
       "name": {
         "ko": "호로관",
-        "zh": "虎牢關"
+        "zh": "虎牢關",
+        "en": "Hulao Pass"
       },
       "type": "gate",
       "province": "sili",
@@ -1001,7 +1052,8 @@
       "id": "sishui",
       "name": {
         "ko": "사수관",
-        "zh": "汜水關"
+        "zh": "汜水關",
+        "en": "Sishui Pass"
       },
       "type": "gate",
       "province": "sili",
@@ -1019,7 +1071,8 @@
       "id": "hangu",
       "name": {
         "ko": "함곡관",
-        "zh": "函谷關"
+        "zh": "函谷關",
+        "en": "Hangu Pass"
       },
       "type": "gate",
       "province": "sili",
@@ -1037,7 +1090,8 @@
       "id": "tong_gate",
       "name": {
         "ko": "동관",
-        "zh": "潼關"
+        "zh": "潼關",
+        "en": "Tong Pass"
       },
       "type": "gate",
       "province": "sili",
@@ -1056,7 +1110,8 @@
       "id": "wu_gate",
       "name": {
         "ko": "무관",
-        "zh": "武關"
+        "zh": "武關",
+        "en": "Wu Pass"
       },
       "type": "gate",
       "province": "sili",
@@ -1074,7 +1129,8 @@
       "id": "yique",
       "name": {
         "ko": "이궐관",
-        "zh": "伊闕關"
+        "zh": "伊闕關",
+        "en": "Yique Pass"
       },
       "type": "gate",
       "province": "sili",
@@ -1093,7 +1149,8 @@
       "id": "yangping",
       "name": {
         "ko": "양평관",
-        "zh": "陽平關"
+        "zh": "陽平關",
+        "en": "Yangping Pass"
       },
       "type": "gate",
       "province": "yi",
@@ -1111,7 +1168,8 @@
       "id": "jiameng",
       "name": {
         "ko": "가맹관",
-        "zh": "葭萌關"
+        "zh": "葭萌關",
+        "en": "Jiameng Pass"
       },
       "type": "gate",
       "province": "yi",
@@ -1129,7 +1187,8 @@
       "id": "jiange",
       "name": {
         "ko": "검각",
-        "zh": "劍閣"
+        "zh": "劍閣",
+        "en": "Jiange"
       },
       "type": "gate",
       "province": "yi",
@@ -1147,7 +1206,8 @@
       "id": "fushui",
       "name": {
         "ko": "부수관",
-        "zh": "涪水關"
+        "zh": "涪水關",
+        "en": "Fushui Pass"
       },
       "type": "gate",
       "province": "yi",
@@ -1165,7 +1225,8 @@
       "id": "yanmen",
       "name": {
         "ko": "안문관",
-        "zh": "雁門關"
+        "zh": "雁門關",
+        "en": "Yanmen Pass"
       },
       "type": "gate",
       "province": "bing",
@@ -1183,7 +1244,8 @@
       "id": "juyong",
       "name": {
         "ko": "거용관",
-        "zh": "居庸關"
+        "zh": "居庸關",
+        "en": "Juyong Pass"
       },
       "type": "gate",
       "province": "you",
@@ -1201,7 +1263,8 @@
       "id": "xiakou",
       "name": {
         "ko": "하구",
-        "zh": "夏口"
+        "zh": "夏口",
+        "en": "Xiakou"
       },
       "type": "port",
       "province": "jing",
@@ -1220,7 +1283,8 @@
       "id": "lukou",
       "name": {
         "ko": "육구",
-        "zh": "陸口"
+        "zh": "陸口",
+        "en": "Lukou"
       },
       "type": "port",
       "province": "jing",
@@ -1238,7 +1302,8 @@
       "id": "yiling",
       "name": {
         "ko": "이릉",
-        "zh": "夷陵"
+        "zh": "夷陵",
+        "en": "Yiling"
       },
       "type": "port",
       "province": "jing",
@@ -1256,7 +1321,8 @@
       "id": "gongan",
       "name": {
         "ko": "공안",
-        "zh": "公安"
+        "zh": "公安",
+        "en": "Gong'an"
       },
       "type": "port",
       "province": "jing",
@@ -1275,7 +1341,8 @@
       "id": "wulin",
       "name": {
         "ko": "오림",
-        "zh": "烏林"
+        "zh": "烏林",
+        "en": "Wulin"
       },
       "type": "port",
       "province": "jing",
@@ -1293,7 +1360,8 @@
       "id": "ruxu",
       "name": {
         "ko": "유수구",
-        "zh": "濡須口"
+        "zh": "濡須口",
+        "en": "Ruxu"
       },
       "type": "port",
       "province": "yang",
@@ -1311,7 +1379,8 @@
       "id": "niuzhu",
       "name": {
         "ko": "우저",
-        "zh": "牛渚"
+        "zh": "牛渚",
+        "en": "Niuzhu"
       },
       "type": "port",
       "province": "yang",
@@ -1329,7 +1398,8 @@
       "id": "qua",
       "name": {
         "ko": "곡아",
-        "zh": "曲阿"
+        "zh": "曲阿",
+        "en": "Qu'e"
       },
       "type": "port",
       "province": "yang",
@@ -1347,7 +1417,8 @@
       "id": "mengjin",
       "name": {
         "ko": "맹진",
-        "zh": "孟津"
+        "zh": "孟津",
+        "en": "Mengjin Ford"
       },
       "type": "ferry",
       "province": "sili",
@@ -1365,7 +1436,8 @@
       "id": "baima",
       "name": {
         "ko": "백마진",
-        "zh": "白馬津"
+        "zh": "白馬津",
+        "en": "Baima Ford"
       },
       "type": "ferry",
       "province": "yan",
@@ -1383,7 +1455,8 @@
       "id": "yanjin",
       "name": {
         "ko": "연진",
-        "zh": "延津"
+        "zh": "延津",
+        "en": "Yanjin Ford"
       },
       "type": "ferry",
       "province": "yan",
@@ -1401,7 +1474,8 @@
       "id": "cangting",
       "name": {
         "ko": "창정진",
-        "zh": "倉亭津"
+        "zh": "倉亭津",
+        "en": "Cangting Ford"
       },
       "type": "ferry",
       "province": "yan",
@@ -1419,7 +1493,8 @@
       "id": "guandu",
       "name": {
         "ko": "관도",
-        "zh": "官渡"
+        "zh": "官渡",
+        "en": "Guandu"
       },
       "type": "fortress",
       "province": "yan",
@@ -1437,7 +1512,8 @@
       "id": "chencang",
       "name": {
         "ko": "진창",
-        "zh": "陳倉"
+        "zh": "陳倉",
+        "en": "Chencang"
       },
       "type": "fortress",
       "province": "liang",
@@ -1457,7 +1533,8 @@
       "id": "qishan",
       "name": {
         "ko": "기산",
-        "zh": "祁山"
+        "zh": "祁山",
+        "en": "Mount Qi"
       },
       "type": "fortress",
       "province": "liang",
@@ -1476,7 +1553,8 @@
       "id": "hefei",
       "name": {
         "ko": "합비",
-        "zh": "合肥"
+        "zh": "合肥",
+        "en": "Hefei"
       },
       "type": "fortress",
       "province": "yang",
@@ -1494,7 +1572,8 @@
       "id": "fancheng",
       "name": {
         "ko": "번성",
-        "zh": "樊城"
+        "zh": "樊城",
+        "en": "Fancheng"
       },
       "type": "fortress",
       "province": "jing",
@@ -1512,7 +1591,8 @@
       "id": "hedong",
       "name": {
         "ko": "하동",
-        "zh": "河東"
+        "zh": "河東",
+        "en": "Hedong"
       },
       "type": "city",
       "province": "sili",
@@ -1531,7 +1611,8 @@
       "id": "langya",
       "name": {
         "ko": "낭야",
-        "zh": "琅邪"
+        "zh": "琅邪",
+        "en": "Langya"
       },
       "type": "city",
       "province": "xu",
@@ -1549,7 +1630,8 @@
       "id": "yuzhang",
       "name": {
         "ko": "예장",
-        "zh": "豫章"
+        "zh": "豫章",
+        "en": "Yuzhang"
       },
       "type": "city",
       "province": "yang",
@@ -1568,7 +1650,8 @@
       "id": "jincheng",
       "name": {
         "ko": "금성",
-        "zh": "金城"
+        "zh": "金城",
+        "en": "Jincheng"
       },
       "type": "city",
       "province": "liang",
@@ -1586,7 +1669,8 @@
       "id": "jianwei",
       "name": {
         "ko": "건위",
-        "zh": "犍爲"
+        "zh": "犍爲",
+        "en": "Jianwei"
       },
       "type": "city",
       "province": "yi",
@@ -1605,7 +1689,8 @@
       "id": "langzhong",
       "name": {
         "ko": "낭중",
-        "zh": "閬中"
+        "zh": "閬中",
+        "en": "Langzhong"
       },
       "type": "city",
       "province": "yi",
@@ -1624,7 +1709,8 @@
       "id": "zhuoxian",
       "name": {
         "ko": "탁현",
-        "zh": "涿縣"
+        "zh": "涿縣",
+        "en": "Zhuo County"
       },
       "type": "city",
       "province": "you",
@@ -1642,7 +1728,8 @@
       "id": "jingxing",
       "name": {
         "ko": "정형관",
-        "zh": "井陘關"
+        "zh": "井陘關",
+        "en": "Jingxing Pass"
       },
       "type": "gate",
       "province": "ji",
@@ -1660,7 +1747,8 @@
       "id": "lulong",
       "name": {
         "ko": "노룡새",
-        "zh": "盧龍塞"
+        "zh": "盧龍塞",
+        "en": "Lulong Fort"
       },
       "type": "gate",
       "province": "you",
@@ -1678,7 +1766,8 @@
       "id": "sanguan",
       "name": {
         "ko": "산관",
-        "zh": "散關"
+        "zh": "散關",
+        "en": "San Pass"
       },
       "type": "gate",
       "province": "yi",
@@ -1696,7 +1785,8 @@
       "id": "tianjing",
       "name": {
         "ko": "천정관",
-        "zh": "天井關"
+        "zh": "天井關",
+        "en": "Tianjing Pass"
       },
       "type": "gate",
       "province": "bing",
@@ -1714,7 +1804,8 @@
       "id": "wuchang",
       "name": {
         "ko": "무창",
-        "zh": "武昌"
+        "zh": "武昌",
+        "en": "Wuchang"
       },
       "type": "port",
       "province": "jing",
@@ -1732,7 +1823,8 @@
       "id": "hepu",
       "name": {
         "ko": "합포",
-        "zh": "合浦"
+        "zh": "合浦",
+        "en": "Hepu"
       },
       "type": "port",
       "province": "jiao",
@@ -1750,7 +1842,8 @@
       "id": "dongye",
       "name": {
         "ko": "동야",
-        "zh": "東冶"
+        "zh": "東冶",
+        "en": "Dongye"
       },
       "type": "port",
       "province": "yang",
@@ -1768,7 +1861,8 @@
       "id": "donglai",
       "name": {
         "ko": "동래",
-        "zh": "東萊"
+        "zh": "東萊",
+        "en": "Donglai"
       },
       "type": "port",
       "province": "qing",
@@ -1785,7 +1879,8 @@
       "id": "changban",
       "name": {
         "ko": "장판",
-        "zh": "長坂"
+        "zh": "長坂",
+        "en": "Changban"
       },
       "type": "fortress",
       "province": "jing",
@@ -1803,7 +1898,8 @@
       "id": "jieting",
       "name": {
         "ko": "가정",
-        "zh": "街亭"
+        "zh": "街亭",
+        "en": "Jieting"
       },
       "type": "fortress",
       "province": "liang",
@@ -1821,7 +1917,8 @@
       "id": "mianzhu",
       "name": {
         "ko": "면죽",
-        "zh": "綿竹"
+        "zh": "綿竹",
+        "en": "Mianzhu"
       },
       "type": "fortress",
       "province": "yi",
@@ -1839,7 +1936,8 @@
       "id": "wuzhangyuan",
       "name": {
         "ko": "오장원",
-        "zh": "五丈原"
+        "zh": "五丈原",
+        "en": "Wuzhang Plains"
       },
       "type": "fortress",
       "province": "sili",
@@ -1857,7 +1955,8 @@
       "id": "xincheng",
       "name": {
         "ko": "신성",
-        "zh": "新城"
+        "zh": "新城",
+        "en": "Xincheng"
       },
       "type": "fortress",
       "province": "jing",
@@ -1875,7 +1974,8 @@
       "id": "pubanjin",
       "name": {
         "ko": "포판진",
-        "zh": "蒲坂津"
+        "zh": "蒲坂津",
+        "en": "Puban Ford"
       },
       "type": "ferry",
       "province": "sili",

@@ -4,7 +4,8 @@
       "id": "breakthrough",
       "name": {
         "ko": "돌파술",
-        "zh": "突破術"
+        "zh": "突破術",
+        "en": "Breakthrough"
       },
       "category": "combat",
       "description": "어린 진형 공격 +15%",
@@ -26,7 +27,8 @@
       "id": "wing_master",
       "name": {
         "ko": "익전",
-        "zh": "翼戰"
+        "zh": "翼戰",
+        "en": "Flank Master"
       },
       "category": "combat",
       "description": "학익 진형 포위 보너스 2배",
@@ -48,7 +50,8 @@
       "id": "iron_wall",
       "name": {
         "ko": "철벽",
-        "zh": "鐵壁"
+        "zh": "鐵壁",
+        "en": "Iron Wall"
       },
       "category": "combat",
       "description": "방원 진형 방어 +15%",
@@ -70,7 +73,8 @@
       "id": "serpent",
       "name": {
         "ko": "장진",
-        "zh": "長陣"
+        "zh": "長陣",
+        "en": "Long Line"
       },
       "category": "combat",
       "description": "장사 진형 반격 피해 +20%",
@@ -92,7 +96,8 @@
       "id": "cavalry",
       "name": {
         "ko": "기병술",
-        "zh": "騎兵術"
+        "zh": "騎兵術",
+        "en": "Cavalry"
       },
       "category": "combat",
       "description": "추행 진형 공격 +15%",
@@ -114,7 +119,8 @@
       "id": "marksman",
       "name": {
         "ko": "신궁",
-        "zh": "神弓"
+        "zh": "神弓",
+        "en": "Marksman"
       },
       "category": "combat",
       "description": "안행 진형 공격 +15%",
@@ -136,7 +142,8 @@
       "id": "siegecraft",
       "name": {
         "ko": "공성술",
-        "zh": "攻城術"
+        "zh": "攻城術",
+        "en": "Siegecraft"
       },
       "category": "combat",
       "description": "거점·시설 피해 +25%",
@@ -153,7 +160,8 @@
       "id": "naval",
       "name": {
         "ko": "수전",
-        "zh": "水戰"
+        "zh": "水戰",
+        "en": "Naval Warfare"
       },
       "category": "combat",
       "description": "수진 공격·방어 +15%",
@@ -186,7 +194,8 @@
       "id": "valiant",
       "name": {
         "ko": "맹장",
-        "zh": "猛將"
+        "zh": "猛將",
+        "en": "Valiant"
       },
       "category": "combat",
       "description": "모든 진형 공격 +10%",
@@ -203,7 +212,8 @@
       "id": "chain_master",
       "name": {
         "ko": "연환",
-        "zh": "連環"
+        "zh": "連環",
+        "en": "Chain Attack"
       },
       "category": "combat",
       "description": "전법 연쇄 피해 보너스 +10%p",
@@ -220,7 +230,8 @@
       "id": "vanguard",
       "name": {
         "ko": "선봉",
-        "zh": "先鋒"
+        "zh": "先鋒",
+        "en": "Vanguard"
       },
       "category": "combat",
       "description": "출진 후 2턴 동안 공격 +20%",
@@ -240,7 +251,8 @@
       "id": "indomitable",
       "name": {
         "ko": "불굴",
-        "zh": "不屈"
+        "zh": "不屈",
+        "en": "Indomitable"
       },
       "category": "combat",
       "description": "병력 30% 이하일 때 방어 +20%",
@@ -260,7 +272,8 @@
       "id": "inspire",
       "name": {
         "ko": "고무",
-        "zh": "鼓舞"
+        "zh": "鼓舞",
+        "en": "Inspire"
       },
       "category": "combat",
       "description": "사기 감소량 절반",
@@ -277,7 +290,8 @@
       "id": "intimidate",
       "name": {
         "ko": "위압",
-        "zh": "威壓"
+        "zh": "威壓",
+        "en": "Intimidate"
       },
       "category": "combat",
       "description": "인접한 적 부대 사기 매 턴 -5",
@@ -295,7 +309,8 @@
       "id": "ambush_master",
       "name": {
         "ko": "기습",
-        "zh": "奇襲"
+        "zh": "奇襲",
+        "en": "Ambush"
       },
       "category": "combat",
       "description": "매복 효과 +50%, 숲·안개에서 공격 +10%",
@@ -334,7 +349,8 @@
       "id": "mountain",
       "name": {
         "ko": "산악전",
-        "zh": "山岳戰"
+        "zh": "山岳戰",
+        "en": "Mountain Warfare"
       },
       "category": "combat",
       "description": "산 지형 보정 페널티 무시",
@@ -351,7 +367,8 @@
       "id": "forced_march",
       "name": {
         "ko": "급행",
-        "zh": "急行"
+        "zh": "急行",
+        "en": "Forced March"
       },
       "category": "combat",
       "description": "이동력 +1",
@@ -368,7 +385,8 @@
       "id": "peerless",
       "name": {
         "ko": "일기당천",
-        "zh": "一騎當千"
+        "zh": "一騎當千",
+        "en": "Peerless"
       },
       "category": "duel",
       "description": "일기토 특수 카드, 일기토 기세 +10%",
@@ -390,7 +408,8 @@
       "id": "fire_master",
       "name": {
         "ko": "화공",
-        "zh": "火攻"
+        "zh": "火攻",
+        "en": "Fire Attack"
       },
       "category": "stratagem",
       "description": "화계 성공률 +20%, 화재 피해 +50%",
@@ -418,7 +437,8 @@
       "id": "insight",
       "name": {
         "ko": "간파",
-        "zh": "看破"
+        "zh": "看破",
+        "en": "Insight"
       },
       "category": "stratagem",
       "description": "적 계략 간파율 상승",
@@ -435,7 +455,8 @@
       "id": "confuser",
       "name": {
         "ko": "교란술",
-        "zh": "攪亂術"
+        "zh": "攪亂術",
+        "en": "Disruption"
       },
       "category": "stratagem",
       "description": "교란 성공률 +20%",
@@ -457,7 +478,8 @@
       "id": "strategist",
       "name": {
         "ko": "신산",
-        "zh": "神算"
+        "zh": "神算",
+        "en": "Divine Strategist"
       },
       "category": "stratagem",
       "description": "전법 성공률 +10%",
@@ -474,7 +496,8 @@
       "id": "schemer",
       "name": {
         "ko": "귀모",
-        "zh": "鬼謀"
+        "zh": "鬼謀",
+        "en": "Schemer"
       },
       "category": "stratagem",
       "description": "전략 계략(이간·매수·내응) 성공률 +20%",
@@ -498,7 +521,8 @@
       "id": "astronomy",
       "name": {
         "ko": "천문",
-        "zh": "天文"
+        "zh": "天文",
+        "en": "Astronomy"
       },
       "category": "stratagem",
       "description": "2턴 뒤 날씨를 미리 안다",
@@ -514,7 +538,8 @@
       "id": "agriculture",
       "name": {
         "ko": "농정",
-        "zh": "農政"
+        "zh": "農政",
+        "en": "Agriculture"
       },
       "category": "domestic",
       "description": "태수일 때 도시 수확 +15%",
@@ -536,7 +561,8 @@
       "id": "commerce",
       "name": {
         "ko": "상재",
-        "zh": "商才"
+        "zh": "商才",
+        "en": "Commerce"
       },
       "category": "domestic",
       "description": "태수일 때 도시 금 수입 +15%",
@@ -558,7 +584,8 @@
       "id": "builder",
       "name": {
         "ko": "축성",
-        "zh": "築城"
+        "zh": "築城",
+        "en": "Fortifier"
       },
       "category": "domestic",
       "description": "건설 기간 -1턴, 성벽·성문 보수 효율 증가",
@@ -581,7 +608,8 @@
       "id": "benevolence",
       "name": {
         "ko": "인덕",
-        "zh": "仁德"
+        "zh": "仁德",
+        "en": "Benevolence"
       },
       "category": "domestic",
       "description": "태수일 때 도시 민심 매월 +2",
@@ -603,7 +631,8 @@
       "id": "recruiter",
       "name": {
         "ko": "징모",
-        "zh": "徵募"
+        "zh": "徵募",
+        "en": "Recruiter"
       },
       "category": "domestic",
       "description": "징병량 +20%, 징병 민심 감소 절반",
@@ -626,7 +655,8 @@
       "id": "drill",
       "name": {
         "ko": "조련",
-        "zh": "調練"
+        "zh": "調練",
+        "en": "Drill"
       },
       "category": "domestic",
       "description": "훈련 효율 +50%",
@@ -643,7 +673,8 @@
       "id": "craftsman",
       "name": {
         "ko": "장인",
-        "zh": "匠人"
+        "zh": "匠人",
+        "en": "Craftsman"
       },
       "category": "domestic",
       "description": "병장기 생산 +20%",
@@ -660,7 +691,8 @@
       "id": "erudite",
       "name": {
         "ko": "해박",
-        "zh": "該博"
+        "zh": "該博",
+        "en": "Erudite"
       },
       "category": "domestic",
       "description": "기교 포인트 획득 +20%",
@@ -677,7 +709,8 @@
       "id": "eloquence",
       "name": {
         "ko": "언변",
-        "zh": "言辯"
+        "zh": "言辯",
+        "en": "Eloquence"
       },
       "category": "diplomacy",
       "description": "설전 특수 카드, 외교 성공률 +10%",
@@ -699,7 +732,8 @@
       "id": "fame",
       "name": {
         "ko": "명성",
-        "zh": "名聲"
+        "zh": "名聲",
+        "en": "Fame"
       },
       "category": "diplomacy",
       "description": "등용 성공률 +20%",
@@ -716,7 +750,8 @@
       "id": "talent_eye",
       "name": {
         "ko": "인재안",
-        "zh": "人材眼"
+        "zh": "人材眼",
+        "en": "Talent Scout"
       },
       "category": "diplomacy",
       "description": "탐색 시 재야 무장 발견 확률 증가",
@@ -733,7 +768,8 @@
       "id": "dignity",
       "name": {
         "ko": "위엄",
-        "zh": "威嚴"
+        "zh": "威嚴",
+        "en": "Dignity"
       },
       "category": "diplomacy",
       "description": "군주일 때 세력 무장의 충성 하락 완화",

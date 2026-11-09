@@ -4,7 +4,8 @@
       "id": "dong_zhuo",
       "name": {
         "ko": "동탁",
-        "zh": "董卓"
+        "zh": "董卓",
+        "en": "Dong Zhuo"
       },
       "gender": "male",
       "birth": 139,
@@ -46,7 +47,8 @@
       "id": "lu_bu",
       "name": {
         "ko": "여포",
-        "zh": "呂布"
+        "zh": "呂布",
+        "en": "Lu Bu"
       },
       "gender": "male",
       "birth": 156,
@@ -88,7 +90,8 @@
       "id": "li_ru",
       "name": {
         "ko": "이유",
-        "zh": "李儒"
+        "zh": "李儒",
+        "en": "Li Ru"
       },
       "gender": "male",
       "birth": 151,
@@ -124,7 +127,8 @@
       "id": "li_jue",
       "name": {
         "ko": "이각",
-        "zh": "李傕"
+        "zh": "李傕",
+        "en": "Li Jue"
       },
       "gender": "male",
       "birth": 150,
@@ -159,7 +163,8 @@
       "id": "guo_si",
       "name": {
         "ko": "곽사",
-        "zh": "郭汜"
+        "zh": "郭汜",
+        "en": "Guo Si"
       },
       "gender": "male",
       "birth": 150,
@@ -194,7 +199,8 @@
       "id": "hua_xiong",
       "name": {
         "ko": "화웅",
-        "zh": "華雄"
+        "zh": "華雄",
+        "en": "Hua Xiong"
       },
       "gender": "male",
       "birth": 155,
@@ -229,7 +235,8 @@
       "id": "xu_rong",
       "name": {
         "ko": "서영",
-        "zh": "徐榮"
+        "zh": "徐榮",
+        "en": "Xu Rong"
       },
       "gender": "male",
       "birth": 150,
@@ -264,7 +271,8 @@
       "id": "zhang_ji",
       "name": {
         "ko": "장제",
-        "zh": "張濟"
+        "zh": "張濟",
+        "en": "Zhang Ji"
       },
       "gender": "male",
       "birth": 150,
@@ -299,7 +307,8 @@
       "id": "jia_xu",
       "name": {
         "ko": "가후",
-        "zh": "賈詡"
+        "zh": "賈詡",
+        "en": "Jia Xu"
       },
       "gender": "male",
       "birth": 147,
@@ -335,7 +344,8 @@
       "id": "zhang_liao",
       "name": {
         "ko": "장료",
-        "zh": "張遼"
+        "zh": "張遼",
+        "en": "Zhang Liao"
       },
       "gender": "male",
       "birth": 169,
@@ -371,7 +381,8 @@
       "id": "gao_shun",
       "name": {
         "ko": "고순",
-        "zh": "高順"
+        "zh": "高順",
+        "en": "Gao Shun"
       },
       "gender": "male",
       "birth": 160,
@@ -406,7 +417,8 @@
       "id": "zhang_xiu",
       "name": {
         "ko": "장수",
-        "zh": "張繡"
+        "zh": "張繡",
+        "en": "Zhang Xiu"
       },
       "gender": "male",
       "birth": 165,
@@ -441,7 +453,8 @@
       "id": "wang_yun",
       "name": {
         "ko": "왕윤",
-        "zh": "王允"
+        "zh": "王允",
+        "en": "Wang Yun"
       },
       "gender": "male",
       "birth": 137,
@@ -477,7 +490,8 @@
       "id": "niu_fu",
       "name": {
         "ko": "우보",
-        "zh": "牛輔"
+        "zh": "牛輔",
+        "en": "Niu Fu"
       },
       "gender": "male",
       "birth": 150,
@@ -512,7 +526,8 @@
       "id": "yuan_shao",
       "name": {
         "ko": "원소",
-        "zh": "袁紹"
+        "zh": "袁紹",
+        "en": "Yuan Shao"
       },
       "gender": "male",
       "birth": 154,
@@ -559,7 +574,8 @@
       "id": "yan_liang",
       "name": {
         "ko": "안량",
-        "zh": "顏良"
+        "zh": "顏良",
+        "en": "Yan Liang"
       },
       "gender": "male",
       "birth": 160,
@@ -594,7 +610,8 @@
       "id": "wen_chou",
       "name": {
         "ko": "문추",
-        "zh": "文醜"
+        "zh": "文醜",
+        "en": "Wen Chou"
       },
       "gender": "male",
       "birth": 160,
@@ -629,7 +646,8 @@
       "id": "tian_feng",
       "name": {
         "ko": "전풍",
-        "zh": "田豐"
+        "zh": "田豐",
+        "en": "Tian Feng"
       },
       "gender": "male",
       "birth": 150,
@@ -665,7 +683,8 @@
       "id": "feng_ji",
       "name": {
         "ko": "봉기",
-        "zh": "逢紀"
+        "zh": "逢紀",
+        "en": "Feng Ji"
       },
       "gender": "male",
       "birth": 150,
@@ -700,7 +719,8 @@
       "id": "guo_tu",
       "name": {
         "ko": "곽도",
-        "zh": "郭圖"
+        "zh": "郭圖",
+        "en": "Guo Tu"
       },
       "gender": "male",
       "birth": 150,
@@ -735,7 +755,8 @@
       "id": "xu_you",
       "name": {
         "ko": "허유",
-        "zh": "許攸"
+        "zh": "許攸",
+        "en": "Xu You"
       },
       "gender": "male",
       "birth": 155,
@@ -770,7 +791,8 @@
       "id": "xun_chen",
       "name": {
         "ko": "순심",
-        "zh": "荀諶"
+        "zh": "荀諶",
+        "en": "Xun Chen"
       },
       "gender": "male",
       "birth": 160,
@@ -805,7 +827,8 @@
       "id": "gao_lan",
       "name": {
         "ko": "고람",
-        "zh": "高覽"
+        "zh": "高覽",
+        "en": "Gao Lan"
       },
       "gender": "male",
       "birth": 160,
@@ -840,7 +863,8 @@
       "id": "han_fu",
       "name": {
         "ko": "한복",
-        "zh": "韓馥"
+        "zh": "韓馥",
+        "en": "Han Fu"
       },
       "gender": "male",
       "birth": 140,
@@ -881,7 +905,8 @@
       "id": "zhang_he",
       "name": {
         "ko": "장합",
-        "zh": "張郃"
+        "zh": "張郃",
+        "en": "Zhang He"
       },
       "gender": "male",
       "birth": 167,
@@ -916,7 +941,8 @@
       "id": "shen_pei",
       "name": {
         "ko": "심배",
-        "zh": "審配"
+        "zh": "審配",
+        "en": "Shen Pei"
       },
       "gender": "male",
       "birth": 155,
@@ -951,7 +977,8 @@
       "id": "ju_shou",
       "name": {
         "ko": "저수",
-        "zh": "沮授"
+        "zh": "沮授",
+        "en": "Ju Shou"
       },
       "gender": "male",
       "birth": 155,
@@ -986,7 +1013,8 @@
       "id": "qu_yi",
       "name": {
         "ko": "국의",
-        "zh": "麴義"
+        "zh": "麴義",
+        "en": "Qu Yi"
       },
       "gender": "male",
       "birth": 160,
@@ -1021,7 +1049,8 @@
       "id": "cao_cao",
       "name": {
         "ko": "조조",
-        "zh": "曹操"
+        "zh": "曹操",
+        "en": "Cao Cao"
       },
       "gender": "male",
       "birth": 155,
@@ -1063,7 +1092,8 @@
       "id": "xiahou_dun",
       "name": {
         "ko": "하후돈",
-        "zh": "夏侯惇"
+        "zh": "夏侯惇",
+        "en": "Xiahou Dun"
       },
       "gender": "male",
       "birth": 157,
@@ -1098,7 +1128,8 @@
       "id": "xiahou_yuan",
       "name": {
         "ko": "하후연",
-        "zh": "夏侯淵"
+        "zh": "夏侯淵",
+        "en": "Xiahou Yuan"
       },
       "gender": "male",
       "birth": 160,
@@ -1133,7 +1164,8 @@
       "id": "cao_ren",
       "name": {
         "ko": "조인",
-        "zh": "曹仁"
+        "zh": "曹仁",
+        "en": "Cao Ren"
       },
       "gender": "male",
       "birth": 168,
@@ -1168,7 +1200,8 @@
       "id": "cao_hong",
       "name": {
         "ko": "조홍",
-        "zh": "曹洪"
+        "zh": "曹洪",
+        "en": "Cao Hong"
       },
       "gender": "male",
       "birth": 170,
@@ -1203,7 +1236,8 @@
       "id": "yue_jin",
       "name": {
         "ko": "악진",
-        "zh": "樂進"
+        "zh": "樂進",
+        "en": "Yue Jin"
       },
       "gender": "male",
       "birth": 160,
@@ -1238,7 +1272,8 @@
       "id": "li_dian",
       "name": {
         "ko": "이전",
-        "zh": "李典"
+        "zh": "李典",
+        "en": "Li Dian"
       },
       "gender": "male",
       "birth": 174,
@@ -1273,7 +1308,8 @@
       "id": "chen_gong",
       "name": {
         "ko": "진궁",
-        "zh": "陳宮"
+        "zh": "陳宮",
+        "en": "Chen Gong"
       },
       "gender": "male",
       "birth": 155,
@@ -1308,7 +1344,8 @@
       "id": "dian_wei",
       "name": {
         "ko": "전위",
-        "zh": "典韋"
+        "zh": "典韋",
+        "en": "Dian Wei"
       },
       "gender": "male",
       "birth": 160,
@@ -1343,7 +1380,8 @@
       "id": "sun_jian",
       "name": {
         "ko": "손견",
-        "zh": "孫堅"
+        "zh": "孫堅",
+        "en": "Sun Jian"
       },
       "gender": "male",
       "birth": 155,
@@ -1385,7 +1423,8 @@
       "id": "cheng_pu",
       "name": {
         "ko": "정보",
-        "zh": "程普"
+        "zh": "程普",
+        "en": "Cheng Pu"
       },
       "gender": "male",
       "birth": 150,
@@ -1420,7 +1459,8 @@
       "id": "huang_gai",
       "name": {
         "ko": "황개",
-        "zh": "黃蓋"
+        "zh": "黃蓋",
+        "en": "Huang Gai"
       },
       "gender": "male",
       "birth": 150,
@@ -1455,7 +1495,8 @@
       "id": "han_dang",
       "name": {
         "ko": "한당",
-        "zh": "韓當"
+        "zh": "韓當",
+        "en": "Han Dang"
       },
       "gender": "male",
       "birth": 153,
@@ -1490,7 +1531,8 @@
       "id": "zu_mao",
       "name": {
         "ko": "조무",
-        "zh": "祖茂"
+        "zh": "祖茂",
+        "en": "Zu Mao"
       },
       "gender": "male",
       "birth": 155,
@@ -1525,7 +1567,8 @@
       "id": "sun_ce",
       "name": {
         "ko": "손책",
-        "zh": "孫策"
+        "zh": "孫策",
+        "en": "Sun Ce"
       },
       "gender": "male",
       "birth": 175,
@@ -1573,7 +1616,8 @@
       "id": "sun_quan",
       "name": {
         "ko": "손권",
-        "zh": "孫權"
+        "zh": "孫權",
+        "en": "Sun Quan"
       },
       "gender": "male",
       "birth": 182,
@@ -1621,7 +1665,8 @@
       "id": "zhou_yu",
       "name": {
         "ko": "주유",
-        "zh": "周瑜"
+        "zh": "周瑜",
+        "en": "Zhou Yu"
       },
       "gender": "male",
       "birth": 175,
@@ -1657,7 +1702,8 @@
       "id": "lu_su",
       "name": {
         "ko": "노숙",
-        "zh": "魯肅"
+        "zh": "魯肅",
+        "en": "Lu Su"
       },
       "gender": "male",
       "birth": 172,
@@ -1692,7 +1738,8 @@
       "id": "yuan_shu",
       "name": {
         "ko": "원술",
-        "zh": "袁術"
+        "zh": "袁術",
+        "en": "Yuan Shu"
       },
       "gender": "male",
       "birth": 155,
@@ -1738,7 +1785,8 @@
       "id": "ji_ling",
       "name": {
         "ko": "기령",
-        "zh": "紀靈"
+        "zh": "紀靈",
+        "en": "Ji Ling"
       },
       "gender": "male",
       "birth": 160,
@@ -1773,7 +1821,8 @@
       "id": "zhang_xun",
       "name": {
         "ko": "장훈",
-        "zh": "張勳"
+        "zh": "張勳",
+        "en": "Zhang Xun"
       },
       "gender": "male",
       "birth": 160,
@@ -1808,7 +1857,8 @@
       "id": "qiao_rui",
       "name": {
         "ko": "교유",
-        "zh": "橋蕤"
+        "zh": "橋蕤",
+        "en": "Qiao Rui"
       },
       "gender": "male",
       "birth": 160,
@@ -1843,7 +1893,8 @@
       "id": "yan_xiang",
       "name": {
         "ko": "염상",
-        "zh": "閻象"
+        "zh": "閻象",
+        "en": "Yan Xiang"
       },
       "gender": "male",
       "birth": 150,
@@ -1878,7 +1929,8 @@
       "id": "lei_bo",
       "name": {
         "ko": "뇌박",
-        "zh": "雷薄"
+        "zh": "雷薄",
+        "en": "Lei Bo"
       },
       "gender": "male",
       "birth": 160,
@@ -1913,7 +1965,8 @@
       "id": "gongsun_zan",
       "name": {
         "ko": "공손찬",
-        "zh": "公孫瓚"
+        "zh": "公孫瓚",
+        "en": "Gongsun Zan"
       },
       "gender": "male",
       "birth": 153,
@@ -1955,7 +2008,8 @@
       "id": "gongsun_yue",
       "name": {
         "ko": "공손월",
-        "zh": "公孫越"
+        "zh": "公孫越",
+        "en": "Gongsun Yue"
       },
       "gender": "male",
       "birth": 160,
@@ -1990,7 +2044,8 @@
       "id": "yan_gang",
       "name": {
         "ko": "엄강",
-        "zh": "嚴綱"
+        "zh": "嚴綱",
+        "en": "Yan Gang"
       },
       "gender": "male",
       "birth": 155,
@@ -2025,7 +2080,8 @@
       "id": "tian_kai",
       "name": {
         "ko": "전해",
-        "zh": "田楷"
+        "zh": "田楷",
+        "en": "Tian Kai"
       },
       "gender": "male",
       "birth": 155,
@@ -2060,7 +2116,8 @@
       "id": "guan_jing",
       "name": {
         "ko": "관정",
-        "zh": "關靖"
+        "zh": "關靖",
+        "en": "Guan Jing"
       },
       "gender": "male",
       "birth": 150,
@@ -2095,7 +2152,8 @@
       "id": "zhao_yun",
       "name": {
         "ko": "조운",
-        "zh": "趙雲"
+        "zh": "趙雲",
+        "en": "Zhao Yun"
       },
       "gender": "male",
       "birth": 168,
@@ -2131,7 +2189,8 @@
       "id": "liu_bei",
       "name": {
         "ko": "유비",
-        "zh": "劉備"
+        "zh": "劉備",
+        "en": "Liu Bei"
       },
       "gender": "male",
       "birth": 161,
@@ -2173,7 +2232,8 @@
       "id": "guan_yu",
       "name": {
         "ko": "관우",
-        "zh": "關羽"
+        "zh": "關羽",
+        "en": "Guan Yu"
       },
       "gender": "male",
       "birth": 160,
@@ -2209,7 +2269,8 @@
       "id": "zhang_fei",
       "name": {
         "ko": "장비",
-        "zh": "張飛"
+        "zh": "張飛",
+        "en": "Zhang Fei"
       },
       "gender": "male",
       "birth": 165,
@@ -2245,7 +2306,8 @@
       "id": "jian_yong",
       "name": {
         "ko": "간옹",
-        "zh": "簡雍"
+        "zh": "簡雍",
+        "en": "Jian Yong"
       },
       "gender": "male",
       "birth": 160,
@@ -2280,7 +2342,8 @@
       "id": "liu_biao",
       "name": {
         "ko": "유표",
-        "zh": "劉表"
+        "zh": "劉表",
+        "en": "Liu Biao"
       },
       "gender": "male",
       "birth": 142,
@@ -2322,7 +2385,8 @@
       "id": "kuai_liang",
       "name": {
         "ko": "괴량",
-        "zh": "蒯良"
+        "zh": "蒯良",
+        "en": "Kuai Liang"
       },
       "gender": "male",
       "birth": 155,
@@ -2357,7 +2421,8 @@
       "id": "kuai_yue",
       "name": {
         "ko": "괴월",
-        "zh": "蒯越"
+        "zh": "蒯越",
+        "en": "Kuai Yue"
       },
       "gender": "male",
       "birth": 155,
@@ -2392,7 +2457,8 @@
       "id": "cai_mao",
       "name": {
         "ko": "채모",
-        "zh": "蔡瑁"
+        "zh": "蔡瑁",
+        "en": "Cai Mao"
       },
       "gender": "male",
       "birth": 158,
@@ -2427,7 +2493,8 @@
       "id": "huang_zu",
       "name": {
         "ko": "황조",
-        "zh": "黃祖"
+        "zh": "黃祖",
+        "en": "Huang Zu"
       },
       "gender": "male",
       "birth": 150,
@@ -2462,7 +2529,8 @@
       "id": "wen_pin",
       "name": {
         "ko": "문빙",
-        "zh": "文聘"
+        "zh": "文聘",
+        "en": "Wen Pin"
       },
       "gender": "male",
       "birth": 165,
@@ -2497,7 +2565,8 @@
       "id": "zhang_yun",
       "name": {
         "ko": "장윤",
-        "zh": "張允"
+        "zh": "張允",
+        "en": "Zhang Yun"
       },
       "gender": "male",
       "birth": 160,
@@ -2532,7 +2601,8 @@
       "id": "huang_zhong",
       "name": {
         "ko": "황충",
-        "zh": "黃忠"
+        "zh": "黃忠",
+        "en": "Huang Zhong"
       },
       "gender": "male",
       "birth": 148,
@@ -2568,7 +2638,8 @@
       "id": "wei_yan",
       "name": {
         "ko": "위연",
-        "zh": "魏延"
+        "zh": "魏延",
+        "en": "Wei Yan"
       },
       "gender": "male",
       "birth": 175,
@@ -2603,7 +2674,8 @@
       "id": "liu_yan",
       "name": {
         "ko": "유언",
-        "zh": "劉焉"
+        "zh": "劉焉",
+        "en": "Liu Yan"
       },
       "gender": "male",
       "birth": 135,
@@ -2644,7 +2716,8 @@
       "id": "liu_zhang",
       "name": {
         "ko": "유장",
-        "zh": "劉璋"
+        "zh": "劉璋",
+        "en": "Liu Zhang"
       },
       "gender": "male",
       "birth": 162,
@@ -2688,7 +2761,8 @@
       "id": "zhang_ren",
       "name": {
         "ko": "장임",
-        "zh": "張任"
+        "zh": "張任",
+        "en": "Zhang Ren"
       },
       "gender": "male",
       "birth": 165,
@@ -2723,7 +2797,8 @@
       "id": "yan_yan",
       "name": {
         "ko": "엄안",
-        "zh": "嚴顏"
+        "zh": "嚴顏",
+        "en": "Yan Yan"
       },
       "gender": "male",
       "birth": 150,
@@ -2758,7 +2833,8 @@
       "id": "huang_quan",
       "name": {
         "ko": "황권",
-        "zh": "黃權"
+        "zh": "黃權",
+        "en": "Huang Quan"
       },
       "gender": "male",
       "birth": 165,
@@ -2793,7 +2869,8 @@
       "id": "zhang_song",
       "name": {
         "ko": "장송",
-        "zh": "張松"
+        "zh": "張松",
+        "en": "Zhang Song"
       },
       "gender": "male",
       "birth": 165,
@@ -2828,7 +2905,8 @@
       "id": "zhang_lu",
       "name": {
         "ko": "장로",
-        "zh": "張魯"
+        "zh": "張魯",
+        "en": "Zhang Lu"
       },
       "gender": "male",
       "birth": 160,
@@ -2869,7 +2947,8 @@
       "id": "wu_yi",
       "name": {
         "ko": "오의",
-        "zh": "吳懿"
+        "zh": "吳懿",
+        "en": "Wu Yi"
       },
       "gender": "male",
       "birth": 160,
@@ -2904,7 +2983,8 @@
       "id": "ma_teng",
       "name": {
         "ko": "마등",
-        "zh": "馬騰"
+        "zh": "馬騰",
+        "en": "Ma Teng"
       },
       "gender": "male",
       "birth": 156,
@@ -2946,7 +3026,8 @@
       "id": "han_sui",
       "name": {
         "ko": "한수",
-        "zh": "韓遂"
+        "zh": "韓遂",
+        "en": "Han Sui"
       },
       "gender": "male",
       "birth": 145,
@@ -2987,7 +3068,8 @@
       "id": "ma_chao",
       "name": {
         "ko": "마초",
-        "zh": "馬超"
+        "zh": "馬超",
+        "en": "Ma Chao"
       },
       "gender": "male",
       "birth": 176,
@@ -3026,7 +3108,8 @@
       "id": "pang_de",
       "name": {
         "ko": "방덕",
-        "zh": "龐德"
+        "zh": "龐德",
+        "en": "Pang De"
       },
       "gender": "male",
       "birth": 170,
@@ -3061,7 +3144,8 @@
       "id": "ma_dai",
       "name": {
         "ko": "마대",
-        "zh": "馬岱"
+        "zh": "馬岱",
+        "en": "Ma Dai"
       },
       "gender": "male",
       "birth": 175,
@@ -3096,7 +3180,8 @@
       "id": "tao_qian",
       "name": {
         "ko": "도겸",
-        "zh": "陶謙"
+        "zh": "陶謙",
+        "en": "Tao Qian"
       },
       "gender": "male",
       "birth": 132,
@@ -3137,7 +3222,8 @@
       "id": "mi_zhu",
       "name": {
         "ko": "미축",
-        "zh": "麋竺"
+        "zh": "麋竺",
+        "en": "Mi Zhu"
       },
       "gender": "male",
       "birth": 165,
@@ -3177,7 +3263,8 @@
       "id": "mi_fang",
       "name": {
         "ko": "미방",
-        "zh": "麋芳"
+        "zh": "麋芳",
+        "en": "Mi Fang"
       },
       "gender": "male",
       "birth": 167,
@@ -3217,7 +3304,8 @@
       "id": "chen_deng",
       "name": {
         "ko": "진등",
-        "zh": "陳登"
+        "zh": "陳登",
+        "en": "Chen Deng"
       },
       "gender": "male",
       "birth": 163,
@@ -3252,7 +3340,8 @@
       "id": "chen_gui",
       "name": {
         "ko": "진규",
-        "zh": "陳珪"
+        "zh": "陳珪",
+        "en": "Chen Gui"
       },
       "gender": "male",
       "birth": 140,
@@ -3287,7 +3376,8 @@
       "id": "cao_bao",
       "name": {
         "ko": "조표",
-        "zh": "曹豹"
+        "zh": "曹豹",
+        "en": "Cao Bao"
       },
       "gender": "male",
       "birth": 150,
@@ -3322,7 +3412,8 @@
       "id": "kong_rong",
       "name": {
         "ko": "공융",
-        "zh": "孔融"
+        "zh": "孔融",
+        "en": "Kong Rong"
       },
       "gender": "male",
       "birth": 153,
@@ -3364,7 +3455,8 @@
       "id": "taishi_ci",
       "name": {
         "ko": "태사자",
-        "zh": "太史慈"
+        "zh": "太史慈",
+        "en": "Taishi Ci"
       },
       "gender": "male",
       "birth": 166,
@@ -3400,7 +3492,8 @@
       "id": "gongsun_du",
       "name": {
         "ko": "공손도",
-        "zh": "公孫度"
+        "zh": "公孫度",
+        "en": "Gongsun Du"
       },
       "gender": "male",
       "birth": 150,
@@ -3441,7 +3534,8 @@
       "id": "gongsun_kang",
       "name": {
         "ko": "공손강",
-        "zh": "公孫康"
+        "zh": "公孫康",
+        "en": "Gongsun Kang"
       },
       "gender": "male",
       "birth": 170,
@@ -3479,7 +3573,8 @@
       "id": "xun_yu",
       "name": {
         "ko": "순욱",
-        "zh": "荀彧"
+        "zh": "荀彧",
+        "en": "Xun Yu"
       },
       "gender": "male",
       "birth": 163,
@@ -3515,7 +3610,8 @@
       "id": "guo_jia",
       "name": {
         "ko": "곽가",
-        "zh": "郭嘉"
+        "zh": "郭嘉",
+        "en": "Guo Jia"
       },
       "gender": "male",
       "birth": 170,
@@ -3551,7 +3647,8 @@
       "id": "cheng_yu",
       "name": {
         "ko": "정욱",
-        "zh": "程昱"
+        "zh": "程昱",
+        "en": "Cheng Yu"
       },
       "gender": "male",
       "birth": 141,
@@ -3586,7 +3683,8 @@
       "id": "xu_huang",
       "name": {
         "ko": "서황",
-        "zh": "徐晃"
+        "zh": "徐晃",
+        "en": "Xu Huang"
       },
       "gender": "male",
       "birth": 169,
@@ -3621,7 +3719,8 @@
       "id": "zhuge_liang",
       "name": {
         "ko": "제갈량",
-        "zh": "諸葛亮"
+        "zh": "諸葛亮",
+        "en": "Zhuge Liang"
       },
       "gender": "male",
       "birth": 181,
@@ -3657,7 +3756,8 @@
       "id": "pang_tong",
       "name": {
         "ko": "방통",
-        "zh": "龐統"
+        "zh": "龐統",
+        "en": "Pang Tong"
       },
       "gender": "male",
       "birth": 179,
@@ -3693,7 +3793,8 @@
       "id": "cao_pi",
       "name": {
         "ko": "조비",
-        "zh": "曹丕"
+        "zh": "曹丕",
+        "en": "Cao Pi"
       },
       "gender": "male",
       "birth": 187,
@@ -3743,7 +3844,8 @@
       "id": "cao_zhi",
       "name": {
         "ko": "조식",
-        "zh": "曹植"
+        "zh": "曹植",
+        "en": "Cao Zhi"
       },
       "gender": "male",
       "birth": 192,
@@ -3787,7 +3889,8 @@
       "id": "cao_zhang",
       "name": {
         "ko": "조창",
-        "zh": "曹彰"
+        "zh": "曹彰",
+        "en": "Cao Zhang"
       },
       "gender": "male",
       "birth": 189,
@@ -3831,7 +3934,8 @@
       "id": "cao_rui",
       "name": {
         "ko": "조예",
-        "zh": "曹叡"
+        "zh": "曹叡",
+        "en": "Cao Rui"
       },
       "gender": "male",
       "birth": 204,
@@ -3876,7 +3980,8 @@
       "id": "cao_zhen",
       "name": {
         "ko": "조진",
-        "zh": "曹眞"
+        "zh": "曹眞",
+        "en": "Cao Zhen"
       },
       "gender": "male",
       "birth": 185,
@@ -3911,7 +4016,8 @@
       "id": "cao_xiu",
       "name": {
         "ko": "조휴",
-        "zh": "曹休"
+        "zh": "曹休",
+        "en": "Cao Xiu"
       },
       "gender": "male",
       "birth": 175,
@@ -3946,7 +4052,8 @@
       "id": "cao_shuang",
       "name": {
         "ko": "조상",
-        "zh": "曹爽"
+        "zh": "曹爽",
+        "en": "Cao Shuang"
       },
       "gender": "male",
       "birth": 200,
@@ -3984,7 +4091,8 @@
       "id": "cao_chun",
       "name": {
         "ko": "조순",
-        "zh": "曹純"
+        "zh": "曹純",
+        "en": "Cao Chun"
       },
       "gender": "male",
       "birth": 170,
@@ -4024,7 +4132,8 @@
       "id": "cao_ang",
       "name": {
         "ko": "조앙",
-        "zh": "曹昂"
+        "zh": "曹昂",
+        "en": "Cao Ang"
       },
       "gender": "male",
       "birth": 177,
@@ -4067,7 +4176,8 @@
       "id": "xiahou_ba",
       "name": {
         "ko": "하후패",
-        "zh": "夏侯霸"
+        "zh": "夏侯霸",
+        "en": "Xiahou Ba"
       },
       "gender": "male",
       "birth": 200,
@@ -4105,7 +4215,8 @@
       "id": "xiahou_mao",
       "name": {
         "ko": "하후무",
-        "zh": "夏侯楙"
+        "zh": "夏侯楙",
+        "en": "Xiahou Mao"
       },
       "gender": "male",
       "birth": 190,
@@ -4143,7 +4254,8 @@
       "id": "xiahou_shang",
       "name": {
         "ko": "하후상",
-        "zh": "夏侯尙"
+        "zh": "夏侯尙",
+        "en": "Xiahou Shang"
       },
       "gender": "male",
       "birth": 180,
@@ -4178,7 +4290,8 @@
       "id": "yu_jin",
       "name": {
         "ko": "우금",
-        "zh": "于禁"
+        "zh": "于禁",
+        "en": "Yu Jin"
       },
       "gender": "male",
       "birth": 160,
@@ -4214,7 +4327,8 @@
       "id": "xu_chu",
       "name": {
         "ko": "허저",
-        "zh": "許褚"
+        "zh": "許褚",
+        "en": "Xu Chu"
       },
       "gender": "male",
       "birth": 170,
@@ -4250,7 +4364,8 @@
       "id": "man_chong",
       "name": {
         "ko": "만총",
-        "zh": "滿寵"
+        "zh": "滿寵",
+        "en": "Man Chong"
       },
       "gender": "male",
       "birth": 170,
@@ -4286,7 +4401,8 @@
       "id": "xun_you",
       "name": {
         "ko": "순유",
-        "zh": "荀攸"
+        "zh": "荀攸",
+        "en": "Xun You"
       },
       "gender": "male",
       "birth": 157,
@@ -4322,7 +4438,8 @@
       "id": "sima_yi",
       "name": {
         "ko": "사마의",
-        "zh": "司馬懿"
+        "zh": "司馬懿",
+        "en": "Sima Yi"
       },
       "gender": "male",
       "birth": 179,
@@ -4369,7 +4486,8 @@
       "id": "sima_shi",
       "name": {
         "ko": "사마사",
-        "zh": "司馬師"
+        "zh": "司馬師",
+        "en": "Sima Shi"
       },
       "gender": "male",
       "birth": 208,
@@ -4410,7 +4528,8 @@
       "id": "sima_zhao",
       "name": {
         "ko": "사마소",
-        "zh": "司馬昭"
+        "zh": "司馬昭",
+        "en": "Sima Zhao"
       },
       "gender": "male",
       "birth": 211,
@@ -4451,7 +4570,8 @@
       "id": "sima_fu",
       "name": {
         "ko": "사마부",
-        "zh": "司馬孚"
+        "zh": "司馬孚",
+        "en": "Sima Fu"
       },
       "gender": "male",
       "birth": 180,
@@ -4491,7 +4611,8 @@
       "id": "deng_ai",
       "name": {
         "ko": "등애",
-        "zh": "鄧艾"
+        "zh": "鄧艾",
+        "en": "Deng Ai"
       },
       "gender": "male",
       "birth": 197,
@@ -4527,7 +4648,8 @@
       "id": "zhong_hui",
       "name": {
         "ko": "종회",
-        "zh": "鍾會"
+        "zh": "鍾會",
+        "en": "Zhong Hui"
       },
       "gender": "male",
       "birth": 225,
@@ -4566,7 +4688,8 @@
       "id": "guo_huai",
       "name": {
         "ko": "곽회",
-        "zh": "郭淮"
+        "zh": "郭淮",
+        "en": "Guo Huai"
       },
       "gender": "male",
       "birth": 187,
@@ -4601,7 +4724,8 @@
       "id": "chen_tai",
       "name": {
         "ko": "진태",
-        "zh": "陳泰"
+        "zh": "陳泰",
+        "en": "Chen Tai"
       },
       "gender": "male",
       "birth": 200,
@@ -4639,7 +4763,8 @@
       "id": "wang_shuang",
       "name": {
         "ko": "왕쌍",
-        "zh": "王雙"
+        "zh": "王雙",
+        "en": "Wang Shuang"
       },
       "gender": "male",
       "birth": 185,
@@ -4674,7 +4799,8 @@
       "id": "hao_zhao",
       "name": {
         "ko": "학소",
-        "zh": "郝昭"
+        "zh": "郝昭",
+        "en": "Hao Zhao"
       },
       "gender": "male",
       "birth": 190,
@@ -4709,7 +4835,8 @@
       "id": "zang_ba",
       "name": {
         "ko": "장패",
-        "zh": "臧霸"
+        "zh": "臧霸",
+        "en": "Zang Ba"
       },
       "gender": "male",
       "birth": 165,
@@ -4744,7 +4871,8 @@
       "id": "sun_li",
       "name": {
         "ko": "손례",
-        "zh": "孫禮"
+        "zh": "孫禮",
+        "en": "Sun Li"
       },
       "gender": "male",
       "birth": 190,
@@ -4779,7 +4907,8 @@
       "id": "liu_ye",
       "name": {
         "ko": "유엽",
-        "zh": "劉曄"
+        "zh": "劉曄",
+        "en": "Liu Ye"
       },
       "gender": "male",
       "birth": 180,
@@ -4815,7 +4944,8 @@
       "id": "chen_qun",
       "name": {
         "ko": "진군",
-        "zh": "陳群"
+        "zh": "陳群",
+        "en": "Chen Qun"
       },
       "gender": "male",
       "birth": 180,
@@ -4850,7 +4980,8 @@
       "id": "hua_xin",
       "name": {
         "ko": "화흠",
-        "zh": "華歆"
+        "zh": "華歆",
+        "en": "Hua Xin"
       },
       "gender": "male",
       "birth": 157,
@@ -4885,7 +5016,8 @@
       "id": "wang_lang",
       "name": {
         "ko": "왕랑",
-        "zh": "王朗"
+        "zh": "王朗",
+        "en": "Wang Lang"
       },
       "gender": "male",
       "birth": 152,
@@ -4920,7 +5052,8 @@
       "id": "zhong_yao",
       "name": {
         "ko": "종요",
-        "zh": "鍾繇"
+        "zh": "鍾繇",
+        "en": "Zhong Yao"
       },
       "gender": "male",
       "birth": 151,
@@ -4955,7 +5088,8 @@
       "id": "cui_yan",
       "name": {
         "ko": "최염",
-        "zh": "崔琰"
+        "zh": "崔琰",
+        "en": "Cui Yan"
       },
       "gender": "male",
       "birth": 163,
@@ -4990,7 +5124,8 @@
       "id": "mao_jie",
       "name": {
         "ko": "모개",
-        "zh": "毛玠"
+        "zh": "毛玠",
+        "en": "Mao Jie"
       },
       "gender": "male",
       "birth": 160,
@@ -5025,7 +5160,8 @@
       "id": "jiang_ji",
       "name": {
         "ko": "장제",
-        "zh": "蔣濟"
+        "zh": "蔣濟",
+        "en": "Jiang Ji"
       },
       "gender": "male",
       "birth": 188,
@@ -5060,7 +5196,8 @@
       "id": "xin_pi",
       "name": {
         "ko": "신비",
-        "zh": "辛毗"
+        "zh": "辛毗",
+        "en": "Xin Pi"
       },
       "gender": "male",
       "birth": 170,
@@ -5095,7 +5232,8 @@
       "id": "yang_xiu",
       "name": {
         "ko": "양수",
-        "zh": "楊修"
+        "zh": "楊修",
+        "en": "Yang Xiu"
       },
       "gender": "male",
       "birth": 175,
@@ -5130,7 +5268,8 @@
       "id": "tian_chou",
       "name": {
         "ko": "전주",
-        "zh": "田疇"
+        "zh": "田疇",
+        "en": "Tian Chou"
       },
       "gender": "male",
       "birth": 169,
@@ -5165,7 +5304,8 @@
       "id": "wen_qin",
       "name": {
         "ko": "문흠",
-        "zh": "文欽"
+        "zh": "文欽",
+        "en": "Wen Qin"
       },
       "gender": "male",
       "birth": 200,
@@ -5200,7 +5340,8 @@
       "id": "guanqiu_jian",
       "name": {
         "ko": "관구검",
-        "zh": "毌丘儉"
+        "zh": "毌丘儉",
+        "en": "Guanqiu Jian"
       },
       "gender": "male",
       "birth": 195,
@@ -5235,7 +5376,8 @@
       "id": "zhuge_dan",
       "name": {
         "ko": "제갈탄",
-        "zh": "諸葛誕"
+        "zh": "諸葛誕",
+        "en": "Zhuge Dan"
       },
       "gender": "male",
       "birth": 200,
@@ -5270,7 +5412,8 @@
       "id": "li_tong",
       "name": {
         "ko": "이통",
-        "zh": "李通"
+        "zh": "李通",
+        "en": "Li Tong"
       },
       "gender": "male",
       "birth": 168,
@@ -5305,7 +5448,8 @@
       "id": "cai_yan",
       "name": {
         "ko": "채염",
-        "zh": "蔡琰"
+        "zh": "蔡琰",
+        "en": "Cai Yan"
       },
       "gender": "female",
       "birth": 177,
@@ -5340,7 +5484,8 @@
       "id": "he_yan",
       "name": {
         "ko": "하안",
-        "zh": "何晏"
+        "zh": "何晏",
+        "en": "He Yan"
       },
       "gender": "male",
       "birth": 195,
@@ -5375,7 +5520,8 @@
       "id": "wang_chang",
       "name": {
         "ko": "왕창",
-        "zh": "王昶"
+        "zh": "王昶",
+        "en": "Wang Chang"
       },
       "gender": "male",
       "birth": 200,
@@ -5410,7 +5556,8 @@
       "id": "zhang_ji_wei",
       "name": {
         "ko": "장기",
-        "zh": "張旣"
+        "zh": "張旣",
+        "en": "Zhang Ji"
       },
       "gender": "male",
       "birth": 170,
@@ -5445,7 +5592,8 @@
       "id": "han_hao",
       "name": {
         "ko": "한호",
-        "zh": "韓浩"
+        "zh": "韓浩",
+        "en": "Han Hao"
       },
       "gender": "male",
       "birth": 165,
@@ -5480,7 +5628,8 @@
       "id": "zhu_ling",
       "name": {
         "ko": "주령",
-        "zh": "朱靈"
+        "zh": "朱靈",
+        "en": "Zhu Ling"
       },
       "gender": "male",
       "birth": 165,
@@ -5515,7 +5664,8 @@
       "id": "wang_ling",
       "name": {
         "ko": "왕릉",
-        "zh": "王淩"
+        "zh": "王淩",
+        "en": "Wang Ling"
       },
       "gender": "male",
       "birth": 172,
@@ -5550,7 +5700,8 @@
       "id": "he_jin",
       "name": {
         "ko": "하진",
-        "zh": "何進"
+        "zh": "何進",
+        "en": "He Jin"
       },
       "gender": "male",
       "birth": 150,
@@ -5591,7 +5742,8 @@
       "id": "lu_zhi",
       "name": {
         "ko": "노식",
-        "zh": "盧植"
+        "zh": "盧植",
+        "en": "Lu Zhi"
       },
       "gender": "male",
       "birth": 139,
@@ -5627,7 +5779,8 @@
       "id": "huangfu_song",
       "name": {
         "ko": "황보숭",
-        "zh": "皇甫嵩"
+        "zh": "皇甫嵩",
+        "en": "Huangfu Song"
       },
       "gender": "male",
       "birth": 140,
@@ -5663,7 +5816,8 @@
       "id": "zhu_jun",
       "name": {
         "ko": "주준",
-        "zh": "朱儁"
+        "zh": "朱儁",
+        "en": "Zhu Jun"
       },
       "gender": "male",
       "birth": 145,
@@ -5698,7 +5852,8 @@
       "id": "ding_yuan",
       "name": {
         "ko": "정원",
-        "zh": "丁原"
+        "zh": "丁原",
+        "en": "Ding Yuan"
       },
       "gender": "male",
       "birth": 140,
@@ -5733,7 +5888,8 @@
       "id": "dong_cheng",
       "name": {
         "ko": "동승",
-        "zh": "董承"
+        "zh": "董承",
+        "en": "Dong Cheng"
       },
       "gender": "male",
       "birth": 150,
@@ -5774,7 +5930,8 @@
       "id": "zhang_jue",
       "name": {
         "ko": "장각",
-        "zh": "張角"
+        "zh": "張角",
+        "en": "Zhang Jue"
       },
       "gender": "male",
       "birth": 140,
@@ -5822,7 +5979,8 @@
       "id": "zhang_bao_yt",
       "name": {
         "ko": "장보",
-        "zh": "張寶"
+        "zh": "張寶",
+        "en": "Zhang Bao"
       },
       "gender": "male",
       "birth": 145,
@@ -5863,7 +6021,8 @@
       "id": "zhang_liang_yt",
       "name": {
         "ko": "장량",
-        "zh": "張梁"
+        "zh": "張梁",
+        "en": "Zhang Liang"
       },
       "gender": "male",
       "birth": 148,
@@ -5904,7 +6063,8 @@
       "id": "guan_hai",
       "name": {
         "ko": "관해",
-        "zh": "管亥"
+        "zh": "管亥",
+        "en": "Guan Hai"
       },
       "gender": "male",
       "birth": 160,
@@ -5939,7 +6099,8 @@
       "id": "li_su",
       "name": {
         "ko": "이숙",
-        "zh": "李肅"
+        "zh": "李肅",
+        "en": "Li Su"
       },
       "gender": "male",
       "birth": 155,
@@ -5974,7 +6135,8 @@
       "id": "yang_feng",
       "name": {
         "ko": "양봉",
-        "zh": "楊奉"
+        "zh": "楊奉",
+        "en": "Yang Feng"
       },
       "gender": "male",
       "birth": 155,
@@ -6009,7 +6171,8 @@
       "id": "han_xian",
       "name": {
         "ko": "한섬",
-        "zh": "韓暹"
+        "zh": "韓暹",
+        "en": "Han Xian"
       },
       "gender": "male",
       "birth": 155,
@@ -6044,7 +6207,8 @@
       "id": "fa_zheng",
       "name": {
         "ko": "법정",
-        "zh": "法正"
+        "zh": "法正",
+        "en": "Fa Zheng"
       },
       "gender": "male",
       "birth": 176,
@@ -6080,7 +6244,8 @@
       "id": "ma_liang",
       "name": {
         "ko": "마량",
-        "zh": "馬良"
+        "zh": "馬良",
+        "en": "Ma Liang"
       },
       "gender": "male",
       "birth": 187,
@@ -6115,7 +6280,8 @@
       "id": "ma_su",
       "name": {
         "ko": "마속",
-        "zh": "馬謖"
+        "zh": "馬謖",
+        "en": "Ma Su"
       },
       "gender": "male",
       "birth": 190,
@@ -6150,7 +6316,8 @@
       "id": "xu_shu",
       "name": {
         "ko": "서서",
-        "zh": "徐庶"
+        "zh": "徐庶",
+        "en": "Xu Shu"
       },
       "gender": "male",
       "birth": 177,
@@ -6186,7 +6353,8 @@
       "id": "li_yan",
       "name": {
         "ko": "이엄",
-        "zh": "李嚴"
+        "zh": "李嚴",
+        "en": "Li Yan"
       },
       "gender": "male",
       "birth": 180,
@@ -6221,7 +6389,8 @@
       "id": "guan_ping",
       "name": {
         "ko": "관평",
-        "zh": "關平"
+        "zh": "關平",
+        "en": "Guan Ping"
       },
       "gender": "male",
       "birth": 178,
@@ -6259,7 +6428,8 @@
       "id": "guan_xing",
       "name": {
         "ko": "관흥",
-        "zh": "關興"
+        "zh": "關興",
+        "en": "Guan Xing"
       },
       "gender": "male",
       "birth": 198,
@@ -6297,7 +6467,8 @@
       "id": "zhang_bao",
       "name": {
         "ko": "장포",
-        "zh": "張苞"
+        "zh": "張苞",
+        "en": "Zhang Bao"
       },
       "gender": "male",
       "birth": 197,
@@ -6335,7 +6506,8 @@
       "id": "zhang_yi",
       "name": {
         "ko": "장익",
-        "zh": "張翼"
+        "zh": "張翼",
+        "en": "Zhang Yi"
       },
       "gender": "male",
       "birth": 190,
@@ -6370,7 +6542,8 @@
       "id": "wang_ping",
       "name": {
         "ko": "왕평",
-        "zh": "王平"
+        "zh": "王平",
+        "en": "Wang Ping"
       },
       "gender": "male",
       "birth": 195,
@@ -6406,7 +6579,8 @@
       "id": "jiang_wei",
       "name": {
         "ko": "강유",
-        "zh": "姜維"
+        "zh": "姜維",
+        "en": "Jiang Wei"
       },
       "gender": "male",
       "birth": 202,
@@ -6442,7 +6616,8 @@
       "id": "jiang_wan",
       "name": {
         "ko": "장완",
-        "zh": "蔣琬"
+        "zh": "蔣琬",
+        "en": "Jiang Wan"
       },
       "gender": "male",
       "birth": 188,
@@ -6477,7 +6652,8 @@
       "id": "fei_yi",
       "name": {
         "ko": "비의",
-        "zh": "費禕"
+        "zh": "費禕",
+        "en": "Fei Yi"
       },
       "gender": "male",
       "birth": 195,
@@ -6512,7 +6688,8 @@
       "id": "dong_yun",
       "name": {
         "ko": "동윤",
-        "zh": "董允"
+        "zh": "董允",
+        "en": "Dong Yun"
       },
       "gender": "male",
       "birth": 194,
@@ -6550,7 +6727,8 @@
       "id": "ma_zhong",
       "name": {
         "ko": "마충",
-        "zh": "馬忠"
+        "zh": "馬忠",
+        "en": "Ma Zhong"
       },
       "gender": "male",
       "birth": 194,
@@ -6585,7 +6763,8 @@
       "id": "liao_hua",
       "name": {
         "ko": "요화",
-        "zh": "廖化"
+        "zh": "廖化",
+        "en": "Liao Hua"
       },
       "gender": "male",
       "birth": 185,
@@ -6620,7 +6799,8 @@
       "id": "wu_ban",
       "name": {
         "ko": "오반",
-        "zh": "吳班"
+        "zh": "吳班",
+        "en": "Wu Ban"
       },
       "gender": "male",
       "birth": 180,
@@ -6655,7 +6835,8 @@
       "id": "li_hui",
       "name": {
         "ko": "이회",
-        "zh": "李恢"
+        "zh": "李恢",
+        "en": "Li Hui"
       },
       "gender": "male",
       "birth": 180,
@@ -6690,7 +6871,8 @@
       "id": "sun_qian",
       "name": {
         "ko": "손건",
-        "zh": "孫乾"
+        "zh": "孫乾",
+        "en": "Sun Qian"
       },
       "gender": "male",
       "birth": 160,
@@ -6725,7 +6907,8 @@
       "id": "yi_ji",
       "name": {
         "ko": "이적",
-        "zh": "伊籍"
+        "zh": "伊籍",
+        "en": "Yi Ji"
       },
       "gender": "male",
       "birth": 165,
@@ -6760,7 +6943,8 @@
       "id": "liu_feng",
       "name": {
         "ko": "유봉",
-        "zh": "劉封"
+        "zh": "劉封",
+        "en": "Liu Feng"
       },
       "gender": "male",
       "birth": 190,
@@ -6798,7 +6982,8 @@
       "id": "meng_da",
       "name": {
         "ko": "맹달",
-        "zh": "孟達"
+        "zh": "孟達",
+        "en": "Meng Da"
       },
       "gender": "male",
       "birth": 175,
@@ -6833,7 +7018,8 @@
       "id": "liu_shan",
       "name": {
         "ko": "유선",
-        "zh": "劉禪"
+        "zh": "劉禪",
+        "en": "Liu Shan"
       },
       "gender": "male",
       "birth": 207,
@@ -6877,7 +7063,8 @@
       "id": "chen_dao",
       "name": {
         "ko": "진도",
-        "zh": "陳到"
+        "zh": "陳到",
+        "en": "Chen Dao"
       },
       "gender": "male",
       "birth": 170,
@@ -6912,7 +7099,8 @@
       "id": "deng_zhi",
       "name": {
         "ko": "등지",
-        "zh": "鄧芝"
+        "zh": "鄧芝",
+        "en": "Deng Zhi"
       },
       "gender": "male",
       "birth": 178,
@@ -6947,7 +7135,8 @@
       "id": "zhang_ni",
       "name": {
         "ko": "장억",
-        "zh": "張嶷"
+        "zh": "張嶷",
+        "en": "Zhang Ni"
       },
       "gender": "male",
       "birth": 200,
@@ -6982,7 +7171,8 @@
       "id": "guo_youzhi",
       "name": {
         "ko": "곽유지",
-        "zh": "郭攸之"
+        "zh": "郭攸之",
+        "en": "Guo Youzhi"
       },
       "gender": "male",
       "birth": 185,
@@ -7017,7 +7207,8 @@
       "id": "dong_he",
       "name": {
         "ko": "동화",
-        "zh": "董和"
+        "zh": "董和",
+        "en": "Dong He"
       },
       "gender": "male",
       "birth": 160,
@@ -7052,7 +7243,8 @@
       "id": "yang_yi",
       "name": {
         "ko": "양의",
-        "zh": "楊儀"
+        "zh": "楊儀",
+        "en": "Yang Yi"
       },
       "gender": "male",
       "birth": 190,
@@ -7087,7 +7279,8 @@
       "id": "fei_shi",
       "name": {
         "ko": "비시",
-        "zh": "費詩"
+        "zh": "費詩",
+        "en": "Fei Shi"
       },
       "gender": "male",
       "birth": 180,
@@ -7122,7 +7315,8 @@
       "id": "qiao_zhou",
       "name": {
         "ko": "초주",
-        "zh": "譙周"
+        "zh": "譙周",
+        "en": "Qiao Zhou"
       },
       "gender": "male",
       "birth": 201,
@@ -7158,7 +7352,8 @@
       "id": "zhuge_zhan",
       "name": {
         "ko": "제갈첨",
-        "zh": "諸葛瞻"
+        "zh": "諸葛瞻",
+        "en": "Zhuge Zhan"
       },
       "gender": "male",
       "birth": 227,
@@ -7196,7 +7391,8 @@
       "id": "fu_qian",
       "name": {
         "ko": "부첨",
-        "zh": "傅僉"
+        "zh": "傅僉",
+        "en": "Fu Qian"
       },
       "gender": "male",
       "birth": 220,
@@ -7231,7 +7427,8 @@
       "id": "meng_huo",
       "name": {
         "ko": "맹획",
-        "zh": "孟獲"
+        "zh": "孟獲",
+        "en": "Meng Huo"
       },
       "gender": "male",
       "birth": 180,
@@ -7281,7 +7478,8 @@
       "id": "zhu_rong",
       "name": {
         "ko": "축융",
-        "zh": "祝融"
+        "zh": "祝融",
+        "en": "Zhurong"
       },
       "gender": "female",
       "birth": 185,
@@ -7321,7 +7519,8 @@
       "id": "meng_you",
       "name": {
         "ko": "맹우",
-        "zh": "孟優"
+        "zh": "孟優",
+        "en": "Meng You"
       },
       "gender": "male",
       "birth": 182,
@@ -7361,7 +7560,8 @@
       "id": "wutugu",
       "name": {
         "ko": "올돌골",
-        "zh": "兀突骨"
+        "zh": "兀突骨",
+        "en": "Wutugu"
       },
       "gender": "male",
       "birth": 170,
@@ -7397,7 +7597,8 @@
       "id": "mulu",
       "name": {
         "ko": "목록대왕",
-        "zh": "木鹿大王"
+        "zh": "木鹿大王",
+        "en": "King Mulu"
       },
       "gender": "male",
       "birth": 180,
@@ -7432,7 +7633,8 @@
       "id": "shamoke",
       "name": {
         "ko": "사마가",
-        "zh": "沙摩柯"
+        "zh": "沙摩柯",
+        "en": "Shamoke"
       },
       "gender": "male",
       "birth": 180,
@@ -7467,7 +7669,8 @@
       "id": "leng_bao",
       "name": {
         "ko": "냉포",
-        "zh": "冷苞"
+        "zh": "冷苞",
+        "en": "Leng Bao"
       },
       "gender": "male",
       "birth": 175,
@@ -7502,7 +7705,8 @@
       "id": "deng_xian",
       "name": {
         "ko": "등현",
-        "zh": "鄧賢"
+        "zh": "鄧賢",
+        "en": "Deng Xian"
       },
       "gender": "male",
       "birth": 175,
@@ -7537,7 +7741,8 @@
       "id": "liu_gui",
       "name": {
         "ko": "유괴",
-        "zh": "劉璝"
+        "zh": "劉璝",
+        "en": "Liu Gui"
       },
       "gender": "male",
       "birth": 170,
@@ -7572,7 +7777,8 @@
       "id": "gao_pei",
       "name": {
         "ko": "고패",
-        "zh": "高沛"
+        "zh": "高沛",
+        "en": "Gao Pei"
       },
       "gender": "male",
       "birth": 170,
@@ -7607,7 +7813,8 @@
       "id": "yang_huai",
       "name": {
         "ko": "양회",
-        "zh": "楊懷"
+        "zh": "楊懷",
+        "en": "Yang Huai"
       },
       "gender": "male",
       "birth": 170,
@@ -7642,7 +7849,8 @@
       "id": "liu_ba",
       "name": {
         "ko": "유파",
-        "zh": "劉巴"
+        "zh": "劉巴",
+        "en": "Liu Ba"
       },
       "gender": "male",
       "birth": 186,
@@ -7678,7 +7886,8 @@
       "id": "yan_pu",
       "name": {
         "ko": "염포",
-        "zh": "閻圃"
+        "zh": "閻圃",
+        "en": "Yan Pu"
       },
       "gender": "male",
       "birth": 170,
@@ -7713,7 +7922,8 @@
       "id": "yang_song",
       "name": {
         "ko": "양송",
-        "zh": "楊松"
+        "zh": "楊松",
+        "en": "Yang Song"
       },
       "gender": "male",
       "birth": 170,
@@ -7748,7 +7958,8 @@
       "id": "yang_ang",
       "name": {
         "ko": "양앙",
-        "zh": "楊昂"
+        "zh": "楊昂",
+        "en": "Yang Ang"
       },
       "gender": "male",
       "birth": 170,
@@ -7783,7 +7994,8 @@
       "id": "zhang_wei",
       "name": {
         "ko": "장위",
-        "zh": "張衛"
+        "zh": "張衛",
+        "en": "Zhang Wei"
       },
       "gender": "male",
       "birth": 175,
@@ -7823,7 +8035,8 @@
       "id": "liu_qi",
       "name": {
         "ko": "유기",
-        "zh": "劉琦"
+        "zh": "劉琦",
+        "en": "Liu Qi"
       },
       "gender": "male",
       "birth": 180,
@@ -7870,7 +8083,8 @@
       "id": "liu_cong",
       "name": {
         "ko": "유종",
-        "zh": "劉琮"
+        "zh": "劉琮",
+        "en": "Liu Cong"
       },
       "gender": "male",
       "birth": 190,
@@ -7917,7 +8131,8 @@
       "id": "han_xuan",
       "name": {
         "ko": "한현",
-        "zh": "韓玄"
+        "zh": "韓玄",
+        "en": "Han Xuan"
       },
       "gender": "male",
       "birth": 160,
@@ -7958,7 +8173,8 @@
       "id": "jin_xuan",
       "name": {
         "ko": "김선",
-        "zh": "金旋"
+        "zh": "金旋",
+        "en": "Jin Xuan"
       },
       "gender": "male",
       "birth": 165,
@@ -7999,7 +8215,8 @@
       "id": "zhao_fan",
       "name": {
         "ko": "조범",
-        "zh": "趙範"
+        "zh": "趙範",
+        "en": "Zhao Fan"
       },
       "gender": "male",
       "birth": 165,
@@ -8040,7 +8257,8 @@
       "id": "liu_du",
       "name": {
         "ko": "유도",
-        "zh": "劉度"
+        "zh": "劉度",
+        "en": "Liu Du"
       },
       "gender": "male",
       "birth": 160,
@@ -8081,7 +8299,8 @@
       "id": "xing_daorong",
       "name": {
         "ko": "형도영",
-        "zh": "邢道榮"
+        "zh": "邢道榮",
+        "en": "Xing Daorong"
       },
       "gender": "male",
       "birth": 170,
@@ -8116,7 +8335,8 @@
       "id": "wang_wei",
       "name": {
         "ko": "왕위",
-        "zh": "王威"
+        "zh": "王威",
+        "en": "Wang Wei"
       },
       "gender": "male",
       "birth": 170,
@@ -8151,7 +8371,8 @@
       "id": "lu_meng",
       "name": {
         "ko": "여몽",
-        "zh": "呂蒙"
+        "zh": "呂蒙",
+        "en": "Lu Meng"
       },
       "gender": "male",
       "birth": 178,
@@ -8187,7 +8408,8 @@
       "id": "lu_xun",
       "name": {
         "ko": "육손",
-        "zh": "陸遜"
+        "zh": "陸遜",
+        "en": "Lu Xun"
       },
       "gender": "male",
       "birth": 183,
@@ -8223,7 +8445,8 @@
       "id": "gan_ning",
       "name": {
         "ko": "감녕",
-        "zh": "甘寧"
+        "zh": "甘寧",
+        "en": "Gan Ning"
       },
       "gender": "male",
       "birth": 175,
@@ -8259,7 +8482,8 @@
       "id": "zhou_tai",
       "name": {
         "ko": "주태",
-        "zh": "周泰"
+        "zh": "周泰",
+        "en": "Zhou Tai"
       },
       "gender": "male",
       "birth": 165,
@@ -8295,7 +8519,8 @@
       "id": "jiang_qin",
       "name": {
         "ko": "장흠",
-        "zh": "蔣欽"
+        "zh": "蔣欽",
+        "en": "Jiang Qin"
       },
       "gender": "male",
       "birth": 168,
@@ -8330,7 +8555,8 @@
       "id": "chen_wu",
       "name": {
         "ko": "진무",
-        "zh": "陳武"
+        "zh": "陳武",
+        "en": "Chen Wu"
       },
       "gender": "male",
       "birth": 177,
@@ -8365,7 +8591,8 @@
       "id": "ling_tong",
       "name": {
         "ko": "능통",
-        "zh": "凌統"
+        "zh": "凌統",
+        "en": "Ling Tong"
       },
       "gender": "male",
       "birth": 189,
@@ -8403,7 +8630,8 @@
       "id": "ling_cao",
       "name": {
         "ko": "능조",
-        "zh": "凌操"
+        "zh": "凌操",
+        "en": "Ling Cao"
       },
       "gender": "male",
       "birth": 160,
@@ -8438,7 +8666,8 @@
       "id": "xu_sheng",
       "name": {
         "ko": "서성",
-        "zh": "徐盛"
+        "zh": "徐盛",
+        "en": "Xu Sheng"
       },
       "gender": "male",
       "birth": 177,
@@ -8474,7 +8703,8 @@
       "id": "ding_feng",
       "name": {
         "ko": "정봉",
-        "zh": "丁奉"
+        "zh": "丁奉",
+        "en": "Ding Feng"
       },
       "gender": "male",
       "birth": 190,
@@ -8509,7 +8739,8 @@
       "id": "pan_zhang",
       "name": {
         "ko": "반장",
-        "zh": "潘璋"
+        "zh": "潘璋",
+        "en": "Pan Zhang"
       },
       "gender": "male",
       "birth": 175,
@@ -8544,7 +8775,8 @@
       "id": "zhu_huan",
       "name": {
         "ko": "주환",
-        "zh": "朱桓"
+        "zh": "朱桓",
+        "en": "Zhu Huan"
       },
       "gender": "male",
       "birth": 177,
@@ -8579,7 +8811,8 @@
       "id": "zhu_ran",
       "name": {
         "ko": "주연",
-        "zh": "朱然"
+        "zh": "朱然",
+        "en": "Zhu Ran"
       },
       "gender": "male",
       "birth": 182,
@@ -8614,7 +8847,8 @@
       "id": "sun_yi",
       "name": {
         "ko": "손익",
-        "zh": "孫翊"
+        "zh": "孫翊",
+        "en": "Sun Yi"
       },
       "gender": "male",
       "birth": 184,
@@ -8656,7 +8890,8 @@
       "id": "sun_shao",
       "name": {
         "ko": "손소",
-        "zh": "孫韶"
+        "zh": "孫韶",
+        "en": "Sun Shao"
       },
       "gender": "male",
       "birth": 188,
@@ -8691,7 +8926,8 @@
       "id": "sun_huan",
       "name": {
         "ko": "손환",
-        "zh": "孫桓"
+        "zh": "孫桓",
+        "en": "Sun Huan"
       },
       "gender": "male",
       "birth": 198,
@@ -8726,7 +8962,8 @@
       "id": "sun_shangxiang",
       "name": {
         "ko": "손상향",
-        "zh": "孫尚香"
+        "zh": "孫尚香",
+        "en": "Sun Shangxiang"
       },
       "gender": "female",
       "birth": 189,
@@ -8768,7 +9005,8 @@
       "id": "zhang_zhao",
       "name": {
         "ko": "장소",
-        "zh": "張昭"
+        "zh": "張昭",
+        "en": "Zhang Zhao"
       },
       "gender": "male",
       "birth": 156,
@@ -8804,7 +9042,8 @@
       "id": "zhang_hong",
       "name": {
         "ko": "장굉",
-        "zh": "張紘"
+        "zh": "張紘",
+        "en": "Zhang Hong"
       },
       "gender": "male",
       "birth": 153,
@@ -8839,7 +9078,8 @@
       "id": "gu_yong",
       "name": {
         "ko": "고옹",
-        "zh": "顧雍"
+        "zh": "顧雍",
+        "en": "Gu Yong"
       },
       "gender": "male",
       "birth": 168,
@@ -8874,7 +9114,8 @@
       "id": "zhuge_jin",
       "name": {
         "ko": "제갈근",
-        "zh": "諸葛瑾"
+        "zh": "諸葛瑾",
+        "en": "Zhuge Jin"
       },
       "gender": "male",
       "birth": 174,
@@ -8909,7 +9150,8 @@
       "id": "zhuge_ke",
       "name": {
         "ko": "제갈각",
-        "zh": "諸葛恪"
+        "zh": "諸葛恪",
+        "en": "Zhuge Ke"
       },
       "gender": "male",
       "birth": 203,
@@ -8947,7 +9189,8 @@
       "id": "yu_fan",
       "name": {
         "ko": "우번",
-        "zh": "虞翻"
+        "zh": "虞翻",
+        "en": "Yu Fan"
       },
       "gender": "male",
       "birth": 164,
@@ -8982,7 +9225,8 @@
       "id": "kan_ze",
       "name": {
         "ko": "감택",
-        "zh": "闞澤"
+        "zh": "闞澤",
+        "en": "Kan Ze"
       },
       "gender": "male",
       "birth": 170,
@@ -9017,7 +9261,8 @@
       "id": "bu_zhi",
       "name": {
         "ko": "보즐",
-        "zh": "步騭"
+        "zh": "步騭",
+        "en": "Bu Zhi"
       },
       "gender": "male",
       "birth": 175,
@@ -9052,7 +9297,8 @@
       "id": "luo_tong",
       "name": {
         "ko": "낙통",
-        "zh": "駱統"
+        "zh": "駱統",
+        "en": "Luo Tong"
       },
       "gender": "male",
       "birth": 193,
@@ -9087,7 +9333,8 @@
       "id": "lu_ji",
       "name": {
         "ko": "육적",
-        "zh": "陸績"
+        "zh": "陸績",
+        "en": "Lu Ji"
       },
       "gender": "male",
       "birth": 188,
@@ -9122,7 +9369,8 @@
       "id": "lu_fan",
       "name": {
         "ko": "여범",
-        "zh": "呂範"
+        "zh": "呂範",
+        "en": "Lu Fan"
       },
       "gender": "male",
       "birth": 165,
@@ -9157,7 +9405,8 @@
       "id": "zhu_zhi",
       "name": {
         "ko": "주치",
-        "zh": "朱治"
+        "zh": "朱治",
+        "en": "Zhu Zhi"
       },
       "gender": "male",
       "birth": 156,
@@ -9192,7 +9441,8 @@
       "id": "quan_cong",
       "name": {
         "ko": "전종",
-        "zh": "全琮"
+        "zh": "全琮",
+        "en": "Quan Cong"
       },
       "gender": "male",
       "birth": 198,
@@ -9227,7 +9477,8 @@
       "id": "he_qi",
       "name": {
         "ko": "하제",
-        "zh": "賀齊"
+        "zh": "賀齊",
+        "en": "He Qi"
       },
       "gender": "male",
       "birth": 170,
@@ -9262,7 +9513,8 @@
       "id": "dong_xi",
       "name": {
         "ko": "동습",
-        "zh": "董襲"
+        "zh": "董襲",
+        "en": "Dong Xi"
       },
       "gender": "male",
       "birth": 170,
@@ -9297,7 +9549,8 @@
       "id": "lu_kang",
       "name": {
         "ko": "육항",
-        "zh": "陸抗"
+        "zh": "陸抗",
+        "en": "Lu Kang"
       },
       "gender": "male",
       "birth": 226,
@@ -9336,7 +9589,8 @@
       "id": "wu_jing",
       "name": {
         "ko": "오경",
-        "zh": "吳景"
+        "zh": "吳景",
+        "en": "Wu Jing"
       },
       "gender": "male",
       "birth": 155,
@@ -9371,7 +9625,8 @@
       "id": "sun_jing",
       "name": {
         "ko": "손정",
-        "zh": "孫靜"
+        "zh": "孫靜",
+        "en": "Sun Jing"
       },
       "gender": "male",
       "birth": 158,
@@ -9411,7 +9666,8 @@
       "id": "yuan_tan",
       "name": {
         "ko": "원담",
-        "zh": "袁譚"
+        "zh": "袁譚",
+        "en": "Yuan Tan"
       },
       "gender": "male",
       "birth": 173,
@@ -9459,7 +9715,8 @@
       "id": "yuan_xi",
       "name": {
         "ko": "원희",
-        "zh": "袁熙"
+        "zh": "袁熙",
+        "en": "Yuan Xi"
       },
       "gender": "male",
       "birth": 176,
@@ -9507,7 +9764,8 @@
       "id": "yuan_shang",
       "name": {
         "ko": "원상",
-        "zh": "袁尚"
+        "zh": "袁尚",
+        "en": "Yuan Shang"
       },
       "gender": "male",
       "birth": 178,
@@ -9555,7 +9813,8 @@
       "id": "chunyu_qiong",
       "name": {
         "ko": "순우경",
-        "zh": "淳于瓊"
+        "zh": "淳于瓊",
+        "en": "Chunyu Qiong"
       },
       "gender": "male",
       "birth": 150,
@@ -9590,7 +9849,8 @@
       "id": "zhang_yan",
       "name": {
         "ko": "장연",
-        "zh": "張燕"
+        "zh": "張燕",
+        "en": "Zhang Yan"
       },
       "gender": "male",
       "birth": 165,
@@ -9632,7 +9892,8 @@
       "id": "gao_gan",
       "name": {
         "ko": "고간",
-        "zh": "高幹"
+        "zh": "高幹",
+        "en": "Gao Gan"
       },
       "gender": "male",
       "birth": 168,
@@ -9667,7 +9928,8 @@
       "id": "liu_yu",
       "name": {
         "ko": "유우",
-        "zh": "劉虞"
+        "zh": "劉虞",
+        "en": "Liu Yu"
       },
       "gender": "male",
       "birth": 140,
@@ -9709,7 +9971,8 @@
       "id": "liu_dai",
       "name": {
         "ko": "유대",
-        "zh": "劉岱"
+        "zh": "劉岱",
+        "en": "Liu Dai"
       },
       "gender": "male",
       "birth": 150,
@@ -9755,7 +10018,8 @@
       "id": "qiao_mao",
       "name": {
         "ko": "교모",
-        "zh": "橋瑁"
+        "zh": "橋瑁",
+        "en": "Qiao Mao"
       },
       "gender": "male",
       "birth": 145,
@@ -9796,7 +10060,8 @@
       "id": "zhang_miao",
       "name": {
         "ko": "장막",
-        "zh": "張邈"
+        "zh": "張邈",
+        "en": "Zhang Miao"
       },
       "gender": "male",
       "birth": 150,
@@ -9842,7 +10107,8 @@
       "id": "zhang_chao",
       "name": {
         "ko": "장초",
-        "zh": "張超"
+        "zh": "張超",
+        "en": "Zhang Chao"
       },
       "gender": "male",
       "birth": 155,
@@ -9888,7 +10154,8 @@
       "id": "liu_yao",
       "name": {
         "ko": "유요",
-        "zh": "劉繇"
+        "zh": "劉繇",
+        "en": "Liu Yao"
       },
       "gender": "male",
       "birth": 156,
@@ -9934,7 +10201,8 @@
       "id": "yan_baihu",
       "name": {
         "ko": "엄백호",
-        "zh": "嚴白虎"
+        "zh": "嚴白虎",
+        "en": "Yan Baihu"
       },
       "gender": "male",
       "birth": 160,
@@ -9975,7 +10243,8 @@
       "id": "shi_xie",
       "name": {
         "ko": "사섭",
-        "zh": "士燮"
+        "zh": "士燮",
+        "en": "Shi Xie"
       },
       "gender": "male",
       "birth": 137,
@@ -10017,7 +10286,8 @@
       "id": "song_xian",
       "name": {
         "ko": "송헌",
-        "zh": "宋憲"
+        "zh": "宋憲",
+        "en": "Song Xian"
       },
       "gender": "male",
       "birth": 165,
@@ -10052,7 +10322,8 @@
       "id": "wei_xu",
       "name": {
         "ko": "위속",
-        "zh": "魏續"
+        "zh": "魏續",
+        "en": "Wei Xu"
       },
       "gender": "male",
       "birth": 165,
@@ -10087,7 +10358,8 @@
       "id": "hou_cheng",
       "name": {
         "ko": "후성",
-        "zh": "侯成"
+        "zh": "侯成",
+        "en": "Hou Cheng"
       },
       "gender": "male",
       "birth": 165,
@@ -10122,7 +10394,8 @@
       "id": "hao_meng",
       "name": {
         "ko": "학맹",
-        "zh": "郝萌"
+        "zh": "郝萌",
+        "en": "Hao Meng"
       },
       "gender": "male",
       "birth": 160,
@@ -10157,7 +10430,8 @@
       "id": "cao_xing",
       "name": {
         "ko": "조성",
-        "zh": "曹性"
+        "zh": "曹性",
+        "en": "Cao Xing"
       },
       "gender": "male",
       "birth": 170,
@@ -10192,7 +10466,8 @@
       "id": "hu_cheer",
       "name": {
         "ko": "호거아",
-        "zh": "胡車兒"
+        "zh": "胡車兒",
+        "en": "Hu Che'er"
       },
       "gender": "male",
       "birth": 165,
@@ -10227,7 +10502,8 @@
       "id": "cheng_yi",
       "name": {
         "ko": "성의",
-        "zh": "成宜"
+        "zh": "成宜",
+        "en": "Cheng Yi"
       },
       "gender": "male",
       "birth": 170,
@@ -10262,7 +10538,8 @@
       "id": "yan_xing",
       "name": {
         "ko": "염행",
-        "zh": "閻行"
+        "zh": "閻行",
+        "en": "Yan Xing"
       },
       "gender": "male",
       "birth": 170,
@@ -10297,7 +10574,8 @@
       "id": "yang_qiu",
       "name": {
         "ko": "양추",
-        "zh": "楊秋"
+        "zh": "楊秋",
+        "en": "Yang Qiu"
       },
       "gender": "male",
       "birth": 170,
@@ -10332,7 +10610,8 @@
       "id": "hou_xuan",
       "name": {
         "ko": "후선",
-        "zh": "侯選"
+        "zh": "侯選",
+        "en": "Hou Xuan"
       },
       "gender": "male",
       "birth": 170,
@@ -10367,7 +10646,8 @@
       "id": "diao_chan",
       "name": {
         "ko": "초선",
-        "zh": "貂蟬"
+        "zh": "貂蟬",
+        "en": "Diaochan"
       },
       "gender": "female",
       "birth": 176,
@@ -10403,7 +10683,8 @@
       "id": "wang_kuang",
       "name": {
         "ko": "왕광",
-        "zh": "王匡"
+        "zh": "王匡",
+        "en": "Wang Kuang"
       },
       "gender": "male",
       "birth": 150,
@@ -10444,7 +10725,8 @@
       "id": "bao_xin",
       "name": {
         "ko": "포신",
-        "zh": "鮑信"
+        "zh": "鮑信",
+        "en": "Bao Xin"
       },
       "gender": "male",
       "birth": 152,

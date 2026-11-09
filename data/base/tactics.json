@@ -6,7 +6,8 @@
       "required_rank": "B",
       "name": {
         "ko": "돌파",
-        "zh": "突破"
+        "zh": "突破",
+        "en": "Breach"
       },
       "energy_cost": 20,
       "power": 1.3,
@@ -27,7 +28,8 @@
       "required_rank": "A",
       "name": {
         "ko": "관통",
-        "zh": "貫通"
+        "zh": "貫通",
+        "en": "Pierce"
       },
       "energy_cost": 25,
       "power": 1.2,
@@ -46,7 +48,8 @@
       "required_rank": "S",
       "name": {
         "ko": "난전",
-        "zh": "亂戰"
+        "zh": "亂戰",
+        "en": "Melee"
       },
       "energy_cost": 30,
       "power": 1.2,
@@ -64,7 +67,8 @@
       "required_rank": "B",
       "name": {
         "ko": "협공",
-        "zh": "挾攻"
+        "zh": "挾攻",
+        "en": "Pincer"
       },
       "energy_cost": 20,
       "power": 1.1,
@@ -82,7 +86,8 @@
       "required_rank": "A",
       "name": {
         "ko": "포위",
-        "zh": "包圍"
+        "zh": "包圍",
+        "en": "Envelop"
       },
       "energy_cost": 30,
       "power": 1.0,
@@ -100,7 +105,8 @@
       "required_rank": "S",
       "name": {
         "ko": "섬멸",
-        "zh": "殲滅"
+        "zh": "殲滅",
+        "en": "Annihilate"
       },
       "energy_cost": 35,
       "power": 1.4,
@@ -119,7 +125,8 @@
       "required_rank": "B",
       "name": {
         "ko": "견수",
-        "zh": "堅守"
+        "zh": "堅守",
+        "en": "Hold Fast"
       },
       "energy_cost": 15,
       "power": 0,
@@ -139,7 +146,8 @@
       "required_rank": "A",
       "name": {
         "ko": "역습",
-        "zh": "逆襲"
+        "zh": "逆襲",
+        "en": "Riposte"
       },
       "energy_cost": 20,
       "power": 0,
@@ -158,7 +166,8 @@
       "required_rank": "S",
       "name": {
         "ko": "고수",
-        "zh": "固守"
+        "zh": "固守",
+        "en": "Steadfast"
       },
       "energy_cost": 25,
       "power": 0,
@@ -177,7 +186,8 @@
       "required_rank": "B",
       "name": {
         "ko": "연격",
-        "zh": "連擊"
+        "zh": "連擊",
+        "en": "Double Strike"
       },
       "energy_cost": 25,
       "power": 0.8,
@@ -195,7 +205,8 @@
       "required_rank": "A",
       "name": {
         "ko": "유인",
-        "zh": "誘引"
+        "zh": "誘引",
+        "en": "Lure"
       },
       "energy_cost": 20,
       "power": 0.9,
@@ -213,7 +224,8 @@
       "required_rank": "S",
       "name": {
         "ko": "선회",
-        "zh": "旋回"
+        "zh": "旋回",
+        "en": "Wheel"
       },
       "energy_cost": 25,
       "power": 1.1,
@@ -231,7 +243,8 @@
       "required_rank": "B",
       "name": {
         "ko": "질주",
-        "zh": "疾走"
+        "zh": "疾走",
+        "en": "Dash"
       },
       "energy_cost": 20,
       "power": 1.1,
@@ -249,7 +262,8 @@
       "required_rank": "A",
       "name": {
         "ko": "돌격",
-        "zh": "突擊"
+        "zh": "突擊",
+        "en": "Charge"
       },
       "energy_cost": 30,
       "power": 1.3,
@@ -267,7 +281,8 @@
       "required_rank": "S",
       "name": {
         "ko": "유린",
-        "zh": "蹂躙"
+        "zh": "蹂躙",
+        "en": "Trample"
       },
       "energy_cost": 35,
       "power": 1.3,
@@ -286,7 +301,8 @@
       "required_rank": "B",
       "name": {
         "ko": "일제사격",
-        "zh": "齊射"
+        "zh": "齊射",
+        "en": "Volley"
       },
       "energy_cost": 15,
       "power": 1.2,
@@ -299,7 +315,8 @@
       "required_rank": "A",
       "name": {
         "ko": "화시",
-        "zh": "火矢"
+        "zh": "火矢",
+        "en": "Fire Arrows"
       },
       "energy_cost": 25,
       "power": 1.0,
@@ -317,7 +334,8 @@
       "required_rank": "S",
       "name": {
         "ko": "난사",
-        "zh": "亂射"
+        "zh": "亂射",
+        "en": "Barrage"
       },
       "energy_cost": 35,
       "power": 1.0,
@@ -336,7 +354,8 @@
       "required_rank": "B",
       "name": {
         "ko": "충차",
-        "zh": "衝車"
+        "zh": "衝車",
+        "en": "Battering Ram"
       },
       "energy_cost": 20,
       "power": 1.5,
@@ -353,7 +372,8 @@
       "required_rank": "A",
       "name": {
         "ko": "투석",
-        "zh": "投石"
+        "zh": "投石",
+        "en": "Catapult"
       },
       "energy_cost": 30,
       "power": 1.2,
@@ -376,7 +396,8 @@
       "required_rank": "S",
       "name": {
         "ko": "정란",
-        "zh": "井闌"
+        "zh": "井闌",
+        "en": "Siege Tower"
       },
       "energy_cost": 25,
       "power": 1.2,
@@ -393,7 +414,8 @@
       "required_rank": "B",
       "name": {
         "ko": "충돌",
-        "zh": "衝突"
+        "zh": "衝突",
+        "en": "Ramming"
       },
       "energy_cost": 20,
       "power": 1.3,
@@ -406,7 +428,8 @@
       "required_rank": "A",
       "name": {
         "ko": "노포",
-        "zh": "弩砲"
+        "zh": "弩砲",
+        "en": "Ballista"
       },
       "energy_cost": 25,
       "power": 1.1,
@@ -424,7 +447,8 @@
       "required_rank": "S",
       "name": {
         "ko": "화공선",
-        "zh": "火攻船"
+        "zh": "火攻船",
+        "en": "Fire Ship"
       },
       "energy_cost": 35,
       "power": 1.0,

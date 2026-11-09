@@ -4,7 +4,8 @@
       "id": "plain",
       "name": {
         "ko": "평지",
-        "zh": "平地"
+        "zh": "平地",
+        "en": "Plain"
       },
       "move_cost": 1,
       "passable_land": true,
@@ -14,7 +15,8 @@
       "id": "road",
       "name": {
         "ko": "도로",
-        "zh": "道"
+        "zh": "道",
+        "en": "Road"
       },
       "move_cost": 1,
       "passable_land": true,
@@ -24,7 +26,8 @@
       "id": "forest",
       "name": {
         "ko": "숲",
-        "zh": "林"
+        "zh": "林",
+        "en": "Forest"
       },
       "move_cost": 2,
       "passable_land": true,
@@ -35,7 +38,8 @@
       "id": "mountain",
       "name": {
         "ko": "산",
-        "zh": "山"
+        "zh": "山",
+        "en": "Mountain"
       },
       "move_cost": 3,
       "passable_land": true,
@@ -46,7 +50,8 @@
       "id": "marsh",
       "name": {
         "ko": "습지",
-        "zh": "沼"
+        "zh": "沼",
+        "en": "Marsh"
       },
       "move_cost": 3,
       "passable_land": true,
@@ -56,7 +61,8 @@
       "id": "ford",
       "name": {
         "ko": "여울",
-        "zh": "灘"
+        "zh": "灘",
+        "en": "Shallows"
       },
       "move_cost": 3,
       "passable_land": true,
@@ -67,7 +73,8 @@
       "id": "river",
       "name": {
         "ko": "강",
-        "zh": "河"
+        "zh": "河",
+        "en": "River"
       },
       "move_cost": 1,
       "passable_land": false,
@@ -77,7 +84,8 @@
       "id": "sea",
       "name": {
         "ko": "바다",
-        "zh": "海"
+        "zh": "海",
+        "en": "Sea"
       },
       "move_cost": 1,
       "passable_land": false,
@@ -87,7 +95,8 @@
       "id": "street",
       "name": {
         "ko": "시가",
-        "zh": "市街"
+        "zh": "市街",
+        "en": "Street"
       },
       "move_cost": 1,
       "passable_land": true,
@@ -98,7 +107,8 @@
       "id": "city_wall",
       "name": {
         "ko": "성벽",
-        "zh": "城壁"
+        "zh": "城壁",
+        "en": "City Wall"
       },
       "move_cost": null,
       "passable_land": false,
@@ -109,7 +119,8 @@
       "id": "gate",
       "name": {
         "ko": "성문",
-        "zh": "城門"
+        "zh": "城門",
+        "en": "Gate"
       },
       "move_cost": null,
       "passable_land": false,

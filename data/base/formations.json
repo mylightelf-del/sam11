@@ -4,7 +4,8 @@
       "id": "fish_scale",
       "name": {
         "ko": "어린",
-        "zh": "魚鱗"
+        "zh": "魚鱗",
+        "en": "Fish Scale"
       },
       "category": "base",
       "required_equipment": null,
@@ -39,7 +40,8 @@
       "id": "crane_wing",
       "name": {
         "ko": "학익",
-        "zh": "鶴翼"
+        "zh": "鶴翼",
+        "en": "Crane Wing"
       },
       "category": "base",
       "required_equipment": null,
@@ -74,7 +76,8 @@
       "id": "square",
       "name": {
         "ko": "방원",
-        "zh": "方圓"
+        "zh": "方圓",
+        "en": "Square"
       },
       "category": "base",
       "required_equipment": null,
@@ -110,7 +113,8 @@
       "id": "long_snake",
       "name": {
         "ko": "장사",
-        "zh": "長蛇"
+        "zh": "長蛇",
+        "en": "Long Snake"
       },
       "category": "base",
       "required_equipment": null,
@@ -145,7 +149,8 @@
       "id": "wedge",
       "name": {
         "ko": "추행",
-        "zh": "錐行"
+        "zh": "錐行",
+        "en": "Wedge"
       },
       "category": "equipment",
       "required_equipment": "horse",
@@ -179,7 +184,8 @@
       "id": "wild_geese",
       "name": {
         "ko": "안행",
-        "zh": "雁行"
+        "zh": "雁行",
+        "en": "Wild Geese"
       },
       "category": "equipment",
       "required_equipment": "crossbow",
@@ -216,7 +222,8 @@
       "id": "siege",
       "name": {
         "ko": "공성진",
-        "zh": "攻城陣"
+        "zh": "攻城陣",
+        "en": "Siege"
       },
       "category": "equipment",
       "required_equipment": "siege_engine",
@@ -247,7 +254,8 @@
       "id": "naval",
       "name": {
         "ko": "수진",
-        "zh": "水陣"
+        "zh": "水陣",
+        "en": "Navy"
       },
       "category": "equipment",
       "required_equipment": "ship",
