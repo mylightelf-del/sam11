@@ -280,6 +280,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
     {
         ulong seed = seed0 + (ulong)run;
         var w = ScenarioLoader.Load(data, map, Environment.GetEnvironmentVariable("SIM_SCENARIO") ?? "190", seed);
+        if (Environment.GetEnvironmentVariable("SIM_LIFESPAN") is string life) w.Options.Lifespan = Enum.Parse<LifespanMode>(life, true);
         var game = new Game(w, seed);
         var ais = new Dictionary<string, Sam11.Core.AI.AiController>();
         foreach (var f in w.Factions.Keys)
