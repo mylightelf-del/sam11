@@ -206,6 +206,7 @@ namespace Sam11.Core.World
                 w.Insiders.Remove(kv.Key);
                 if (gate == null) continue; // 이미 성문이 다 열렸다
                 g.Field.Structures[gate.Value].Durability = 0;
+                g.Field.StructureVersion++;
                 g.Field.Map.Set(gate.Value, "street");
                 w.Log.Add($"[{w.Date}] ★ 내응! {city}의 성문이 안에서 열렸다");
                 g.Field.Log.Add($"내응! {city}의 성문이 안에서 열렸다");

@@ -40,6 +40,7 @@ namespace Sam11.Core.World
         public int GarrisonStandDownRadius = 7;
 
         private int _capturesDone, _fatesDone;
+        private int _structuresSynced = -1;
 
         public Game(WorldState world, ulong seed)
         {
@@ -260,13 +261,19 @@ namespace Sam11.Core.World
                 foreach (var id in cap.Officers)
                     if (World.Officers.TryGetValue(id, out var o)) o.Merit += World.Data.Rules.Merit.Capture;
             }
-            SiegeSetup.SyncStructures(World, Field);
+            if (_structuresSynced != Field.StructureVersion)
+            {
+                SiegeSetup.SyncStructures(World, Field);
+                _structuresSynced = Field.StructureVersion;
+            }
 
             while (_fatesDone < Field.Fates.Count)
                 ApplyFate(Field.Fates[_fatesDone++]);
 
+            var landed = LandedFactions();
+            var armed = ArmedFactions();
             foreach (var f in World.Factions.Values.Where(f => f.Alive).ToList())
-                CheckFaction(f);
+                CheckFaction(f, landed, armed);
         }
 
         private void ApplyFate(OfficerFate fate)
@@ -364,15 +371,22 @@ namespace Sam11.Core.World
 
         // ------------------------------------------------------------------ 세력 존망
 
-        private void CheckFaction(FactionState f)
+        private void CheckFaction(FactionState f) => CheckFaction(f, LandedFactions(), ArmedFactions());
+
+        private HashSet<string> LandedFactions() => new HashSet<string>(World.Cities.Values.Where(c => c.Owner != null).Select(c => c.Owner!));
+        private HashSet<string> ArmedFactions() => new HashSet<string>(Field.Units.Where(u => u.IsAlive).Select(u => u.Faction));
+
+        private void CheckFaction(FactionState f, HashSet<string> landed, HashSet<string> armed)
         {
             var ruler = World.Officers[f.Ruler];
             if (ruler.Status != OfficerStatus.Active || ruler.Faction != f.Id)
                 Succession(f);
             if (!f.Alive) return;
-            bool hasLand = World.Cities.Values.Any(c => c.Owner == f.Id);
-            bool hasArmy = Field.Alive.Any(u => u.Faction == f.Id);
-            if (!hasLand && !hasArmy) Destroy(f, "거점과 군대를 모두 잃었다");
+            if (!landed.Contains(f.Id) && !armed.Contains(f.Id))
+            {
+                Destroy(f, "거점과 군대를 모두 잃었다");
+                armed.ExceptWith(new[] { f.Id });
+            }
         }
 
         /// <summary>후계: 아들 → 공적·매력·통솔 순. 아무도 없으면 멸망.</summary>

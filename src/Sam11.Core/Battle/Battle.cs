@@ -34,6 +34,8 @@ namespace Sam11.Core.Battle
         public Dictionary<HexCoord, SiegeStructure> Structures { get; } = new Dictionary<HexCoord, SiegeStructure>();
         public Dictionary<string, StrongholdOnField> Strongholds { get; } = new Dictionary<string, StrongholdOnField>();
         public List<CaptureEvent> Captures { get; } = new List<CaptureEvent>();
+        /// <summary>성벽·성문 내구가 바뀔 때마다 오른다 (세계 상태에 옮길 때가 됐는지 보는 데 쓴다).</summary>
+        public int StructureVersion { get; set; }
 
         /// <summary>두 세력이 적대 관계인지. 동맹끼리는 길을 막지 않는다 (기본: 세력이 다르면 적).</summary>
         public Func<string, string, bool> Hostile { get; set; } = (a, b) => a != b;
@@ -137,6 +139,9 @@ namespace Sam11.Core.Battle
                 && e.Extra.TryGetValue("terrain", out var list) && list.Values<string>().Contains(terrain));
 
         /// <summary>진형별 이동 비용 (×2 정수, 도로 0.5 표현용). null이면 진입 불가.</summary>
+        /// <summary>이동 비용이 같은 진형 묶음 (경로 지도를 함께 쓴다): 물, 추행(쐐기), 공성, 그 밖의 육상.</summary>
+        public static string MoveClass(FormationDef f) => f.WaterOnly ? "water" : f.Id == "wedge" ? "wedge" : f.Id == "siege" ? "siege" : "land";
+
         public int? MoveCost2(Unit u, HexCoord h)
         {
             if (!Map.Contains(h))
@@ -179,28 +184,37 @@ namespace Sam11.Core.Battle
         public Dictionary<HexCoord, int> Reachable(Unit u)
         {
             int budget = MovePoints(u) * 2;
-            var best = new Dictionary<HexCoord, int> { [u.Position] = 0 };
-            var frontier = new List<HexCoord> { u.Position };
-            while (frontier.Count > 0)
+            // 칸 → 부대를 한 번만 만든다 (UnitAt은 부대 목록을 매번 훑는다)
+            var occupied = new Dictionary<HexCoord, Unit>();
+            foreach (var x in Units)
+                if (x.IsAlive && !occupied.ContainsKey(x.Position)) occupied[x.Position] = x;
+            bool EnemyZone(HexCoord h)
             {
-                frontier.Sort((a, b) => best[a].CompareTo(best[b]));
-                var cur = frontier[0];
-                frontier.RemoveAt(0);
-                if (cur != u.Position && InEnemyZone(u, cur))
+                foreach (var n in h.Neighbors())
+                    if (occupied.TryGetValue(n, out var o) && Hostile(o.Faction, u.Faction)) return true;
+                return false;
+            }
+            var best = new Dictionary<HexCoord, int> { [u.Position] = 0 };
+            var heap = new MinHeap<HexCoord>();
+            heap.Push(u.Position, 0);
+            while (heap.Count > 0)
+            {
+                var (cur, d) = heap.Pop();
+                if (d > best[cur]) continue;
+                if (cur != u.Position && EnemyZone(cur))
                     continue;
                 foreach (var n in cur.Neighbors())
                 {
-                    var occupant = UnitAt(n);
-                    if (occupant != null && occupant != u)
+                    if (occupied.TryGetValue(n, out var occupant) && occupant != u)
                         continue;
                     int? step = MoveCost2(u, n);
                     if (step == null)
                         continue;
-                    int cost = best[cur] + step.Value;
+                    int cost = d + step.Value;
                     if (cost > budget || (best.TryGetValue(n, out var old) && old <= cost))
                         continue;
                     best[n] = cost;
-                    frontier.Add(n);
+                    heap.Push(n, cost);
                 }
             }
             return best;
@@ -261,10 +275,11 @@ namespace Sam11.Core.Battle
 
         private bool InEnemyZone(Unit u, HexCoord h) => AdjacentUnits(h).Any(o => Hostile(o.Faction, u.Faction));
 
-        public void Move(Unit u, HexCoord to)
+        /// <param name="reach">방금 이 부대로 구한 Reachable 결과가 있으면 넘긴다 (다시 구하지 않게).</param>
+        public void Move(Unit u, HexCoord to, IReadOnlyDictionary<HexCoord, int>? reach = null)
         {
             EnsureCanAct(u);
-            if (!Reachable(u).ContainsKey(to))
+            if (!(reach ?? Reachable(u)).ContainsKey(to))
                 throw new InvalidOperationException($"{Korean.EunNeun(u.Label)} {to}로 이동할 수 없음");
             u.Position = to;
             // 숨어 있던 적 바로 옆으로 다가가면 매복이 드러난다
@@ -369,6 +384,7 @@ namespace Sam11.Core.Battle
             if (tactic != null) attacker.Energy -= tactic.EnergyCost;
             int dmg = Math.Min(st.Durability, StructureDamage(attacker, tactic?.Power ?? 1.0, true));
             st.Durability -= dmg;
+            StructureVersion++;
             string what = st.Kind == StructureKind.Gate ? "성문" : "성벽";
             string name = Strongholds.TryGetValue(st.Stronghold, out var sh) ? sh.Name : st.Stronghold;
             Log.Add($"{attacker.Label}의 {(tactic != null ? tactic.Name.Ko + "! " : "공격 ")}→ {name} {what} {dmg} 피해 (내구 {st.Durability}/{st.MaxDurability})");

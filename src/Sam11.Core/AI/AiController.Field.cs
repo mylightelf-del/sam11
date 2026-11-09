@@ -207,7 +207,8 @@ namespace Sam11.Core.AI
         /// </summary>
         private Dictionary<HexCoord, int> PathTo(Game g, Unit u, string key, IReadOnlyCollection<HexCoord> goals)
         {
-            var cacheKey = (key, u.Formation.Id, u.Faction);
+            // 이동 비용은 진형 묶음·세력(성벽 통과)·날씨(비)에 따라서만 달라진다
+            var cacheKey = (key, Battle.Battle.MoveClass(u.Formation) + "|" + g.Field.WeatherId, u.Faction);
             int margin = g.Field.MovePoints(u) * 2 + 12;
             if (_pathCache.TryGetValue(cacheKey, out var cached)
                 && cached.Field.TryGetValue(u.Position, out var here) && here + margin <= cached.Covered)
@@ -285,7 +286,7 @@ namespace Sam11.Core.AI
 
             var best = ChooseAction(g, u, goal, cluster, field, target.Placement.Center, breached: !encircle && walls.Count > 0);
             var before = u.Position;
-            if (best.Pos != u.Position) b.Move(u, best.Pos);
+            if (best.Pos != u.Position) b.Move(u, best.Pos, _reach);
             if (!u.IsAlive || u.HasActed) return;
             if (best.Kind == ActionKind.Move && before == u.Position)
             {
@@ -353,7 +354,7 @@ namespace Sam11.Core.AI
                 var field = PathTo(g, u, c.Placement.Center);
                 var reach = g.Field.Reachable(u);
                 var dest = reach.Keys.Where(field.ContainsKey).OrderBy(h => field[h]).ThenBy(h => reach[h]).DefaultIfEmpty(u.Position).First();
-                if (dest != u.Position) g.Field.Move(u, dest);
+                if (dest != u.Position) g.Field.Move(u, dest, reach);
             }
             if (u.IsAlive && near())
             {
@@ -384,6 +385,7 @@ namespace Sam11.Core.AI
         {
             var b = g.Field;
             var reach = b.Reachable(u);
+            _reach = reach;
             var origin = u.Position;
             int reachRadius = b.MovePoints(u) + 4;
             var enemies = Knowledge!.VisibleEnemies(g).Where(e => e.Position.DistanceTo(origin) <= reachRadius).ToList();

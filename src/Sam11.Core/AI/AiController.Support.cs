@@ -218,7 +218,7 @@ namespace Sam11.Core.AI
             }
             var field = PathTo(g, u, foe.Position);
             var best = ChooseAction(g, u, foe.Position, new List<Common.HexCoord>(), field);
-            if (best.Pos != u.Position) g.Field.Move(u, best.Pos);
+            if (best.Pos != u.Position) g.Field.Move(u, best.Pos, _reach);
             if (!u.IsAlive || u.HasActed) return;
             ExecuteChoice(g, u, best);
         }

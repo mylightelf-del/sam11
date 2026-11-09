@@ -93,6 +93,8 @@ namespace Sam11.Core.AI
             new Dictionary<(string, string, string), (Dictionary<HexCoord, int>, int)>();
         private (int Captures, int Broken) _pathVersion = (-1, -1);
         private int _plannedMonth = -1;
+        /// <summary>마지막 ChooseAction이 구한 이동 범위 (바로 뒤 Move에서 다시 구하지 않게).</summary>
+        private Dictionary<HexCoord, int>? _reach;
         private int _diplomacyMonth = -1;
         /// <summary>(상대, 종류) → 거절당한 달. 같은 제안을 석 달 동안 다시 하지 않는다.</summary>
         private readonly Dictionary<(string, DiploType), int> _refused = new Dictionary<(string, DiploType), int>();
