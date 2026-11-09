@@ -1,0 +1,527 @@
+{
+  "events": [
+    {
+      "id": "sangu_caolu",
+      "name": {
+        "ko": "삼고초려"
+      },
+      "decider": "liu_bei",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "207-01"
+          },
+          {
+            "before": "209-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "liu_bei",
+              "officer": "liu_bei"
+            }
+          },
+          {
+            "officer_in": {
+              "officer": "liu_bei",
+              "stronghold": "xinye"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "xu_shu",
+              "faction": "liu_bei"
+            }
+          }
+        ]
+      },
+      "text": "서서가 떠나기 전 한 사람을 천거한다. \"융중의 와룡 제갈공명은 앉아서 부를 사람이 아니니, 주공께서 몸소 찾아가셔야 합니다.\"",
+      "choices": [
+        {
+          "id": "three_visits",
+          "text": "눈보라를 무릅쓰고 세 번 찾아간다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "trust",
+              "faction": "liu_bei",
+              "delta": 10
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xinye",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_fei",
+              "delta": -5
+            },
+            {
+              "type": "unlock_event",
+              "event": "longzhong_plan"
+            }
+          ]
+        },
+        {
+          "id": "one_visit",
+          "text": "한 번 찾아가 뜻을 전한다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "trust",
+              "faction": "liu_bei",
+              "delta": 3
+            }
+          ]
+        },
+        {
+          "id": "no_visit",
+          "text": "때가 급하다. 군무에 힘쓴다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "xu_shu",
+              "delta": -10
+            },
+            {
+              "type": "trust",
+              "faction": "liu_bei",
+              "delta": -5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "longzhong_plan",
+      "name": {
+        "ko": "융중대"
+      },
+      "decider": "liu_bei",
+      "once": true,
+      "locked": true,
+      "trigger": {
+        "all": [
+          {
+            "officer_in_faction": {
+              "officer": "zhuge_liang",
+              "faction": "liu_bei"
+            }
+          },
+          {
+            "ruler_of": {
+              "faction": "liu_bei",
+              "officer": "liu_bei"
+            }
+          }
+        ]
+      },
+      "text": "초가집에서 제갈량이 천하삼분의 계를 펼친다. \"북으로 조조, 동으로 손권과 맞서지 말고 손잡으십시오. 형주와 익주를 차지하면 한실을 일으킬 수 있습니다.\" 유비는 \"물고기가 물을 얻었다\"며 기뻐한다.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "loyalty",
+          "officer": "zhuge_liang",
+          "delta": 30
+        },
+        {
+          "type": "loyalty",
+          "officer": "guan_yu",
+          "delta": -5
+        },
+        {
+          "type": "friendship",
+          "a": "liu_bei",
+          "b": "sun_quan",
+          "delta": 20
+        },
+        {
+          "type": "trust",
+          "faction": "liu_bei",
+          "delta": 5
+        }
+      ]
+    },
+    {
+      "id": "liu_biao_death",
+      "name": {
+        "ko": "유표 사망"
+      },
+      "decider": "liu_biao",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "208-08"
+          },
+          {
+            "ruler_of": {
+              "faction": "liu_biao",
+              "officer": "liu_biao"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "liu_qi",
+              "faction": "liu_biao"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "liu_cong",
+              "faction": "liu_biao"
+            }
+          },
+          {
+            "faction_alive": "cao_cao"
+          }
+        ]
+      },
+      "text": "형주목 유표가 병으로 세상을 떠난다. 채모와 괴월은 장자 유기를 강하로 내쫓고 차남 유종을 세우려 하고, 남하하는 조조의 대군 소식에 양양은 항복론으로 들끓는다.",
+      "choices": [
+        {
+          "id": "cong_surrender",
+          "text": "유종이 뒤를 잇고 조조에게 형주를 바친다",
+          "ai_weight": 6,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_qi",
+              "ruler": "liu_qi",
+              "color": "#43a047",
+              "officers": [
+                "liu_qi"
+              ],
+              "take_location_of": "liu_qi",
+              "successor": "liu_cong",
+              "note": "유기가 강하에서 자립하고, 유표 세력은 유종이 잇는다."
+            },
+            {
+              "type": "transfer_resources",
+              "from": "xiangyang",
+              "to": "wan",
+              "gold": 0.6,
+              "food": 0.6,
+              "troops": 0.7
+            },
+            {
+              "type": "transfer_resources",
+              "from": "jiangling",
+              "to": "wan",
+              "gold": 0.5,
+              "food": 0.5,
+              "troops": 0.5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xiangyang",
+              "delta": -25
+            },
+            {
+              "type": "loyalty",
+              "officer": "cai_mao",
+              "delta": -50
+            },
+            {
+              "type": "loyalty",
+              "officer": "kuai_yue",
+              "delta": -50
+            },
+            {
+              "type": "loyalty",
+              "officer": "kuai_liang",
+              "delta": -40
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_yun",
+              "delta": -50
+            },
+            {
+              "type": "loyalty",
+              "officer": "wen_pin",
+              "delta": -40
+            },
+            {
+              "type": "loyalty",
+              "officer": "li_yan",
+              "delta": -40
+            },
+            {
+              "type": "trust",
+              "faction": "liu_biao",
+              "delta": -20
+            }
+          ]
+        },
+        {
+          "id": "cong_resist",
+          "text": "유종이 뒤를 잇되 양양을 지켜 싸운다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_qi",
+              "ruler": "liu_qi",
+              "color": "#43a047",
+              "officers": [
+                "liu_qi"
+              ],
+              "take_location_of": "liu_qi",
+              "successor": "liu_cong",
+              "note": "유기가 강하에서 자립하고, 유표 세력은 유종이 잇는다."
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xiangyang",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "wang_wei",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "qi_succeeds",
+          "text": "유언대로 장자 유기가 뒤를 잇는다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_cong",
+              "ruler": "liu_cong",
+              "color": "#7cb342",
+              "officers": [
+                "liu_cong",
+                "cai_mao",
+                "zhang_yun"
+              ],
+              "take_location_of": "liu_cong",
+              "successor": "liu_qi",
+              "note": "채모가 유종을 끼고 양양에서 독립하고, 유표 세력은 유기가 잇는다."
+            },
+            {
+              "type": "friendship",
+              "a": "liu_biao",
+              "b": "liu_bei",
+              "delta": 30
+            }
+          ]
+        }
+      ],
+      "effects": [
+        {
+          "type": "kill_officer",
+          "officer": "liu_biao",
+          "cause": "illness"
+        }
+      ]
+    },
+    {
+      "id": "chibi_fire",
+      "name": {
+        "ko": "적벽 화공"
+      },
+      "decider": "sun_quan",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "208-10"
+          },
+          {
+            "before": "210-01"
+          },
+          {
+            "faction_alive": "cao_cao"
+          },
+          {
+            "owns": {
+              "faction": "cao_cao",
+              "strongholds": [
+                "xiangyang"
+              ]
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhou_yu",
+              "faction": "sun_quan"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "huang_gai",
+              "faction": "sun_quan"
+            }
+          },
+          {
+            "any": [
+              {
+                "enemy_units_near": {
+                  "stronghold": "chaisang",
+                  "radius": 12,
+                  "troops_gte": 50000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "xiakou",
+                  "radius": 10,
+                  "troops_gte": 50000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "wuchang",
+                  "radius": 10,
+                  "troops_gte": 50000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "wulin",
+                  "radius": 10,
+                  "troops_gte": 50000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "lukou",
+                  "radius": 10,
+                  "troops_gte": 50000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "jiangxia",
+                  "radius": 10,
+                  "troops_gte": 50000
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "text": "형주 수군을 얻은 조조의 80만 대군이 장강을 덮는다. 장소는 항복을 권하고, 노숙과 주유는 결전을 주장한다. 황개가 고육계로 거짓 항복을 청하고, 동남풍이 불기를 기다린다.",
+      "choices": [
+        {
+          "id": "fire_attack",
+          "text": "유비와 손잡고 황개의 화선으로 연환선을 불태운다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "xiangyang",
+              "to": "chaisang",
+              "food": 0.4,
+              "troops": 0.4
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xiangyang",
+              "delta": -25
+            },
+            {
+              "type": "city_population",
+              "stronghold": "wulin",
+              "mult": 0.6
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": -10
+            },
+            {
+              "type": "trust",
+              "faction": "sun_quan",
+              "delta": 15
+            },
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "liu_bei",
+              "delta": 40
+            },
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "cao_cao",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhou_yu",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "huang_gai",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "hold_river",
+          "text": "화공은 위험하다. 강을 끼고 굳게 지킨다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "chaisang",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhou_yu",
+              "delta": -5
+            }
+          ]
+        },
+        {
+          "id": "submit",
+          "text": "장소의 말대로 조조에게 머리를 숙인다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "cao_cao",
+              "delta": 40
+            },
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "liu_bei",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhou_yu",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "lu_su",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "gan_ning",
+              "delta": -20
+            },
+            {
+              "type": "trust",
+              "faction": "sun_quan",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
