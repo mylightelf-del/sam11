@@ -12,6 +12,8 @@
 | `tests/Sam11.Core.Tests/` | 코어 단위 테스트 |
 | `tools/validate_data.py` | 데이터 형식·참조 검증 |
 | `tools/Sam11.Play/` | 콘솔 클라이언트 — 한 판을 처음부터 끝까지 직접 플레이 (M4 수직 단면) |
+| `tools/Sam11.ModTool/` | 모드 목록·검사, 신무장 만들기 |
+| `Mods/` | 모드 폴더 (예시: `example_officers`) |
 | `tools/Sam11.Sim/` | 시연 콘솔 (호로관 전투, 경제 점검, 사수관 공략, AI 자동 대전, `SIM_SCENARIO`로 시나리오 선택) |
 | `tools/mapgen/` | 전국 맵 생성기와 미리보기 렌더러 |
 | `data/map/` | 지리 원본(`geography.json`)과 생성된 맵(`world.json`) |
@@ -46,6 +48,28 @@ dotnet run --project tools/Sam11.Play -- load save1.json
 
 ```bash
 dotnet run --project tools/Sam11.Play -- 190 cao_cao 1 < script.txt
+```
+
+모드를 켜고 플레이 (`Mods/` 폴더의 모드 id):
+
+```bash
+dotnet run --project tools/Sam11.Play -- 194 cao_cao 1 --mods example_officers
+```
+
+모드 목록과 검사:
+
+```bash
+dotnet run --project tools/Sam11.ModTool -- list
+```
+
+```bash
+dotnet run --project tools/Sam11.ModTool -- check
+```
+
+신무장 만들기 (모드 폴더에 저장, 모든 시나리오에 허창 재야로 등장):
+
+```bash
+dotnet run --project tools/Sam11.ModTool -- officer Mods/my_officers id=my_hero name=나의장수 birth=170 ldr=80 war=85 int=60 pol=50 cha=70 traits=inspire apt=wedge:S location=xuchang
 ```
 
 전투 시연 (시드, 날씨: clear / rain / snow / fog / gale):

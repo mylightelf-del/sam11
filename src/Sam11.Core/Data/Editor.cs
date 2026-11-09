@@ -99,7 +99,7 @@ namespace Sam11.Core.Data
             foreach (var o in officers)
             {
                 var j = JObject.FromObject(o, GameData.Serializer);
-                foreach (var nul in j.Properties().Where(p => p.Value.Type == JTokenType.Null).ToList()) nul.Remove();
+                StripNulls(j);
                 list.OfType<JObject>().FirstOrDefault(x => x.Value<string>("id") == o.Id)?.Remove();
                 list.Add(j);
             }
@@ -112,9 +112,24 @@ namespace Sam11.Core.Data
             {
                 pl.OfType<JObject>().FirstOrDefault(x => x.Value<string>("officer") == p.Value<string>("officer")
                                                       && x.Value<string>("scenario") == p.Value<string>("scenario"))?.Remove();
-                pl.Add(p.DeepClone());
+                var copy = (JObject)p.DeepClone();
+                StripNulls(copy);
+                pl.Add(copy);
             }
             File.WriteAllText(plFile, new JObject { ["placements"] = pl }.ToString(Formatting.Indented));
+        }
+
+        /// <summary>null 값과 빈 목록을 지운다 (데이터 파일을 깔끔하게, 스키마에 맞게).</summary>
+        private static void StripNulls(JToken t)
+        {
+            if (t is JObject o)
+                foreach (var p in o.Properties().ToList())
+                {
+                    if (p.Value.Type == JTokenType.Null || (p.Value is JValue v && v.Value == null) || (p.Value is JArray a && a.Count == 0 && p.Name != "traits")) p.Remove();
+                    else StripNulls(p.Value);
+                }
+            else if (t is JArray arr)
+                foreach (var x in arr) StripNulls(x);
         }
     }
 }

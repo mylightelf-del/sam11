@@ -119,6 +119,14 @@
 - 만든 무장은 가상 시나리오와 역사 시나리오 양쪽에 넣을 수 있다 (역사 시나리오에는 재야로만 등장, 안).
 - 편집 데이터는 파일로 저장해 공유할 수 있다.
 
+**구현 (M5-6, `src/Sam11.Core/Data/Editor.cs`, `tools/Sam11.ModTool`)**
+- `OfficerEditor.Check`: id 형식·중복, 능력치 1~100, **능력치 합 상한 400 (옵션, 0이면 끔)**, 의리·야망 1~15, 상성 0~149, 진형 8개 적성, 특기 1~2개(존재 확인), 혈연 무장 존재.
+- `OfficerEditor.Export`: 모드 폴더로 내보낸다 (`mod.json`, `base/officers.json`, `placements.json`). 같은 id는 고쳐 쓴다. 폴더째 나누면 공유가 된다.
+- 등장: 모든 시나리오(`*`)에는 재야로, 특정 시나리오에는 그 세력 소속으로도 넣을 수 있다.
+- 명령줄: `dotnet run --project tools/Sam11.ModTool -- officer Mods/<모드> id=... name=... ldr= war= ... traits=a,b apt=wedge:S location=<거점>`
+- 예시 모드: `Mods/example_officers` (한월, 모든 시나리오에 허창 재야로 등장).
+- 아직: 얼굴 프리셋 조합, 의형제·친애·혐오 관계 (혈연만 지원).
+
 ## 6. 구현 현황 (M5-1)
 
 `src/Sam11.Core/World/Events.cs`

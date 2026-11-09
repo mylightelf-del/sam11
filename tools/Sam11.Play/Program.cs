@@ -1,6 +1,6 @@
 // 콘솔 클라이언트 (M4 수직 단면): Unity 화면이 생기기 전에 한 판을 처음부터 끝까지 사람이 둘 수 있게 한다.
-// 사용법: dotnet run --project tools/Sam11.Play -- [시나리오] [세력] [시드]
-//         dotnet run --project tools/Sam11.Play -- load <저장 파일>
+// 사용법: dotnet run --project tools/Sam11.Play -- [시나리오] [세력] [시드] [--mods 모드1,모드2]
+//         dotnet run --project tools/Sam11.Play -- load <저장 파일>   (저장 때의 모드를 자동으로 켠다)
 // 명령은 표준 입력에서 한 줄씩 읽으므로, 파일로 넘겨 대본처럼 돌릴 수도 있다.
 
 using Newtonsoft.Json.Linq;
@@ -9,17 +9,30 @@ using Sam11.Core.Data;
 using Sam11.Core.Play;
 using Sam11.Core.World;
 
-var data = GameData.Load(GameData.FindDataDir(AppContext.BaseDirectory));
+// --mods a,b 로 모드를 켠다. 저장 파일을 불러오면 저장 때의 모드를 자동으로 켠다.
+string dataDir = GameData.FindDataDir(AppContext.BaseDirectory);
+var modIds = new List<string>();
+var rest = new List<string>();
+for (int i = 0; i < args.Length; i++)
+{
+    if (args[i] == "--mods" && i + 1 < args.Length) modIds.AddRange(args[++i].Split(',', StringSplitOptions.RemoveEmptyEntries));
+    else rest.Add(args[i]);
+}
+JObject? save = rest.Count >= 2 && rest[0] == "load" ? JObject.Parse(File.ReadAllText(rest[1])) : null;
+if (save != null) modIds = (save["mods"] as JArray)?.Values<string>().Select(x => x!).ToList() ?? new List<string>();
+var mods = ModLoader.Order(ModLoader.Discover(ModLoader.DefaultModsDir(dataDir)), modIds);
+var data = GameData.Load(dataDir, mods);
 var map = WorldMap.Load(data.DataDir);
+if (mods.Count > 0) Console.WriteLine($"모드: {string.Join(", ", mods)}" + (data.ModConflicts.Count > 0 ? $" (충돌 {data.ModConflicts.Count}건)" : ""));
 
 PlayerSession session;
-if (args.Length >= 2 && args[0] == "load")
-    session = PlayerSession.Load(data, map, JObject.Parse(File.ReadAllText(args[1])));
+if (save != null)
+    session = PlayerSession.Load(data, map, save);
 else
 {
-    string scenario = args.Length > 0 ? args[0] : "190";
-    string faction = args.Length > 1 ? args[1] : "cao_cao";
-    ulong seed = args.Length > 2 ? ulong.Parse(args[2]) : 1;
+    string scenario = rest.Count > 0 ? rest[0] : "190";
+    string faction = rest.Count > 1 ? rest[1] : "cao_cao";
+    ulong seed = rest.Count > 2 ? ulong.Parse(rest[2]) : 1;
     session = PlayerSession.NewGame(data, map, scenario, seed, new GameOptions { Players = { faction } });
 }
 var ui = new ConsoleUi(session);

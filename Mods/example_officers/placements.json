@@ -1,0 +1,10 @@
+{
+  "placements": [
+    {
+      "officer": "han_yue",
+      "scenario": "*",
+      "location": "xuchang",
+      "loyalty": 80
+    }
+  ]
+}

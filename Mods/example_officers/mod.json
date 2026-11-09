@@ -1,0 +1,7 @@
+{
+  "id": "example_officers",
+  "name": "예시: 신무장 한월",
+  "version": "1.0",
+  "description": "신무장 편집기(tools/Sam11.ModTool officer)로 만든 예시. 모든 시나리오에 허창의 재야 무장으로 등장한다.",
+  "load_after": []
+}

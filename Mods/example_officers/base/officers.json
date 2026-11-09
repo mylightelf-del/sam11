@@ -1,0 +1,38 @@
+{
+  "officers": [
+    {
+      "id": "han_yue",
+      "name": {
+        "ko": "한월"
+      },
+      "gender": "female",
+      "birth": 172,
+      "stats": {
+        "ldr": 78,
+        "war": 84,
+        "int": 70,
+        "pol": 55,
+        "cha": 80
+      },
+      "hidden": {
+        "loyalty": 13,
+        "ambition": 6,
+        "compat": 40
+      },
+      "aptitude": {
+        "fish_scale": "A",
+        "crane_wing": "B",
+        "square": "C",
+        "long_snake": "A",
+        "wedge": "S",
+        "wild_geese": "C",
+        "siege": "C",
+        "naval": "C"
+      },
+      "traits": [
+        "inspire",
+        "cavalry"
+      ]
+    }
+  ]
+}
