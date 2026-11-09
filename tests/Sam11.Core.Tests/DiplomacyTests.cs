@@ -23,6 +23,7 @@ public class DiplomacyTests
         var g = NewGame();
         var w = g.World;
         Assert.That(g.Field.Hostile("dong_zhuo", "ma_teng"));
+        w.ChangeFriendship("dong_zhuo", "ma_teng", 25); // 동맹에는 우호도 70 이상이 필요
         Assert.That(ProposeUntil(g, new Proposal { Type = DiploType.Alliance, From = "dong_zhuo", To = "ma_teng", Envoy = "li_ru" }));
         Assert.That(g.Field.Hostile("dong_zhuo", "ma_teng"), Is.False);
         int trust = w.TrustOf("dong_zhuo");
@@ -71,14 +72,19 @@ public class DiplomacyTests
     }
 
     [Test]
-    public void AllianceCountIsCapped()
+    public void AllianceNeedsEnoughFriendship()
     {
         var g = NewGame();
         var w = g.World;
+        Assert.That(w.FriendshipOf("liu_bei", "gongsun_du"), Is.EqualTo(50));
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+            Diplomacy.Propose(g, new Proposal { Type = DiploType.Alliance, From = "liu_bei", To = "gongsun_du", Envoy = "jian_yong" }));
+        Assert.That(ex!.Message, Does.Contain("우호도"));
+        w.ChangeFriendship("liu_bei", "gongsun_du", 20);
         w.AddPact(PactKind.Alliance, "liu_bei", "kong_rong", 12);
         w.AddPact(PactKind.Alliance, "liu_bei", "tao_qian", 12);
-        Assert.Throws<InvalidOperationException>(() =>
-            Diplomacy.Propose(g, new Proposal { Type = DiploType.Alliance, From = "liu_bei", To = "gongsun_du", Envoy = "jian_yong" }));
+        // 우호도만 충분하면 동맹 수에는 제한이 없다
+        Assert.That(ProposeUntil(g, new Proposal { Type = DiploType.Alliance, From = "liu_bei", To = "gongsun_du", Envoy = "jian_yong" }));
     }
 
     [Test]
@@ -101,11 +107,13 @@ public class DiplomacyTests
     }
 
     [Test]
-    public void AiRefusesAllianceWithoutCommonEnemy()
+    public void AiAvoidsAllianceWithFarStrongerFaction()
     {
         var g = NewGame();
         var ai = new AiController();
-        // 유언과 공손도는 맞닿지도 않고 공동의 적도 없다
-        Assert.That(ai.Wants(g, new Proposal { Type = DiploType.Alliance, From = "gongsun_du", To = "liu_yan" }), Is.False);
+        // 공융(1도시)은 자신을 삼킬 만큼 강한 동탁과는 손잡지 않는다
+        Assert.That(ai.Wants(g, new Proposal { Type = DiploType.Alliance, From = "dong_zhuo", To = "kong_rong" }), Is.False);
+        // 반대로 약한 공융이 도겸에게 청하면 도겸은 받는다
+        Assert.That(ai.Wants(g, new Proposal { Type = DiploType.Alliance, From = "kong_rong", To = "tao_qian" }), Is.True);
     }
 }

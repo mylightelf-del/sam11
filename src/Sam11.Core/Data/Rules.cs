@@ -62,7 +62,8 @@ namespace Sam11.Core.Data
         public int AbsorbFriendship { get; set; } = 80;
         public double AbsorbPowerRatio { get; set; } = 4.0;
         public int RansomGoldPerStat { get; set; } = 10;
-        public int MaxAlliances { get; set; } = 2;
+        /// <summary>동맹을 맺으려면 두 세력의 우호도가 이 값 이상이어야 한다.</summary>
+        public int AllianceMinFriendship { get; set; } = 70;
         /// <summary>종속 관계에서 공물이 오가는 동안 매달 오르는 우호도 (병합으로 가는 길).</summary>
         public int VassalMonthlyFriendship { get; set; } = 2;
         public double AidRatio { get; set; } = 0.2;

@@ -38,9 +38,6 @@ namespace Sam11.Core.World
             g.World.Cities.Values.Where(c => c.Owner == faction).Sum(c => c.Troops + c.FieldGarrison + (c.Def.IsCity ? 10000 : 0))
             + g.Field.Alive.Where(u => u.Faction == faction && !u.IsGarrison).Sum(u => u.Troops);
 
-        public static int AllianceCount(WorldState w, string f) =>
-            w.Alliances.Count(a => a.Kind == PactKind.Alliance && a.Active(w.Date) && a.Members.Contains(f));
-
         public static bool Borders(WorldState w, string a, string b) =>
             w.Cities.Values.Any(c => c.Owner == a && c.Def.Links.Any(l => w.Cities[l].Owner == b));
 
@@ -116,8 +113,8 @@ namespace Sam11.Core.World
                 case DiploType.Alliance:
                 case DiploType.Truce:
                     if (w.AtPeace(p.From, p.To)) throw new InvalidOperationException("이미 싸우지 않는 사이");
-                    if (p.Type == DiploType.Alliance && (AllianceCount(w, p.From) >= R(w).MaxAlliances || AllianceCount(w, p.To) >= R(w).MaxAlliances))
-                        throw new InvalidOperationException("동맹이 이미 너무 많음");
+                    if (p.Type == DiploType.Alliance && w.FriendshipOf(p.From, p.To) < R(w).AllianceMinFriendship)
+                        throw new InvalidOperationException($"동맹을 맺기엔 우호도가 부족함 ({w.FriendshipOf(p.From, p.To)}/{R(w).AllianceMinFriendship})");
                     break;
                 case DiploType.Absorb:
                     if (!w.Vassals.TryGetValue(p.To, out var s) || s != p.From) throw new InvalidOperationException("종속국만 병합할 수 있음");

@@ -304,8 +304,8 @@
       "power_ratio_vs_second": 2.0,
       "months": 24
     },
-    "max_alliances": 2,
-    "vassal_monthly_friendship": 1
+    "vassal_monthly_friendship": 1,
+    "alliance_min_friendship": 70
   },
   "stratagem": {
     "battle": {

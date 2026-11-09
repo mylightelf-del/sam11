@@ -17,8 +17,8 @@ namespace Sam11.Core.AI
             switch (p.Type)
             {
                 case DiploType.Alliance:
-                    if (friend < 45 || w.TrustOf(p.From) < 30 || theirs > mine * 2.5) return false;
-                    return SharedEnemy(g, me, p.From);
+                    // 우호도 조건은 규칙이 이미 보장한다. 신용이 바닥이거나, 나를 삼킬 만큼 강한 상대와는 맺지 않는다
+                    return w.TrustOf(p.From) >= 30 && theirs <= mine * 2.5;
                 case DiploType.Truce:
                     // 빠른 판: 상대가 충분히 강하고, 나도 다른 곳에서 싸우는 중일 때만
                     return theirs >= mine * 0.8 && Campaigns.Any(c => w.Cities[c.Target].Owner != p.From);
@@ -39,16 +39,6 @@ namespace Sam11.Core.AI
                 default:
                     return false;
             }
-        }
-
-        /// <summary>두 세력 모두와 맞닿아 있고, 두 세력 어느 쪽보다도 강한 제3 세력(공동의 적)이 있는지.</summary>
-        private static bool SharedEnemy(Game g, string a, string b)
-        {
-            var w = g.World;
-            int pa = Diplomacy.Power(g, a), pb = Diplomacy.Power(g, b);
-            return w.Factions.Values.Any(f => f.Alive && f.Id != a && f.Id != b
-                && Diplomacy.Borders(w, a, f.Id) && Diplomacy.Borders(w, b, f.Id)
-                && Diplomacy.Power(g, f.Id) > Math.Max(pa, pb));
         }
 
         private OfficerState? Envoy(Game g, string faction) =>
@@ -126,21 +116,25 @@ namespace Sam11.Core.AI
                 if (donor != null && TryPropose(g, new Proposal { Type = DiploType.Aid, From = me, To = donor })) return;
             }
 
-            // 동맹: 강한 이웃에게 위협받으면, 그 이웃과 맞닿은 다른 세력과 손잡는다
-            if (threat != null && power[threat] > mine * 1.5 && Diplomacy.AllianceCount(w, me) < w.Data.Rules.Diplomacy.MaxAlliances
-                && w.Rng.Chance(0.3 + p.Diplomacy * 0.05))
+            // 동맹: 강한 이웃에게 위협받으면 그 이웃과 맞닿은 다른 세력과 손잡는다.
+            // 동맹은 우호도 70 이상이 필요하므로, 모자라면 선물로 먼저 우호도를 쌓는다.
+            if (threat != null && power[threat] > mine * 1.2 && w.Rng.Chance(0.3 + p.Diplomacy * 0.05))
             {
+                int need = w.Data.Rules.Diplomacy.AllianceMinFriendship;
                 var ally = others.Where(f => f != threat && !w.AtPeace(me, f) && Diplomacy.Borders(w, f, threat) && power[f] >= mine * 0.3
-                                             && power[threat] > power[f] && Diplomacy.AllianceCount(w, f) < w.Data.Rules.Diplomacy.MaxAlliances)
+                                             && power[f] <= mine * 2.5)
                                  .OrderByDescending(f => w.FriendshipOf(me, f)).ThenByDescending(f => power[f]).FirstOrDefault();
                 if (ally != null)
                 {
-                    // 우호도가 낮으면 먼저 선물 (금이 넉넉할 때)
-                    if (w.FriendshipOf(me, ally) < 40 && capital.Gold > 6000)
+                    if (w.FriendshipOf(me, ally) >= need)
                     {
-                        if (TryPropose(g, new Proposal { Type = DiploType.Gift, From = me, To = ally, Gold = 2000 })) return;
+                        if (TryPropose(g, new Proposal { Type = DiploType.Alliance, From = me, To = ally })) return;
                     }
-                    else if (TryPropose(g, new Proposal { Type = DiploType.Alliance, From = me, To = ally })) return;
+                    else
+                    {
+                        int gold = Math.Min(2000, (need - w.FriendshipOf(me, ally)) * w.Data.Rules.Diplomacy.GiftGoldPerFriendship);
+                        if (capital.Gold > gold * 3 && TryPropose(g, new Proposal { Type = DiploType.Gift, From = me, To = ally, Gold = gold })) return;
+                    }
                 }
             }
 
