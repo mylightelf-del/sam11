@@ -38,6 +38,11 @@ namespace Sam11.Core.Play
         /// <summary>이번 차례에 이미 이동한 부대 (부대는 차례마다 한 번 이동하고 한 번 행동한다).</summary>
         private readonly HashSet<int> _moved = new HashSet<int>();
         private readonly Dictionary<string, AiController> _delegates = new Dictionary<string, AiController>();
+        private readonly SortedDictionary<string, AiController> _corps = new SortedDictionary<string, AiController>(StringComparer.Ordinal);
+
+        /// <summary>군단 (이름 → 맡은 도시). 군단은 플레이어가 차례를 마칠 때 맡은 도시만 움직인다.</summary>
+        public IReadOnlyDictionary<string, IReadOnlyCollection<string>> Corps =>
+            _corps.ToDictionary(kv => kv.Key, kv => (IReadOnlyCollection<string>)kv.Value.Scope!);
 
         private PlayerSession(GameData data, WorldMap map, string scenario, ulong seed, GameOptions options)
         {
@@ -291,6 +296,25 @@ namespace Sam11.Core.Play
                     ai.TakeTurn(Game, me);
                     return "이번 차례를 위임했다";
                 }
+                case "corps_set":
+                {
+                    // 군단 만들기·바꾸기: 도시는 한 군단에만 속한다
+                    string name = S("corps");
+                    var cities = c["cities"]!.Values<string>().Select(x => x!).ToList();
+                    if (cities.Count == 0) throw new InvalidOperationException("맡길 도시가 없음");
+                    foreach (var id in cities)
+                        if (w.Cities[id].Owner != me) throw new InvalidOperationException($"{Korean.EunNeun(w.Cities[id].ToString())} 우리 거점이 아님");
+                    foreach (var other in _corps.Values) other.Scope!.ExceptWith(cities);
+                    if (!_corps.TryGetValue(name, out var ai))
+                        _corps[name] = ai = new AiController(AiConfig.For(Difficulty.Normal)) { Scope = new HashSet<string>() };
+                    ai.Scope!.Clear();
+                    ai.Scope.UnionWith(cities);
+                    foreach (var empty in _corps.Where(kv => kv.Value.Scope!.Count == 0).Select(kv => kv.Key).ToList()) _corps.Remove(empty);
+                    return $"{name} 군단: {string.Join(", ", cities.Select(id => w.Cities[id].ToString()))}";
+                }
+                case "corps_remove":
+                    if (!_corps.Remove(S("corps"))) throw new InvalidOperationException($"없는 군단: {S("corps")}");
+                    return $"{S("corps")} 군단을 해산했다";
                 case "end_turn":
                     EndTurn();
                     return "차례를 마쳤다";
@@ -301,6 +325,13 @@ namespace Sam11.Core.Play
 
         private void EndTurn()
         {
+            // 군단이 맡은 도시를 움직인다 (군단이 도시를 모두 잃으면 해산)
+            foreach (var kv in _corps.ToList())
+            {
+                kv.Value.TakeTurn(Game, Faction!);
+                Game.Resolve();
+                if (kv.Value.Scope!.Count == 0) _corps.Remove(kv.Key);
+            }
             Game.EndPlayerTurn();
             _moved.Clear();
             Game.Advance();

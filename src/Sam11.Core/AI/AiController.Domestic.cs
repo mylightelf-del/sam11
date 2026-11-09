@@ -16,7 +16,7 @@ namespace Sam11.Core.AI
             foreach (var camp in gathering)
                 PrepareCampaign(g, faction, camp);
             ReturnStrandedTroops(g, faction);
-            foreach (var c in w.Cities.Values.Where(c => c.Owner == faction).OrderBy(c => c.Id).ToList())
+            foreach (var c in w.Cities.Values.Where(c => c.Owner == faction && InScope(c.Id)).OrderBy(c => c.Id).ToList())
             {
                 var pool = w.OfficersAt(c.Id).Where(o => o.Faction == faction && !o.Acted).ToList();
                 if (c.Governor == null || !w.Officers.TryGetValue(c.Governor, out var gov) || gov.Location != c.Id || gov.Faction != faction)
@@ -36,7 +36,7 @@ namespace Sam11.Core.AI
                 }
 
                 // 원정 거점으로 모자란 만큼만 병력·군량을 보낸다 (계획이 바뀌어도 병력이 엉뚱한 곳에 갇히지 않게)
-                var feed = gathering.FirstOrDefault(x => x.Source != c.Id && Domestic.ConnectedOwn(w, c.Id).Contains(x.Source));
+                var feed = gathering.FirstOrDefault(x => x.Source != c.Id && Connected(w, c.Id).Contains(x.Source));
                 if (feed != null)
                 {
                     var src = w.Cities[feed.Source];
@@ -82,12 +82,12 @@ namespace Sam11.Core.AI
         private void ReturnStrandedTroops(Game g, string faction)
         {
             var w = g.World;
-            foreach (var post in w.Cities.Values.Where(c => c.Owner == faction && !c.Def.IsCity).OrderBy(c => c.Id).ToList())
+            foreach (var post in w.Cities.Values.Where(c => c.Owner == faction && InScope(c.Id) && !c.Def.IsCity).OrderBy(c => c.Id).ToList())
             {
                 if (Campaigns.Any(x => x.Source == post.Id)) continue;
                 int surplus = Surplus(g, post, faction);
                 if (surplus < 3000) continue;
-                var home = post.Def.Links.Select(l => w.Cities[l]).Where(x => x.Owner == faction && x.Def.IsCity)
+                var home = post.Def.Links.Select(l => w.Cities[l]).Where(x => x.Owner == faction && x.Def.IsCity && InScope(x.Id))
                                .OrderByDescending(x => w.OfficersAt(x.Id).Count(o => o.Faction == faction)).FirstOrDefault();
                 if (home == null) continue;
                 var mover = w.OfficersAt(post.Id).Concat(w.OfficersAt(home.Id))
@@ -122,7 +122,7 @@ namespace Sam11.Core.AI
             int capacity = here.Select(Cap).OrderByDescending(x => x).Skip(1).Take(8).Sum();
             if (capacity < camp.Required)
             {
-                foreach (var id in Domestic.ConnectedOwn(w, src.Id).Where(id => id != src.Id).OrderBy(id => id))
+                foreach (var id in Connected(w, src.Id).Where(id => id != src.Id).OrderBy(id => id))
                 {
                     var there = w.OfficersAt(id).Where(o => o.Faction == faction).ToList();
                     if (there.Count < 2) continue;
@@ -248,7 +248,7 @@ namespace Sam11.Core.AI
             var w = g.World;
             int here = w.OfficersAt(c.Id).Count(o => o.Faction == faction);
             if (here <= 2 || pool.Count == 0) return;
-            var connected = Domestic.ConnectedOwn(w, c.Id);
+            var connected = Connected(w, c.Id);
             var source = Campaigns.FirstOrDefault(x => x.State == CampaignState.Gathering && x.Source != c.Id && connected.Contains(x.Source));
             string? dest = source?.Source;
             if (dest == null || w.OfficersAt(dest).Count(o => o.Faction == faction) >= 5)

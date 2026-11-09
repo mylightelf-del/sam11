@@ -163,4 +163,29 @@ public class PlayerSessionTests
         var save = s.Save();
         Assert.That(PlayerSession.Load(TestData.Data, TestData.Map, save).Digest(), Is.EqualTo(s.Digest()));
     }
+
+    [Test]
+    public void CorpsRunsOnlyItsCities()
+    {
+        var s = New("dong_zhuo", 2);
+        var w = s.World;
+        var own = w.Cities.Values.Where(c => c.Owner == "dong_zhuo" && c.Def.IsCity).OrderBy(c => c.Id).ToList();
+        var corpsCities = own.Where(c => c.Id != w.Factions["dong_zhuo"].Capital).Take(3).Select(c => c.Id).ToList();
+        var r = s.Execute(C("corps_set", new { corps = "서부", cities = corpsCities }));
+        Assert.That(r.Ok, r.Message);
+        Assert.That(s.Execute(C("corps_set", new { corps = "x", cities = new[] { "xiapi" } })).Ok, Is.False, "남의 도시는 못 맡긴다");
+        int logStart = w.Log.Count;
+        for (int t = 0; t < 18; t++) s.Execute(C("end_turn"));
+        var outside = own.Select(c => c.Id).Except(s.Corps.Values.SelectMany(x => x)).Select(id => w.Cities[id].ToString()).ToList();
+        var inside = corpsCities.Select(id => w.Cities[id].ToString()).ToList();
+        var domestic = w.Log.Skip(logStart).Where(l => l.Contains("징병") || l.Contains(" 훈련 (") || l.Contains("착공")).ToList();
+        Assert.That(domestic.Any(l => inside.Any(l.Contains)), "군단 도시는 내정을 한다");
+        Assert.That(domestic.Where(l => outside.Any(n => l.Contains($", {n}")) && !inside.Any(l.Contains)), Is.Empty, "맡기지 않은 도시는 손대지 않는다");
+
+        var loaded = PlayerSession.Load(TestData.Data, TestData.Map, s.Save());
+        Assert.That(loaded.Digest(), Is.EqualTo(s.Digest()));
+        Assert.That(loaded.Corps.Keys, Is.EqualTo(s.Corps.Keys));
+        Assert.That(s.Execute(C("corps_remove", new { corps = "서부" })).Ok);
+        Assert.That(s.Corps, Is.Empty);
+    }
 }

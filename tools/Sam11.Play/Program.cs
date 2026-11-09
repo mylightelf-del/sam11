@@ -123,6 +123,10 @@ sealed class ConsoleUi
             case "지도": case "map": Map(int.Parse(Arg(1)), int.Parse(Arg(2)), parts.Length > 3 ? int.Parse(parts[3]) : 6); return true;
             case "이동범위": Reach(int.Parse(Arg(1))); return true;
             case "로그": case "log": ShowNews(all: true); return true;
+            case "군단": case "corps":
+                if (_s.Corps.Count == 0) Console.WriteLine("  군단 없음 (만들기: corps_set corps=<이름> cities=a,b)");
+                foreach (var kv in _s.Corps) Console.WriteLine($"  {kv.Key}: {string.Join(", ", kv.Value.Select(id => W.Cities[id].ToString()))}");
+                return true;
             case "끝": case "end": Run("end_turn"); return true;
             case "위임": case "auto": Run("delegate"); return true;
             case "자동": case "autoplay":
@@ -187,6 +191,7 @@ sealed class ConsoleUi
     private void Help() => Console.WriteLine("""
         보기:  현황 | 세력 | 도시 <id> | 무장 <id> | 부대 | 지도 <q> <r> [반경] | 이동범위 <부대번호> | 로그
         차례:  끝 (차례 마침) | 위임 (이번 차례를 AI에게) | 자동 <턴수> (위임+끝 반복)
+        군단:  군단 (목록) | corps_set corps=<이름> cities=a,b (도시를 맡김, 차례를 마칠 때 군단이 움직임) | corps_remove corps=<이름>
         답:    선택 <이벤트> <선택지> | 수락 <번호> | 거절 <번호>
         파일:  저장 <파일> | 불러오기 <파일> | 종료
         명령 (키=값):

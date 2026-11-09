@@ -113,11 +113,12 @@ namespace Sam11.Core.AI
             }
 
             int monthKey = w.Date.Year * 12 + w.Date.Month;
+            if (Scope != null) Scope.RemoveWhere(id => w.Cities[id].Owner != faction);
             if (_plannedMonth != monthKey || Campaigns.Count == 0)
             {
                 _plannedMonth = monthKey;
-                Promotion.AppointAll(w, faction);
-                if (_diplomacyMonth != monthKey)
+                if (Scope == null) Promotion.AppointAll(w, faction);
+                if (Scope == null && _diplomacyMonth != monthKey)
                 {
                     _diplomacyMonth = monthKey;
                     PlanDiplomacy(g, faction);
@@ -152,7 +153,7 @@ namespace Sam11.Core.AI
                                                      && w.Factions[me].Ruler != o.Id)
                          .OrderByDescending(o => o.Def.Stats.Int).FirstOrDefault();
             if (agent == null) return;
-            int gold = w.Cities.Values.Where(c => c.Owner == me).Select(c => c.Gold).DefaultIfEmpty(0).Max();
+            int gold = w.Cities.Values.Where(c => c.Owner == me && InScope(c.Id)).Select(c => c.Gold).DefaultIfEmpty(0).Max();
             bool Try(string kind, string? city, string? officer = null)
             {
                 if (gold < r.Cost[kind] * 2) return false;
@@ -186,6 +187,25 @@ namespace Sam11.Core.AI
         }
 
         // ------------------------------------------------------------------ 공통 판단
+
+        /// <summary>
+        /// 군단 위임 (9식): 이 AI가 맡은 도시. null이면 세력 전체. 군단은 맡은 도시의 내정·출진·방어와
+        /// 그 도시에서 나간 부대만 움직이고, 외교·관직·계략·보물·포로 같은 군주의 일은 하지 않는다.
+        /// 군단이 함락한 도시는 그 군단에 들어온다.
+        /// </summary>
+        public HashSet<string>? Scope { get; set; }
+
+        private bool InScope(string cityId) => Scope == null || Scope.Contains(cityId);
+
+        private bool UnitInScope(Unit u) =>
+            Scope == null || (u.Home != null && Scope.Contains(u.Home)) || Campaigns.Any(c => c.Units.Contains(u));
+
+        private HashSet<string> Connected(WorldState w, string from)
+        {
+            var all = Domestic.ConnectedOwn(w, from);
+            if (Scope != null) all.RemoveWhere(id => !Scope.Contains(id) && id != from);
+            return all;
+        }
 
         private static RulerPersonality Personality(WorldState w, string faction) =>
             w.Officers[w.Factions[faction].Ruler].Def.RulerPersonality ?? new RulerPersonality();
@@ -251,7 +271,7 @@ namespace Sam11.Core.AI
             }
             Campaigns.RemoveAll(c => c.State == CampaignState.Done);
 
-            var own = w.Cities.Values.Where(c => c.Owner == faction).ToList();
+            var own = w.Cities.Values.Where(c => c.Owner == faction && InScope(c.Id)).ToList();
             int cityCount = own.Count(c => c.Def.IsCity);
             int max = cityCount >= 20 ? 6 : cityCount >= 15 ? 5 : cityCount >= 10 ? 4 : cityCount >= 6 ? 3 : cityCount >= 3 ? 2 : 1;
             if (Campaigns.Count(c => !c.Defense) >= max) return;
@@ -264,7 +284,7 @@ namespace Sam11.Core.AI
             var options = new List<(double Score, Campaign C, bool Feasible)>();
             foreach (var s in own)
             {
-                var connected = Domestic.ConnectedOwn(w, s.Id);
+                var connected = Connected(w, s.Id);
                 int available = Surplus(g, s, faction)
                                 + connected.Where(id => id != s.Id).Sum(id => Surplus(g, w.Cities[id], faction));
                 // 이어진 거점의 무장들이 이끌 수 있는 병력 (원정군 지휘관이 모자라면 못 친다)

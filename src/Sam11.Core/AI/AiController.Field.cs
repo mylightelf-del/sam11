@@ -16,10 +16,10 @@ namespace Sam11.Core.AI
             var w = g.World;
 
             // 수비대: 붙은 적만 친다
-            foreach (var gar in g.Garrisons.Values.Where(u => u.Faction == faction && u.Status == UnitStatus.Ready && !u.HasActed).ToList())
+            foreach (var gar in g.Garrisons.Values.Where(u => u.Faction == faction && u.Status == UnitStatus.Ready && !u.HasActed && (u.Home == null || InScope(u.Home))).ToList())
                 Safe(() => g.GarrisonStrike(gar));
 
-            var units = g.Field.Alive.Where(u => u.Faction == faction && !u.IsGarrison).ToList();
+            var units = g.Field.Alive.Where(u => u.Faction == faction && !u.IsGarrison && UnitInScope(u)).ToList();
             // 연쇄를 노릴 때는 일반 공격 부대가 먼저 붙고, 전법을 쓸 부대가 나중에 친다
             units = Config.ChainOrdering
                 ? units.OrderBy(u => g.Field.AvailableTactics(u).Any(t => t.Power > 0 && t.EnergyCost <= u.Energy)).ThenBy(u => u.Id).ToList()
@@ -42,6 +42,7 @@ namespace Sam11.Core.AI
                 {
                     camp.State = CampaignState.Done;
                     camp.Won = w.Cities[camp.Target].Owner == faction;
+                    if (camp.Won && Scope != null) Scope.Add(camp.Target);
                     camp.LogEnd = g.Field.Log.Lines.Count;
                     History.Add(camp);
                     if (camp.Won) Stats.CampaignsWon++;

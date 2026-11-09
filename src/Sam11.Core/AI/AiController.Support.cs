@@ -139,7 +139,7 @@ namespace Sam11.Core.AI
             var w = g.World;
             var enemies = Knowledge!.VisibleEnemies(g).Where(u => !u.IsGarrison).ToList();
             if (enemies.Count == 0) return;
-            foreach (var c in w.Cities.Values.Where(c => c.Owner == me && c.Def.IsCity).OrderBy(c => c.Id).ToList())
+            foreach (var c in w.Cities.Values.Where(c => c.Owner == me && InScope(c.Id) && c.Def.IsCity).OrderBy(c => c.Id).ToList())
             {
                 var near = enemies.Where(u => u.Position.DistanceTo(c.Placement.Center) <= 8
                                               && w.Map.Territory.TryGetValue(u.Position, out var owner) && w.Cities[owner].Owner == me).ToList();
@@ -149,7 +149,7 @@ namespace Sam11.Core.AI
                 // (1) 증원
                 int gap = threat - (c.Troops + c.FieldGarrison);
                 if (gap > 0)
-                    foreach (var id in Domestic.ConnectedOwn(w, c.Id).Where(id => id != c.Id).OrderBy(id => id))
+                    foreach (var id in Connected(w, c.Id).Where(id => id != c.Id).OrderBy(id => id))
                     {
                         if (gap <= 0) break;
                         var src = w.Cities[id];
@@ -168,7 +168,7 @@ namespace Sam11.Core.AI
 
                 // (2) 요격
                 if (Campaigns.Any(x => x.Defense && x.Target == c.Id)) continue;
-                var bases = new[] { c.Id }.Concat(c.Def.Links.Where(l => w.Cities[l].Owner == me)).ToList();
+                var bases = new[] { c.Id }.Concat(c.Def.Links.Where(l => w.Cities[l].Owner == me && InScope(l))).ToList();
                 var source = bases.Select(id => w.Cities[id]).Where(x => Surplus(g, x, me) >= threat * 1.3)
                                   .OrderByDescending(x => Surplus(g, x, me)).FirstOrDefault();
                 if (source == null) continue;
