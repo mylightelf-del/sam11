@@ -375,32 +375,10 @@
           "ai_weight": 6,
           "effects": [
             {
-              "type": "transfer_resources",
-              "from": "ye",
-              "to": "nanpi",
-              "gold": 0.5,
-              "food": 0.5,
-              "troops": 0.5
-            },
-            {
-              "type": "loyalty",
-              "officer": "ju_shou",
-              "delta": -25
-            },
-            {
-              "type": "loyalty",
-              "officer": "shen_pei",
-              "delta": -25
-            },
-            {
-              "type": "loyalty",
-              "officer": "zhang_he",
-              "delta": -25
-            },
-            {
-              "type": "loyalty",
-              "officer": "qu_yi",
-              "delta": -25
+              "type": "transfer_city",
+              "stronghold": "ye",
+              "to": "yuan_shao",
+              "with_officers": true
             },
             {
               "type": "friendship",

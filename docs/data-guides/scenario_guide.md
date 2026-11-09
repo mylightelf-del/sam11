@@ -12,7 +12,7 @@
 - 병력·인구·금·군량: 190년 예시의 크기를 참고. 군량은 병력 이상 (병사 1명당 월 0.1 소비, 10개월분 이상). 도시 병력 상한은 인구 × 10% 정도가 자연스럽다 (시작 시점에는 조금 넘어도 됨).
 - 병장기(horse/crossbow/siege_engine/ship)는 세력 특색에 맞게 (서량·북방 군마, 오·형주 함선).
 - `relations`: 의형제(sworn), 부부(spouse), 친애(like), 혐오(dislike).
-- `diplomacy`: 시작 시 동맹 `{type: alliance, factions:[...], name, months}` (예: 적벽의 손유 동맹).
+- `diplomacy`: 시작 시 동맹 `{type: alliance, factions:[...], name, months}` (예: 적벽의 손유 동맹). 시작 친밀도는 `{type: friendship, factions:[a,b], value}` (기본 50).
 - `goals`: 주요 세력마다 1~2개 목표 승리. 조건은 아래 이벤트 조건과 같은 문법 + `{"owns": [거점들]}`(그 세력이 소유) 축약형, `{"before": "YYYY-MM"}`.
 - `treasures`: 보물 위치 (`base/treasures.json` ID만). 소유자는 시나리오에 배치된 무장.
 - `events`: `events.json` 파일 이름.
@@ -20,7 +20,7 @@
 ## 이벤트 문법 (events.json)
 - 필드: id, name{ko}, decider(선택지를 고르는 세력 ID), once(true), locked(선택), trigger, text, choices[{id, text, ai_weight, effects}], effects(선택지와 무관하게 적용)
 - 조건: all, any, not, after "YYYY-MM", before, chance(0~1, 매월 판정), ruler_of{faction,officer}, owns{faction,strongholds[]}, officer_in{officer,stronghold}, officer_in_faction{officer,faction}, loyalty_lte{officer,value}, faction_alive "id", faction_destroyed "id", event_done "id", enemy_units_near{stronghold,radius,troops_gte}
-- 결과: move_capital{faction,to}, city_population{stronghold,mult}, city_morale{stronghold,delta}, destroy_facilities{stronghold,ratio}, transfer_resources{from,to,gold,food,troops,officers (비율 0~1)}, trust{faction,delta}, friendship{a,b,delta}, unlock_event{event}, give_treasure{treasure,officer}, loyalty{officer,delta}, kill_officer{officer,cause}, split_faction{new_faction,ruler,color,officers[],take_location_of,successor}, officer_join{officer,faction,location,loyalty,allow_defect (군주 제외 타 세력 무장도 이적)}, transfer_city{stronghold,to,with_officers (기본 true: 그 거점의 무장도 귀순, 병력·물자 유지)}
+- 결과: move_capital{faction,to}, city_population{stronghold,mult}, city_morale{stronghold,delta}, destroy_facilities{stronghold,ratio}, transfer_resources{from,to,gold,food,troops,officers (비율 0~1)}, trust{faction,delta}, friendship{a,b,delta}, unlock_event{event}, give_treasure{treasure,officer}, loyalty{officer,delta}, kill_officer{officer,cause}, split_faction{new_faction,ruler,color,officers[],take_location_of,successor}, officer_join{officer,faction,location,loyalty,allow_defect (군주 제외 타 세력 무장도 이적)}, transfer_city{stronghold,to,with_officers (기본 true: 그 거점의 무장도 귀순, 병력·물자 유지)}, pact{kind (alliance|truce),a,b,months}. split_faction은 seat(근거지 지정, 잃었으면 근처 거점)·strongholds[](함께 가져갈 거점)·friendship(옛 세력과의 친밀도 변화, 기본 -50)도 받는다
 - 모르는 조건·결과를 쓰면 게임이 멈춘다. 위 목록만 쓸 것. 이벤트는 매월 초 판정되고 once면 한 번만 일어난다.
 - 이벤트는 역사 흐름을 살리되 선택지로 역사와 다른 길도 열어 둔다 (예: 삼고초려 세 번 방문 / 한 번 / 안 함).
 

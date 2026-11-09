@@ -128,4 +128,20 @@ public class EventTests
         Assert.That(w.Officers[rulerId].Faction, Is.EqualTo("cao_cao"));
         Assert.That(w.Officers[rulerId].Status, Is.EqualTo(OfficerStatus.Active));
     }
+
+    [Test]
+    public void SplitWithLostSeatNeverTakesCapitalAndPactHolds()
+    {
+        var g = NewGame();
+        var w = g.World;
+        var dz = w.Factions["dong_zhuo"];
+        var general = w.Officers.Values.Where(o => o.Faction == "dong_zhuo" && o.Status == OfficerStatus.Active && o.Id != dz.Ruler && o.Location == dz.Capital)
+                       .OrderBy(o => o.Id).First();
+        var lost = w.Cities.Values.First(c => c.Owner != "dong_zhuo").Id;
+        EventSystem.Apply(g, JArray.Parse($"[{{\"type\": \"split_faction\", \"new_faction\": \"rebel\", \"ruler\": \"{general.Id}\", \"officers\": [\"{general.Id}\"], \"seat\": \"{lost}\", \"friendship\": 0}}, {{\"type\": \"pact\", \"kind\": \"truce\", \"a\": \"dong_zhuo\", \"b\": \"rebel\", \"months\": 12}}]"));
+        Assert.That(w.Factions.ContainsKey("rebel"));
+        Assert.That(w.Cities[dz.Capital].Owner, Is.EqualTo("dong_zhuo"), "본거지는 가져가지 않는다");
+        Assert.That(w.Cities.Values.Count(c => c.Owner == "rebel"), Is.EqualTo(1));
+        Assert.That(w.Alliances.Any(a => a.Kind == PactKind.Truce && a.Members.SetEquals(new[] { "dong_zhuo", "rebel" })));
+    }
 }

@@ -70,7 +70,7 @@
               "type": "friendship",
               "a": "liu_bei",
               "b": "he_jin",
-              "delta": 60
+              "delta": 20
             }
           ]
         },
@@ -230,6 +230,458 @@
       "decider": "zhang_jue"
     },
     {
+      "id": "provincial_governors",
+      "name": {
+        "ko": "주목 파견"
+      },
+      "decider": "he_jin",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "185-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "he_jin",
+              "officer": "he_jin"
+            }
+          },
+          {
+            "any": [
+              {
+                "faction_destroyed": "zhang_jue"
+              },
+              {
+                "after": "186-01"
+              }
+            ]
+          }
+        ]
+      },
+      "text": "황건의 불길은 잦아들었으나 천하는 여전히 어지럽다. 유언이 상소한다. \"자사의 권한이 가벼워 도적을 막지 못하니, 종실과 중신을 주목으로 삼아 군권과 재정을 맡기소서.\" 이 명을 내리면 지방은 안정되겠지만, 조정의 손을 떠난 군벌들이 각자의 길을 걷게 될 것이다.",
+      "choices": [
+        {
+          "id": "dispatch",
+          "text": "주목 제도를 되살려 중신들을 각 주로 보낸다",
+          "ai_weight": 9,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "liu_yan",
+              "ruler": "liu_yan",
+              "color": "#8e44ad",
+              "officers": [
+                "liu_yan"
+              ],
+              "seat": "chengdu",
+              "friendship": 0
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "liu_yan",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "chengdu",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "officer_join",
+              "officer": "zhang_song",
+              "faction": "liu_yan",
+              "location": "chengdu",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "huang_quan",
+              "faction": "liu_yan",
+              "location": "chengdu",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "yan_yan",
+              "faction": "liu_yan",
+              "location": "chengdu",
+              "loyalty": 80
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "liu_biao",
+              "ruler": "liu_biao",
+              "color": "#1e88e5",
+              "officers": [
+                "liu_biao",
+                "kuai_yue"
+              ],
+              "seat": "xiangyang",
+              "friendship": 0,
+              "strongholds": [
+                "jiangling"
+              ]
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "liu_biao",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "xiangyang",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "officer_join",
+              "officer": "cai_mao",
+              "faction": "liu_biao",
+              "location": "xiangyang",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "kuai_liang",
+              "faction": "liu_biao",
+              "location": "xiangyang",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "huang_zu",
+              "faction": "liu_biao",
+              "location": "xiangyang",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "wen_pin",
+              "faction": "liu_biao",
+              "location": "xiangyang",
+              "loyalty": 80
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "gongsun_zan",
+              "ruler": "gongsun_zan",
+              "color": "#ffffff",
+              "officers": [
+                "gongsun_zan",
+                "yan_gang",
+                "tian_kai",
+                "gongsun_yue"
+              ],
+              "seat": "beiping",
+              "friendship": 0
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "gongsun_zan",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "beiping",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "ma_teng",
+              "ruler": "ma_teng",
+              "color": "#a1887f",
+              "officers": [
+                "ma_teng"
+              ],
+              "seat": "anding",
+              "friendship": 0,
+              "strongholds": [
+                "tianshui"
+              ]
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "ma_teng",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "anding",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "officer_join",
+              "officer": "han_sui",
+              "faction": "ma_teng",
+              "location": "anding",
+              "loyalty": 80
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "sun_jian",
+              "ruler": "sun_jian",
+              "color": "#c0392b",
+              "officers": [
+                "sun_jian",
+                "cheng_pu",
+                "huang_gai",
+                "han_dang",
+                "zu_mao",
+                "zhu_zhi",
+                "sun_jing",
+                "wu_jing"
+              ],
+              "seat": "jianye",
+              "friendship": 0
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "sun_jian",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "jianye",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "tao_qian",
+              "ruler": "tao_qian",
+              "color": "#00897b",
+              "officers": [
+                "tao_qian"
+              ],
+              "seat": "xiapi",
+              "friendship": 0,
+              "strongholds": [
+                "langya"
+              ]
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "tao_qian",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "xiapi",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "officer_join",
+              "officer": "cao_bao",
+              "faction": "tao_qian",
+              "location": "xiapi",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "mi_zhu",
+              "faction": "tao_qian",
+              "location": "xiapi",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "chen_deng",
+              "faction": "tao_qian",
+              "location": "xiapi",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "chen_gui",
+              "faction": "tao_qian",
+              "location": "xiapi",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "zang_ba",
+              "faction": "tao_qian",
+              "location": "xiapi",
+              "loyalty": 80
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "liu_yu",
+              "ruler": "liu_yu",
+              "color": "#5c6bc0",
+              "officers": [
+                "liu_yu"
+              ],
+              "seat": "ji_city",
+              "friendship": 0
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "liu_yu",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "ji_city",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "officer_join",
+              "officer": "tian_chou",
+              "faction": "liu_yu",
+              "location": "ji_city",
+              "loyalty": 80
+            },
+            {
+              "type": "split_faction",
+              "new_faction": "yuan_shu",
+              "ruler": "yuan_shu",
+              "color": "#f9a825",
+              "officers": [
+                "yuan_shu"
+              ],
+              "seat": "shouchun",
+              "friendship": 0
+            },
+            {
+              "type": "pact",
+              "kind": "truce",
+              "a": "he_jin",
+              "b": "yuan_shu",
+              "months": 36
+            },
+            {
+              "type": "transfer_resources",
+              "from": "luoyang",
+              "to": "shouchun",
+              "troops": 0.12,
+              "gold": 0.08,
+              "food": 0.08
+            },
+            {
+              "type": "officer_join",
+              "officer": "ji_ling",
+              "faction": "yuan_shu",
+              "location": "shouchun",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "yan_xiang",
+              "faction": "yuan_shu",
+              "location": "shouchun",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "zhang_xun",
+              "faction": "yuan_shu",
+              "location": "shouchun",
+              "loyalty": 80
+            },
+            {
+              "type": "officer_join",
+              "officer": "lei_bo",
+              "faction": "yuan_shu",
+              "location": "shouchun",
+              "loyalty": 80
+            },
+            {
+              "type": "trust",
+              "faction": "he_jin",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "centralize",
+          "text": "군권은 조정이 쥔다. 상소를 물리친다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "liu_yan",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "liu_biao",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "gongsun_zan",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "ma_teng",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "sun_jian",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "tao_qian",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "liu_yu",
+              "delta": -15
+            },
+            {
+              "type": "loyalty",
+              "officer": "yuan_shu",
+              "delta": -15
+            },
+            {
+              "type": "trust",
+              "faction": "he_jin",
+              "delta": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "ten_attendants",
       "name": {
         "ko": "십상시의 난"
@@ -238,7 +690,7 @@
       "trigger": {
         "all": [
           {
-            "after": "189-04"
+            "after": "188-04"
           },
           {
             "ruler_of": {

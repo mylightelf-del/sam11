@@ -106,6 +106,12 @@ namespace Sam11.Core.World
             }
             foreach (var d in (root["diplomacy"] as JArray) ?? new JArray())
             {
+                if (d.Value<string>("type") == "friendship")
+                {
+                    var pair = d["factions"]!.Values<string>().ToList();
+                    w.ChangeFriendship(pair[0]!, pair[1]!, d.Value<int>("value") - w.FriendshipOf(pair[0]!, pair[1]!));
+                    continue;
+                }
                 if (d.Value<string>("type") != "alliance") continue;
                 int months = d.Value<int?>("months") ?? 12;
                 int total = w.Date.Year * 12 + (w.Date.Month - 1) + months;

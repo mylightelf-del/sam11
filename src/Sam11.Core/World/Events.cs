@@ -247,6 +247,14 @@ namespace Sam11.Core.World
                     w.Log.Add($"[{w.Date}]   {Korean.IGa(o.ToString())} 죽었다");
                     break;
                 }
+                case "pact":
+                {
+                    string a = fx.Value<string>("a")!, b = fx.Value<string>("b")!;
+                    if (!w.Factions.TryGetValue(a, out var fa) || !fa.Alive || !w.Factions.TryGetValue(b, out var fb) || !fb.Alive) break;
+                    var kind = fx.Value<string>("kind") == "alliance" ? PactKind.Alliance : PactKind.Truce;
+                    w.AddPact(kind, a, b, fx.Value<int>("months"), kind == PactKind.Alliance ? "동맹" : "정전");
+                    break;
+                }
                 case "officer_join":
                     OfficerJoin(g, fx);
                     break;
@@ -307,9 +315,21 @@ namespace Sam11.Core.World
             if (successor != null && w.Officers.TryGetValue(successor, out var heir) && heir.Status == OfficerStatus.Active && heir.Faction == oldId)
                 old.Ruler = successor;
 
-            string? seat = w.Officers.TryGetValue(fx.Value<string>("take_location_of") ?? ruler, out var anchor) ? anchor.Location : null;
+            // 근거지: seat(지정 거점) → 주동자 위치 → 본거지가 아닌 옛 세력 거점
+            // 지정 거점을 이미 잃었으면 그 근처의 (본거지가 아닌) 옛 세력 거점을 쓴다
+            string? wanted = fx.Value<string>("seat");
+            string? seat = wanted;
+            if (seat != null && (!w.Cities.TryGetValue(seat, out var named) || named.Owner != oldId))
+            {
+                var near = w.Cities[wanted!].Placement.Center;
+                seat = w.Cities.Values.Where(c => c.Owner == oldId && c.Id != old.Capital)
+                        .OrderBy(c => c.Placement.Center.DistanceTo(near)).ThenBy(c => c.Id).Select(c => c.Id).FirstOrDefault();
+            }
+            else if (seat == null)
+                seat = w.Officers.TryGetValue(fx.Value<string>("take_location_of") ?? ruler, out var anchor) ? anchor.Location : null;
             if (seat == null || seat == "" || w.Cities[seat].Owner != oldId)
-                seat = w.Cities.Values.Where(c => c.Owner == oldId).OrderByDescending(c => c.Def.IsCity).ThenBy(c => c.Id).Select(c => c.Id).FirstOrDefault();
+                seat = w.Cities.Values.Where(c => c.Owner == oldId && c.Id != old.Capital).OrderByDescending(c => c.Def.IsCity).ThenBy(c => c.Id)
+                        .Select(c => c.Id).FirstOrDefault();
             if (seat == null) return;
 
             var nf = new FactionState { Id = newId, Ruler = ruler, Color = fx.Value<string>("color") ?? "#888888", Capital = seat };
@@ -317,6 +337,15 @@ namespace Sam11.Core.World
             w.Cities[seat].Owner = newId;
             w.Cities[seat].Governor = null;
             g.Field.Strongholds[seat].Owner = newId;
+            // 함께 가져가는 거점 (옛 세력 소유이고 본거지가 아닐 때만)
+            foreach (var extra in fx["strongholds"]?.Values<string>() ?? Enumerable.Empty<string>())
+                if (extra != null && w.Cities.TryGetValue(extra, out var ec) && ec.Owner == oldId && extra != old.Capital)
+                {
+                    ec.Owner = newId;
+                    ec.Governor = null;
+                    g.Field.Strongholds[extra].Owner = newId;
+                    foreach (var o in w.OfficersAt(extra).Where(o => o.Faction == oldId).ToList()) o.Location = old.Capital;
+                }
             if (old.Capital == seat)
                 old.Capital = w.Cities.Values.Where(c => c.Owner == oldId).OrderByDescending(c => c.Def.IsCity).Select(c => c.Id).FirstOrDefault() ?? old.Capital;
 
@@ -330,7 +359,7 @@ namespace Sam11.Core.World
             // 새 세력 거점에 남은 옛 세력 무장은 옛 세력 본거지로
             foreach (var o in w.OfficersAt(seat).Where(o => o.Faction == oldId).ToList())
                 o.Location = old.Capital;
-            w.ChangeFriendship(newId, oldId, -50);
+            w.ChangeFriendship(newId, oldId, fx.Value<int?>("friendship") ?? -50);
             g.OnFactionCreated(newId);
             w.Log.Add($"[{w.Date}]   ★ {Korean.IGa(leader.ToString())} {w.Cities[seat]}에서 독립했다. {oldName} 세력은 {Korean.IGa(w.Officers[old.Ruler].ToString())} 잇는다");
         }

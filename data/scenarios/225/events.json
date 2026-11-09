@@ -451,9 +451,11 @@
           "ai_weight": 9,
           "effects": [
             {
-              "type": "loyalty",
+              "type": "officer_join",
               "officer": "jiang_wei",
-              "delta": -50
+              "faction": "liu_shan",
+              "allow_defect": true,
+              "loyalty": 95
             },
             {
               "type": "city_morale",

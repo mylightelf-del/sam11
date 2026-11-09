@@ -32,18 +32,20 @@ namespace Sam11.Core.AI
 
         private static double PersonalityFactor(EventChoice c, RulerPersonality p)
         {
-            double f = 1;
+            // 같은 종류의 효과가 여럿이어도 성향 보정은 한 번만 (효과 수가 많은 선택지가 지나치게 불리해지지 않게)
+            var factors = new Dictionary<string, double>();
             foreach (var fx in c.Effects)
             {
                 string type = fx.Value<string>("type") ?? "";
                 int delta = fx.Value<int?>("delta") ?? 0;
                 if (type == "trust")
-                    f *= delta < 0 ? 1 + (5 - p.Faith) * 0.15 : 1 + (p.Faith - 5) * 0.15;
+                    factors["trust"] = delta < 0 ? 1 + (5 - p.Faith) * 0.15 : 1 + (p.Faith - 5) * 0.15;
                 else if (type == "friendship")
-                    f *= delta > 0 ? 1 + (p.Diplomacy - 5) * 0.1 : 1 + (5 - p.Diplomacy) * 0.1;
+                    factors["friendship"] = delta > 0 ? 1 + (p.Diplomacy - 5) * 0.1 : 1 + (5 - p.Diplomacy) * 0.1;
                 else if (type == "transfer_resources" || type == "move_capital")
-                    f *= 1 + (5 - p.Aggression) * 0.1;
+                    factors["retreat"] = 1 + (5 - p.Aggression) * 0.1;
             }
+            double f = factors.Values.Aggregate(1.0, (a, b) => a * b);
             return Math.Max(0.05, f);
         }
 

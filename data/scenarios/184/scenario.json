@@ -3556,7 +3556,17 @@
       ]
     }
   ],
-  "diplomacy": [],
+  "diplomacy": [
+    {
+      "type": "friendship",
+      "factions": [
+        "he_jin",
+        "zhang_jue"
+      ],
+      "value": 0,
+      "note": "조정과 황건은 화친하지 않는다"
+    }
+  ],
   "treasures": [
     {
       "treasure": "dunjia_book",

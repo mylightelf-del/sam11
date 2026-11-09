@@ -36,6 +36,6 @@ public class AllScenariosTests
     private static readonly string[] KnownEffects =
     {
         "move_capital", "city_population", "city_morale", "destroy_facilities", "transfer_resources", "trust", "friendship",
-        "unlock_event", "give_treasure", "loyalty", "kill_officer", "split_faction", "officer_join", "transfer_city", "special",
+        "unlock_event", "give_treasure", "loyalty", "kill_officer", "split_faction", "officer_join", "transfer_city", "pact", "special",
     };
 }
