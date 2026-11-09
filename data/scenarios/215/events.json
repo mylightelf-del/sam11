@@ -1,0 +1,521 @@
+{
+  "events": [
+    {
+      "id": "hefei_zhang_liao",
+      "name": {
+        "ko": "합비 전투"
+      },
+      "decider": "cao_cao",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "215-03"
+          },
+          {
+            "owns": {
+              "faction": "cao_cao",
+              "strongholds": [
+                "hefei"
+              ]
+            }
+          },
+          {
+            "officer_in": {
+              "officer": "zhang_liao",
+              "stronghold": "hefei"
+            }
+          },
+          {
+            "enemy_units_near": {
+              "stronghold": "hefei",
+              "radius": 10,
+              "troops_gte": 40000
+            }
+          }
+        ]
+      },
+      "text": "손권의 10만 대군이 합비를 에워싼다. 성 안의 병사는 7천. 조조가 남긴 밀함에는 \"적이 오면 장료와 이전은 나가 싸우고, 악진은 성을 지켜라\"라고 적혀 있다.",
+      "choices": [
+        {
+          "id": "sortie_800",
+          "text": "장료가 결사대 800을 이끌고 손권 본진으로 돌격한다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "hefei",
+              "delta": 25
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_liao",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "yue_jin",
+              "delta": 5
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": 5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "ruxu",
+              "delta": -15
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "lujiang",
+              "delta": -10
+            },
+            {
+              "type": "friendship",
+              "a": "zhang_liao",
+              "b": "yue_jin",
+              "delta": 20
+            }
+          ]
+        },
+        {
+          "id": "hold_walls",
+          "text": "성문을 굳게 닫고 원군을 기다린다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "hefei",
+              "delta": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hanzhong_surrender",
+      "name": {
+        "ko": "장로 항복"
+      },
+      "decider": "zhang_lu",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "215-03"
+          },
+          {
+            "ruler_of": {
+              "faction": "zhang_lu",
+              "officer": "zhang_lu"
+            }
+          },
+          {
+            "owns": {
+              "faction": "zhang_lu",
+              "strongholds": [
+                "hanzhong"
+              ]
+            }
+          },
+          {
+            "any": [
+              {
+                "enemy_units_near": {
+                  "stronghold": "yangping",
+                  "radius": 10,
+                  "troops_gte": 30000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "hanzhong",
+                  "radius": 12,
+                  "troops_gte": 30000
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "text": "대군이 양평관에 이르자 장로는 항복을 생각한다. 아우 장위는 끝까지 싸우자 하고, 염포는 \"창고를 봉하고 물러났다가 항복해야 값이 높아집니다\"라고 권한다.",
+      "choices": [
+        {
+          "id": "submit_cao",
+          "text": "창고를 봉하고 파중으로 물러났다가 조조에게 항복한다",
+          "ai_weight": 6,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "hanzhong",
+              "to": "changan",
+              "gold": 0.5,
+              "troops": 0.6
+            },
+            {
+              "type": "transfer_resources",
+              "from": "yangping",
+              "to": "chencang",
+              "troops": 0.6
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "hanzhong",
+              "delta": -20
+            },
+            {
+              "type": "loyalty",
+              "officer": "pang_de",
+              "delta": -50
+            },
+            {
+              "type": "loyalty",
+              "officer": "yan_pu",
+              "delta": -40
+            },
+            {
+              "type": "loyalty",
+              "officer": "yang_song",
+              "delta": -50
+            },
+            {
+              "type": "loyalty",
+              "officer": "hou_xuan",
+              "delta": -40
+            },
+            {
+              "type": "friendship",
+              "a": "zhang_lu",
+              "b": "cao_cao",
+              "delta": 60
+            },
+            {
+              "type": "trust",
+              "faction": "zhang_lu",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "join_liu",
+          "text": "남쪽의 유비에게 의탁한다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "hanzhong",
+              "to": "langzhong",
+              "gold": 0.3,
+              "troops": 0.4
+            },
+            {
+              "type": "loyalty",
+              "officer": "yan_pu",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "pang_de",
+              "delta": -30
+            },
+            {
+              "type": "friendship",
+              "a": "zhang_lu",
+              "b": "liu_bei",
+              "delta": 60
+            },
+            {
+              "type": "friendship",
+              "a": "zhang_lu",
+              "b": "cao_cao",
+              "delta": -30
+            }
+          ]
+        },
+        {
+          "id": "resist",
+          "text": "장위의 말대로 양평관에서 끝까지 싸운다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "hanzhong",
+              "delta": 10
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "yangping",
+              "delta": 15
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhang_wei",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "yan_pu",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flood_seven_armies",
+      "name": {
+        "ko": "수엄칠군"
+      },
+      "decider": "liu_bei",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "219-07"
+          },
+          {
+            "officer_in_faction": {
+              "officer": "guan_yu",
+              "faction": "liu_bei"
+            }
+          },
+          {
+            "owns": {
+              "faction": "liu_bei",
+              "strongholds": [
+                "jiangling"
+              ]
+            }
+          },
+          {
+            "owns": {
+              "faction": "cao_cao",
+              "strongholds": [
+                "fancheng"
+              ]
+            }
+          },
+          {
+            "enemy_units_near": {
+              "stronghold": "fancheng",
+              "radius": 10,
+              "troops_gte": 20000
+            }
+          },
+          {
+            "chance": 0.5
+          }
+        ]
+      },
+      "text": "가을 장마로 한수가 넘친다. 번성을 구하러 온 우금의 칠군이 낮은 땅에 진을 치자, 관우가 배를 타고 물길을 따라 덮친다.",
+      "choices": [
+        {
+          "id": "flood",
+          "text": "둑을 터뜨려 칠군을 수장한다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "fancheng",
+              "to": "jiangling",
+              "food": 0.3,
+              "troops": 0.5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "fancheng",
+              "delta": -30
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xiangyang",
+              "delta": -15
+            },
+            {
+              "type": "destroy_facilities",
+              "stronghold": "fancheng",
+              "ratio": 0.3
+            },
+            {
+              "type": "loyalty",
+              "officer": "yu_jin",
+              "delta": -40
+            },
+            {
+              "type": "loyalty",
+              "officer": "guan_yu",
+              "delta": 5
+            },
+            {
+              "type": "trust",
+              "faction": "liu_bei",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": -10
+            },
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "liu_bei",
+              "delta": -20
+            },
+            {
+              "type": "unlock_event",
+              "event": "baiyi_dujiang"
+            }
+          ]
+        },
+        {
+          "id": "siege",
+          "text": "물을 쓰지 않고 번성을 정면으로 포위한다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "fancheng",
+              "delta": -10
+            },
+            {
+              "type": "unlock_event",
+              "event": "baiyi_dujiang"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baiyi_dujiang",
+      "name": {
+        "ko": "백의도강"
+      },
+      "decider": "sun_quan",
+      "once": true,
+      "locked": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "219-10"
+          },
+          {
+            "owns": {
+              "faction": "liu_bei",
+              "strongholds": [
+                "jiangling"
+              ]
+            }
+          },
+          {
+            "owns": {
+              "faction": "sun_quan",
+              "strongholds": [
+                "lukou"
+              ]
+            }
+          },
+          {
+            "not": {
+              "officer_in": {
+                "officer": "guan_yu",
+                "stronghold": "jiangling"
+              }
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "lu_meng",
+              "faction": "sun_quan"
+            }
+          },
+          {
+            "chance": 0.5
+          }
+        ]
+      },
+      "text": "관우가 북쪽에 매여 있는 사이, 여몽이 병을 핑계로 물러나고 육손이 겸손한 글을 보낸다. 상인 차림을 한 병사들이 흰 옷을 입고 배 안에 숨어 강을 건넌다.",
+      "choices": [
+        {
+          "id": "cross",
+          "text": "흰 옷을 입고 강을 건너 강릉을 기습한다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "jiangling",
+              "to": "lukou",
+              "gold": 0.6,
+              "food": 0.6,
+              "troops": 0.6
+            },
+            {
+              "type": "transfer_resources",
+              "from": "gongan",
+              "to": "lukou",
+              "food": 0.5,
+              "troops": 0.5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "jiangling",
+              "delta": -30
+            },
+            {
+              "type": "loyalty",
+              "officer": "mi_fang",
+              "delta": -50
+            },
+            {
+              "type": "loyalty",
+              "officer": "liu_zhang",
+              "delta": -40
+            },
+            {
+              "type": "loyalty",
+              "officer": "lu_meng",
+              "delta": 10
+            },
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "liu_bei",
+              "delta": -60
+            },
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "cao_cao",
+              "delta": 30
+            },
+            {
+              "type": "trust",
+              "faction": "sun_quan",
+              "delta": -10
+            }
+          ]
+        },
+        {
+          "id": "keep_alliance",
+          "text": "동맹의 의리를 지킨다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "sun_quan",
+              "b": "liu_bei",
+              "delta": 20
+            },
+            {
+              "type": "loyalty",
+              "officer": "lu_meng",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
