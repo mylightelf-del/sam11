@@ -17,6 +17,11 @@ namespace Sam11.Core.Battle
 
         private static BattleStratagemRules R(Battle b) => b.Data.Rules.Stratagem.Battle;
 
+        /// <summary>위보로 움직일 수 있는 부대인지: 성 안·성벽 위가 아니고, 옆에 빈 칸이 있어야 한다.</summary>
+        public static bool CanBeMisled(Battle b, Unit target) =>
+            !b.Structures.ContainsKey(target.Position)
+            && target.Position.Neighbors().Any(n => b.MoveCost2(target, n) != null && b.UnitAt(n) == null && !b.Structures.ContainsKey(n));
+
         /// <summary>성공률: 기본 + (지력 차) ÷ 100 + 계략 특기 − 상대 간파 특기.</summary>
         public static double Chance(Battle b, Unit actor, Unit target, string kind)
         {
@@ -70,6 +75,8 @@ namespace Sam11.Core.Battle
                 throw new InvalidOperationException("계략 대상이 아님");
             if (actor.Position.DistanceTo(target.Position) > r.Range) throw new InvalidOperationException("사거리 밖");
             if (kind == "fire" && b.WeatherId == "rain") throw new InvalidOperationException("비가 와서 불을 놓을 수 없다");
+            if (kind == "false_report" && !CanBeMisled(b, target))
+                throw new InvalidOperationException("성벽 위에 있거나 움직일 곳이 없어 위보가 통하지 않는다");
             actor.Energy -= cost;
             actor.Hidden = false;
             double chance = Chance(b, actor, target, kind);

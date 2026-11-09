@@ -51,6 +51,18 @@ namespace Sam11.Core.Data
         public override string ToString() => Name.Ko;
     }
 
+    /// <summary>data/base/treasures.json — 종류별로 한 개씩 장착 (01 무장 설계서 7장).</summary>
+    public sealed class TreasureDef
+    {
+        public string Id { get; set; } = "";
+        public LocalizedText Name { get; set; } = new LocalizedText();
+        /// <summary>weapon / horse / book / artifact</summary>
+        public string Slot { get; set; } = "";
+        public Dictionary<string, int> StatBonus { get; set; } = new Dictionary<string, int>();
+        public List<string> GrantsTraits { get; set; } = new List<string>();
+        public override string ToString() => Name.Ko;
+    }
+
     public sealed class KinDef
     {
         public string? Father { get; set; }

@@ -25,6 +25,10 @@ namespace Sam11.Core.AI
         /// <summary>전투 기록에서 이 원정이 시작·끝난 위치 (분석용).</summary>
         public int LogStart, LogEnd;
         public bool Won;
+        /// <summary>방어(요격) 원정: Target은 지킬 아군 도시, 그 근처의 적 부대를 친다.</summary>
+        public bool Defense;
+        /// <summary>동맹이 치고 있는 세력을 함께 치는 공동 작전.</summary>
+        public bool Joint;
         /// <summary>부대가 원정에서 빠진 사연 (분석용).</summary>
         public List<string> Exits = new List<string>();
         public List<string> Labels = new List<string>();
@@ -52,6 +56,12 @@ namespace Sam11.Core.AI
         public int DiplomacyAttempts;
         public int Stratagems;
         public int Missions;
+        public int Intercepts;
+        public int Reinforcements2;
+        public int Bestowals;
+        public int Executions;
+        public int Releases;
+        public int JointOps;
         public int DiplomacySuccesses;
         public int RetreatsMorale;
         public int RetreatsFood;
@@ -112,6 +122,8 @@ namespace Sam11.Core.AI
                     _diplomacyMonth = monthKey;
                     PlanDiplomacy(g, faction);
                     PlanMissions(g, faction);
+                    PlanTreasures(g, faction);
+                    PlanCaptives(g, faction);
                 }
                 Plan(g, faction);
             }
@@ -120,13 +132,12 @@ namespace Sam11.Core.AI
                 TryLaunch(g, faction, camp);
             foreach (var camp in Campaigns.Where(c => c.State == CampaignState.Marching).ToList())
                 TryReinforce(g, faction, camp);
+            PlanDefense(g, faction);
             RunDomestic(g, faction);
             RunField(g, faction);
             Campaigns.RemoveAll(c => c.State == CampaignState.Done);
         }
 
-        /// <summary>이벤트 선택: 데이터의 ai_weight 가중치로 고른다 (06 AI 설계서: 성향 반영은 추후).</summary>
-        public EventChoice Choose(Game g, EventDef ev, string faction) => EventSystem.WeightedPick(g.World.Rng, ev.Choices);
 
         /// <summary>
         /// 전략 계략 (매월 한 건): 원정 목표에 내응 → 유언비어, 보이지 않는 목표엔 첩보,
@@ -243,7 +254,7 @@ namespace Sam11.Core.AI
             var own = w.Cities.Values.Where(c => c.Owner == faction).ToList();
             int cityCount = own.Count(c => c.Def.IsCity);
             int max = cityCount >= 20 ? 6 : cityCount >= 15 ? 5 : cityCount >= 10 ? 4 : cityCount >= 6 ? 3 : cityCount >= 3 ? 2 : 1;
-            if (Campaigns.Count >= max) return;
+            if (Campaigns.Count(c => !c.Defense) >= max) return;
 
             var p = Personality(w, faction);
             double ratio = Config.ConcentrationRatio * (Config.ConcentrationRatio >= 1 ? 1.15 - 0.03 * p.Aggression : 1);
@@ -272,17 +283,20 @@ namespace Sam11.Core.AI
                     int need = (int)Math.Ceiling(d * ratio);
                     double score = Value(w, t) * (0.6 + p.Aggression / 10.0) / (1 + d / 8000.0)
                                    / (1 + s.Placement.Center.DistanceTo(t.Placement.Center) / 40.0);
+                    // 공동 작전: 동맹이 지금 치고 있는 세력이면 함께 친다
+                    bool joint = t.Owner != null && AllyIsFighting(g, faction, t.Owner);
+                    if (joint) score *= 1.5;
                     int foodNeed = (int)(need * w.Data.Rules.Economy.FoodPerSoldierMonth * 6);
                     bool lean = preHarvest && s.Food - Domestic.MonthlyFoodUse(w, s) * 3 < foodNeed;
                     bool feasible = available >= need && capacity >= need && !lean;
                     if (capacity < need * 0.7) continue; // 지휘관이 턱없이 모자라면 계획도 세우지 않는다
-                    var camp = new Campaign { Target = tid, Source = s.Id, Required = need, EstimatedDefense = d, StartTurn = g.TurnCount };
+                    var camp = new Campaign { Target = tid, Source = s.Id, Required = need, EstimatedDefense = d, StartTurn = g.TurnCount, Joint = joint };
                     options.Add((score, camp, feasible));
                 }
             }
             foreach (var (score, camp, feasible) in options.OrderByDescending(o => o.Feasible).ThenByDescending(o => o.Score))
             {
-                if (Campaigns.Count >= max) break;
+                if (Campaigns.Count(c => !c.Defense) >= max) break;
                 if (Campaigns.Any(c => c.Source == camp.Source || c.Target == camp.Target)) continue;
                 if (!feasible)
                 {
@@ -292,7 +306,8 @@ namespace Sam11.Core.AI
                     if (Campaigns.Count > 0 || total < camp.Required * 0.5) continue;
                 }
                 Campaigns.Add(camp);
-                w.Log.Add($"[{w.Date}] (AI) {w.NameOf(faction)} 세력, {w.Cities[camp.Target]} 공략 계획 (출발 {w.Cities[camp.Source]}, 필요 병력 {camp.Required})");
+                if (camp.Joint) Stats.JointOps++;
+                w.Log.Add($"[{w.Date}] (AI) {w.NameOf(faction)} 세력, {w.Cities[camp.Target]} 공략 계획 (출발 {w.Cities[camp.Source]}, 필요 병력 {camp.Required}){(camp.Joint ? " — 동맹과 공동 작전" : "")}");
             }
         }
     }

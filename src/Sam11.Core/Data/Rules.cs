@@ -22,6 +22,8 @@ namespace Sam11.Core.Data
         public Duel.DuelRules Duel { get; set; } = new Duel.DuelRules();
         public DiplomacyRules Diplomacy { get; set; } = new DiplomacyRules();
         public StratagemRules Stratagem { get; set; } = new StratagemRules();
+        public TreasureRules Treasure { get; set; } = new TreasureRules();
+        public CaptiveRules Captives { get; set; } = new CaptiveRules();
         public DomesticRules Domestic { get; set; } = new DomesticRules();
     }
 
@@ -112,6 +114,16 @@ namespace Sam11.Core.Data
         public int LoyaltyBelow { get; set; } = 30;
         public int AmbitionAtLeast { get; set; } = 8;
         public double MonthlyChance { get; set; } = 0.1;
+    }
+
+    public sealed class TreasureRules { public int BestowLoyalty { get; set; } = 15; }
+
+    public sealed class CaptiveRules
+    {
+        public int DecideAfterMonths { get; set; } = 3;
+        public int ReleaseFriendship { get; set; } = 5;
+        public int ExecuteFriendship { get; set; } = -20;
+        public int ExecuteTrust { get; set; } = -5;
     }
 
     public sealed class MeritRules

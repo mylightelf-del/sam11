@@ -220,6 +220,11 @@ namespace Sam11.Core.AI
         {
             var w = g.World;
             var b = g.Field;
+            if (camp != null && camp.Defense)
+            {
+                ActDefender(g, faction, u, camp);
+                return;
+            }
 
             // 목표가 없거나(원정 종료) 퇴각해야 하면 가장 가까운 아군 거점으로
             bool retreat = Config.Retreats && ((u.Morale < 30 && u.Troops < u.MaxTroops * 0.35) || (u.Food == 0 && !b.IsSupplied(u)));
@@ -281,6 +286,19 @@ namespace Sam11.Core.AI
             var before = u.Position;
             if (best.Pos != u.Position) b.Move(u, best.Pos);
             if (!u.IsAlive || u.HasActed) return;
+            if (best.Kind == ActionKind.Move && before == u.Position)
+            {
+                Stats.StalledUnitTurns++;
+                string why = StallReason(b, u, field);
+                Stats.StallReasons[why] = Stats.StallReasons.TryGetValue(why, out var n) ? n + 1 : 1;
+                return;
+            }
+            ExecuteChoice(g, u, best);
+        }
+
+        private void ExecuteChoice(Game g, Unit u, Choice best)
+        {
+            var b = g.Field;
             switch (best.Kind)
             {
                 case ActionKind.Attack: b.Attack(u, best.Target!); break;
@@ -292,14 +310,6 @@ namespace Sam11.Core.AI
                 case ActionKind.Stratagem:
                     Stats.Stratagems++;
                     Stratagems.Use(b, u, best.Stratagem!, best.Target);
-                    break;
-                default:
-                    if (before == u.Position)
-                    {
-                        Stats.StalledUnitTurns++;
-                        string why = StallReason(b, u, field);
-                        Stats.StallReasons[why] = Stats.StallReasons.TryGetValue(why, out var n) ? n + 1 : 1;
-                    }
                     break;
             }
         }
@@ -446,6 +456,25 @@ namespace Sam11.Core.AI
                             Consider(best, Stratagems.Chance(b, u, e, "confuse") * e.FightingTroops * 0.1 + terrain - danger * 0.3,
                                      pos, ActionKind.Stratagem, e, null, null, "confuse");
                     }
+                }
+                // 위보: 우리 성벽·성문에 붙은 적이나 공성진을 엉뚱한 데로 보낸다
+                if (u.EffInt >= 70 && u.Energy >= g.World.Data.Rules.Stratagem.Battle.Energy["false_report"])
+                    foreach (var e in enemies)
+                    {
+                        if (pos.DistanceTo(e.Position) > g.World.Data.Rules.Stratagem.Battle.Range) continue;
+                        bool atOurWalls = e.Position.Neighbors().Any(n => b.Structures.TryGetValue(n, out var st) && b.OwnerOf(st) == u.Faction);
+                        if ((!atOurWalls && e.Formation.Id != "siege") || !Stratagems.CanBeMisled(b, e)) continue;
+                        Consider(best, Stratagems.Chance(b, u, e, "false_report") * e.FightingTroops * 0.12 + terrain - danger * 0.3,
+                                 pos, ActionKind.Stratagem, e, null, null, "false_report");
+                    }
+                // 매복: 숲·산·안개에서, 적이 다가오는데(4칸 안) 아직 칠 수 없으면 숨어서 기다린다
+                if (pos == origin && !u.Hidden && u.Energy >= g.World.Data.Rules.Stratagem.Battle.Energy["ambush"]
+                    && (b.Map.TerrainAt(pos) == "forest" || b.Map.TerrainAt(pos) == "mountain" || b.WeatherId == "fog")
+                    && enemies.Any(e => e.Position.DistanceTo(pos) <= 4) && !enemies.Any(e => e.Position.DistanceTo(pos) <= u.Formation.Range))
+                {
+                    var next = enemies.OrderBy(e => e.Position.DistanceTo(pos)).First();
+                    Consider(best, Expected(g, u, next, 1.0) * g.World.Data.Rules.Stratagem.Battle.AmbushBonus * 0.5 + terrain,
+                             pos, ActionKind.Stratagem, null, null, null, "ambush");
                 }
                 // 진정: 붙어 있는 아군이 혼란이면 풀어 준다
                 if (u.Energy >= g.World.Data.Rules.Stratagem.Battle.Energy["calm"])

@@ -46,6 +46,7 @@ namespace Sam11.Core.World
             World = world;
             Field = SiegeSetup.CreateBattle(world, seed);
             Field.Hostile = (a, b) => !world.AtPeace(a, b);
+            Field.OfficerResolver = id => Treasures.Effective(world, id);
         }
 
         public IEnumerable<string> AliveFactions => World.Factions.Values.Where(f => f.Alive).Select(f => f.Id);
@@ -202,11 +203,13 @@ namespace Sam11.Core.World
             switch (fate.Outcome)
             {
                 case DefeatOutcome.Death:
+                    Treasures.Seize(World, o.Id, fate.By != null && World.Factions.ContainsKey(fate.By) ? fate.By : o.Faction);
                     o.Status = OfficerStatus.Dead;
                     o.Location = "";
                     World.Log.Add($"[{World.Date}] {Korean.IGa(o.ToString())} 전사했다");
                     return;
                 case DefeatOutcome.Capture when fate.By != null && World.Factions.ContainsKey(fate.By):
+                    Treasures.Seize(World, o.Id, fate.By);
                     o.PreviousFaction = o.Faction;
                     if (o.Faction != null) World.ChangeFriendship(o.Faction, fate.By, -5);
                     o.Status = OfficerStatus.Captive;

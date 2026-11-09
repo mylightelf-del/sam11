@@ -145,8 +145,10 @@ namespace Sam11.Core.World
         public List<EventDef> Events { get; } = new List<EventDef>();
         public HashSet<string> EventsDone { get; } = new HashSet<string>();
 
-        /// <summary>보물 → 소유 무장 (null이면 아직 아무도 갖지 않음).</summary>
+        /// <summary>보물 → 소유 무장 (null이면 아무도 장착하지 않음).</summary>
         public Dictionary<string, string?> TreasureOwner { get; } = new Dictionary<string, string?>();
+        /// <summary>장착되지 않은 보물 → 보관 중인 세력.</summary>
+        public Dictionary<string, string> TreasureVault { get; } = new Dictionary<string, string>();
 
         /// <summary>세력별 신용 (0~100, 기본 50). 약속을 깨면 떨어진다 (05 외교 설계서 2.1).</summary>
         public Dictionary<string, int> Trust { get; } = new Dictionary<string, int>();

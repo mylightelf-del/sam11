@@ -147,6 +147,7 @@ namespace Sam11.Core.World
                     }
                     else
                     {
+                        Treasures.Seize(w, o.Id, cap.To);
                         o.PreviousFaction = o.Faction;
                         o.Status = OfficerStatus.Captive;
                         o.Faction = cap.To;

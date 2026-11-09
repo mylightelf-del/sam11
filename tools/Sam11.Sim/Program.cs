@@ -310,7 +310,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
         {
             total.CampaignsLaunched += a.Stats.CampaignsLaunched; total.LaunchedUnderRatio += a.Stats.LaunchedUnderRatio;
             total.CampaignsWon += a.Stats.CampaignsWon; total.CampaignsFailed += a.Stats.CampaignsFailed; total.CampaignsAbandoned += a.Stats.CampaignsAbandoned;
-            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.Duels += a.Stats.Duels; total.DiplomacyAttempts += a.Stats.DiplomacyAttempts; total.DiplomacySuccesses += a.Stats.DiplomacySuccesses; total.Stratagems += a.Stats.Stratagems; total.Missions += a.Stats.Missions; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
+            total.StalledUnitTurns += a.Stats.StalledUnitTurns; total.UnitTurns += a.Stats.UnitTurns; total.Retreats += a.Stats.Retreats; total.Reinforcements += a.Stats.Reinforcements; total.Duels += a.Stats.Duels; total.DiplomacyAttempts += a.Stats.DiplomacyAttempts; total.DiplomacySuccesses += a.Stats.DiplomacySuccesses; total.Stratagems += a.Stats.Stratagems; total.Missions += a.Stats.Missions; total.Intercepts += a.Stats.Intercepts; total.Reinforcements2 += a.Stats.Reinforcements2; total.Bestowals += a.Stats.Bestowals; total.Executions += a.Stats.Executions; total.Releases += a.Stats.Releases; total.JointOps += a.Stats.JointOps; total.RetreatsMorale += a.Stats.RetreatsMorale; total.RetreatsFood += a.Stats.RetreatsFood;
             foreach (var kv in a.Stats.LaunchBlocked) total.LaunchBlocked[kv.Key] = total.LaunchBlocked.GetValueOrDefault(kv.Key) + kv.Value;
             foreach (var kv in a.Stats.StallReasons) total.StallReasons[kv.Key] = total.StallReasons.GetValueOrDefault(kv.Key) + kv.Value;
         }
@@ -368,6 +368,7 @@ static void AutoBattle(GameData data, int years, ulong seed0, int runs, Sam11.Co
     Console.WriteLine("AI 지표 (06 설계서 2장):");
     Console.WriteLine($"  원정 출진 {total.CampaignsLaunched}회 → 함락 {total.CampaignsWon}, 실패 {total.CampaignsFailed} (부대 퇴각 {total.Retreats}회: 사기·병력 {total.RetreatsMorale}, 군량 {total.RetreatsFood}), 출진 전 포기 {total.CampaignsAbandoned}, 증원 부대 {total.Reinforcements}, 일기토 신청 {total.Duels}, 외교 {total.DiplomacySuccesses}/{total.DiplomacyAttempts} 성사, 전투 계략 {total.Stratagems}, 공작 {total.Missions}");
     Console.WriteLine($"  축차 투입(전력비 1.5배 미달 출진): {total.LaunchedUnderRatio}회 ({Pct(total.LaunchedUnderRatio, total.CampaignsLaunched)})");
+    Console.WriteLine($"  방어: 요격 {total.Intercepts}회, 증원 수송 {total.Reinforcements2}회 / 공동 작전 {total.JointOps} / 보물 하사 {total.Bestowals} / 포로 해방 {total.Releases}·처단 {total.Executions}");
     Console.WriteLine($"  정체(목표가 있는데 제자리): {total.StalledUnitTurns}/{total.UnitTurns} 부대·턴 ({Pct(total.StalledUnitTurns, total.UnitTurns)})");
     Console.WriteLine($"  정체 원인: {string.Join(", ", total.StallReasons.OrderByDescending(kv => kv.Value).Select(kv => $"{kv.Key} {kv.Value}"))}");
     Console.WriteLine($"  출진을 미룬 이유(턴 수): {string.Join(", ", total.LaunchBlocked.OrderByDescending(kv => kv.Value).Select(kv => $"{kv.Key} {kv.Value}"))}");

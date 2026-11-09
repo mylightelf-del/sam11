@@ -38,6 +38,11 @@ namespace Sam11.Core.Battle
         /// <summary>두 세력이 적대 관계인지. 동맹끼리는 길을 막지 않는다 (기본: 세력이 다르면 적).</summary>
         public Func<string, string, bool> Hostile { get; set; } = (a, b) => a != b;
 
+        /// <summary>무장 ID → 전투에 쓸 정의 (보물 효과 반영 등). 없으면 데이터 그대로.</summary>
+        public Func<string, OfficerDef>? OfficerResolver { get; set; }
+
+        private OfficerDef Resolve(string id) => OfficerResolver?.Invoke(id) ?? Data.Officers[id];
+
         /// <summary>칸이 어느 도시 영역인지 (전국 맵에서만). null이면 보급을 따지지 않는다.</summary>
         public Func<HexCoord, string?>? TerritoryOf { get; set; }
         public string WeatherId { get; set; }
@@ -87,7 +92,7 @@ namespace Sam11.Core.Battle
                            IReadOnlyDictionary<string, int>? equipment = null, string? leaderRank = null,
                            int energy = 50, int morale = 70)
         {
-            var members = officerIds.Select(id => Data.Officers[id]).ToList();
+            var members = officerIds.Select(Resolve).ToList();
             string? why = CanDeploy(Data, members, formationId, troops, equipment);
             if (why != null)
                 throw new InvalidOperationException(why);
@@ -113,7 +118,7 @@ namespace Sam11.Core.Battle
         {
             var sh = Strongholds[strongholdId];
             if (sh.Owner == null) throw new InvalidOperationException("주인 없는 거점에는 수비대가 없음");
-            var members = officerIds.Select(id => Data.Officers[id]).Take(Data.Rules.Unit.MaxOfficers).ToList();
+            var members = officerIds.Select(Resolve).Take(Data.Rules.Unit.MaxOfficers).ToList();
             if (members.Count == 0) members.Add(Garrison.Anonymous(Data));
             string formation = Data.Rules.Siege.GarrisonFormationPreference
                 .FirstOrDefault(f => CanDeploy(Data, members, f, troops, equipment) == null) ?? "square";

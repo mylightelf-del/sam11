@@ -65,6 +65,20 @@ public class BattleStratagemTests
     }
 
     [Test]
+    public void FalseReportNeedsRoomToMove()
+    {
+        var w = TestData.NewWorld();
+        var g = new Game(w, 1);
+        var gate = w.Map.Strongholds["chenliu"].Tiles.First(t => t.Value == World.TileKind.Gate).Key;
+        var defender = g.Field.Deploy("cao_cao", new[] { "cao_hong" }, "square", 3000, gate);
+        var spot = gate.Neighbors().First(n => g.Field.UnitAt(n) == null && !g.Field.Structures.ContainsKey(n)
+                                               && TestData.Data.Terrain[g.Field.Map.TerrainAt(n)].PassableLand);
+        var schemer = g.Field.Deploy("dong_zhuo", new[] { "jia_xu" }, "square", 3000, spot);
+        Assert.That(Stratagems.CanBeMisled(g.Field, defender), Is.False);
+        Assert.Throws<InvalidOperationException>(() => Stratagems.Use(g.Field, schemer, "false_report", defender));
+    }
+
+    [Test]
     public void AmbushNeedsCoverHidesAndStrikesHarder()
     {
         var open = TestData.NewBattle();

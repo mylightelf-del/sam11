@@ -356,5 +356,14 @@
       "ambition_at_least": 8,
       "monthly_chance": 0.1
     }
+  },
+  "treasure": {
+    "bestow_loyalty": 15
+  },
+  "captives": {
+    "decide_after_months": 3,
+    "release_friendship": 5,
+    "execute_friendship": -20,
+    "execute_trust": -5
   }
 }

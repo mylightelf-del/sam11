@@ -22,6 +22,7 @@ namespace Sam11.Core.Data
         public List<RulerTitleDef> RulerTitles { get; } = new List<RulerTitleDef>();
         public Dictionary<string, StrongholdDef> Strongholds { get; } = new Dictionary<string, StrongholdDef>();
         public Dictionary<string, FacilityDef> Facilities { get; } = new Dictionary<string, FacilityDef>();
+        public Dictionary<string, TreasureDef> Treasures { get; } = new Dictionary<string, TreasureDef>();
 
         /// <summary>불러온 data 폴더 경로 (맵·시나리오 로딩에 쓴다).</summary>
         public string DataDir { get; private set; } = "";
@@ -49,6 +50,7 @@ namespace Sam11.Core.Data
             d.RulerTitles.AddRange(ReadList<RulerTitleDef>(b, "ranks.json", "ruler_titles").OrderBy(t => t.Level));
             Fill(d.Strongholds, ReadList<StrongholdDef>(b, "strongholds.json", "strongholds"), s => s.Id);
             Fill(d.Facilities, ReadList<FacilityDef>(b, "facilities.json", "facilities"), f => f.Id);
+            Fill(d.Treasures, ReadList<TreasureDef>(b, "treasures.json", "treasures"), t => t.Id);
             d.DataDir = dataDir;
             d.Rules = ReadObject(Path.Combine(b, "rules.json")).ToObject<Rules>(Serializer)
                       ?? throw new InvalidDataException("rules.json을 읽을 수 없음");
