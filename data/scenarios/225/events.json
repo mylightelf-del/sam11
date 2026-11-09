@@ -1,0 +1,480 @@
+{
+  "events": [
+    {
+      "id": "seven_captures",
+      "name": {
+        "ko": "칠종칠금"
+      },
+      "decider": "liu_shan",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "faction_alive": "meng_huo"
+          },
+          {
+            "ruler_of": {
+              "faction": "meng_huo",
+              "officer": "meng_huo"
+            }
+          },
+          {
+            "ruler_of": {
+              "faction": "liu_shan",
+              "officer": "liu_shan"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhuge_liang",
+              "faction": "liu_shan"
+            }
+          },
+          {
+            "any": [
+              {
+                "enemy_units_near": {
+                  "stronghold": "jianning",
+                  "radius": 6,
+                  "troops_gte": 20000
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "yunnan",
+                  "radius": 6,
+                  "troops_gte": 20000
+                }
+              }
+            ]
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "남만왕 맹획이 촉군에 사로잡혔다. 맹획은 \"산길이 좁아 졌을 뿐, 마음으로는 승복하지 않는다\"며 고개를 꼿꼿이 든다. 마속은 \"성을 치는 것은 하책이요, 마음을 치는 것이 상책\"이라 진언한다.",
+      "choices": [
+        {
+          "id": "release",
+          "text": "일곱 번 사로잡고 일곱 번 놓아주어 마음으로 굴복시킨다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "liu_shan",
+              "b": "meng_huo",
+              "delta": 80
+            },
+            {
+              "type": "trust",
+              "faction": "liu_shan",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhuge_liang",
+              "delta": 5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "jianwei",
+              "delta": -10
+            },
+            {
+              "type": "unlock_event",
+              "event": "nanman_tribute"
+            }
+          ]
+        },
+        {
+          "id": "execute",
+          "text": "후환을 없애기 위해 맹획을 참한다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "kill_officer",
+              "officer": "meng_huo",
+              "cause": "execution"
+            },
+            {
+              "type": "friendship",
+              "a": "liu_shan",
+              "b": "meng_huo",
+              "delta": -60
+            },
+            {
+              "type": "trust",
+              "faction": "liu_shan",
+              "delta": -5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "jianning",
+              "delta": 15
+            }
+          ]
+        },
+        {
+          "id": "withdraw",
+          "text": "풍토병이 퍼지기 전에 군을 물린다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "liu_shan",
+              "b": "meng_huo",
+              "delta": 10
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "jianwei",
+              "delta": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nanman_tribute",
+      "name": {
+        "ko": "남중의 복종"
+      },
+      "decider": "meng_huo",
+      "once": true,
+      "locked": true,
+      "trigger": {
+        "all": [
+          {
+            "faction_alive": "meng_huo"
+          },
+          {
+            "ruler_of": {
+              "faction": "meng_huo",
+              "officer": "meng_huo"
+            }
+          },
+          {
+            "chance": 0.5
+          }
+        ]
+      },
+      "text": "일곱 번째로 풀려난 맹획이 웃통을 벗고 제갈량의 진영으로 걸어 들어온다. \"승상은 하늘의 위엄을 지니셨으니, 남인은 다시는 배반하지 않겠습니다.\"",
+      "choices": [
+        {
+          "id": "submit",
+          "text": "촉에 복종하고 군사와 물자를 바친다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "liu_shan",
+              "b": "meng_huo",
+              "delta": 100
+            },
+            {
+              "type": "trust",
+              "faction": "meng_huo",
+              "delta": 10
+            },
+            {
+              "type": "transfer_resources",
+              "from": "jianning",
+              "to": "jianwei",
+              "gold": 0.3,
+              "food": 0.3,
+              "troops": 0.3,
+              "officers": 0
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhu_rong",
+              "delta": -5
+            }
+          ]
+        },
+        {
+          "id": "defy",
+          "text": "남중의 자존을 지켜 다시 칼을 든다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "liu_shan",
+              "b": "meng_huo",
+              "delta": -40
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "jianning",
+              "delta": 10
+            },
+            {
+              "type": "loyalty",
+              "officer": "meng_you",
+              "delta": -15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meng_da_revolt",
+      "name": {
+        "ko": "맹달의 귀순 모의"
+      },
+      "decider": "liu_shan",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "227-06"
+          },
+          {
+            "officer_in_faction": {
+              "officer": "meng_da",
+              "faction": "cao_pi"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhuge_liang",
+              "faction": "liu_shan"
+            }
+          },
+          {
+            "loyalty_lte": {
+              "officer": "meng_da",
+              "value": 70
+            }
+          },
+          {
+            "chance": 0.1
+          }
+        ]
+      },
+      "text": "조비가 죽은 뒤 신성의 맹달은 위 조정에서 설 자리를 잃어 간다. 제갈량이 그에게 서신을 보내 촉으로 돌아오라 권한다.",
+      "choices": [
+        {
+          "id": "persuade",
+          "text": "맹달을 부추겨 위에 반기를 들게 한다",
+          "ai_weight": 7,
+          "effects": [
+            {
+              "type": "split_faction",
+              "new_faction": "meng_da",
+              "ruler": "meng_da",
+              "color": "#607d8b",
+              "officers": [
+                "meng_da"
+              ],
+              "take_location_of": "meng_da",
+              "note": "맹달이 상용(또는 그가 있는 거점)에서 독립한다."
+            },
+            {
+              "type": "friendship",
+              "a": "liu_shan",
+              "b": "meng_da",
+              "delta": 50
+            }
+          ]
+        },
+        {
+          "id": "ignore",
+          "text": "배신자를 믿을 수 없다",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "meng_da",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chushibiao",
+      "name": {
+        "ko": "출사표"
+      },
+      "decider": "liu_shan",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "227-03"
+          },
+          {
+            "ruler_of": {
+              "faction": "liu_shan",
+              "officer": "liu_shan"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhuge_liang",
+              "faction": "liu_shan"
+            }
+          },
+          {
+            "owns": {
+              "faction": "liu_shan",
+              "strongholds": [
+                "chengdu",
+                "hanzhong"
+              ]
+            }
+          },
+          {
+            "any": [
+              {
+                "event_done": "seven_captures"
+              },
+              {
+                "faction_destroyed": "meng_huo"
+              }
+            ]
+          }
+        ]
+      },
+      "text": "남중이 평정되자 제갈량이 후주에게 표를 올린다. \"신 양은 아뢰옵니다. 선제께서 창업하신 뜻을 반도 이루지 못하고 붕어하셨으니, 지금 천하는 셋으로 나뉘고 익주는 피폐하니 이는 진실로 위급존망의 때입니다…\"",
+      "choices": [
+        {
+          "id": "march",
+          "text": "출사표를 받들어 한중으로 대군을 보낸다",
+          "ai_weight": 9,
+          "effects": [
+            {
+              "type": "transfer_resources",
+              "from": "chengdu",
+              "to": "hanzhong",
+              "gold": 0.3,
+              "food": 0.5,
+              "troops": 0.5,
+              "officers": 0.4
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "hanzhong",
+              "delta": 20
+            },
+            {
+              "type": "trust",
+              "faction": "liu_shan",
+              "delta": 5
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhuge_liang",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "wait",
+          "text": "아직 국력이 모자라니 몇 해 더 기른다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "city_morale",
+              "stronghold": "chengdu",
+              "delta": 5
+            },
+            {
+              "type": "loyalty",
+              "officer": "zhuge_liang",
+              "delta": -5
+            },
+            {
+              "type": "loyalty",
+              "officer": "wei_yan",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jiang_wei_joins",
+      "name": {
+        "ko": "강유 귀순"
+      },
+      "decider": "liu_shan",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "228-01"
+          },
+          {
+            "officer_in_faction": {
+              "officer": "jiang_wei",
+              "faction": "cao_pi"
+            }
+          },
+          {
+            "officer_in_faction": {
+              "officer": "zhuge_liang",
+              "faction": "liu_shan"
+            }
+          },
+          {
+            "any": [
+              {
+                "owns": {
+                  "faction": "liu_shan",
+                  "strongholds": [
+                    "qishan"
+                  ]
+                }
+              },
+              {
+                "enemy_units_near": {
+                  "stronghold": "tianshui",
+                  "radius": 6,
+                  "troops_gte": 20000
+                }
+              }
+            ]
+          },
+          {
+            "chance": 0.3
+          }
+        ]
+      },
+      "text": "촉군이 기산으로 나오자 천수의 강유는 태수 마준에게 의심을 받아 성 밖에 버려진다. 제갈량은 \"내가 평생 배운 것을 전할 사람을 찾았다\"며 그를 맞을 방도를 궁리한다.",
+      "choices": [
+        {
+          "id": "welcome",
+          "text": "강유를 정중히 맞아들일 계책을 쓴다",
+          "ai_weight": 9,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "jiang_wei",
+              "delta": -50
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "tianshui",
+              "delta": -15
+            }
+          ]
+        },
+        {
+          "id": "pass",
+          "text": "적장 하나에 시간을 쓰지 않는다",
+          "ai_weight": 1,
+          "effects": [
+            {
+              "type": "loyalty",
+              "officer": "jiang_wei",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

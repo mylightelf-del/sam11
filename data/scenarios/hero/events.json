@@ -1,0 +1,195 @@
+{
+  "events": [
+    {
+      "id": "peach_garden_reunion",
+      "name": {
+        "ko": "도원의 재회"
+      },
+      "decider": "liu_bei",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "210-06"
+          },
+          {
+            "ruler_of": {
+              "faction": "liu_bei",
+              "officer": "liu_bei"
+            }
+          },
+          {
+            "ruler_of": {
+              "faction": "guan_yu",
+              "officer": "guan_yu"
+            }
+          },
+          {
+            "ruler_of": {
+              "faction": "zhang_fei",
+              "officer": "zhang_fei"
+            }
+          },
+          {
+            "chance": 0.05
+          }
+        ]
+      },
+      "text": "서주·형주·유주로 흩어진 세 형제에게 같은 날 같은 꿈이 찾아온다. 복숭아꽃 흩날리는 동산에서 맺은 맹세를 잊었느냐고.",
+      "choices": [
+        {
+          "id": "renew",
+          "text": "사자를 보내 도원의 맹세를 다시 새긴다",
+          "ai_weight": 8,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "guan_yu",
+              "delta": 60
+            },
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "zhang_fei",
+              "delta": 60
+            },
+            {
+              "type": "friendship",
+              "a": "guan_yu",
+              "b": "zhang_fei",
+              "delta": 60
+            },
+            {
+              "type": "trust",
+              "faction": "liu_bei",
+              "delta": 10
+            }
+          ]
+        },
+        {
+          "id": "own_path",
+          "text": "이제는 각자 군주다. 천하는 하나만 차지할 수 있다",
+          "ai_weight": 2,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "guan_yu",
+              "delta": -30
+            },
+            {
+              "type": "friendship",
+              "a": "liu_bei",
+              "b": "zhang_fei",
+              "delta": -30
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xiapi",
+              "delta": 10
+            },
+            {
+              "type": "trust",
+              "faction": "liu_bei",
+              "delta": -10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heroes_over_wine",
+      "name": {
+        "ko": "자주론영웅"
+      },
+      "decider": "cao_cao",
+      "once": true,
+      "trigger": {
+        "all": [
+          {
+            "after": "211-01"
+          },
+          {
+            "ruler_of": {
+              "faction": "cao_cao",
+              "officer": "cao_cao"
+            }
+          },
+          {
+            "faction_alive": "liu_bei"
+          },
+          {
+            "faction_alive": "sima_yi"
+          },
+          {
+            "chance": 0.04
+          }
+        ]
+      },
+      "text": "매실이 익을 무렵, 조조가 천하의 영웅들에게 술자리를 청한다. 잔을 들며 묻는다. \"지금 천하의 영웅은 누구인가?\"",
+      "choices": [
+        {
+          "id": "liu_bei",
+          "text": "\"천하의 영웅은 사군과 이 조조뿐이오\" (유비와 손잡는다)",
+          "ai_weight": 4,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "cao_cao",
+              "b": "liu_bei",
+              "delta": 40
+            },
+            {
+              "type": "friendship",
+              "a": "cao_cao",
+              "b": "sima_yi",
+              "delta": -20
+            }
+          ]
+        },
+        {
+          "id": "sima_yi",
+          "text": "\"낭고의 상을 한 저 자를 곁에 두겠다\" (사마의와 손잡는다)",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "friendship",
+              "a": "cao_cao",
+              "b": "sima_yi",
+              "delta": 40
+            },
+            {
+              "type": "friendship",
+              "a": "cao_cao",
+              "b": "liu_bei",
+              "delta": -20
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "text": "\"영웅은 오직 나 하나뿐이다\"",
+          "ai_weight": 3,
+          "effects": [
+            {
+              "type": "trust",
+              "faction": "cao_cao",
+              "delta": -5
+            },
+            {
+              "type": "city_morale",
+              "stronghold": "xuchang",
+              "delta": 15
+            },
+            {
+              "type": "loyalty",
+              "officer": "xu_chu",
+              "delta": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

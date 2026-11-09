@@ -1,0 +1,3564 @@
+{
+  "id": "hero",
+  "name": {
+    "ko": "영웅집결",
+    "zh": "英雄集結"
+  },
+  "start": {
+    "year": 210,
+    "month": 1,
+    "turn": 1
+  },
+  "description": "가상 시나리오. 시대를 가리지 않고 모인 영웅 열넷이 저마다 한 지방을 차지하고 천하를 다툰다. 도원의 세 형제는 서주·형주·유주로 흩어졌고, 사마의는 낙양에서, 제갈량은 성도에서, 방통은 양양에서 일어섰다. 장안과 수춘, 영남은 아직 주인이 없다.",
+  "factions": [
+    {
+      "id": "cao_cao",
+      "ruler": "cao_cao",
+      "color": "#1d6fb8",
+      "title": 1,
+      "capital": "xuchang",
+      "goals": [
+        {
+          "id": "cao_cao_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sima_yi",
+      "ruler": "sima_yi",
+      "color": "#4a4a8c",
+      "title": 1,
+      "capital": "luoyang",
+      "goals": [
+        {
+          "id": "sima_yi_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ma_chao",
+      "ruler": "ma_chao",
+      "color": "#d35400",
+      "title": 1,
+      "capital": "tianshui",
+      "goals": [
+        {
+          "id": "ma_chao_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "wei_yan",
+      "ruler": "wei_yan",
+      "color": "#7a5c2e",
+      "title": 1,
+      "capital": "hanzhong",
+      "goals": [
+        {
+          "id": "wei_yan_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhuge_liang",
+      "ruler": "zhuge_liang",
+      "color": "#8e44ad",
+      "title": 1,
+      "capital": "chengdu",
+      "goals": [
+        {
+          "id": "zhuge_liang_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "meng_huo",
+      "ruler": "meng_huo",
+      "color": "#8d6e3f",
+      "title": 0,
+      "capital": "jianning",
+      "goals": [
+        {
+          "id": "meng_huo_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "guan_yu",
+      "ruler": "guan_yu",
+      "color": "#1b7a3a",
+      "title": 1,
+      "capital": "jiangling",
+      "goals": [
+        {
+          "id": "guan_yu_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pang_tong",
+      "ruler": "pang_tong",
+      "color": "#5b8c5a",
+      "title": 1,
+      "capital": "xiangyang",
+      "goals": [
+        {
+          "id": "pang_tong_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sun_quan",
+      "ruler": "sun_quan",
+      "color": "#c0392b",
+      "title": 1,
+      "capital": "jianye",
+      "goals": [
+        {
+          "id": "sun_quan_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lu_meng",
+      "ruler": "lu_meng",
+      "color": "#e57373",
+      "title": 1,
+      "capital": "chaisang",
+      "goals": [
+        {
+          "id": "lu_meng_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "liu_bei",
+      "ruler": "liu_bei",
+      "color": "#2e8b57",
+      "title": 1,
+      "capital": "xiapi",
+      "goals": [
+        {
+          "id": "liu_bei_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhang_fei",
+      "ruler": "zhang_fei",
+      "color": "#3b3b3b",
+      "title": 1,
+      "capital": "zhuoxian",
+      "goals": [
+        {
+          "id": "zhang_fei_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhao_yun",
+      "ruler": "zhao_yun",
+      "color": "#e8e8e8",
+      "title": 1,
+      "capital": "ye",
+      "goals": [
+        {
+          "id": "zhao_yun_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhang_liao",
+      "ruler": "zhang_liao",
+      "color": "#7b1fa2",
+      "title": 1,
+      "capital": "jinyang",
+      "goals": [
+        {
+          "id": "zhang_liao_hero_unify",
+          "description": "천하통일 — 10대 도시를 모두 손에 넣는다",
+          "conditions": {
+            "owns": [
+              "luoyang",
+              "changan",
+              "chengdu",
+              "xiangyang",
+              "xuchang",
+              "xiapi",
+              "ye",
+              "nanpi",
+              "jianye",
+              "shouchun"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "cities": [
+    {
+      "stronghold": "luoyang",
+      "owner": "sima_yi",
+      "population": 600000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 31500,
+      "training": 55,
+      "equipment": {
+        "horse": 5000,
+        "crossbow": 12000,
+        "siege_engine": 20,
+        "ship": 0
+      },
+      "governor": "sima_yi"
+    },
+    {
+      "stronghold": "changan",
+      "owner": null,
+      "population": 500000,
+      "morale": 45,
+      "gold": 0,
+      "food": 30000,
+      "troops": 15000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "hongnong",
+      "owner": "sima_yi",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "guo_huai"
+    },
+    {
+      "stronghold": "henei",
+      "owner": "sima_yi",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "jiang_ji"
+    },
+    {
+      "stronghold": "tianshui",
+      "owner": "ma_chao",
+      "population": 220000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 15000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "ma_chao"
+    },
+    {
+      "stronghold": "wuwei",
+      "owner": "ma_chao",
+      "population": 130000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 10000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "ma_teng"
+    },
+    {
+      "stronghold": "anding",
+      "owner": "ma_chao",
+      "population": 110000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 5000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cheng_yi"
+    },
+    {
+      "stronghold": "chengdu",
+      "owner": "zhuge_liang",
+      "population": 600000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 30000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 12000,
+        "siege_engine": 10,
+        "ship": 0
+      },
+      "governor": "zhuge_liang"
+    },
+    {
+      "stronghold": "hanzhong",
+      "owner": "wei_yan",
+      "population": 300000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 3000,
+        "crossbow": 6000,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "wei_yan"
+    },
+    {
+      "stronghold": "zitong",
+      "owner": "zhuge_liang",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "jiang_wan"
+    },
+    {
+      "stronghold": "jiangzhou",
+      "owner": "zhuge_liang",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "yan_yan"
+    },
+    {
+      "stronghold": "yongan",
+      "owner": "zhuge_liang",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "li_yan"
+    },
+    {
+      "stronghold": "jianning",
+      "owner": "meng_huo",
+      "population": 180000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 40000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 4000,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "meng_huo"
+    },
+    {
+      "stronghold": "yunnan",
+      "owner": "meng_huo",
+      "population": 150000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 45000,
+      "troops": 30000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 3000,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "wutugu"
+    },
+    {
+      "stronghold": "xiangyang",
+      "owner": "pang_tong",
+      "population": 450000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 39000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 4000,
+        "siege_engine": 0,
+        "ship": 6000
+      },
+      "governor": "pang_tong"
+    },
+    {
+      "stronghold": "wan",
+      "owner": "pang_tong",
+      "population": 300000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "wang_wei"
+    },
+    {
+      "stronghold": "xinye",
+      "owner": "pang_tong",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "yi_ji"
+    },
+    {
+      "stronghold": "jiangling",
+      "owner": "guan_yu",
+      "population": 280000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 31500,
+      "troops": 21000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 3000,
+        "siege_engine": 0,
+        "ship": 8000
+      },
+      "governor": "guan_yu"
+    },
+    {
+      "stronghold": "jiangxia",
+      "owner": "lu_meng",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 30000,
+      "troops": 20000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "lu_su"
+    },
+    {
+      "stronghold": "changsha",
+      "owner": "guan_yu",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 31500,
+      "troops": 21000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "huang_zhong"
+    },
+    {
+      "stronghold": "wuling",
+      "owner": "guan_yu",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 31500,
+      "troops": 21000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "liao_hua"
+    },
+    {
+      "stronghold": "lingling",
+      "owner": null,
+      "population": 200000,
+      "morale": 45,
+      "gold": 0,
+      "food": 20000,
+      "troops": 5000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "guiyang",
+      "owner": null,
+      "population": 200000,
+      "morale": 45,
+      "gold": 0,
+      "food": 20000,
+      "troops": 5000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "shangyong",
+      "owner": "wei_yan",
+      "population": 220000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "meng_da"
+    },
+    {
+      "stronghold": "xuchang",
+      "owner": "cao_cao",
+      "population": 500000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 28500,
+      "training": 55,
+      "equipment": {
+        "horse": 10000,
+        "crossbow": 8000,
+        "siege_engine": 20,
+        "ship": 0
+      },
+      "governor": "cao_cao"
+    },
+    {
+      "stronghold": "runan",
+      "owner": "cao_cao",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 11500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "yu_jin"
+    },
+    {
+      "stronghold": "qiao",
+      "owner": "cao_cao",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 11500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cao_ren"
+    },
+    {
+      "stronghold": "xiaopei",
+      "owner": "liu_bei",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 14500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "chen_dao"
+    },
+    {
+      "stronghold": "chenliu",
+      "owner": "cao_cao",
+      "population": 250000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 11500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "xiahou_yuan"
+    },
+    {
+      "stronghold": "puyang",
+      "owner": "cao_cao",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 11500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cheng_yu"
+    },
+    {
+      "stronghold": "xiapi",
+      "owner": "liu_bei",
+      "population": 350000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 36000,
+      "training": 55,
+      "equipment": {
+        "horse": 3000,
+        "crossbow": 6000,
+        "siege_engine": 0,
+        "ship": 2000
+      },
+      "governor": "liu_bei"
+    },
+    {
+      "stronghold": "guangling",
+      "owner": "liu_bei",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 14500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cao_xing"
+    },
+    {
+      "stronghold": "beihai",
+      "owner": "liu_bei",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 14500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "sun_li"
+    },
+    {
+      "stronghold": "pingyuan",
+      "owner": "zhao_yun",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "xiahou_shang"
+    },
+    {
+      "stronghold": "ye",
+      "owner": "zhao_yun",
+      "population": 500000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 60000,
+      "troops": 30000,
+      "training": 55,
+      "equipment": {
+        "horse": 8000,
+        "crossbow": 8000,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zhao_yun"
+    },
+    {
+      "stronghold": "nanpi",
+      "owner": "zhao_yun",
+      "population": 350000,
+      "morale": 65,
+      "gold": 3000,
+      "food": 60000,
+      "troops": 30000,
+      "training": 55,
+      "equipment": {
+        "horse": 4000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "gao_lan"
+    },
+    {
+      "stronghold": "julu",
+      "owner": "zhao_yun",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cao_zhen"
+    },
+    {
+      "stronghold": "beiping",
+      "owner": "zhang_fei",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 8000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "tian_chou"
+    },
+    {
+      "stronghold": "ji_city",
+      "owner": "zhang_fei",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zhang_yan"
+    },
+    {
+      "stronghold": "xiangping",
+      "owner": "zhang_fei",
+      "population": 180000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "gongsun_kang"
+    },
+    {
+      "stronghold": "jinyang",
+      "owner": "zhang_liao",
+      "population": 260000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 27000,
+      "troops": 18000,
+      "training": 55,
+      "equipment": {
+        "horse": 12000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zhang_liao"
+    },
+    {
+      "stronghold": "shangdang",
+      "owner": "zhang_liao",
+      "population": 220000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 27000,
+      "troops": 18000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cao_hong"
+    },
+    {
+      "stronghold": "jianye",
+      "owner": "sun_quan",
+      "population": 400000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 65250,
+      "troops": 43500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 4000,
+        "siege_engine": 0,
+        "ship": 10000
+      },
+      "governor": "sun_quan"
+    },
+    {
+      "stronghold": "shouchun",
+      "owner": null,
+      "population": 400000,
+      "morale": 45,
+      "gold": 0,
+      "food": 24000,
+      "troops": 12000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "lujiang",
+      "owner": "lu_meng",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 30000,
+      "troops": 20000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "xu_sheng"
+    },
+    {
+      "stronghold": "wu_city",
+      "owner": "sun_quan",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 26250,
+      "troops": 17500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "gu_yong"
+    },
+    {
+      "stronghold": "kuaiji",
+      "owner": "sun_quan",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 26250,
+      "troops": 17500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "han_dang"
+    },
+    {
+      "stronghold": "chaisang",
+      "owner": "lu_meng",
+      "population": 250000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 30000,
+      "troops": 20000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 8000
+      },
+      "governor": "lu_meng"
+    },
+    {
+      "stronghold": "jiaozhi",
+      "owner": null,
+      "population": 120000,
+      "morale": 45,
+      "gold": 0,
+      "food": 20000,
+      "troops": 6000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "nanhai",
+      "owner": null,
+      "population": 100000,
+      "morale": 45,
+      "gold": 0,
+      "food": 20000,
+      "troops": 3000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "hulao",
+      "owner": "sima_yi",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 18750,
+      "troops": 12500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zhang_he"
+    },
+    {
+      "stronghold": "sishui",
+      "owner": "sima_yi",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 18750,
+      "troops": 12500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "hangu",
+      "owner": "sima_yi",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 18750,
+      "troops": 12500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "wang_shuang"
+    },
+    {
+      "stronghold": "tong_gate",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 6000,
+      "troops": 3000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "wu_gate",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 6000,
+      "troops": 3000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "yique",
+      "owner": "cao_cao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 17250,
+      "troops": 11500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "yangping",
+      "owner": "wei_yan",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 23250,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "yang_ang"
+    },
+    {
+      "stronghold": "jiameng",
+      "owner": "wei_yan",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 23250,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "jiange",
+      "owner": "zhuge_liang",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 18000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "fushui",
+      "owner": "zhuge_liang",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 18000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "yanmen",
+      "owner": "zhang_liao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 27000,
+      "troops": 18000,
+      "training": 55,
+      "equipment": {
+        "horse": 3000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "juyong",
+      "owner": "zhang_fei",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 23250,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "xiakou",
+      "owner": "lu_meng",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 7500,
+      "troops": 5000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 3000
+      }
+    },
+    {
+      "stronghold": "lukou",
+      "owner": "guan_yu",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 7500,
+      "troops": 5000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "yiling",
+      "owner": "guan_yu",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 7500,
+      "troops": 5000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "gongan",
+      "owner": "guan_yu",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 7500,
+      "troops": 5000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 2000
+      },
+      "governor": "mi_fang"
+    },
+    {
+      "stronghold": "wulin",
+      "owner": "lu_meng",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 7500,
+      "troops": 5000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "ruxu",
+      "owner": "sun_quan",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 6750,
+      "troops": 4500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 4000
+      },
+      "governor": "cheng_pu"
+    },
+    {
+      "stronghold": "niuzhu",
+      "owner": "sun_quan",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 6750,
+      "troops": 4500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "qua",
+      "owner": "sun_quan",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 6750,
+      "troops": 4500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "mengjin",
+      "owner": "sima_yi",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 3000,
+      "troops": 2000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "baima",
+      "owner": "cao_cao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 3000,
+      "troops": 2000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "yanjin",
+      "owner": "cao_cao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 3000,
+      "troops": 2000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "cangting",
+      "owner": "zhao_yun",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 3000,
+      "troops": 2000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "guandu",
+      "owner": "cao_cao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 11250,
+      "troops": 7500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "yue_jin"
+    },
+    {
+      "stronghold": "chencang",
+      "owner": "ma_chao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 15750,
+      "troops": 10500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "qishan",
+      "owner": "ma_chao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 15750,
+      "troops": 10500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "hefei",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 8000,
+      "troops": 4000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "fancheng",
+      "owner": "pang_tong",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 15750,
+      "troops": 10500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "cai_mao"
+    },
+    {
+      "stronghold": "hedong",
+      "owner": "zhang_liao",
+      "population": 250000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 27000,
+      "troops": 18000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "han_hao"
+    },
+    {
+      "stronghold": "langya",
+      "owner": "liu_bei",
+      "population": 220000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 14500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zang_ba"
+    },
+    {
+      "stronghold": "yuzhang",
+      "owner": "lu_meng",
+      "population": 180000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 30000,
+      "troops": 20000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "dong_xi"
+    },
+    {
+      "stronghold": "jincheng",
+      "owner": "ma_chao",
+      "population": 120000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "han_sui"
+    },
+    {
+      "stronghold": "jianwei",
+      "owner": "meng_huo",
+      "population": 200000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 37500,
+      "troops": 25000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "shamoke"
+    },
+    {
+      "stronghold": "langzhong",
+      "owner": "wei_yan",
+      "population": 180000,
+      "morale": 65,
+      "gold": 1200,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "wang_ping"
+    },
+    {
+      "stronghold": "zhuoxian",
+      "owner": "zhang_fei",
+      "population": 220000,
+      "morale": 65,
+      "gold": 5000,
+      "food": 25000,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 12000,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zhang_fei"
+    },
+    {
+      "stronghold": "jingxing",
+      "owner": "zhao_yun",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 18000,
+      "troops": 12000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "lulong",
+      "owner": "zhang_fei",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 23250,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "sanguan",
+      "owner": "wei_yan",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 23250,
+      "troops": 15500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "tianjing",
+      "owner": "zhang_liao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 27000,
+      "troops": 18000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "wuchang",
+      "owner": "lu_meng",
+      "population": 100000,
+      "morale": 65,
+      "gold": 300,
+      "food": 7500,
+      "troops": 5000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 3000
+      },
+      "governor": "bu_zhi"
+    },
+    {
+      "stronghold": "hepu",
+      "owner": null,
+      "population": 30000,
+      "morale": 45,
+      "gold": 0,
+      "food": 2000,
+      "troops": 1000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "dongye",
+      "owner": "sun_quan",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 6750,
+      "troops": 4500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "donglai",
+      "owner": "liu_bei",
+      "population": 30000,
+      "morale": 65,
+      "gold": 300,
+      "food": 6000,
+      "troops": 3500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "changban",
+      "owner": "guan_yu",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 21000,
+      "troops": 14000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "jieting",
+      "owner": "ma_chao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 15750,
+      "troops": 10500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "mianzhu",
+      "owner": "zhuge_liang",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 12000,
+      "troops": 8000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      },
+      "governor": "zhang_ren"
+    },
+    {
+      "stronghold": "wuzhangyuan",
+      "owner": null,
+      "population": 0,
+      "morale": 45,
+      "gold": 0,
+      "food": 4000,
+      "troops": 2000,
+      "training": 30,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "xincheng",
+      "owner": "pang_tong",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 15750,
+      "troops": 10500,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    },
+    {
+      "stronghold": "pubanjin",
+      "owner": "zhang_liao",
+      "population": 0,
+      "morale": 65,
+      "gold": 0,
+      "food": 4500,
+      "troops": 3000,
+      "training": 55,
+      "equipment": {
+        "horse": 0,
+        "crossbow": 0,
+        "siege_engine": 0,
+        "ship": 0
+      }
+    }
+  ],
+  "officers": [
+    {
+      "officer": "cao_cao",
+      "faction": "cao_cao",
+      "location": "xuchang",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "xiahou_dun",
+      "faction": "cao_cao",
+      "location": "xuchang",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "xiahou_yuan",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "cao_ren",
+      "faction": "cao_cao",
+      "location": "qiao",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "xu_chu",
+      "faction": "cao_cao",
+      "location": "xuchang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "xun_yu",
+      "faction": "cao_cao",
+      "location": "xuchang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cheng_yu",
+      "faction": "cao_cao",
+      "location": "puyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "xun_you",
+      "faction": "cao_cao",
+      "location": "xuchang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yu_jin",
+      "faction": "cao_cao",
+      "location": "runan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yue_jin",
+      "faction": "cao_cao",
+      "location": "guandu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "man_chong",
+      "faction": "cao_cao",
+      "location": "runan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cao_pi",
+      "faction": "cao_cao",
+      "location": "xuchang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cao_zhang",
+      "faction": "cao_cao",
+      "location": "chenliu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cao_rui",
+      "faction": null,
+      "location": "xuchang",
+      "status": "unborn"
+    },
+    {
+      "officer": "cao_shuang",
+      "faction": null,
+      "location": "xuchang",
+      "status": "unborn"
+    },
+    {
+      "officer": "xiahou_ba",
+      "faction": null,
+      "location": "chenliu",
+      "status": "unborn"
+    },
+    {
+      "officer": "sima_yi",
+      "faction": "sima_yi",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "sima_fu",
+      "faction": "sima_yi",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_he",
+      "faction": "sima_yi",
+      "location": "hulao",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "guo_huai",
+      "faction": "sima_yi",
+      "location": "hongnong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "hao_zhao",
+      "faction": "sima_yi",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wang_shuang",
+      "faction": "sima_yi",
+      "location": "hangu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhong_yao",
+      "faction": "sima_yi",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "jiang_ji",
+      "faction": "sima_yi",
+      "location": "henei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wang_ling",
+      "faction": "sima_yi",
+      "location": "henei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "jia_xu",
+      "faction": "sima_yi",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "chen_qun",
+      "faction": "sima_yi",
+      "location": "luoyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "sima_shi",
+      "faction": null,
+      "location": "luoyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "sima_zhao",
+      "faction": null,
+      "location": "henei",
+      "status": "unborn"
+    },
+    {
+      "officer": "deng_ai",
+      "faction": null,
+      "location": "luoyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhong_hui",
+      "faction": null,
+      "location": "luoyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "chen_tai",
+      "faction": null,
+      "location": "luoyang",
+      "status": "unborn"
+    },
+    {
+      "officer": "wang_chang",
+      "faction": null,
+      "location": "henei",
+      "status": "unborn"
+    },
+    {
+      "officer": "ma_chao",
+      "faction": "ma_chao",
+      "location": "tianshui",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "ma_teng",
+      "faction": "ma_chao",
+      "location": "wuwei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "ma_dai",
+      "faction": "ma_chao",
+      "location": "tianshui",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "pang_de",
+      "faction": "ma_chao",
+      "location": "tianshui",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "han_sui",
+      "faction": "ma_chao",
+      "location": "jincheng",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yan_xing",
+      "faction": "ma_chao",
+      "location": "jincheng",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cheng_yi",
+      "faction": "ma_chao",
+      "location": "anding",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yang_qiu",
+      "faction": "ma_chao",
+      "location": "anding",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "hou_xuan",
+      "faction": "ma_chao",
+      "location": "wuwei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "jiang_wei",
+      "faction": null,
+      "location": "tianshui",
+      "status": "unborn"
+    },
+    {
+      "officer": "wei_yan",
+      "faction": "wei_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "zhang_lu",
+      "faction": "wei_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yan_pu",
+      "faction": "wei_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yang_ang",
+      "faction": "wei_yan",
+      "location": "yangping",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_wei",
+      "faction": "wei_yan",
+      "location": "yangping",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "meng_da",
+      "faction": "wei_yan",
+      "location": "shangyong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_feng",
+      "faction": "wei_yan",
+      "location": "shangyong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wang_ping",
+      "faction": "wei_yan",
+      "location": "langzhong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "xu_huang",
+      "faction": "wei_yan",
+      "location": "hanzhong",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "zhang_ni",
+      "faction": null,
+      "location": "langzhong",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhuge_liang",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "fa_zheng",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_ren",
+      "faction": "zhuge_liang",
+      "location": "mianzhu",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "yan_yan",
+      "faction": "zhuge_liang",
+      "location": "jiangzhou",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "huang_quan",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "li_yan",
+      "faction": "zhuge_liang",
+      "location": "yongan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "ma_su",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "ma_liang",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "jiang_wan",
+      "faction": "zhuge_liang",
+      "location": "zitong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "fei_yi",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wu_yi",
+      "faction": "zhuge_liang",
+      "location": "zitong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_song",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "deng_zhi",
+      "faction": "zhuge_liang",
+      "location": "jiangzhou",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_ba",
+      "faction": "zhuge_liang",
+      "location": "chengdu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "qiao_zhou",
+      "faction": null,
+      "location": "chengdu",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhuge_zhan",
+      "faction": null,
+      "location": "chengdu",
+      "status": "unborn"
+    },
+    {
+      "officer": "meng_huo",
+      "faction": "meng_huo",
+      "location": "jianning",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "zhu_rong",
+      "faction": "meng_huo",
+      "location": "jianning",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "meng_you",
+      "faction": "meng_huo",
+      "location": "jianning",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wutugu",
+      "faction": "meng_huo",
+      "location": "yunnan",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "mulu",
+      "faction": "meng_huo",
+      "location": "yunnan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "shamoke",
+      "faction": "meng_huo",
+      "location": "jianwei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "li_hui",
+      "faction": "meng_huo",
+      "location": "jianwei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "leng_bao",
+      "faction": "meng_huo",
+      "location": "jianwei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "deng_xian",
+      "faction": "meng_huo",
+      "location": "yunnan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "guan_yu",
+      "faction": "guan_yu",
+      "location": "jiangling",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "guan_ping",
+      "faction": "guan_yu",
+      "location": "jiangling",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "huang_zhong",
+      "faction": "guan_yu",
+      "location": "changsha",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "liao_hua",
+      "faction": "guan_yu",
+      "location": "wuling",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wen_pin",
+      "faction": "guan_yu",
+      "location": "jiangling",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "kuai_yue",
+      "faction": "guan_yu",
+      "location": "jiangling",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "kuai_liang",
+      "faction": "guan_yu",
+      "location": "changsha",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "mi_fang",
+      "faction": "guan_yu",
+      "location": "gongan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_du",
+      "faction": "guan_yu",
+      "location": "wuling",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhao_fan",
+      "faction": "guan_yu",
+      "location": "changsha",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "guan_xing",
+      "faction": null,
+      "location": "jiangling",
+      "status": "unborn"
+    },
+    {
+      "officer": "pang_tong",
+      "faction": "pang_tong",
+      "location": "xiangyang",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "xu_shu",
+      "faction": "pang_tong",
+      "location": "xiangyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "gan_ning",
+      "faction": "pang_tong",
+      "location": "xiangyang",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "cai_mao",
+      "faction": "pang_tong",
+      "location": "fancheng",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_cong",
+      "faction": "pang_tong",
+      "location": "xiangyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wang_wei",
+      "faction": "pang_tong",
+      "location": "wan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yi_ji",
+      "faction": "pang_tong",
+      "location": "xinye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhu_ling",
+      "faction": "pang_tong",
+      "location": "wan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "ding_feng",
+      "faction": "pang_tong",
+      "location": "xinye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wen_qin",
+      "faction": null,
+      "location": "wan",
+      "status": "unborn"
+    },
+    {
+      "officer": "sun_quan",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "zhou_yu",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "zhang_zhao",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_hong",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "gu_yong",
+      "faction": "sun_quan",
+      "location": "wu_city",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhuge_jin",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cheng_pu",
+      "faction": "sun_quan",
+      "location": "ruxu",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "huang_gai",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "han_dang",
+      "faction": "sun_quan",
+      "location": "kuaiji",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhou_tai",
+      "faction": "sun_quan",
+      "location": "ruxu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "jiang_qin",
+      "faction": "sun_quan",
+      "location": "ruxu",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "chen_wu",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "sun_shao",
+      "faction": "sun_quan",
+      "location": "wu_city",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "sun_shangxiang",
+      "faction": "sun_quan",
+      "location": "jianye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yu_fan",
+      "faction": "sun_quan",
+      "location": "kuaiji",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhuge_ke",
+      "faction": null,
+      "location": "jianye",
+      "status": "unborn"
+    },
+    {
+      "officer": "sun_huan",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
+      "officer": "lu_kang",
+      "faction": null,
+      "location": "wu_city",
+      "status": "unborn"
+    },
+    {
+      "officer": "lu_meng",
+      "faction": "lu_meng",
+      "location": "chaisang",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "lu_xun",
+      "faction": "lu_meng",
+      "location": "chaisang",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "lu_su",
+      "faction": "lu_meng",
+      "location": "jiangxia",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "ling_tong",
+      "faction": "lu_meng",
+      "location": "chaisang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "xu_sheng",
+      "faction": "lu_meng",
+      "location": "lujiang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhu_huan",
+      "faction": "lu_meng",
+      "location": "lujiang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhu_ran",
+      "faction": "lu_meng",
+      "location": "jiangxia",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "dong_xi",
+      "faction": "lu_meng",
+      "location": "yuzhang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "he_qi",
+      "faction": "lu_meng",
+      "location": "yuzhang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "kan_ze",
+      "faction": "lu_meng",
+      "location": "chaisang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "bu_zhi",
+      "faction": "lu_meng",
+      "location": "wuchang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "lu_fan",
+      "faction": "lu_meng",
+      "location": "chaisang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "quan_cong",
+      "faction": null,
+      "location": "yuzhang",
+      "status": "unborn"
+    },
+    {
+      "officer": "pan_zhang",
+      "faction": "lu_meng",
+      "location": "wuchang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_bei",
+      "faction": "liu_bei",
+      "location": "xiapi",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "jian_yong",
+      "faction": "liu_bei",
+      "location": "xiapi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "mi_zhu",
+      "faction": "liu_bei",
+      "location": "xiapi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "sun_qian",
+      "faction": "liu_bei",
+      "location": "xiapi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "chen_dao",
+      "faction": "liu_bei",
+      "location": "xiaopei",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "zang_ba",
+      "faction": "liu_bei",
+      "location": "langya",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "hou_cheng",
+      "faction": "liu_bei",
+      "location": "xiaopei",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cao_xing",
+      "faction": "liu_bei",
+      "location": "guangling",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "sun_li",
+      "faction": "liu_bei",
+      "location": "beihai",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wu_ban",
+      "faction": "liu_bei",
+      "location": "xiapi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_shan",
+      "faction": null,
+      "location": "xiapi",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhang_fei",
+      "faction": "zhang_fei",
+      "location": "zhuoxian",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "gongsun_kang",
+      "faction": "zhang_fei",
+      "location": "xiangping",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "tian_chou",
+      "faction": "zhang_fei",
+      "location": "beiping",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "zhang_yan",
+      "faction": "zhang_fei",
+      "location": "ji_city",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "hu_cheer",
+      "faction": "zhang_fei",
+      "location": "zhuoxian",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "guanqiu_jian",
+      "faction": "zhang_fei",
+      "location": "beiping",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_yi",
+      "faction": "zhang_fei",
+      "location": "zhuoxian",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yan_baihu",
+      "faction": "zhang_fei",
+      "location": "ji_city",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "ma_zhong",
+      "faction": "zhang_fei",
+      "location": "zhuoxian",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_bao",
+      "faction": null,
+      "location": "zhuoxian",
+      "status": "unborn"
+    },
+    {
+      "officer": "zhao_yun",
+      "faction": "zhao_yun",
+      "location": "ye",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "gao_lan",
+      "faction": "zhao_yun",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "xun_chen",
+      "faction": "zhao_yun",
+      "location": "ye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cui_yan",
+      "faction": "zhao_yun",
+      "location": "ye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "xin_pi",
+      "faction": "zhao_yun",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cao_zhen",
+      "faction": "zhao_yun",
+      "location": "julu",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "cao_xiu",
+      "faction": "zhao_yun",
+      "location": "ye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "xiahou_shang",
+      "faction": "zhao_yun",
+      "location": "pingyuan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "guan_hai",
+      "faction": "zhao_yun",
+      "location": "pingyuan",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_ye",
+      "faction": "zhao_yun",
+      "location": "ye",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "hua_xin",
+      "faction": "zhao_yun",
+      "location": "nanpi",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_liao",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 100,
+      "rank": "general_misc"
+    },
+    {
+      "officer": "cao_hong",
+      "faction": "zhang_liao",
+      "location": "shangdang",
+      "status": "active",
+      "loyalty": 85,
+      "rank": "colonel"
+    },
+    {
+      "officer": "cao_chun",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "han_hao",
+      "faction": "zhang_liao",
+      "location": "hedong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "mao_jie",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "zhang_ji_wei",
+      "faction": "zhang_liao",
+      "location": "hedong",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "wang_lang",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "yang_xiu",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "diao_chan",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "cai_yan",
+      "faction": "zhang_liao",
+      "location": "jinyang",
+      "status": "active",
+      "loyalty": 85
+    },
+    {
+      "officer": "liu_zhang",
+      "faction": null,
+      "location": "chengdu",
+      "status": "free"
+    },
+    {
+      "officer": "shi_xie",
+      "faction": null,
+      "location": "jiaozhi",
+      "status": "free"
+    },
+    {
+      "officer": "cao_zhi",
+      "faction": null,
+      "location": "ye",
+      "status": "free"
+    },
+    {
+      "officer": "he_yan",
+      "faction": null,
+      "location": "luoyang",
+      "status": "free"
+    },
+    {
+      "officer": "xiahou_mao",
+      "faction": null,
+      "location": "changan",
+      "status": "free"
+    },
+    {
+      "officer": "gao_pei",
+      "faction": null,
+      "location": "jiangzhou",
+      "status": "free"
+    },
+    {
+      "officer": "yang_huai",
+      "faction": null,
+      "location": "fushui",
+      "status": "free"
+    },
+    {
+      "officer": "yang_song",
+      "faction": null,
+      "location": "hanzhong",
+      "status": "free"
+    },
+    {
+      "officer": "sun_jing",
+      "faction": null,
+      "location": "wu_city",
+      "status": "free"
+    },
+    {
+      "officer": "lu_ji",
+      "faction": null,
+      "location": "wu_city",
+      "status": "free"
+    },
+    {
+      "officer": "luo_tong",
+      "faction": null,
+      "location": "kuaiji",
+      "status": "free"
+    },
+    {
+      "officer": "zhu_zhi",
+      "faction": null,
+      "location": "jianye",
+      "status": "free"
+    },
+    {
+      "officer": "fei_shi",
+      "faction": null,
+      "location": "chengdu",
+      "status": "free"
+    },
+    {
+      "officer": "guo_youzhi",
+      "faction": null,
+      "location": "jiangling",
+      "status": "free"
+    },
+    {
+      "officer": "dong_he",
+      "faction": null,
+      "location": "jiangling",
+      "status": "free"
+    },
+    {
+      "officer": "yang_yi",
+      "faction": null,
+      "location": "xiangyang",
+      "status": "free"
+    },
+    {
+      "officer": "dong_yun",
+      "faction": null,
+      "location": "jiangling",
+      "status": "free"
+    },
+    {
+      "officer": "liu_gui",
+      "faction": null,
+      "location": "chengdu",
+      "status": "free"
+    },
+    {
+      "officer": "zhuge_dan",
+      "faction": null,
+      "location": "shouchun",
+      "status": "unborn"
+    },
+    {
+      "officer": "fu_qian",
+      "faction": null,
+      "location": "yiling",
+      "status": "unborn"
+    }
+  ],
+  "relations": [
+    {
+      "type": "sworn",
+      "members": [
+        "liu_bei",
+        "guan_yu",
+        "zhang_fei"
+      ]
+    },
+    {
+      "type": "sworn",
+      "members": [
+        "sun_quan",
+        "zhou_yu"
+      ]
+    },
+    {
+      "type": "spouse",
+      "members": [
+        "meng_huo",
+        "zhu_rong"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "zhuge_liang",
+        "pang_tong"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "zhuge_liang",
+        "ma_su"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "cao_cao",
+        "xiahou_dun"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "ma_chao",
+        "pang_de"
+      ]
+    },
+    {
+      "type": "like",
+      "members": [
+        "lu_meng",
+        "lu_xun"
+      ]
+    },
+    {
+      "type": "dislike",
+      "members": [
+        "ling_tong",
+        "gan_ning"
+      ]
+    },
+    {
+      "type": "dislike",
+      "members": [
+        "wei_yan",
+        "yang_yi"
+      ]
+    },
+    {
+      "type": "dislike",
+      "members": [
+        "ma_chao",
+        "han_sui"
+      ]
+    },
+    {
+      "type": "dislike",
+      "members": [
+        "cao_pi",
+        "cao_zhi"
+      ]
+    }
+  ],
+  "diplomacy": [],
+  "treasures": [
+    {
+      "treasure": "green_dragon",
+      "owner": "guan_yu"
+    },
+    {
+      "treasure": "red_hare",
+      "owner": "guan_yu"
+    },
+    {
+      "treasure": "serpent_spear",
+      "owner": "zhang_fei"
+    },
+    {
+      "treasure": "sky_piercer",
+      "owner": "zhang_liao"
+    },
+    {
+      "treasure": "dilu",
+      "owner": "liu_bei"
+    },
+    {
+      "treasure": "blue_steel",
+      "owner": "zhao_yun"
+    },
+    {
+      "treasure": "seven_star",
+      "owner": "cao_cao"
+    },
+    {
+      "treasure": "mengde_book",
+      "owner": "cao_cao"
+    },
+    {
+      "treasure": "shadow_runner",
+      "owner": "cao_cao"
+    },
+    {
+      "treasure": "dunjia_book",
+      "owner": "zhuge_liang"
+    },
+    {
+      "treasure": "six_secret",
+      "owner": "sima_yi"
+    },
+    {
+      "treasure": "art_of_war",
+      "owner": "sun_quan"
+    },
+    {
+      "treasure": "imperial_seal",
+      "location": "changan",
+      "hidden": true
+    },
+    {
+      "treasure": "qingnang",
+      "location": "qiao",
+      "hidden": true
+    },
+    {
+      "treasure": "bronze_sparrow",
+      "location": "ye",
+      "hidden": true
+    },
+    {
+      "treasure": "book_of_rites",
+      "location": "shouchun",
+      "hidden": true
+    }
+  ],
+  "events": "events.json"
+}
