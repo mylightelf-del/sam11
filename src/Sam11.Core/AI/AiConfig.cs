@@ -24,16 +24,17 @@ namespace Sam11.Core.AI
         public double PlayerFocus = 1;
 
         /// <summary>
-        /// 난이도 (06 설계서 5장: 판단의 질이 주, 자원 보너스는 지옥에서만 조금).
-        /// 입문: 신중하게 모으다 늦게 치고, 원정이 적고, 무장이 놀고, 계략을 안 쓰고, 진형을 잘못 고르고, 물러나지 않는다.
-        /// 어려움: 연쇄를 노리고 플레이어를 더 노린다. 지옥: 거기에 수입 +15%, 플레이어를 크게 노린다.
+        /// 난이도 (06 설계서 5장: 판단의 질이 주, 자원 보정은 양 끝에서 조금).
+        /// 입문: 원정이 적고, 무장이 놀고, 계략을 안 쓰고, 진형을 잘못 고르고, 물러나지 않고, 수입 −20%.
+        /// 어려움: 연쇄를 노리고 플레이어를 더 노리며, 수입 +5%. 지옥: 플레이어를 크게 노리고 수입 +15%.
+        /// 측정 (06 설계서 9.4.7): 플레이어 대역 세력의 10년 뒤 평균 도시가 난이도를 따라 줄어든다.
         /// </summary>
         public static AiConfig For(Difficulty d) => d switch
         {
-            Difficulty.Novice => new AiConfig { Level = d, ConcentrationRatio = 1.8, ChainOrdering = false, FormationBlunder = 0.3, Retreats = false,
-                                                CampaignFactor = 0.5, IdleOfficers = 0.35, StrategicMissions = false },
+            Difficulty.Novice => new AiConfig { Level = d, ConcentrationRatio = 1.5, ChainOrdering = false, FormationBlunder = 0.3, Retreats = false,
+                                                CampaignFactor = 0.5, IdleOfficers = 0.35, StrategicMissions = false, IncomeBonus = -0.2 },
             Difficulty.Normal => new AiConfig { Level = d, ConcentrationRatio = 1.5, ChainOrdering = false },
-            Difficulty.Hard => new AiConfig { Level = d, ConcentrationRatio = 1.5, ChainOrdering = true, PlayerFocus = 1.4 },
+            Difficulty.Hard => new AiConfig { Level = d, ConcentrationRatio = 1.5, ChainOrdering = true, PlayerFocus = 1.5, IncomeBonus = 0.05 },
             _ => new AiConfig { Level = d, ConcentrationRatio = 1.5, ChainOrdering = true, IncomeBonus = 0.15, PlayerFocus = 1.8 },
         };
     }
